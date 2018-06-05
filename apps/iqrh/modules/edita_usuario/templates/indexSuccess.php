@@ -1,0 +1,103 @@
+<script src='/assets/global/plugins/jquery.min.js'></script>
+<?php $modulo = $sf_params->get('module'); ?>
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-tasks font-blue"></i>
+            <span class="caption-subject bold font-blue uppercase">Listado de usuarios </span>
+            <span class="caption-helper">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <div class="portlet-input input-inline input-small">
+
+            </div>
+        </div>
+        <!--        <div class="inputs">
+                    <a class="btn  btn green-meadow " href="<?php echo url_for($modulo . '/nuevo') ?>" ><i class="fa fa-plus"></i> Nuevo </a>
+        
+                </div>-->
+    </div>
+    <div class="portlet-body">
+
+        <div class="form-body">      
+            <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
+                <thead class="flip-content">
+                    <tr class="info">
+                        <th align="center" width="20px"></th>
+                        <th align="center" width="20px"> Código</th>
+                        <th align="center" width="20px">Usuario</th>
+                        <th  align="center"> Nombre Completo</th>
+                        <th  align="center">Correo</th>
+                        <th  align="center"> Activo</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($usuarios as $lis) { ?>
+                        <?php $imagen = $lis->getImagen(); ?>
+                        <tr>
+                            <td>
+                                <?php if ($imagen) { ?>
+                                    <img alt="" class="img-circle" src="/uploads/empresas/<?php echo $imagen ?>">
+                                <?php } else { ?>
+                                    <img alt="" class="img-circle" src="../assets/layouts/layout3/img/avatar9.jpg">
+                                <?php } ?>
+
+                            </td>
+                            <td><?php echo $lis->getCodigo() ?></td>
+                            <td><?php echo $lis->getUsuario() ?></td>
+                            <td><?php echo $lis->getNombreCompleto() ?></td>
+                            <td><?php echo $lis->getCorreo(); ?></td>
+                            <td align="center"><?php if ($lis->getActivo()) { ?>
+                        <li class="fa fa-hand-o-up font-blue-steel "></li>
+                    <?php } else { ?>
+                        <li class="fa fa-hand-o-down font-red-flamingo "></li> 
+                    <?php } ?>
+                    </td>
+                    <td>
+                        <a class="btn  btn-info"  href="<?php echo url_for($modulo . '/muestra?id=' . $lis->getId()) ?>" ><i class="fa fa-pencil"></i> Editar&nbsp;&nbsp;&nbsp;&nbsp;</a>  
+                        <?php if ($usuarioId <> $lis->getId()) { ?>
+                        <a class="btn btn-xs btn-danger" data-toggle="modal" href="#static<?php echo $lis->getId() ?>"><i class="fa fa-trash"></i>  Eliminar </a>
+                        <?php }  else { ?>
+                        <a class="btn btn-xs btn-danger disabled"  href="#"><i class="fa fa-trash"></i>  Eliminar </a>
+                            
+                      <?php  } ?>
+                        <a class="btn  btn-xs yellow btn-outline"  href="<?php echo url_for($modulo . '/cambioClave?id=' . $lis->getId()) ?>" ><i class="fa fa-lock"></i> Cambiar Clave</a>  
+                  
+                    </td>      
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<?php echo '</form>'; ?>
+
+
+<?php foreach ($usuarios as $lista) { ?>
+
+    <div id="static<?php echo $lista->getId() ?>" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <li class="fa fa-cogs"></li>
+                    <span class="caption-subject bold font-yellow-casablanca uppercase"> Eliminar Usuario</span>
+                </div>
+                <div class="modal-body">
+                    <p> Esta seguro de eliminar Usuario
+                        <span class="caption-subject font-green bold uppercase"> 
+                            <?php echo $lista->getUsuario() ?>
+                        </span> ?
+                    </p>
+                </div>
+                <?php $token = md5($lista->getUsuario()); ?>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
+                    <a class="btn  btn green " href="<?php echo url_for($modulo . '/elimina?token=' . $token . '&id=' . $lista->getId()) ?>" >
+                        <i class="fa fa-trash-o "></i> Confirmar</a> 
+                </div>
+            </div>
+        </div>
+    </div> 
+<?php } ?>

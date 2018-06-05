@@ -1,0 +1,58 @@
+propel:
+  usuario:
+    id:                                ~
+    codigo:                             { type: varchar(50)}
+    usuario:                           { type: varchar(32), required: true , primaryString: true}
+    clave:                             { type: varchar(60) }
+    correo:                            { type: varchar(255) }
+    estado:                            { type: varchar(32) }
+    imagen:                            { type: varchar(255) }
+    administrador:                     { type: boolean, default: false }
+    validado:                          { type: boolean, default: true }
+    ultimo_ingreso:                    { type: date }
+    tema:                              { type: varchar(255) }
+    frase:                             { type: varchar(255) }
+    genero:                            { type: varchar(30) }
+    fecha_nacimiento:                  { type: date}
+    nombre_completo:                   { type: varchar(320) }
+    empresa:                           { type: varchar(320) }
+    logo:                              { type: varchar(200) } 
+    activo:                            { type: boolean, default: true } 
+    tipo_usuario:                      { type: varchar(320) }
+    observaciones:                     { type: longvarchar }
+    _uniques:
+       llave:                          [ usuario ]
+ 
+  perfil:
+     id:                                ~
+     descripcion:                       { type: varchar(100), primaryString: true, default: '' }
+     observaciones:                     { type: longvarchar }
+     activo:                            { type: boolean, default: true }
+
+  menu_seguridad:
+     id:                                ~
+     descripcion:                       { type: varchar(100), primaryString: true, default: ''  }
+     credencial:                        { type: varchar(100)}
+     modulo:                            { type: varchar(100)}
+     icono:                             { type: varchar(50)}
+     accion:                            { type: varchar(100)}
+     superior:                          { type: integer }
+     orden:                             { type: integer }  
+ 
+  usuario_perfil:
+     id:                                ~
+     perfil_id:                         ~
+     usuario_id:                        ~      
+  
+  correlativo_codigo:
+     id:                                  ~
+     numero_asginar:                      { type: integer }
+     prefijo:                             { type: varchar(50)}
+     tipo:                                { type: varchar(100)}     
+    
+  parametro:   
+     id:                                ~
+     codigo:                            { type: varchar(50)}
+     slogan:                            { type: longvarchar }
+     logo:                              { type: varchar(150)}
+ 

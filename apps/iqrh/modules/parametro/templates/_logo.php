@@ -1,0 +1,1 @@
+<img src="<?php echo  '../uploads/segmento/'. $Parametro->getLogo()?>" width="75px"/>
