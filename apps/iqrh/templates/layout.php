@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Drone D4A</title>
+        <title>IQ SOFT</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -33,7 +33,7 @@
         <link href="/assets/layouts/layout3/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/layouts/layout3/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="/assets/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <link rel="shortcut icon" href="/images/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.png" /> 
         <link href="/css/kunesStyle.css" rel="stylesheet" type="text/css"/>
                 <?php $modulo = $sf_params->get('module'); ?>
         
@@ -63,7 +63,7 @@
                                 <img src="<?php echo  '/uploads/segmento/'. $Parametro->getLogo() ?>" height="48px" >
                         <img src="<?php // echo  '/uploads/empresas/'. $empresquery->getLogo()?>"  height="48px" />
                          <?php  } ?>
-                        <img src="/images/Logo_trafico_.png"  height="48px" />
+                        <img src="/images/logo.png"  height="48px" />
                         
                             </div>
                                                         <div class="col-md-1  font-yellow-crusta">
@@ -120,10 +120,10 @@
                     <div class="col-md-8">
                         
                         <span class="caption-subject bold font-green uppercase">
-                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <i class="fa fa-car font font-blue-hoki"></i> 
+                                      &nbsp;&nbsp;&nbsp;  <i class="fa fa-calendar font font-yellow-saffron "></i> 
                         </span> 
-                        <span class="caption-subject bold font-red-flamingo uppercase">
-                        Trafico  502
+                        <span class="caption-subject bold font-blue uppercase">
+                     &nbsp;&nbsp;   Gestión de Personal de Nomina
                         </span>
             <!-- END HEADER MENU -->
         </div>
@@ -306,7 +306,7 @@
            <input name="image" type="file" id="upload" class="hidden" onchange="">
            </div>-->
          
-        <div class="page-prefooter">
+     <div class="page-prefooter">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3 col-sm-6 col-xs-12  bold Bold footer-block">
@@ -364,7 +364,7 @@
         
         
         <div class="page-footer">
-            <div class="container"> <?php echo date("Y") ?> &copy; Aplicaciones Drone
+            <div class="container"> <?php echo date("Y") ?> &copy; Aplicaciones 
             </div>
         </div>
         <div class="scroll-to-top">

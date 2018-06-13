@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>D4A | Acceso </title>
+        <title>IQ SOFT | Acceso </title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -29,7 +29,7 @@
         <!-- BEGIN THEME LAYOUT STYLES -->
         <!-- END THEME LAYOUT STYLES -->
         
-        <link rel="shortcut icon" href="/images/favicon.ico" /> 
+        <link rel="shortcut icon" href="/images/favicon.png" /> 
     
     
     </head>
@@ -38,7 +38,7 @@
     <body class=" login">
         <!-- BEGIN LOGO -->
         <div class="logo">
-              <img src="/images/Logo_trafico_.png"  height="48px" />
+              <img src="/images/logo.png"  height="48px" />
 <!--            <a href="index.html">-->
 <!--                <img src="/images/logo.png" alt="" /> -->
         </div>
@@ -47,7 +47,7 @@
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" action="<?php echo url_for("seguridad/login") ?>" method="post">
-                <h4 class="form-title"> <font zcolor="#336171">Login   </font> </h4>
+<!--                <h4 class="form-title"> <font zcolor="#336171">Login   </font> </h4>-->
                 <?php if (sfContext::getInstance()->getUser()->hasFlash('login')): ?>
                     <div class="alert alert-danger">
                         <button class="close" data-close="alert"></button>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-block blue-madison pull-right"> Acceder <i class="fa fa-lock"></i> </button>
+                    <button type="submit" class="btn btn-block blue pull-right"> Acceder <i class="fa fa-lock"></i> </button>
                     <br/>
                 </div>
                 <?php echo $form->renderHiddenFields() ?>
