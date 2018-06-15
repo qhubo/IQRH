@@ -20,6 +20,15 @@ propel:
     activo:                            { type: boolean, default: true } 
     tipo_usuario:                      { type: varchar(320) }
     observaciones:                     { type: longvarchar }
+    primer_nombre:                     { type: varchar(200) }
+    segundo_nombre:                    { type: varchar(200) } 
+    primer_apellido:                   { type: varchar(200) }
+    segundo_apellido:                  { type: varchar(200) } 
+    puesto:                            { type: varchar(200) }         
+    departamento:                      { type: varchar(300) }         
+    jefe:                              { type: varchar(300) }         
+    fecha_alta:                        { type: date }         
+    sueldo:                            { type: double }         
     _uniques:
        llave:                          [ usuario ]
  
@@ -55,4 +64,77 @@ propel:
      codigo:                            { type: varchar(50)}
      slogan:                            { type: longvarchar }
      logo:                              { type: varchar(150)}
+     
+  alerta_ausencia:
+     id:                               ~
+     usuario_id:                       ~ 
+     fecha:                            { type: date } 
+     estado:                           { type: varchar(150)}
+     usuario_modero:                   { type: varchar(150)}
+     created_at:                       ~   
+     updated_at:                       ~           
+      
+ ## cuando no marca
+  solicitud_ausencia:   
+     id:                               ~
+     usuario_id:                       ~
+     fecha:                            { type: date }
+     motivo:                           { type: varchar(250)}  
+     observaciones:                    { type: longvarchar }
+     estado:                           { type: varchar(150)} 
+     created_at:                       ~   
+     updated_at:                       ~  
+     
+  solicitud_vacacion:
+     id:                               ~
+     usuario_id:                       ~
+     fecha_inicio:                     { type: date }
+     fecha_fin:                        { type: date }
+     dia:                              { type: integer }
+     motivo:                           { type: varchar(250)}  
+     observaciones:                    { type: longvarchar }
+     usuario_modero:                   { type: varchar(150)}
+     estado:                           { type: varchar(150)} 
+     comentario_modero:                { type: longvarchar }
+     created_at:                       ~   
+     updated_at:                       ~  
+     
+  solicitud_finquito:   
+     id:                               ~
+     usuario_graba:                    { type: integer, foreignTable: usuario, foreignReference: id, index: true, required: false }  
+     usuario_retiro:                   { type: integer, foreignTable: usuario, foreignReference: id, index: true, required: false } 
+     fecha_retiro:                     { type: date }
+     motivo:                           { type: varchar(250)}  
+     observaciones:                    { type: longvarchar }
+     estado:                           { type: varchar(150)} 
+     created_at:                       ~   
+     updated_at:                       ~  
+     
+  vacacion_usuario:
+     id:                               ~  
+     usuario_id:                       ~   
+     periodo:                          { type: integer }
+     fecha_inicio:                     { type: date }
+     fecha_fin:                        { type: date }
+     valor:                            { type: double } 
+     dias:                             { type: integer } 
+     observaciones:                    { type: longvarchar } 
+
+
+  aumento_usuario:
+     id:                               ~   
+     usuario_id:                       ~  
+     fecha_aumento:                    { type: date }   
+     sueldo_anterior:                  { type: double }  
+     puesto_anterior:                  { type: varchar(250)}
+     sueldo:                           { type: double } 
+     nuevo_puesto:                     { type: varchar(250)}   
+     observaciones:                    { type: longvarchar } 
+
+
+#  recibo_usuario:
+#     id:
+#         
  
+   
+   

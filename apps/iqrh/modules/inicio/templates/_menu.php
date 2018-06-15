@@ -29,7 +29,7 @@
             </li>
    
             <li class="menu-dropdown classic-menu-dropdown active">
-                <a href="javascript:;">  <i class="icon-notebook font-grey-cararra"></i> Cartera
+                <a href="javascript:;">  <i class="icon-notebook font-grey-cararra"></i> Solicitudes
                     <span class="arrow"></span>
                 </a>
                 <ul class="dropdown-menu pull-left">

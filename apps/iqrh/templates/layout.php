@@ -309,9 +309,13 @@
      <div class="page-prefooter">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12  bold Bold footer-block">
+                    <div class="col-md-3 col-sm-3 col-xs-12  bold Bold footer-block">
                         <h2><?php //echo $empresquery->getNombre() ?> </h2>
+                                  <img src="/images/logo.png"  height="48px" />
                        </div>
+                          <div class="col-md-3 col-sm-3 col-xs12 footer-block">
+                        <img src="/images/logoVia.png"  height="48px" />
+                          </div>
                     <div class="col-md-6 col-sm-6 col-xs12 footer-block">
 <!--                        <h2></h2>
                         <p><?php //echo $empresquery->getMensajeCompraLinea() ?>  </p>-->
