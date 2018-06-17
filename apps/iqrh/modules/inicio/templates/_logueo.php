@@ -72,16 +72,17 @@
     &nbsp;&nbsp;&nbsp;&nbsp;
 </li>
 <?php $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'); ?>
+<?php $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId); ?>
 
 
-<?php $imagen = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'imagen'); ?>
+<?php $imagen = $usuarioQ->getLogo(); ?>
 
 
 <li class="dropdown dropdown-user dropdown-dark">
     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 
         <?php if ($imagen) { ?>
-            <img alt="" class="img-circle" src="/uploads/empresas/<?php echo $imagen ?>">
+            <img alt="" class="img-circle" src="<?php echo $imagen ?>">
         <?php } else { ?>
             <img alt="" class="img-circle" src="../assets/layouts/layout3/img/avatar9.jpg">
         <?php } ?>

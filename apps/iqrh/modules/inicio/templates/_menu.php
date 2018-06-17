@@ -29,16 +29,25 @@
             </li>
    
             <li class="menu-dropdown classic-menu-dropdown active">
-                <a href="javascript:;">  <i class="icon-notebook font-grey-cararra"></i> Solicitudes
+                <a href="javascript:;"> 
+                    <i class="fa fa-rocket font-grey-cararra"></i>
+                    Solicitudes
                     <span class="arrow"></span>
                 </a>
                 <ul class="dropdown-menu pull-left">
                     <li class=" ">
-                        <a href="#<?php echo url_for("modera/index"); ?>" 
-                           class="nav-link  ">Autorizar Campaña</a>
-
-                
+                        <a href="<?php echo url_for("ausencia/index"); ?>" 
+                           class="nav-link  ">Permiso Ausencia</a>
                     </li>
+                    <li class=" ">
+                        <a href="<?php echo url_for("vacaciones/index"); ?>" 
+                           class="nav-link  ">Vacaciones</a>
+                 </li>
+                    <li class=" ">
+                        <a href="<?php echo url_for("finiquito/index"); ?>" 
+                           class="nav-link  ">Finiquito</a>
+                 </li>
+
                 </ul>   
             </li>
             <li class="menu-dropdown classic-menu-dropdown active">
@@ -47,15 +56,34 @@
                 </a>
                 <ul class="dropdown-menu pull-left">
                     <li class=" ">
-                        <a href="#<?php echo url_for("consulta_campa/index"); ?>" 
-                           class="nav-link  ">Consulta </a>
+                        <a href="<?php echo url_for("consulta_vaca/index"); ?>" 
+                           class="nav-link  ">Mis Vacaciones </a>
 
-                        <a href="#<?php echo url_for("consulta_todacamp/index"); ?>" 
-                           class="nav-link  ">Consulta </a>
+                        <a href="<?php echo url_for("consulta_ausencia/index"); ?>" 
+                           class="nav-link  ">Mis Ausencias  </a>
                     </li>
                 </ul>   
             </li>
 
+               <li class="menu-dropdown classic-menu-dropdown active">
+                <a href="javascript:;"> <i class="fa fa-print font-yellow-casablanca"></i> Reportes
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu pull-left">
+                    <li class=" ">
+                        <a href="<?php echo url_for("reporte_recibo/index"); ?>" 
+                           class="nav-link  ">Recibos </a>
+
+                        <a href="<?php echo url_for("reporte_aumento/index"); ?>" 
+                           class="nav-link  ">Aumentos</a>
+                        <a href="<?php echo url_for("reporte_traslado/index"); ?>" 
+                           class="nav-link  ">Traslados</a>
+                           
+                    </li>
+                </ul>   
+            </li>
+            
+            
             <li class="menu-dropdown classic-menu-dropdown active">
                 <a href="javascript:;">  <i class="icon-settings font-grey-steel "></i> Configuración
                     <span class="arrow"></span>
