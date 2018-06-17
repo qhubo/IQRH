@@ -13,10 +13,10 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="dropdown-menu pull-left">
-                    <li class=" ">
+<!--                    <li class=" ">
                         <a href="<?php echo url_for("crea_usuario/index"); ?>" 
                            class="nav-link  ">Crear Usuario </a>
-                    </li>  
+                    </li>  -->
 
                     <li class=" ">
                         <a href="<?php echo url_for("edita_usuario/index"); ?>" 
@@ -34,11 +34,10 @@
                 </a>
                 <ul class="dropdown-menu pull-left">
                     <li class=" ">
-                        <a href="<?php echo url_for("modera/index"); ?>" 
+                        <a href="#<?php echo url_for("modera/index"); ?>" 
                            class="nav-link  ">Autorizar Campaña</a>
 
-                        <a href="<?php echo url_for("toda_campana/index"); ?>" 
-                           class="nav-link  ">Campañas Activas </a>
+                
                     </li>
                 </ul>   
             </li>

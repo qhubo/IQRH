@@ -32,14 +32,13 @@
                 </thead>
                 <tbody>
                     <?php foreach ($usuarios as $lis) { ?>
-                        <?php $imagen = $lis->getImagen(); ?>
+                        <?php $imagen = $lis->getLogo(); ?>
                         <tr>
                             <td>
-                                <?php if ($imagen) { ?>
-                                    <img alt="" class="img-circle" src="/uploads/empresas/<?php echo $imagen ?>">
-                                <?php } else { ?>
-                                    <img alt="" class="img-circle" src="../assets/layouts/layout3/img/avatar9.jpg">
-                                <?php } ?>
+                                <?php //echo $imagen; ?>
+                              
+                                <img alt="" width="75px" src="<?php echo $imagen ?>">
+                        
 
                             </td>
                             <td><?php echo $lis->getCodigo() ?></td>
@@ -53,8 +52,9 @@
                     <?php } ?>
                     </td>
                     <td>
-                        <a class="btn  btn-info"  href="<?php echo url_for($modulo . '/muestra?id=' . $lis->getId()) ?>" ><i class="fa fa-pencil"></i> Editar&nbsp;&nbsp;&nbsp;&nbsp;</a>  
-                        <?php if ($usuarioId <> $lis->getId()) { ?>
+<!--                        <a class="btn  btn-info"  href="<?php echo url_for($modulo . '/muestra?id=' . $lis->getId()) ?>" ><i class="fa fa-pencil"></i> Editar&nbsp;&nbsp;&nbsp;&nbsp;</a>  -->
+                
+        <?php if ($usuarioId <> $lis->getId()) { ?>
                         <a class="btn btn-xs btn-danger" data-toggle="modal" href="#static<?php echo $lis->getId() ?>"><i class="fa fa-trash"></i>  Eliminar </a>
                         <?php }  else { ?>
                         <a class="btn btn-xs btn-danger disabled"  href="#"><i class="fa fa-trash"></i>  Eliminar </a>

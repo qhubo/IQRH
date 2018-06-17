@@ -34,6 +34,15 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'activo'           => new sfWidgetFormInputCheckbox(),
       'tipo_usuario'     => new sfWidgetFormInputText(),
       'observaciones'    => new sfWidgetFormTextarea(),
+      'primer_nombre'    => new sfWidgetFormInputText(),
+      'segundo_nombre'   => new sfWidgetFormInputText(),
+      'primer_apellido'  => new sfWidgetFormInputText(),
+      'segundo_apellido' => new sfWidgetFormInputText(),
+      'puesto'           => new sfWidgetFormInputText(),
+      'departamento'     => new sfWidgetFormInputText(),
+      'jefe'             => new sfWidgetFormInputText(),
+      'fecha_alta'       => new sfWidgetFormDate(),
+      'sueldo'           => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -57,6 +66,15 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'activo'           => new sfValidatorBoolean(array('required' => false)),
       'tipo_usuario'     => new sfValidatorString(array('max_length' => 320, 'required' => false)),
       'observaciones'    => new sfValidatorString(array('required' => false)),
+      'primer_nombre'    => new sfValidatorString(array('max_length' => 200, 'required' => false)),
+      'segundo_nombre'   => new sfValidatorString(array('max_length' => 200, 'required' => false)),
+      'primer_apellido'  => new sfValidatorString(array('max_length' => 200, 'required' => false)),
+      'segundo_apellido' => new sfValidatorString(array('max_length' => 200, 'required' => false)),
+      'puesto'           => new sfValidatorString(array('max_length' => 200, 'required' => false)),
+      'departamento'     => new sfValidatorString(array('max_length' => 300, 'required' => false)),
+      'jefe'             => new sfValidatorString(array('max_length' => 300, 'required' => false)),
+      'fecha_alta'       => new sfValidatorDate(array('required' => false)),
+      'sueldo'           => new sfValidatorNumber(array('required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(

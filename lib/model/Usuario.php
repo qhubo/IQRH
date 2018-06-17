@@ -17,6 +17,12 @@
  */
 class Usuario extends BaseUsuario {
 
+    public function getNombreCompleto() {
+
+        $nombre = trim(trim($this->getPrimerApellido()) . "  " . trim($this->getSegundoApellido()).", ".trim($this->getPrimerNombre()) . "  " . trim($this->getSegundoNombre()));
+        return $nombre;
+    }
+    
     public function getNombreUsuario() {
 
         $nombre = trim(trim($this->getNombreCompleto()) . " | " . trim($this->getUsuario()));
@@ -35,31 +41,6 @@ class Usuario extends BaseUsuario {
         if ($this->isNew()) {
             $clave = $this->getClave();
             $this->setClave(sha1($clave));          
-           $tipo='Usuario';
-            $pre ='US';
-            $numero = 1;
-            $busca = CorrelativoCodigoQuery::create()
-                    ->filterByTipo($tipo)
-                    ->findOne();
-            if (!$busca) {
-                $busca = New CorrelativoCodigo();
-                $busca->setTipo($tipo);
-                $busca->setPrefijo($pre);
-                $busca->setNumeroAsginar($numero);
-                $busca->save();
-            }
-     
-            $numero = $busca->getNumeroAsginar();
-            $prefijo=$pre.$numero;
-            if (strlen($numero)==1){
-                $prefijo=$pre.'0'.$numero;
-            }
-            if ($numero >99){
-                $prefijo=$pre.$numero;
-            }       
-            $this->setCodigo($prefijo);
-            $busca->setNumeroAsginar($numero + 1);
-            $busca->save();
      
         } else {
             $clave = $this->getClave();

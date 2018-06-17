@@ -19,4 +19,23 @@
  */
 class ParametroQuery extends BaseParametroQuery
 {
+ static public function convierteImagen($BaseImagen, $filename) {
+        $carpetaArchivos = sfConfig::get('sf_upload_dir');
+        $BaseImagen = str_replace('src="', " ", $BaseImagen);
+        $BaseImagen = explode('base64,', $BaseImagen);
+        $BaseImagen = trim($BaseImagen[1]);
+        $BaseImagen = explode(" ", $BaseImagen);
+        $Base64Img = $BaseImagen[0];
+        $Base64Img = base64_decode($Base64Img);
+//        $urlImagen = $carpetaArchivos . DIRECTORY_SEPARATOR . 'copia' . DIRECTORY_SEPARATOR . $filename;
+        $urlImagen = $carpetaArchivos . DIRECTORY_SEPARATOR . 'foto' . DIRECTORY_SEPARATOR . $filename;
+        file_put_contents($urlImagen, $Base64Img);
+        $servidor = $_SERVER['SERVER_NAME'];
+//        $urlguarda = 'http://sistema.gthoy.com/uploads/copia/' . $filename;
+        $urlguarda = 'http://' . $servidor . '/uploads/foto/' . $filename;
+        $urlguarda= '/uploads/foto/' . $filename;
+        //   $urlguarda='http://gthoy:8080/uploads/copia/' . $filename;
+        return $urlguarda;
+    }
+    
 }

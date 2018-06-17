@@ -74,7 +74,8 @@ class inicioActions extends sfActions {
     }
 
     public function executeIndex(sfWebRequest $request) {
-       
+           $usuario_id = $this->getUser()->getAttribute('usuario', null, 'seguridad');
+       $this->usuario = UsuarioQuery::create()->findOneById($usuario_id);
     }
 
     public function executeImagen(sfWebRequest $request) {

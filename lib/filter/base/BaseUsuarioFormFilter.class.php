@@ -31,6 +31,15 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'activo'           => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'tipo_usuario'     => new sfWidgetFormFilterInput(),
       'observaciones'    => new sfWidgetFormFilterInput(),
+      'primer_nombre'    => new sfWidgetFormFilterInput(),
+      'segundo_nombre'   => new sfWidgetFormFilterInput(),
+      'primer_apellido'  => new sfWidgetFormFilterInput(),
+      'segundo_apellido' => new sfWidgetFormFilterInput(),
+      'puesto'           => new sfWidgetFormFilterInput(),
+      'departamento'     => new sfWidgetFormFilterInput(),
+      'jefe'             => new sfWidgetFormFilterInput(),
+      'fecha_alta'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'sueldo'           => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -53,6 +62,15 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'activo'           => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'tipo_usuario'     => new sfValidatorPass(array('required' => false)),
       'observaciones'    => new sfValidatorPass(array('required' => false)),
+      'primer_nombre'    => new sfValidatorPass(array('required' => false)),
+      'segundo_nombre'   => new sfValidatorPass(array('required' => false)),
+      'primer_apellido'  => new sfValidatorPass(array('required' => false)),
+      'segundo_apellido' => new sfValidatorPass(array('required' => false)),
+      'puesto'           => new sfValidatorPass(array('required' => false)),
+      'departamento'     => new sfValidatorPass(array('required' => false)),
+      'jefe'             => new sfValidatorPass(array('required' => false)),
+      'fecha_alta'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'sueldo'           => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('usuario_filters[%s]');
@@ -90,6 +108,15 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'activo'           => 'Boolean',
       'tipo_usuario'     => 'Text',
       'observaciones'    => 'Text',
+      'primer_nombre'    => 'Text',
+      'segundo_nombre'   => 'Text',
+      'primer_apellido'  => 'Text',
+      'segundo_apellido' => 'Text',
+      'puesto'           => 'Text',
+      'departamento'     => 'Text',
+      'jefe'             => 'Text',
+      'fecha_alta'       => 'Date',
+      'sueldo'           => 'Number',
     );
   }
 }

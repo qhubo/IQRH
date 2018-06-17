@@ -36,7 +36,7 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-4 font-blue-hoki bold Bold uppercase">Nombre Completo</div>
-                                        <div class="col-md-6"></div>                                
+                                        <div class="col-md-6"><?php echo $usuario->getNombreCompleto(); ?></div>                                
                                     </div>
                                 </li>
                                 <li class="list-group-item"> 
@@ -44,7 +44,7 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-4 font-blue-hoki bold Bold uppercase">Puesto</div>
-                                        <div class="col-md-6"></div>                                
+                                        <div class="col-md-6"><?php echo $usuario->getPuesto(); ?></div>                                
                                     </div>
                                 </li>
                                 <li class="list-group-item">
@@ -52,7 +52,7 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-4 font-blue-hoki bold Bold uppercase">Departamento</div>
-                                        <div class="col-md-6"></div>                                
+                                        <div class="col-md-6"><?php echo $usuario->getDepartamento(); ?></div>                                
                                     </div>
                                 </li>
                                 <li class="list-group-item"> 
@@ -60,7 +60,7 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-4 font-blue-hoki bold Bold uppercase">Jefe Inmediato</div>
-                                        <div class="col-md-6"></div>                                
+                                        <div class="col-md-6"><?php echo $usuario->getJefe(); ?></div>                                
                                     </div> 
                                 </li>
                            
@@ -74,14 +74,14 @@
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="mt-element-ribbon bg-grey-steel">
-                        <div class="ribbon ribbon-shadow ribbon-color-success uppercase">PVL0030005 </div>
+                        <div class="ribbon ribbon-shadow ribbon-color-success uppercase"><?php echo $usuario->getCodigo(); ?> </div>
                        
                           
                         <p class="ribbon-content bold Bold">
                              <div class="row">
-                                        <div class="col-md-1"></div>
+                                 <div class="col-md-1"><li class="fa fa-calendar-plus-o font-blue-steel"></li> </div>
                                         <div class="col-md-4 font-blue-hoki bold Bold uppercase">Ingreso</div>
-                                        <div class="col-md-6">01/01/2018</div>                                
+                                        <div class="col-md-6"> <?php echo $usuario->getFechaAlta('d/m/Y'); ?></div>                                
                                     </div> 
                             
                         </p>
@@ -89,7 +89,7 @@
                         <div class="col-md-12">
                             <div class="col-md-1"></div>
                             <div class="col-md-10">
-                            <img src="/assets/pages/media/profile/profile_user.jpg" height="150px"  alt="">
+                            <img src="<?php echo $usuario->getLogo(); ?>" height="150px"  alt="">
                             <br>
                      
                             </div>
