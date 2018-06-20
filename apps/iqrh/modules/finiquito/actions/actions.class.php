@@ -15,8 +15,15 @@ class finiquitoActions extends sfActions
   *
   * @param sfRequest $request A request object
   */
-  public function executeIndex(sfWebRequest $request)
-  {
-
-  }
+     public function executeIndex(sfWebRequest $request) {
+        $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+        $this->usuario = UsuarioQuery::create()->findOneById($usuarioId);
+        $this->form = new IngresoFiniquitoForm();
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getParameter("consulta"), $request->getFiles("consulta"));
+            if ($this->form->isValid()) {
+                $valores = $this->form->getValues();
+            }
+        }
+    }
 }
