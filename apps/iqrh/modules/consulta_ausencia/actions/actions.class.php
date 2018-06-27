@@ -17,6 +17,7 @@ class consulta_ausenciaActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-
+     $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+      $this->registros = SolicitudAusenciaQuery::create()->filterByUsuarioId($usuarioId)->find();
   }
 }

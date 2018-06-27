@@ -40,6 +40,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'jefe'             => new sfWidgetFormFilterInput(),
       'fecha_alta'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'sueldo'           => new sfWidgetFormFilterInput(),
+      'usuario_jefe'     => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -71,6 +72,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'jefe'             => new sfValidatorPass(array('required' => false)),
       'fecha_alta'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'sueldo'           => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'usuario_jefe'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('usuario_filters[%s]');
@@ -117,6 +119,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'jefe'             => 'Text',
       'fecha_alta'       => 'Date',
       'sueldo'           => 'Number',
+      'usuario_jefe'     => 'Number',
     );
   }
 }

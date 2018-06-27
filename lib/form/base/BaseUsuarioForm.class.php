@@ -43,6 +43,7 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'jefe'             => new sfWidgetFormInputText(),
       'fecha_alta'       => new sfWidgetFormDate(),
       'sueldo'           => new sfWidgetFormInputText(),
+      'usuario_jefe'     => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -75,6 +76,7 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'jefe'             => new sfValidatorString(array('max_length' => 300, 'required' => false)),
       'fecha_alta'       => new sfValidatorDate(array('required' => false)),
       'sueldo'           => new sfValidatorNumber(array('required' => false)),
+      'usuario_jefe'     => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(

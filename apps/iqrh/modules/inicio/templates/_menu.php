@@ -61,6 +61,9 @@
 
                         <a href="<?php echo url_for("consulta_ausencia/index"); ?>" 
                            class="nav-link  ">Mis Ausencias  </a>
+                           
+                                <a href="<?php echo url_for("consulta_finiquito/index"); ?>" 
+                           class="nav-link  ">Finiquitos  </a>
                     </li>
                 </ul>   
             </li>

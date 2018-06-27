@@ -23,6 +23,7 @@ abstract class BaseSolicitudVacacionFormFilter extends BaseFormFilterPropel
       'comentario_modero' => new sfWidgetFormFilterInput(),
       'created_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'updated_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'jefe'              => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -37,6 +38,7 @@ abstract class BaseSolicitudVacacionFormFilter extends BaseFormFilterPropel
       'comentario_modero' => new sfValidatorPass(array('required' => false)),
       'created_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'jefe'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('solicitud_vacacion_filters[%s]');
@@ -66,6 +68,7 @@ abstract class BaseSolicitudVacacionFormFilter extends BaseFormFilterPropel
       'comentario_modero' => 'Text',
       'created_at'        => 'Date',
       'updated_at'        => 'Date',
+      'jefe'              => 'Number',
     );
   }
 }

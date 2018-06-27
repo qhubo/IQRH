@@ -37,13 +37,12 @@
                 <div class="col-md-1"> </div>  
             
             <label class="col-md-1 control-label right ">Inicio </label>
-                <div class="col-md-2 <?php if ($form['dia']->hasError()) echo "has-error" ?>">
-                    <?php echo $form['dia'] ?>           
+                <div class="col-md-2 <?php if ($form['diaInicio']->hasError()) echo "has-error" ?>">
+                    <?php echo $form['diaInicio'] ?>           
                     <span class="help-block form-error"> 
-                        <?php echo $form['dia']->renderError() ?>  
+                        <?php echo $form['diaInicio']->renderError() ?>  
                     </span>
                 </div>
-                 <div class="col-md-2"> </div>  
              <label class="col-md-1 control-label right ">Fin</label>
                 <div class="col-md-2 <?php if ($form['diaFin']->hasError()) echo "has-error" ?>">
                     <?php echo $form['diaFin'] ?>           
@@ -51,15 +50,25 @@
                         <?php echo $form['diaFin']->renderError() ?>  
                     </span>
                 </div>
+               <label class="col-md-1 control-label right ">Dias </label>
+                <div class="col-md-1 <?php if ($form['dia']->hasError()) echo "has-error" ?>">
+                    <?php echo $form['dia'] ?>           
+                    <span class="help-block form-error"> 
+                        <?php echo $form['dia']->renderError() ?>  
+                    </span>
+                </div>
+             
   </div>
             <div class="row">
                 <div class="col-md-1"> </div>        
                 <label class="col-md-1 control-label right ">Motivo </label>
+                   
                 <div class="col-md-7 <?php if ($form['observaciones']->hasError()) echo "has-error" ?>">
-                    <?php echo $form['observaciones'] ?>           
-                    <span class="help-block form-error"> 
+                         <span class="help-block form-error"> 
                         <?php echo $form['observaciones']->renderError() ?>  
                     </span>
+                    <?php echo $form['observaciones'] ?>           
+            
                 </div>
             </div>
 

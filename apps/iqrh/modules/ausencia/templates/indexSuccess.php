@@ -44,10 +44,11 @@
                 <div class="col-md-1"> </div>        
                 <label class="col-md-1 control-label right ">Motivo </label>
                 <div class="col-md-7 <?php if ($form['observaciones']->hasError()) echo "has-error" ?>">
-                    <?php echo $form['observaciones'] ?>           
-                    <span class="help-block form-error"> 
+     <span class="help-block form-error"> 
                         <?php echo $form['observaciones']->renderError() ?>  
-                    </span>
+                    </span>               
+     <?php echo $form['observaciones'] ?>           
+               
                 </div>
             </div>
 

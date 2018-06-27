@@ -26,6 +26,7 @@ abstract class BaseSolicitudVacacionForm extends BaseFormPropel
       'comentario_modero' => new sfWidgetFormTextarea(),
       'created_at'        => new sfWidgetFormDateTime(),
       'updated_at'        => new sfWidgetFormDateTime(),
+      'jefe'              => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -41,6 +42,7 @@ abstract class BaseSolicitudVacacionForm extends BaseFormPropel
       'comentario_modero' => new sfValidatorString(array('required' => false)),
       'created_at'        => new sfValidatorDateTime(array('required' => false)),
       'updated_at'        => new sfValidatorDateTime(array('required' => false)),
+      'jefe'              => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('solicitud_vacacion[%s]');

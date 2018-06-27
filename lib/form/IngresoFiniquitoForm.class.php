@@ -31,9 +31,7 @@ $usuario = UsuarioQuery::create()
     $this->setWidget('dia', new sfWidgetFormInputText(array(), array('class' => 'form-control', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy')));
         $this->setValidator('dia', new sfValidatorString(array('required' => true)));
     
-        $this->setWidget('diaFin', new sfWidgetFormInputText(array(), array('class' => 'form-control', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy')));
-        $this->setValidator('diaFin', new sfValidatorString(array('required' => true)));
-        
+
         
         $this->setWidget('observaciones', new sfWidgetFormTextarea(array(), array('class' => 'form-control')));
         $this->setValidator('observaciones', new sfValidatorString(array('required' => false)));

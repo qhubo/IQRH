@@ -17,6 +17,7 @@ class consulta_vacaActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-
+     $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+      $this->registros = SolicitudVacacionQuery::create()->filterByUsuarioId($usuarioId)->find();
   }
 }

@@ -23,6 +23,22 @@ class vacacionesActions extends sfActions {
             $this->form->bind($request->getParameter("consulta"), $request->getFiles("consulta"));
             if ($this->form->isValid()) {
                 $valores = $this->form->getValues();
+                $usuarioQue = UsuarioQuery::create()->findOneById($usuarioId);
+                $fechaInicio = $valores['diaInicio'];
+                $fechaInicio = explode('/', $fechaInicio);
+                $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
+                $fechaFin = $valores['diaFin'];
+                $fechaFin = explode('/', $fechaFin);
+                $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
+                $solVacacion = new SolicitudVacacion();
+                $solVacacion->setUsuarioId($usuarioId);
+                $solVacacion->setFechaInicio($fechaInicio);
+                $solVacacion->setFechaFin($fechaFin);
+                $solVacacion->setDia($valores['dia']);
+                $solVacacion->setMotivo($valores['observaciones']);
+                $solVacacion->save();
+                $this->getUser()->setFlash('exito', ' La solicitud de vacación ha sido ingresada con éxito ');
+                $this->redirect('ausencia/index');
             }
         }
     }

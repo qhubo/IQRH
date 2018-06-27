@@ -26,9 +26,10 @@ propel:
     segundo_apellido:                  { type: varchar(200) } 
     puesto:                            { type: varchar(200) }         
     departamento:                      { type: varchar(300) }         
-    jefe:                              { type: varchar(300) }         
+    jefe:                              { type: varchar(300) }
     fecha_alta:                        { type: date }         
-    sueldo:                            { type: double }         
+    sueldo:                            { type: double }  
+    usuario_jefe:                      { type: integer }
     _uniques:
        llave:                          [ usuario ]
  
@@ -84,6 +85,10 @@ propel:
      estado:                           { type: varchar(150)} 
      created_at:                       ~   
      updated_at:                       ~  
+     jefe:                             { type: integer}
+     usuario_modero:                   { type: varchar(150)}
+     estado:                           { type: varchar(150)} 
+     comentario_modero:                { type: longvarchar }
      
   solicitud_vacacion:
      id:                               ~
@@ -98,6 +103,7 @@ propel:
      comentario_modero:                { type: longvarchar }
      created_at:                       ~   
      updated_at:                       ~  
+     jefe:                             { type: integer}
      
   solicitud_finquito:   
      id:                               ~
@@ -109,6 +115,10 @@ propel:
      estado:                           { type: varchar(150)} 
      created_at:                       ~   
      updated_at:                       ~  
+     jefe:                             { type: integer}
+     usuario_modero:                   { type: varchar(150)}
+     estado:                           { type: varchar(150)} 
+     comentario_modero:                { type: longvarchar }
      
   vacacion_usuario:
      id:                               ~  
@@ -131,6 +141,13 @@ propel:
      nuevo_puesto:                     { type: varchar(250)}   
      observaciones:                    { type: longvarchar } 
 
+
+  capacitacion_usuario:
+     id:                               ~   
+     usuario_id:                       ~  
+     nombre:                            { type: varchar(250)}   
+     fecha:                    { type: date } 
+     observaciones:                    { type: longvarchar } 
 
 #  recibo_usuario:
 #     id:

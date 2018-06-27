@@ -44,10 +44,10 @@
                     </span>
                 </div>
              <label class="col-md-1 control-label right ">Fecha Baja</label>
-                <div class="col-md-2 <?php if ($form['diaFin']->hasError()) echo "has-error" ?>">
-                    <?php echo $form['diaFin'] ?>           
+                <div class="col-md-2 <?php if ($form['dia']->hasError()) echo "has-error" ?>">
+                    <?php echo $form['dia'] ?>           
                     <span class="help-block form-error"> 
-                        <?php echo $form['diaFin']->renderError() ?>  
+                        <?php echo $form['dia']->renderError() ?>  
                     </span>
                 </div>
   </div>
