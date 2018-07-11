@@ -3,8 +3,65 @@
 <div class="portlet light">
     <div class="portlet-title">
         <div class="caption">
+            <i class="fa fa-ship font-yellow-saffron"></i>
+            <span class="caption-subject bold font-blue ">Vacaciones Pendientes Aprobar</span>
+            <span class="caption-helper">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <div class="portlet-input input-inline input-small">
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body">
 
-            <span class="caption-subject bold font-yellow-casablanca ">Notificaciones activas </span>
+      
+        
+        
+           <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_1ZZ">
+            <thead class="flip-content">
+                <tr class="info">
+                     <td>#</td>
+                    <td>Fecha Inicio</td>
+                    <td>Fecha Fin</td>
+                    <td>Dias</td>
+                    <td>Motivo</td>
+                    <td>Estado</td>
+      <td>Observaciones</td>
+       <td></td>
+                </tr> 
+            </thead>
+            <tbody>
+                <?Php foreach ($vacaciones as $lista) { ?>
+                <tr>
+                    <td align="right"><?php echo $lista->getId() ?></td>
+                    <td align="center"> <?php echo $lista->getFechaInicio('d/m/Y'); ?></td>
+                    <td align="center"><?php echo $lista->getFechaFin('d/m/Y'); ?></td>
+                    <td align="right"><?php echo $lista->getDia() ?></td>
+                    <td><?php echo $lista->getMotivo(); ?></td>
+                    <td><?php echo $lista->getEstado(); ?></td>
+                    <td><?php echo $lista->getObservaciones(); ?></td>
+                    <td> <a class="btn  blue-steel btn-xs btn-outline btn-block "   href="<?php echo url_for($modulo.'/autorizadov?id=' . $lista->getId()) ?>"  data-toggle="modal" data-target="#ajaxmodalV<?php echo $lista->getId() ?>"><i class="fa fa-check"></i> Aceptar</a>
+               <br>
+               <a class="btn  red btn-xs btn-outline btn-block "   href="<?php echo url_for($modulo.'/rechazov?id=' . $lista->getId()) ?>"  data-toggle="modal" data-target="#ajaxmodalVE<?php echo $lista->getId() ?>"><i class="fa fa-eraser"></i> Rechazar</a>
+                    
+
+                        
+                    </td>
+                    
+                </tr>
+                    
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption">
+           <i class="fa fa-list font-blue-hoki"></i>
+            <span class="caption-subject bold font-blue ">Ausencias Pendientes Autorizar</span>
             <span class="caption-helper">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <div class="portlet-input input-inline input-small">
             </div>
@@ -13,49 +70,42 @@
     <div class="portlet-body">
 
         <div class="row">
-            <div class="col-md-12 font font-grey-cararra" ><font size="-2"> </font> </div>          
+            <div class="col-md-12 font font-grey-cararra" > </div>          
         </div>
-        <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
+           <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_1ZZ">
             <thead class="flip-content">
-                <tr class="danger">
-                    <th align="center" width="20px">Fecha</th>
-                    <th align="center" width="45px">Tipo</th>
-                    <th align="center" width="80px">Usuario</th>
-                    <th align="center" >Comentario</th>
-                    <th  align="center" width="20px">Check</th>
-                </tr>
+                <tr class="warning">
+                    <td>#</td>
+                    <td>Fecha </td>
+                    <td>Motivo</td>
+                    <td>Estado</td>
+                    <td>Observaciones</td>
+                     <td></td>
+                </tr> 
             </thead>
             <tbody>
-
-                <?php foreach ($bitacoras as $lista) { ?>
-                    <?php $estiloUno = ''; ?>
-                                    <?php $estiloDos = 'style="display:none;"'; ?>
-                    <?php $activado = false; ?>
-                    <?php $UsuarioQue = UsuarioQuery::create()->findOneById($lista->getUsuarioId()); ?>
-                    <tr> 
-                        <td class="" ><font size="-1"><?php echo $lista->getFechaCreacion('d/m/Y'); ?> </font></td>   
-                        <td class="font font-grey-cascade bold Bold" ><font size="-1"><?php echo $lista->getTipo(); ?> </font></td>   
-                        <td class="" ><font size="-1"><?php echo $UsuarioQue->getUsuario(); ?>  <?php echo $UsuarioQue->getNombreCompleto(); ?></font></td>   
-                        <td><font size="-1"><?php echo $lista->getObservaciones(); ?></font></td>   
+                <?Php foreach ($ausencias as $lista) { ?>
+                    <tr>
+                        <td align="right"><?php echo $lista->getId() ?></td>
+                        <td align="center"> <?php echo $lista->getFecha('d/m/Y'); ?></td>
+                        <td><?php echo $lista->getMotivo(); ?></td>
+                        <td><?php echo $lista->getEstado(); ?></td>
+                        <td><?php echo $lista->getObservaciones(); ?></td>
                         <td>
+                             <a class="btn  blue-steel btn-xs btn-outline btn-block "   href="<?php echo url_for($modulo.'/autorizado?id=' . $lista->getId()) ?>"  data-toggle="modal" data-target="#ajaxmodal<?php echo $lista->getId() ?>"><i class="fa fa-check"></i> Aceptar</a>
+               <br>
+               <a class="btn  red btn-xs btn-outline btn-block "   href="<?php echo url_for($modulo.'/rechazo?id=' . $lista->getId()) ?>"  data-toggle="modal" data-target="#ajaxmodalE<?php echo $lista->getId() ?>"><i class="fa fa-eraser"></i> Rechazar</a>
+                    
 
-                            <?php if ($activado) { ?>
-                                <?php $estiloDos = ''; ?>
-                                <?php $estiloUno = 'style="display:none;"'; ?>
-                            <?php } ?>
-                            <div  id="btactiva<?php echo $lista->getId() ?>" <?php echo $estiloUno ?>  class="col-md-12" >
-                                <a id="activar<?php echo $lista->getId() ?>" dat="<?php echo $lista->getId() ?>" class="btn btn-outline btn-block  btn-xs  blue-steel "><i class="fa fa-thumbs-up"></i></a>
-                            </div>
-                            <div  id="bNtactiva<?php echo $lista->getId() ?>" <?php echo $estiloDos ?>  class="col-md-12" >
-                                <a id="Nactivar<?php echo $lista->getId() ?>" dat="<?php echo $lista->getId() ?>" class="btn  btn-xs blue-hoki "></a> 
-                            </div>
-
+                            
                         </td>
                     </tr>
                 <?php } ?>
             </tbody>
-
         </table>
+
+        
+
     </div>
 </div>
 
@@ -63,62 +113,59 @@
 
 
 
-<?php foreach($bitacoras as $Li) { ?>
-<?php $i = $Li->getId(); ?>
-
-
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#activar<?php echo $i ?>').click(function () {
-                var id = $(this).attr('dat');
-                // alert('xx');
-                //alert(id);
-                $.ajax({
-                    type: 'POST',
-                    url: '/grad_dev.php/inicio/nota',
-                    data: {'id': id},
-                    success: function (data) {
-                    }
-                });
-            });
-        });
-    </script>
 
 
     
     
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#Nactivar<?php echo $i ?>').click(function () {
-                $("#<?php echo $i ?>ca1").prop("readonly", true);
-                $("#<?php echo $i ?>ca2").prop("readonly", true);
-                $("#<?php echo $i ?>pre").prop("readonly", true);
-                $('#<?php echo $i ?>ca1').attr('disabled', 'disabled');
-                $('#<?php echo $i ?>ca2').attr('disabled', 'disabled');
-                $('#<?php echo $i ?>pre').attr('disabled', 'disabled');
-                $('#btactiva<?php echo $i ?>').slideToggle(250);
-                $('#bNtactiva<?php echo $i ?>').hide();
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#activar<?php echo $i ?>').click(function () {
-                $("#<?php echo $i ?>ca1").prop("readonly", false);
-                $("#<?php echo $i ?>ca2").prop("readonly", false);
-                $("#<?php echo $i ?>pre").prop("readonly", false);
-                $('#<?php echo $i ?>ca1').removeAttr('disabled');
-                $('#<?php echo $i ?>ca2').removeAttr('disabled');
-                $('#<?php echo $i ?>pre').removeAttr('disabled');
-                $('#bNtactiva<?php echo $i ?>').slideToggle(250);
-                $('#btactiva<?php echo $i ?>').hide();
-            });
-        });
-    </script>
-
     
-
     
-<?php } ?>
+    <?php foreach ($vacaciones as $reg) { ?>
+
+  <div class="modal fade" id="ajaxmodalV<?php echo $reg->getId() ?>" tabindex="-1"  data-toggle="modal" data-target="#responsivemodal"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 950px">
+            <div class="modal-content" style=" width: 950px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="ti-close"></span></button>
+                    <h4 class="modal-title" id="myModalLabel6">Aceptar Operación</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="modal fade" id="ajaxmodalVE<?php echo $reg->getId() ?>" tabindex="-1"  data-toggle="modal" data-target="#responsivemodal"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 950px">
+            <div class="modal-content" style=" width: 950px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="ti-close"></span></button>
+                    <h4 class="modal-title" id="myModalLabel6">Rechazar  Operación</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+    <?php foreach ($ausencias as $reg) { ?>
+  
+<div class="modal fade" id="ajaxmodal<?php echo $reg->getId() ?>" tabindex="-1"  data-toggle="modal" data-target="#responsivemodal"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 950px">
+            <div class="modal-content" style=" width: 950px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="ti-close"></span></button>
+                    <h4 class="modal-title" id="myModalLabel6">Aceptar Operación</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="modal fade" id="ajaxmodalE<?php echo $reg->getId() ?>" tabindex="-1"  data-toggle="modal" data-target="#responsivemodal"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 950px">
+            <div class="modal-content" style=" width: 950px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="ti-close"></span></button>
+                    <h4 class="modal-title" id="myModalLabel6">Rechazar  Operación</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php  } ?>

@@ -2,12 +2,14 @@
 
 class IngresoFiniquitoForm extends sfForm {
     public function configure() {
-
+        $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
 $usuario = UsuarioQuery::create()
+        ->filterByUsuarioJefe($usuarioId)
         ->orderByNombreCompleto()
         ->find();
+$lista[null]='[Seleccione Empleado]';
         foreach ($usuario as $query){
-     $lista[$query->getId()]= $query->getCodigo()." | ".$query->getNombreCompleto();
+     $lista[$query->getId()]= $query->getNombreCompleto()." | ".$query->getCodigo();
         }
         
         

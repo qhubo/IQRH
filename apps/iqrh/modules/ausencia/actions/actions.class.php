@@ -35,6 +35,16 @@ class ausenciaActions extends sfActions {
                $soli->setComentarioModero('');
                $soli->setJefe($usuarioQue->getUsuarioJefe());
                $soli->save();
+               
+               $bitacora = New BitacoraUsuario();
+               $bitacora->setFecha(date('Y-m-d H:i'));
+               $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
+               $bitacora->setTipo('Ausencia');
+               $bitacora->setIdentificador($soli->getId());
+               $bitacora->setUsuarioJefe($this->usuario->getUsuarioJefe());
+               $bitacora->setMotivo($valores['observaciones']);
+               $bitacora->save();
+               
               $this->getUser()->setFlash('exito', ' La solicitud de ausencia ha sido ingresada con  éxito ' );
              $this->redirect('ausencia/index');
                 

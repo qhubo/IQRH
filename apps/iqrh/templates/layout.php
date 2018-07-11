@@ -114,6 +114,13 @@
 
                         <span class="caption-subject bold font-green uppercase">
                             &nbsp;&nbsp;&nbsp; <i class="fa fa-gift font font-yellow-saffron"></i> 
+                            <?Php $super=  sfContext::getInstance()->getUser()->getAttribute('supervisa', null, 'seguridad'); ?>
+                            <?PHP if ($super >0) { ?>
+                            SUPERVISOR
+                            <?php } ?>
+
+                            
+                            
                         </span> 
                         <span class="caption-subject bold font-blue  uppercase">
                             &nbsp;&nbsp;  Gestión de Personal de Nomina

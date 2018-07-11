@@ -1,4 +1,23 @@
-<?php $pendientes =0; // CampanaQuery::create()->filterByAutorizado(0)->count(); ?>
+<script src='/assets/global/plugins/jquery.min.js'></script>
+<?php      $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'); ?>
+<?php 
+  $usuarios = UsuarioQuery::create()
+                ->filterByUsuarioJefe($usuarioId)
+                ->find();
+       
+        $empleado[]=-99;
+        foreach ($usuarios as $lista){
+            $empleado[]=$lista->getId();
+        }
+        ?>
+
+
+    <?php $pend1 = SolicitudVacacionQuery::create()->filterByEstado('Pendiente')
+            ->filterByUsuarioId($empleado, Criteria::IN)->count(); ?>
+    <?php $pend2 = SolicitudAusenciaQuery::create()->filterByEstado('Pendiente')
+            ->filterByUsuarioId($empleado, Criteria::IN)->count(); ?>
+
+<?php $pendientes = $pend1+$pend2; ?>
 <?php //if (MenuSeguridadQuery::menuAcceso('PuntoVenta')) {  ?>
 <!--<li class="dropdown dropdown-extended dropdown-tasks dropdown-dark  " id="header_task_bar">
     <a href="<?php echo url_for("pos/index?inicio=1") ?>" class="dropdown-toggle font-green-jungle" >
@@ -10,8 +29,8 @@
 &nbsp;&nbsp;
 <?php // if (MenuSeguridadQuery::menuAcceso('Pedido')) { ?>
 <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark font-blue" id="header_task_bar">
-    <a href="<?php echo url_for("modera/index?id=1") ?>" class="dropdown-toggle font-blue" >
-        <i class="fa fa-search-plus font-yellow-saffron"></i>&nbsp;&nbsp;Monitor&nbsp;&nbsp;
+    <a href="<?php echo url_for("inicio/notifica?id=1") ?>" class="dropdown-toggle font-blue" >
+        <i class="fa fa-gavel font-yellow-crusta"></i>&nbsp;&nbsp;Autorizar&nbsp;&nbsp;
         <?php if ($pendientes > 0) { ?>
             <span class="badge badge-danger"> <?php echo $pendientes ?>  </span>
         <?php } ?>
@@ -28,41 +47,62 @@
 </li>-->
 <?php // } ?>
 &nbsp;&nbsp;
-<?php         $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'); ?>
-<?php //$bitacoras = BitacoraCampanaQuery::create()->filterByRevisado(false)->filterByUsuarioNotifica($usuarioId)->find(); ?>
-<?php $cantida = 0;  //count($bitacoras) ?>
+
+<?php $bitacoras = BitacoraUsuarioQuery::create()->filterByUsuarioJefe($usuarioId)->filterByLeido(false)->find(); ?>
+<?php $cantida = count($bitacoras) ?>
 
 <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <i class="icon-bell"></i>
         <?php if ($cantida > 0) { ?>
-            <span class="badge badge-default"><?php echo $cantida ?> </span>
+        <span class="badge badge-default"  ><div id="can" name="can"> <?php echo $cantida ?></div> </span>
         </a>
     <?php } ?>
 
     <ul class="dropdown-menu">
         <li class="external">
-            <h3> Alerta <strong><?php echo $cantida ?>  </strong> campañas</h3>
-            <a href="<?php echo url_for("inicio/notifica") ?>">Ver Mas</a>
+            <h3> Alerta <strong>  </strong> Notificaciones</h3>
+            <a href="<?php echo url_for("inicio/bitacora") ?>">Ver Mas</a>
         </li>
         <li>
             <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                <?php $cat=0; ?>
                 <?php foreach ($bitacoras as $re) { ?>
-                    <?php $nota = '<span class="label label-sm label-icon label-info"><i class="fa fa-bullhorn"></i> </span>'; ?>
-                    <?php if ($re->getTipo() == "Rechazo") { ?>
-                        <?php $nota = '<span class="label label-sm label-icon label-danger"><i class="fa fa-flash"></i> </span>' ?>
+                <?php $cat++; ?>                
+                <?php $nota = '<span class="label label-sm label-icon label-danger"><i class="fa fa-bullhorn"></i> </span>'; ?>
+                 <?php if ($re->getTipo() == "Vacacion") { ?>
+                        <?php $nota = '<span class="label label-sm label-icon label-info"><i class="fa fa-bullhorn"></i> </span>' ?>
                     <?php } ?>
-                <?php if ($re->getTipo()=='Cancelado') { ?>
-                        <?php $nota = '<span class="label label-sm label-icon label-warning"><i class="fa fa-bug"></i> </span>' ?>
+                <?php if ($re->getTipo()=='Ausencia') { ?>
+                        <?php $nota = '<span class="label label-sm label-icon label-warning"><i class="fa fa-flash"></i> </span>' ?>
                     <?php } ?>
                 
-                    <li>
-                        <a href="javascript:;">
+                <li id="not<?php echo $cat; ?>" name="not<?php echo $cat; ?>">
+                        <a id="Nactivar<?php echo $cat; ?>" dat="<?php echo $re->getId(); ?>">
                             <span class="time"><?php echo $re->getTipo(); ?> </span>
-                            <span class="details"><?php echo $nota ?> Campaña  <?php echo $re->getCampana()->getCodigo(); ?> </span>
+                            <span class="details"><?php echo $nota ?> Empleado  <?php echo $re->getUsuario()->getCodigo(); ?> </span>
                         </a>
                     </li>
-                <?php } ?>
+                
+                              <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Nactivar<?php echo $cat; ?>').click(function () {
+               $('#not<?php echo $cat; ?>').hide();
+                var id = <?php echo $re->getId(); ?>;
+               //  alert('activa');
+              //  alert(id);
+                $.ajax({
+                    type: 'POST',
+                    url: '/iqrh_dev.php/inicio/Nota',
+                    data: {'id': id},
+                    success: function (data) {
+                           $('#can').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+                          <?php } ?>
             </ul>
         </li>
     </ul>
@@ -89,7 +129,8 @@
 
         <span class="username username-hide-mobile">
             <font color="#97D700">
-            <?php echo sfContext::getInstance()->getUser()->getAttribute('usuarioNombre', null, 'seguridad'); ?>
+            <?php echo $usuarioQ->getNombreCompleto(); ?>
+            <?php //echo sfContext::getInstance()->getUser()->getAttribute('usuarioNombre', null, 'seguridad'); ?>
             </font>
         </span>
     </a>
@@ -116,3 +157,28 @@
     </a>
 </li>
 
+
+
+
+<?php $cat=0; ?>
+<?php foreach($bitacoras as $lista) { ?>
+<?php $cat++ ?>
+<!--    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Nactivar<?php echo $cat; ?>').click(function () {
+               $('#not<?php echo $cat; ?>').hide();
+                var id = <?php echo $lista->getId(); ?>;
+               //  alert('activa');
+                alert(id);
+                $.ajax({
+                    type: 'POST',
+                    url: '/gthoy_dev.php/inicio/activaPortada',
+                    data: {'id': id},
+                    success: function (data) {
+                    }
+                });
+            });
+        });
+    </script>-->
+
+<?php } ?>

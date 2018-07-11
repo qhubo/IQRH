@@ -87,7 +87,7 @@ propel:
      updated_at:                       ~  
      jefe:                             { type: integer}
      usuario_modero:                   { type: varchar(150)}
-     estado:                           { type: varchar(150)} 
+     estado:                           { type: varchar(150), default: 'Pendiente'} 
      comentario_modero:                { type: longvarchar }
      
   solicitud_vacacion:
@@ -99,7 +99,7 @@ propel:
      motivo:                           { type: varchar(250)}  
      observaciones:                    { type: longvarchar }
      usuario_modero:                   { type: varchar(150)}
-     estado:                           { type: varchar(150)} 
+     estado:                           { type: varchar(150), default: 'Pendiente'} 
      comentario_modero:                { type: longvarchar }
      created_at:                       ~   
      updated_at:                       ~  
@@ -112,7 +112,7 @@ propel:
      fecha_retiro:                     { type: date }
      motivo:                           { type: varchar(250)}  
      observaciones:                    { type: longvarchar }
-     estado:                           { type: varchar(150)} 
+     estado:                           { type: varchar(150), default: 'Pendiente'} 
      created_at:                       ~   
      updated_at:                       ~  
      jefe:                             { type: integer}
@@ -145,9 +145,21 @@ propel:
   capacitacion_usuario:
      id:                               ~   
      usuario_id:                       ~  
-     nombre:                            { type: varchar(250)}   
-     fecha:                    { type: date } 
+     nombre:                           { type: varchar(250)}   
+     fecha:                            { type: date } 
      observaciones:                    { type: longvarchar } 
+     
+     
+  bitacora_usuario:
+     id:                               ~   
+     usuario_id:                       ~  
+     usuario_jefe:                     { type: integer }  
+     motivo:                           { type: longvarchar } 
+     leido:                            { type: boolean, default: false } 
+     tipo:                             { type: varchar(50)} 
+     identificador:                    { type: varchar(250)}
+     fecha:                            { type: timestamp } 
+       
 
 #  recibo_usuario:
 #     id:

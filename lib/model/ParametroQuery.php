@@ -19,6 +19,43 @@
  */
 class ParametroQuery extends BaseParametroQuery
 {
+    
+    
+   static public function limpiezaCaracter($texto) {
+        $texto = str_replace(",", "comacoma", $texto);
+        // $texto = str_replace("-", "/", $texto);
+        $texto = str_replace(".", "puntopunto", $texto);
+        $texto = str_replace(";", " ", $texto);
+        $texto = str_replace(":", "dospuntos", $texto);
+        $texto = str_replace("+", " ", $texto);
+        $texto = str_replace("*", " ", $texto);
+        $texto = str_replace("{", " ", $texto);
+        $texto = str_replace("}", " ", $texto);
+        $texto = str_replace("[", " ", $texto);
+        $texto = str_replace("]", " ", $texto);
+        $texto = str_replace("(", " ", $texto);
+        $texto = str_replace(")", " ", $texto);
+        $texto = str_replace("'", "comilla", $texto);
+        $texto = str_replace('"', '', $texto);
+        $texto = str_replace('\n', '', $texto);
+        $texto = str_replace('ñ', 'ntilde', $texto);
+        $texto = str_replace('Ñ', 'Ntilde', $texto);
+        $texto = str_replace('á', 'atilde', $texto);
+        $texto = str_replace('é', 'etilde', $texto);
+        $texto = str_replace('í', 'itilde', $texto);
+        $texto = str_replace('ó', 'otilde', $texto);
+        $texto = str_replace('ú', 'utilde', $texto);
+        $texto = str_replace('Á', 'Atilde', $texto);
+        $texto = str_replace('É', 'Etilde', $texto);
+        $texto = str_replace('Í', 'Itilde', $texto);
+        $texto = str_replace('Ó', 'Otilde', $texto);
+        $texto = str_replace('Ú', 'Utilde', $texto);
+        $texto = str_replace(',', ' ', $texto);
+        return $texto;
+    }
+    
+    
+    
  static public function convierteImagen($BaseImagen, $filename) {
         $carpetaArchivos = sfConfig::get('sf_upload_dir');
         $BaseImagen = str_replace('src="', " ", $BaseImagen);

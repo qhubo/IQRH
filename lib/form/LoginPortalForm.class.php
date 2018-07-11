@@ -56,6 +56,13 @@ class LoginPortalForm extends sfForm {
                         sfContext::getInstance()->getUser()->setAttribute('usuario', $valido->getImagen(), 'imagen');
                     }
                     $user->setAttribute('usuarioNombre', $valido->getUsuario(), 'seguridad');
+                   $supervisa = UsuarioQuery::create()
+                           ->filterByUsuarioJefe($valido->getId())
+                           ->count();
+                    
+                   sfContext::getInstance()->getUser()->setAttribute('supervisa', $supervisa, 'seguridad');
+                  
+                      
                     UsuarioQuery::menuUsuario($valido->getId());
                 } else {
                     $user->setFlash('error', 'Usuario no validado.');

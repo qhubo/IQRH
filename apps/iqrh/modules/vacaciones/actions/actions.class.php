@@ -37,6 +37,17 @@ class vacacionesActions extends sfActions {
                 $solVacacion->setDia($valores['dia']);
                 $solVacacion->setMotivo($valores['observaciones']);
                 $solVacacion->save();
+                
+                
+                      $bitacora = New BitacoraUsuario();
+               $bitacora->setFecha(date('Y-m-d H:i'));
+               $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
+               $bitacora->setTipo('Vacacion');
+               $bitacora->setIdentificador($solVacacion->getId());
+               $bitacora->setUsuarioJefe($this->usuario->getUsuarioJefe());
+               $bitacora->setMotivo($valores['observaciones']);
+               $bitacora->save();
+               
                 $this->getUser()->setFlash('exito', ' La solicitud de vacación ha sido ingresada con éxito ');
                 $this->redirect('ausencia/index');
             }

@@ -22,7 +22,10 @@
                         <a href="<?php echo url_for("edita_usuario/index"); ?>" 
                            class="nav-link  ">Editar Usuario </a>
                     </li>  
-
+   <li class=" ">
+                        <a href="<?php echo url_for("asigna_jefe/index"); ?>" 
+                           class="nav-link  "> Supervisores </a>
+                    </li> 
                 
                 </ul>
 
@@ -43,11 +46,13 @@
                         <a href="<?php echo url_for("vacaciones/index"); ?>" 
                            class="nav-link  ">Vacaciones</a>
                  </li>
+                      <?Php $super=  sfContext::getInstance()->getUser()->getAttribute('supervisa', null, 'seguridad'); ?>
+                            <?PHP if ($super >0) { ?>
                     <li class=" ">
                         <a href="<?php echo url_for("finiquito/index"); ?>" 
                            class="nav-link  ">Finiquito</a>
                  </li>
-
+                            <?php  } ?>
                 </ul>   
             </li>
             <li class="menu-dropdown classic-menu-dropdown active">
