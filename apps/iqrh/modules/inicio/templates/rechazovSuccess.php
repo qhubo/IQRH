@@ -3,10 +3,10 @@
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-eraser font-red-flamingo"></i>
-            <span class="caption-subject bold font-yellow-casablanca uppercase">Rechazar  </span>
+            <span class="caption-subject bold font-yellow-casablanca uppercase">#<?php echo $vacacion->getId(); ?> - Rechazar  </span>
            
              <span class="caption-subject bold font-yellow-casablanca uppercase">Ausencia </span>
-                <span class="caption-subject bold font-blue-hoki uppercase"><?php echo $vacacion->getId(); ?> </span>
+                <span class="caption-subject bold font-blue-hoki uppercase"><?php echo $vacacion->getUsuario()->getCodigo(); ?> </span>
             <span class="caption-helper">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <div class="portlet-input input-inline input-small">
 
@@ -23,7 +23,7 @@
 
    <div class="row">
         <div class="col-md-2"></div>   
-       <div class="col-md-2 bold Bold font-green-turquoise"><?php echo $vacacion->getUsuario()->getCodigo(); ?></div>   
+       <div class="col-md-2 bold Bold font-green-turquoise"></div>   
             
    </div>
         

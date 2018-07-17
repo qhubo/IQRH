@@ -3,9 +3,9 @@
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-tasks font-blue"></i>
-            <span class="caption-subject bold font-blue uppercase">Confirmar </span>
-            <span class="caption-subject bold font-yellow-crusta uppercase">Vacaciones </span>
-   <span class="caption-subject bold font-blue-hoki uppercase"><?php echo $vacacion->getId(); ?> </span>
+            <span class="caption-subject bold font-blue uppercase">#<?php echo $vacacion->getId(); ?> - Confirmar </span>
+            <span class="caption-subject bold font-yellow-crusta uppercase">Vacaciones  <?php echo $vacacion->getUsuario()->getCodigo(); ?></span>
+   <span class="caption-subject bold font-blue-hoki uppercase"> </span>
             <span class="caption-helper">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <div class="portlet-input input-inline input-small">
 
@@ -22,7 +22,7 @@
 
    <div class="row">
         <div class="col-md-2"></div>   
-       <div class="col-md-2 bold Bold font-green-turquoise"><?php echo $vacacion->getUsuario()->getCodigo(); ?></div>   
+       <div class="col-md-2 bold Bold font-green-turquoise"></div>   
             
    </div>
 
