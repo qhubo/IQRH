@@ -4,7 +4,7 @@
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-ship font-yellow-saffron"></i>
-            <span class="caption-subject bold font-blue ">Vacaciones Pendientes Aprobar</span>
+            <span class="caption-subject bold font-green-turquoise ">Vacaciones Pendientes Aprobar</span>
             <span class="caption-helper">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <div class="portlet-input input-inline input-small">
             </div>
@@ -65,8 +65,8 @@
 <div class="portlet light">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-list font-blue-hoki"></i>
-            <span class="caption-subject bold font-blue ">Ausencias Pendientes Autorizar</span>
+            <i class="fa fa-list font-yellow-saffron"></i>
+            <span class="caption-subject bold font-green-jungle ">Ausencias Pendientes Autorizar</span>
             <span class="caption-helper">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <div class="portlet-input input-inline input-small">
             </div>
