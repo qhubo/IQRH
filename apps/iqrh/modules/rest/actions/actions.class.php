@@ -10,77 +10,133 @@
  */
 class restActions extends sfActions {
 
+    public function executeOnline(sfWebRequest $request) {
+        echo "online";
+        die();
+    }
+
+	
+	
+	
+    public function executeOkAusencia(sfWebRequest $request) {
+        $id = $request->getParameter('id');
+        $estado = 'AutorizadoRH';
+		if ($request->getParameter('estado')) {
+		$estado=$request->getParameter('estado');
+		}
+        $ausencia = SolicitudAusenciaQuery::create()->findOneById($id);
+        $ausencia->setEstado($estado);
+        $ausencia->save();
+        die();
+    }
+
     public function executeAusencia(sfWebRequest $request) {
         $id = $request->getParameter('id');
-        $ausencia = SolicitudAusenciaQuery::create()->findOne();
+        $ausencia = SolicitudAusenciaQuery::create()
+                ->filterByEstado('Autorizado')
+                ->findOne();
         $resultado['LINEA'] = 0;
         $lista = null;
         if ($ausencia) {
-            $linea['ID'] = 1;
-            $linea['IDACTUA'] = 1;
+            $linea['ID'] = $ausencia->getId();
+            $linea['IDACTUA'] = $ausencia->getId();
             $linea['EMPLEADO'] = ParametroQuery::limpiezaCaracter($ausencia->getUsuario()->getCodigo());
             $linea['FECHA'] = $ausencia->getFecha('Ymd');
             $linea['MOTIVO'] = ParametroQuery::limpiezaCaracter($ausencia->getMotivo());
             $linea['OBSERVACIONES'] = ParametroQuery::limpiezaCaracter($ausencia->getObservaciones());
             $resultado['RESULTADO'][] = $linea;
             $resultado['LINEA'] = 1;
-            $data_json = json_encode($resultado);
+         
             if ($id == 1) {
                 echo "<pre>";
                 print_r($resultado);
                 die();
             }
         }
+		   $data_json = json_encode($resultado);
         return $this->renderText($data_json);
+    }
+
+    public function executeOkVacacion(sfWebRequest $request) {
+        $id = $request->getParameter('id');
+        $estado = 'EnviadoRH';
+		if ($request->getParameter('estado')) {
+		$estado=$request->getParameter('estado');
+		}
+        $ausencia = SolicitudVacacionQuery::create()->findOneById($id);
+        $ausencia->setEstado($estado);
+        $ausencia->save();
+        die();
     }
 
     public function executeVacacion(sfWebRequest $request) {
         $id = $request->getParameter('id');
-        $vacacion = SolicitudVacacionQuery::create()->findOne();
+        $vacacion = SolicitudVacacionQuery::create()
+                ->filterByEstado('Autorizado')
+                ->findOne();
         $resultado['LINEA'] = 0;
         $lista = null;
         if ($vacacion) {
-            $linea['ID'] = 1;
-            $linea['IDACTUA'] = 1;
+            $linea['ID'] = $vacacion->getId();
+            $linea['IDACTUA'] = $vacacion->getId();
             $linea['EMPLEADO'] = ParametroQuery::limpiezaCaracter($vacacion->getUsuario()->getCodigo());
+            $UsuAuto = UsuarioQuery::create()->findOneById($vacacion->getUsuarioModero());
+            $linea['AUTORIZO'] = $UsuAuto->getCodigo();
+
             $linea['FECHA_INICIO'] = $vacacion->getFechaInicio('Ymd');
             $linea['FECHA_FIN'] = $vacacion->getFechaFin('Ymd');
-            $linea['DIA'] = $vacacion->getDia('Ymd');
+            $linea['DIA'] = $vacacion->getDia();
             $linea['MOTIVO'] = ParametroQuery::limpiezaCaracter($vacacion->getMotivo());
             $linea['OBSERVACIONES'] = ParametroQuery::limpiezaCaracter($vacacion->getObservaciones());
-            $linea['JEFE'] = ParametroQuery::limpiezaCaracter($vacacion->getJefe());
-            $linea['AUTORIZO'] = '';
+            $linea['COMENTARIO_APROBO'] = ParametroQuery::limpiezaCaracter($vacacion->getComentarioModero());
+            //  $linea['JEFE'] = ParametroQuery::limpiezaCaracter($vacacion->getJefe());
+
             $resultado['RESULTADO'][] = $linea;
             $resultado['LINEA'] = 1;
-            $data_json = json_encode($resultado);
+         
             if ($id == 1) {
                 echo "<pre>";
                 print_r($resultado);
                 die();
             }
         }
+        $data_json = json_encode($resultado);
         return $this->renderText($data_json);
     }
 
+	  public function executeOkFiniquito(sfWebRequest $request) {
+        $id = $request->getParameter('id');
+        $estado = 'EnviadoRH';
+		if ($request->getParameter('estado')) {
+		$estado=$request->getParameter('estado');
+		}
+        $ausencia = SolicitudFinquitoQuery::create()->findOneById($id);
+       $ausencia->setEstado($estado);
+        $ausencia->save();
+        die();
+    }
+	
+	
     public function executeFiniquito(sfWebRequest $request) {
         $id = $request->getParameter('id');
-        $solicitud = SolicitudFinquitoQuery::create()->findOne();
+        $solicitud = SolicitudFinquitoQuery::create()
+		->filterByEstado('Pendiente')
+		->findOne();
         $resultado['LINEA'] = 0;
         $lista = null;
-           $lista = null;
+        $lista = null;
         if ($solicitud) {
             $usuarioRetiro = UsuarioQuery::create()->findOneById($solicitud->getUsuarioRetiro());
             $usuarioSoli = UsuarioQuery::create()->findOneById($solicitud->getUsuarioGraba());
-            
-            $linea['ID'] = 1;
-            $linea['IDACTUA'] = 1;
-            $linea['EMPLEADO_SOLICITA'] = ParametroQuery::limpiezaCaracter($usuarioRetiro->getCodigo());
+            $linea['ID'] = $solicitud->getId();
+            $linea['IDACTUA'] = $solicitud->getId();
+            $linea['AUTORIZO'] = ParametroQuery::limpiezaCaracter($usuarioRetiro->getCodigo());
             $linea['EMPLEADO'] = ParametroQuery::limpiezaCaracter($usuarioSoli->getCodigo());
             $linea['FECHA_RETIRO'] = $solicitud->getFechaRetiro('Ymd');
             $linea['MOTIVO'] = ParametroQuery::limpiezaCaracter($solicitud->getMotivo());
             $linea['OBSERVACIONES'] = ParametroQuery::limpiezaCaracter($solicitud->getObservaciones());
             $linea['JEFE'] = ParametroQuery::limpiezaCaracter($solicitud->getJefe());
-            $linea['AUTORIZO'] = '';
+
             $resultado['RESULTADO'][] = $linea;
             $resultado['LINEA'] = 1;
             $data_json = json_encode($resultado);
@@ -90,7 +146,7 @@ class restActions extends sfActions {
                 die();
             }
         }
-             return $this->renderText($data_json);
+        return $this->renderText($data_json);
     }
 
     public function executeUsuario(sfWebRequest $request) {
@@ -158,7 +214,6 @@ class restActions extends sfActions {
 //            $usuarioQ->setLogo($v)
         }
         //$linea = null;
-
         $linea['ID'] = 1;
         $linea['IDACTUA'] = 1;
         $linea['enviado'] = 1;
