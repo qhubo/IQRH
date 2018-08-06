@@ -26,7 +26,13 @@
                         <a href="<?php echo url_for("asigna_jefe/index"); ?>" 
                            class="nav-link  "> Supervisores </a>
                     </li> 
+   <li class=" ">
+                        <a href="<?php echo url_for("catalogo_solicitud/index"); ?>" 
+                           class="nav-link  "> Catálogo Solicitud </a>
+                    </li> 
                 
+                    
+                    
                 </ul>
 
             </li>
@@ -53,6 +59,11 @@
                            class="nav-link  ">Finiquito</a>
                  </li>
                             <?php  } ?>
+                 
+                     <li class=" ">
+                        <a href="<?php echo url_for("crea_solicitud/index"); ?>" 
+                           class="nav-link  ">Solicitud</a>
+                 </li>
                 </ul>   
             </li>
             <li class="menu-dropdown classic-menu-dropdown active">

@@ -159,11 +159,23 @@ propel:
      tipo:                             { type: varchar(50)} 
      identificador:                    { type: varchar(250)}
      fecha:                            { type: timestamp } 
-       
 
-#  recibo_usuario:
-#     id:
-#         
- 
-   
-   
+
+  catalogo_solicitud:
+     id:                                ~
+     nombre:                            { type: varchar(100), primaryString: true, default: '' }
+     observaciones:                     { type: longvarchar }
+     activo:                            { type: boolean, default: true }
+     
+  solicitud_usuario:
+     id:                               ~
+     usuario_id:                       ~
+     fecha:                            { type: date }
+     catalogo_solicitud_id:            ~
+     observaciones:                    { type: longvarchar }
+     estado:                           { type: varchar(150), default: 'Pendiente'} 
+     created_at:                       ~   
+     updated_at:                       ~  
+     jefe:                             { type: integer}
+     usuario_modero:                   { type: varchar(150)}
+     comentario_modero:                { type: longvarchar }

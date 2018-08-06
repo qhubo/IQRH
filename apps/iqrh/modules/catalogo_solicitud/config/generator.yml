@@ -1,0 +1,38 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           CatalogoSolicitud
+    theme:                 admin15
+    non_verbose_templates: true
+    with_show:             false
+    singular:              CatalogoSolicitud
+    plural:                CatalogoSolicituds
+    route_prefix:          catalogo_solicitud
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+          activo:
+              attributes:
+                  class:    form-group check-radio
+          nombre:
+              label:       Nombre
+              attributes:
+                  class:    form-control input-xlarge    
+          observaciones:
+              attributes:
+                  class:    form-control input-medium
+      list: 
+        title:             Catálogo Solicitud
+        display:           [nombre, observaciones, activo]
+      filter:
+        display:           [nombre, observaciones, activo]
+      form:
+        display:           [nombre, observaciones, activo]
+      edit:
+        title:             Editar  "%%NOMBRE%%"
+      new:
+        title:             Nuevo
+

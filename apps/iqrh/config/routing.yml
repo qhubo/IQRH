@@ -1,3 +1,12 @@
+catalogo_solicitud:
+  class: sfPropelORMRouteCollection
+  options:
+    model:                CatalogoSolicitud
+    module:               catalogo_solicitud
+    prefix_path:          /catalogo_solicitud
+    column:               id
+    with_wildcard_routes: true
+
 parametro:
   class: sfPropelORMRouteCollection
   options:

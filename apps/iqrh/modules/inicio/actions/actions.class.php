@@ -10,14 +10,14 @@
  */
 class inicioActions extends sfActions {
 
-    
-           public function executeBitacora(sfWebRequest $request) {
-                $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
-               $this->bitacoras = BitacoraUsuarioQuery::create()
-                       ->filterByUsuarioJefe($usuarioId)
-                       ->find();
-           }
-       public function executeAutorizado(sfWebRequest $request) {
+    public function executeBitacora(sfWebRequest $request) {
+        $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
+        $this->bitacoras = BitacoraUsuarioQuery::create()
+                ->filterByUsuarioJefe($usuarioId)
+                ->find();
+    }
+
+    public function executeAutorizado(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
         $this->ausencia = SolicitudAusenciaQuery::create()->findOneById($id);
@@ -29,7 +29,7 @@ class inicioActions extends sfActions {
             $this->form->bind($request->getParameter('consulta'));
             if ($this->form->isValid()) {
                 $valores = $this->form->getValues();
-                $motivo=$valores['motivo'];
+                $motivo = $valores['motivo'];
                 $ausencia = SolicitudAusenciaQuery::create()->findOneById($id);
                 $ausencia->setUsuarioModero($usuarioId);
                 $ausencia->setEstado('Autorizado');
@@ -41,49 +41,46 @@ class inicioActions extends sfActions {
                 $bitacora->setTipo('Ausencia');
                 $bitacora->setIdentificador($ausencia->getId());
                 $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
-                $bitacora->setMotivo('Autorizado: '.$valores['observaciones']);
+                $bitacora->setMotivo('Autorizado: ' . $valores['observaciones']);
                 $bitacora->save();
                 $this->getUser()->setFlash('exito', 'Ausencia Autorizada con exito');
                 $this->redirect("inicio/notifica");
             }
         }
-       }
-    
-       
-     public function executeRechazo(sfWebRequest $request) {
+    }
+
+    public function executeRechazo(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
-         $this->ausencia = SolicitudAusenciaQuery::create()->findOneById($id);
-      // $this->bitacora = BitacoraUsuarioQuery::create()->findOneById($id);
+        $this->ausencia = SolicitudAusenciaQuery::create()->findOneById($id);
+        // $this->bitacora = BitacoraUsuarioQuery::create()->findOneById($id);
         $this->id = $id;
         $this->form = new IngresaCampForm();
         if ($request->isMethod('post')) {
             $this->form->bind($request->getParameter('consulta'));
             if ($this->form->isValid()) {
                 $valores = $this->form->getValues();
-                   $motivo=$valores['motivo'];
-                   $ausencia = SolicitudAusenciaQuery::create()->findOneById($id);
-                   $ausencia->setUsuarioModero($usuarioId);
-                   $ausencia->setEstado('Rechazado');
-                   $ausencia->setComentarioModero($motivo);
-                   $ausencia->save();
-                            $bitacora = New BitacoraUsuario();
-               $bitacora->setFecha(date('Y-m-d H:i'));
-               $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
-               $bitacora->setTipo('Ausencia');
-               $bitacora->setIdentificador($ausencia->getId());
-               $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
-               $bitacora->setMotivo('Rechazado: '.$valores['observaciones']);
-               $bitacora->save();
-                  $this->getUser()->setFlash('error', 'Ausencia Rechazada con exito');
-                   $this->redirect("inicio/notifica");
+                $motivo = $valores['motivo'];
+                $ausencia = SolicitudAusenciaQuery::create()->findOneById($id);
+                $ausencia->setUsuarioModero($usuarioId);
+                $ausencia->setEstado('Rechazado');
+                $ausencia->setComentarioModero($motivo);
+                $ausencia->save();
+                $bitacora = New BitacoraUsuario();
+                $bitacora->setFecha(date('Y-m-d H:i'));
+                $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
+                $bitacora->setTipo('Ausencia');
+                $bitacora->setIdentificador($ausencia->getId());
+                $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
+                $bitacora->setMotivo('Rechazado: ' . $valores['observaciones']);
+                $bitacora->save();
+                $this->getUser()->setFlash('error', 'Ausencia Rechazada con exito');
+                $this->redirect("inicio/notifica");
             }
         }
-       }
-       
-       
-       
-     public function executeAutorizadov(sfWebRequest $request) {
+    }
+
+    public function executeAutorizadov(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
         $this->vacacion = SolicitudVacacionQuery::create()->findOneById($id);
@@ -95,68 +92,66 @@ class inicioActions extends sfActions {
             $this->form->bind($request->getParameter('consulta'));
             if ($this->form->isValid()) {
                 $valores = $this->form->getValues();
-                $motivo=$valores['motivo'];
+                $motivo = $valores['motivo'];
                 $ausencia = SolicitudVacacionQuery::create()->findOneById($id);
                 $ausencia->setUsuarioModero($usuarioId);
                 $ausencia->setEstado('Autorizado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
-                     $bitacora = New BitacoraUsuario();
-               $bitacora->setFecha(date('Y-m-d H:i'));
-               $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
-               $bitacora->setTipo('Vacacion');
-               $bitacora->setIdentificador($ausencia->getId());
-               $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
-               $bitacora->setMotivo('Autorizado: '.$valores['observaciones']);
-               $bitacora->save();
+                $bitacora = New BitacoraUsuario();
+                $bitacora->setFecha(date('Y-m-d H:i'));
+                $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
+                $bitacora->setTipo('Vacacion');
+                $bitacora->setIdentificador($ausencia->getId());
+                $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
+                $bitacora->setMotivo('Autorizado: ' . $valores['observaciones']);
+                $bitacora->save();
                 $this->getUser()->setFlash('exito', 'Vacaciones Autorizada con exito');
                 $this->redirect("inicio/notifica");
             }
         }
-       }
-    
-       
-     public function executeRechazov(sfWebRequest $request) {
+    }
+
+    public function executeRechazov(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
         $this->vacacion = SolicitudVacacionQuery::create()->findOneById($id);
-      // $this->bitacora = BitacoraUsuarioQuery::create()->findOneById($id);
+        // $this->bitacora = BitacoraUsuarioQuery::create()->findOneById($id);
         $this->id = $id;
         $this->form = new IngresaCampForm();
         if ($request->isMethod('post')) {
             $this->form->bind($request->getParameter('consulta'));
             if ($this->form->isValid()) {
                 $valores = $this->form->getValues();
-                $motivo=$valores['motivo'];
+                $motivo = $valores['motivo'];
                 $ausencia = SolicitudVacacionQuery::create()->findOneById($id);
                 $ausencia->setUsuarioModero($usuarioId);
                 $ausencia->setEstado('Autorizado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
-                     $bitacora = New BitacoraUsuario();
-               $bitacora->setFecha(date('Y-m-d H:i'));
-               $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
-               $bitacora->setTipo('Vacacion');
-               $bitacora->setIdentificador($ausencia->getId());
-               $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
-               $bitacora->setMotivo('Rechazado: '.$valores['observaciones']);
-               $bitacora->save();
-                
+                $bitacora = New BitacoraUsuario();
+                $bitacora->setFecha(date('Y-m-d H:i'));
+                $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
+                $bitacora->setTipo('Vacacion');
+                $bitacora->setIdentificador($ausencia->getId());
+                $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
+                $bitacora->setMotivo('Rechazado: ' . $valores['observaciones']);
+                $bitacora->save();
+
                 $this->getUser()->setFlash('error', 'Vacaciones rechazada con exito');
                 $this->redirect("inicio/notifica");
             }
         }
-       }
-       
-       
+    }
+
     public function executeNota(sfWebRequest $request) {
         $id = $request->getParameter('id');
-    $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
-        
+        $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
+
         $bitacora = BitacoraUsuarioQuery::create()->findOneById($id);
         $bitacora->setLeido(true);
         $bitacora->save();
-  
+
         $bitacoras = BitacoraUsuarioQuery::create()->filterByUsuarioJefe($usuarioId)->filterByLeido(false)->find();
         $cantida = count($bitacoras);
 
@@ -169,28 +164,36 @@ class inicioActions extends sfActions {
         $bitacoras = BitacoraUsuarioQuery::create()->filterByUsuarioJefe($usuarioId)
                 //->filterByLeido(false)
                 ->find();
-     $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');      
-       $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');    
-        
-        
+        $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+        $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+
+
         $usuarios = UsuarioQuery::create()
                 ->filterByUsuarioJefe($usuarioId)
                 ->find();
-       
-        $empleado[]=-99;
-        foreach ($usuarios as $lista){
-            $empleado[]=$lista->getId();
+
+        $empleado[] = -99;
+        foreach ($usuarios as $lista) {
+            $empleado[] = $lista->getId();
         }
-        
+
         $this->vacaciones = SolicitudVacacionQuery::create()
-               ->filterByEstado('Pendiente')
-               ->filterByUsuarioId($empleado, Criteria::IN)
+                ->filterByEstado('Pendiente')
+                ->filterByUsuarioId($empleado, Criteria::IN)
                 ->find();
         $this->ausencias = SolicitudAusenciaQuery::create()
-               ->filterByEstado('Pendiente')
-               ->filterByUsuarioId($empleado, Criteria::IN)
+                ->filterByEstado('Pendiente')
+                ->filterByUsuarioId($empleado, Criteria::IN)
                 ->find();
- 
+
+        $this->solicitudes = SolicitudUsuarioQuery::create()
+                ->filterByEstado('Pendiente')
+ //               ->filterByUsuarioId($empleado, Criteria::IN)
+                ->find();
+
+        
+        
+        
         $this->bitacoras = $bitacoras;
     }
 
@@ -275,4 +278,69 @@ class inicioActions extends sfActions {
         }
     }
 
+    
+        public function executeAutorizadoS(sfWebRequest $request) {
+        $id = $request->getParameter('id');
+        $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
+        $this->ausencia = SolicitudUsuarioQuery::create()->findOneById($id);
+        //$this->bitacora = BitacoraUsuarioQuery::create()->findOneById($id);
+        //$bitacora = BitacoraUsuarioQuery::create()->findOneById($id);       
+        $this->id = $id;
+        $this->form = new IngresaCampForm();
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getParameter('consulta'));
+            if ($this->form->isValid()) {
+                $valores = $this->form->getValues();
+                $motivo = $valores['motivo'];
+                $ausencia = SolicitudUsuarioQuery::create()->findOneById($id);
+                $ausencia->setUsuarioModero($usuarioId);
+                $ausencia->setEstado('Autorizado');
+                $ausencia->setComentarioModero($motivo);
+                $ausencia->save();
+                $bitacora = New BitacoraUsuario();
+                $bitacora->setFecha(date('Y-m-d H:i'));
+                $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
+                $bitacora->setTipo('Solicitud');
+                $bitacora->setIdentificador($ausencia->getId());
+                $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
+                $bitacora->setMotivo('Autorizado: ' . $valores['observaciones']);
+                $bitacora->save();
+                $this->getUser()->setFlash('exito', 'Ausencia Autorizada con exito');
+                $this->redirect("inicio/notifica");
+            }
+        }
+    }
+
+    public function executeRechazoS(sfWebRequest $request) {
+        $id = $request->getParameter('id');
+        $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
+        $this->ausencia = SolicitudUsuarioQuery::create()->findOneById($id);
+        // $this->bitacora = BitacoraUsuarioQuery::create()->findOneById($id);
+        $this->id = $id;
+        $this->form = new IngresaCampForm();
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getParameter('consulta'));
+            if ($this->form->isValid()) {
+                $valores = $this->form->getValues();
+                $motivo = $valores['motivo'];
+                $ausencia = SolicitudUsuarioQuery::create()->findOneById($id);
+                $ausencia->setUsuarioModero($usuarioId);
+                $ausencia->setEstado('Rechazado');
+                $ausencia->setComentarioModero($motivo);
+                $ausencia->save();
+                $bitacora = New BitacoraUsuario();
+                $bitacora->setFecha(date('Y-m-d H:i'));
+                $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
+                $bitacora->setTipo('Solicitud');
+                $bitacora->setIdentificador($ausencia->getId());
+                $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
+                $bitacora->setMotivo('Rechazado: ' . $valores['observaciones']);
+                $bitacora->save();
+                $this->getUser()->setFlash('error', 'Ausencia Rechazada con exito');
+                $this->redirect("inicio/notifica");
+            }
+        }
+    }
+    
+    
 }
