@@ -30,6 +30,7 @@ propel:
     fecha_alta:                        { type: date }         
     sueldo:                            { type: double }  
     usuario_jefe:                      { type: integer }
+    token:                             { type: varchar(150) }
     _uniques:
        llave:                          [ usuario ]
  
@@ -179,3 +180,62 @@ propel:
      jefe:                             { type: integer}
      usuario_modero:                   { type: varchar(150)}
      comentario_modero:                { type: longvarchar }
+
+  recibo_encabezado:
+      id:                             ~   
+      Planilla_Resumen_id:            { type: integer}	
+      empleado:                       { type: varchar(150)}	
+      empleado_proyecto_id:           { type: integer}	
+      sueldo_base:                    { type: double }	
+      bonificacion_base:              { type: varchar(50)}	
+      dias_ausencias:                 { type: double }	
+      dias_suspendido:                { type: double }	
+      septimos:                       { type: double }	
+      total_descuentos:               { type: double }	
+      total_ingresos:                 { type: double }	
+      total_extras:                   { type: double }	
+      total_sueldo_liquido:           { type: double }	
+      alta:                           { type: varchar(150)}	
+      baja:                           { type: varchar(150)}	
+      codigo:                         { type: varchar(150)}	
+      puesto:                         { type: varchar(150)}	
+      departamento:                   { type: varchar(150)}	 
+      dias_base:                      { type: double }	
+      bloque:                         { type: varchar(50)}	            
+      inicio:                         { type: varchar(50)}	                                    
+      fin:                            { type: varchar(50)}	
+      numero:                         { type: varchar(50)}	
+      laborados:                      { type: double }  
+
+  recibo_detalle:
+      id:                             ~ 
+      id_c:                           { type: integer }
+      planilla_resumen_id:            { type: integer } 
+      tipo:                           { type: varchar(20) }
+      afeca_ss:                       { type: integer }
+      descripcion:                    { type: varchar(200) } 
+      monto:                          { type: double }
+      debe:                           { type: double }
+      haber:                          { type: double } 
+      identificar:                    { type: varchar(10) }  
+
+  recibo_cabecera:
+      id:                             ~ 
+      planilla:                       { type: varchar(100) } 
+      inicio:                         { type: varchar(15) } 
+      fin:                            { type: varchar(15) } 
+      proyecto:                       { type: varchar(200) } 
+      empresa:                        { type: varchar(200) }
+      razon_social:                   { type: varchar(200) }
+      direccion:                      { type: varchar(300) } 
+      email:                          { type: varchar(10) }        
+      telefono:                       { type: varchar(10) }  
+      nombre_comercial:               { type: varchar(300) }   
+      texto:                          { type: longvarchar }
+     
+   
+   
+   
+   
+   
+   

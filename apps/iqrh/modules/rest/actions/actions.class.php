@@ -15,15 +15,124 @@ class restActions extends sfActions {
         die();
     }
 
-	
-	
-	
+    public function executeEncabezado(sfWebRequest $request) {
+        $Planilla_Resumen_id = $request->getParameter('Planilla_Resumen_id');
+        $empleado = $request->getParameter('empleado');
+        $empleado_proyecto_id = $request->getParameter('empleado_proyecto_id');
+        $sueldo_base = $request->getParameter('sueldo_base');
+        $bonificacion_base = $request->getParameter('bonificacion_base');
+        $dias_ausencias = $request->getParameter('dias_ausencias');
+        $dias_suspendido = $request->getParameter('dias_suspendido');
+        $septimos = $request->getParameter('septimos');
+        $total_descuentos = $request->getParameter('total_descuentos');
+        $total_ingresos = $request->getParameter('total_ingresos');
+        $total_extras = $request->getParameter('total_extras');
+        $total_sueldo_liquido = $request->getParameter('total_sueldo_liquido');
+        $alta = $request->getParameter('alta');
+        $baja = $request->getParameter('baja');
+        $codigo = $request->getParameter('codigo');
+        $puesto = $request->getParameter('puesto');
+        $departamento = $request->getParameter('departamento');
+        $dias_base = $request->getParameter('dias_base');
+        $bloque = $request->getParameter('bloque');
+        $inicio = $request->getParameter('inicio');
+        $fin = $request->getParameter('fin');
+        $numero = $request->getParameter('numero');
+        $laborados = $request->getParameter('laborados');
+        
+         $planillaRe = ReciboEncabezadoQuery::create()
+                 ->filterByPlanillaResumenId($Planilla_Resumen_id)
+                 ->findOne();
+         if (!$planillaRe){
+             $planillaRe = new ReciboEncabezado();
+             $planillaRe->setPlanillaResumenId($Planilla_Resumen_id);
+             $planillaRe->save();
+         }
+       $planillaRe->setEmpleado();                       
+       $planillaRe->setEmpleadoProyectoId();           	
+       $planillaRe->setSueldoBase();                    	
+       $planillaRe->setBonificacionBase();              	
+      $planillaRe->setDiasAusencias();                 	
+      $planillaRe->setDiasSuspendido();                	
+      $planillaRe->setSeptimos();                       	
+      $planillaRe->setTotalDescuentos();               	
+      $planillaRe->setTotalIngresos();                 	
+      $planillaRe->setTotalExtras();                   	
+      $planillaRe->setTotalSueldoLiquido();           	
+      $planillaRe->setAlta();                           
+      $planillaRe->setBaja();                           
+      $planillaRe->setCodigo();                         
+      $planillaRe->setPuesto();                         
+      $planillaRe->setDepartamento();                    
+      $planillaRe->setDiasBase();                      	
+      $planillaRe->setBloque();                         	            
+      $planillaRe->setInicio();                         	                                    
+      $planillaRe->setFin();                            	
+      $planillaRe->setNumero();                         	
+      $planillaRe->setLaborados(); 
+         
+         
+        
+        
+    }
+
+    public function executeDetalle(sfWebRequest $request) {
+        $id_c = $request->getParameter('id_c');
+        $planilla_resumen_id = $request->getParameter('planilla_resumen_id');
+        $tipo = $request->getParameter('tipo');
+        $afeca_ss = $request->getParameter('afeca_ss');
+        $descripcion = $request->getParameter('descripcion');
+        $monto = $request->getParameter('monto');
+        $debe = $request->getParameter('debe');
+        $haber = $request->getParameter('haber');
+        $identificar = $request->getParameter('identificar');
+        
+//           id_c                           
+//      planilla_resumen_id             
+//      tipo                           
+//      afeca_ss                       
+//      descripcion                    
+//      monto                          
+//      debe                           
+//      haber                           
+//      identificar                      
+
+        
+        
+    }
+
+    public function executeResumen(sfWebRequest $request) {
+        $planilla = $request->getParameter('planilla');
+        $inicio = $request->getParameter('inicio');
+        $fin = $request->getParameter('fin');
+        $proyecto = $request->getParameter('proyecto');
+        $empresa = $request->getParameter('empresa');
+        $razon_social = $request->getParameter('razon_social');
+        $direccion = $request->getParameter('direccion');
+        $email = $request->getParameter('email');
+        $telefono = $request->getParameter('telefono');
+        $nombre_comercial = $request->getParameter('nombre_comercial');
+        $texto = $request->getParameter('texto');
+        
+//                planilla                       
+//      inicio                          
+//      fin                             
+//      proyecto                       
+//      empresa                        
+//      razon_social                   
+//      direccion                     
+//      email                                  
+//      telefono                         
+//      nombre_comercial                 
+//      texto                          
+    }
+
     public function executeOkAusencia(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $estado = 'AutorizadoRH';
-		if ($request->getParameter('estado')) {
-		$estado=$request->getParameter('estado');
-		}
+        if ($request->getParameter('estado')) {
+            $estado = $request->getParameter('estado');
+        }
         $ausencia = SolicitudAusenciaQuery::create()->findOneById($id);
         $ausencia->setEstado($estado);
         $ausencia->save();
@@ -46,23 +155,23 @@ class restActions extends sfActions {
             $linea['OBSERVACIONES'] = ParametroQuery::limpiezaCaracter($ausencia->getObservaciones());
             $resultado['RESULTADO'][] = $linea;
             $resultado['LINEA'] = 1;
-         
+
             if ($id == 1) {
                 echo "<pre>";
                 print_r($resultado);
                 die();
             }
         }
-		   $data_json = json_encode($resultado);
+        $data_json = json_encode($resultado);
         return $this->renderText($data_json);
     }
 
     public function executeOkVacacion(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $estado = 'EnviadoRH';
-		if ($request->getParameter('estado')) {
-		$estado=$request->getParameter('estado');
-		}
+        if ($request->getParameter('estado')) {
+            $estado = $request->getParameter('estado');
+        }
         $ausencia = SolicitudVacacionQuery::create()->findOneById($id);
         $ausencia->setEstado($estado);
         $ausencia->save();
@@ -93,7 +202,7 @@ class restActions extends sfActions {
 
             $resultado['RESULTADO'][] = $linea;
             $resultado['LINEA'] = 1;
-         
+
             if ($id == 1) {
                 echo "<pre>";
                 print_r($resultado);
@@ -104,24 +213,23 @@ class restActions extends sfActions {
         return $this->renderText($data_json);
     }
 
-	  public function executeOkFiniquito(sfWebRequest $request) {
+    public function executeOkFiniquito(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $estado = 'EnviadoRH';
-		if ($request->getParameter('estado')) {
-		$estado=$request->getParameter('estado');
-		}
+        if ($request->getParameter('estado')) {
+            $estado = $request->getParameter('estado');
+        }
         $ausencia = SolicitudFinquitoQuery::create()->findOneById($id);
-       $ausencia->setEstado($estado);
+        $ausencia->setEstado($estado);
         $ausencia->save();
         die();
     }
-	
-	
+
     public function executeFiniquito(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $solicitud = SolicitudFinquitoQuery::create()
-		->filterByEstado('Pendiente')
-		->findOne();
+                ->filterByEstado('Pendiente')
+                ->findOne();
         $resultado['LINEA'] = 0;
         $lista = null;
         $lista = null;
