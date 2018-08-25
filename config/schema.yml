@@ -206,6 +206,7 @@ propel:
       fin:                            { type: varchar(50)}	
       numero:                         { type: varchar(50)}	
       laborados:                      { type: double }  
+      cabecera_in:                    { type: integer}	  
 
   recibo_detalle:
       id:                             ~ 
@@ -217,7 +218,8 @@ propel:
       monto:                          { type: double }
       debe:                           { type: double }
       haber:                          { type: double } 
-      identificar:                    { type: varchar(10) }  
+      identificar:                    { type: varchar(10) } 
+      cabecera_in:                    { type: integer}	  
 
   recibo_cabecera:
       id:                             ~ 
@@ -232,6 +234,7 @@ propel:
       telefono:                       { type: varchar(10) }  
       nombre_comercial:               { type: varchar(300) }   
       texto:                          { type: longvarchar }
+      cabecera_in:                    { type: integer}	  
      
    
    

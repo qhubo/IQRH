@@ -35,6 +35,7 @@ abstract class BaseReciboEncabezadoFormFilter extends BaseFormFilterPropel
       'fin'                  => new sfWidgetFormFilterInput(),
       'numero'               => new sfWidgetFormFilterInput(),
       'laborados'            => new sfWidgetFormFilterInput(),
+      'cabecera_in'          => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -61,6 +62,7 @@ abstract class BaseReciboEncabezadoFormFilter extends BaseFormFilterPropel
       'fin'                  => new sfValidatorPass(array('required' => false)),
       'numero'               => new sfValidatorPass(array('required' => false)),
       'laborados'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'cabecera_in'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('recibo_encabezado_filters[%s]');
@@ -102,6 +104,7 @@ abstract class BaseReciboEncabezadoFormFilter extends BaseFormFilterPropel
       'fin'                  => 'Text',
       'numero'               => 'Text',
       'laborados'            => 'Number',
+      'cabecera_in'          => 'Number',
     );
   }
 }

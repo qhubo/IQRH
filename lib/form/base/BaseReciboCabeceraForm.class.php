@@ -26,6 +26,7 @@ abstract class BaseReciboCabeceraForm extends BaseFormPropel
       'telefono'         => new sfWidgetFormInputText(),
       'nombre_comercial' => new sfWidgetFormInputText(),
       'texto'            => new sfWidgetFormTextarea(),
+      'cabecera_in'      => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -41,6 +42,7 @@ abstract class BaseReciboCabeceraForm extends BaseFormPropel
       'telefono'         => new sfValidatorString(array('max_length' => 10, 'required' => false)),
       'nombre_comercial' => new sfValidatorString(array('max_length' => 300, 'required' => false)),
       'texto'            => new sfValidatorString(array('required' => false)),
+      'cabecera_in'      => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('recibo_cabecera[%s]');

@@ -23,6 +23,7 @@ abstract class BaseReciboCabeceraFormFilter extends BaseFormFilterPropel
       'telefono'         => new sfWidgetFormFilterInput(),
       'nombre_comercial' => new sfWidgetFormFilterInput(),
       'texto'            => new sfWidgetFormFilterInput(),
+      'cabecera_in'      => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -37,6 +38,7 @@ abstract class BaseReciboCabeceraFormFilter extends BaseFormFilterPropel
       'telefono'         => new sfValidatorPass(array('required' => false)),
       'nombre_comercial' => new sfValidatorPass(array('required' => false)),
       'texto'            => new sfValidatorPass(array('required' => false)),
+      'cabecera_in'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('recibo_cabecera_filters[%s]');
@@ -66,6 +68,7 @@ abstract class BaseReciboCabeceraFormFilter extends BaseFormFilterPropel
       'telefono'         => 'Text',
       'nombre_comercial' => 'Text',
       'texto'            => 'Text',
+      'cabecera_in'      => 'Number',
     );
   }
 }

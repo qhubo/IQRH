@@ -21,6 +21,7 @@ abstract class BaseReciboDetalleFormFilter extends BaseFormFilterPropel
       'debe'                => new sfWidgetFormFilterInput(),
       'haber'               => new sfWidgetFormFilterInput(),
       'identificar'         => new sfWidgetFormFilterInput(),
+      'cabecera_in'         => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -33,6 +34,7 @@ abstract class BaseReciboDetalleFormFilter extends BaseFormFilterPropel
       'debe'                => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'haber'               => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'identificar'         => new sfValidatorPass(array('required' => false)),
+      'cabecera_in'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('recibo_detalle_filters[%s]');
@@ -60,6 +62,7 @@ abstract class BaseReciboDetalleFormFilter extends BaseFormFilterPropel
       'debe'                => 'Number',
       'haber'               => 'Number',
       'identificar'         => 'Text',
+      'cabecera_in'         => 'Number',
     );
   }
 }

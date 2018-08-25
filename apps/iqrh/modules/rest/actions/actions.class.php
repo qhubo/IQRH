@@ -15,7 +15,7 @@ class restActions extends sfActions {
         die();
     }
 
-    public function executeEncabezado(sfWebRequest $request) {
+    public function executeResumen(sfWebRequest $request) {
         $Planilla_Resumen_id = $request->getParameter('Planilla_Resumen_id');
         $empleado = $request->getParameter('empleado');
         $empleado_proyecto_id = $request->getParameter('empleado_proyecto_id');
@@ -39,41 +39,43 @@ class restActions extends sfActions {
         $fin = $request->getParameter('fin');
         $numero = $request->getParameter('numero');
         $laborados = $request->getParameter('laborados');
-        
-         $planillaRe = ReciboEncabezadoQuery::create()
-                 ->filterByPlanillaResumenId($Planilla_Resumen_id)
-                 ->findOne();
-         if (!$planillaRe){
-             $planillaRe = new ReciboEncabezado();
-             $planillaRe->setPlanillaResumenId($Planilla_Resumen_id);
-             $planillaRe->save();
-         }
-       $planillaRe->setEmpleado();                       
-       $planillaRe->setEmpleadoProyectoId();           	
-       $planillaRe->setSueldoBase();                    	
-       $planillaRe->setBonificacionBase();              	
-      $planillaRe->setDiasAusencias();                 	
-      $planillaRe->setDiasSuspendido();                	
-      $planillaRe->setSeptimos();                       	
-      $planillaRe->setTotalDescuentos();               	
-      $planillaRe->setTotalIngresos();                 	
-      $planillaRe->setTotalExtras();                   	
-      $planillaRe->setTotalSueldoLiquido();           	
-      $planillaRe->setAlta();                           
-      $planillaRe->setBaja();                           
-      $planillaRe->setCodigo();                         
-      $planillaRe->setPuesto();                         
-      $planillaRe->setDepartamento();                    
-      $planillaRe->setDiasBase();                      	
-      $planillaRe->setBloque();                         	            
-      $planillaRe->setInicio();                         	                                    
-      $planillaRe->setFin();                            	
-      $planillaRe->setNumero();                         	
-      $planillaRe->setLaborados(); 
-         
-         
-        
-        
+        $cabecera_in = $request->getParameter('cabecera_in');
+        $planillaRe = ReciboEncabezadoQuery::create()
+                ->filterByPlanillaResumenId($Planilla_Resumen_id)
+                ->findOne();
+        if (!$planillaRe) {
+            $planillaRe = new ReciboEncabezado();
+            $planillaRe->setPlanillaResumenId($Planilla_Resumen_id);
+            $planillaRe->save();
+        }
+        $planillaRe->setCabeceraIn($cabecera_in);
+        $planillaRe->setEmpleado($empleado);
+        $planillaRe->setEmpleadoProyectoId($empleado_proyecto_id);
+        $planillaRe->setSueldoBase($sueldo_base);
+        $planillaRe->setBonificacionBase($bonificacion_base);
+        $planillaRe->setDiasAusencias($dias_ausencias);
+        $planillaRe->setDiasSuspendido($dias_ausencias);
+        $planillaRe->setSeptimos($septimos);
+        $planillaRe->setTotalDescuentos($total_descuentos);
+        $planillaRe->setTotalIngresos($total_ingresos);
+        $planillaRe->setTotalExtras($total_extras);
+        $planillaRe->setTotalSueldoLiquido($total_sueldo_liquido);
+        $planillaRe->setDiasSuspendido($dias_suspendido);
+        $planillaRe->setAlta($alta);
+        $planillaRe->setBaja($baja);
+        $planillaRe->setCodigo($codigo);
+        $planillaRe->setPuesto($puesto);
+        $planillaRe->setDepartamento($departamento);
+        $planillaRe->setDiasBase($dias_base);
+        $planillaRe->setBloque($bloque);
+        $planillaRe->setInicio($inicio);
+        $planillaRe->setFin($fin);
+        $planillaRe->setNumero($numero);
+        $planillaRe->setLaborados($laborados);
+        $planillaRe->save();
+        $resultado['detalle'] = 'ok';
+        $data_json = json_encode($resultado);
+        return $this->renderText($data_json);
     }
 
     public function executeDetalle(sfWebRequest $request) {
@@ -86,22 +88,30 @@ class restActions extends sfActions {
         $debe = $request->getParameter('debe');
         $haber = $request->getParameter('haber');
         $identificar = $request->getParameter('identificar');
-        
-//           id_c                           
-//      planilla_resumen_id             
-//      tipo                           
-//      afeca_ss                       
-//      descripcion                    
-//      monto                          
-//      debe                           
-//      haber                           
-//      identificar                      
+        $cabecera_in = $request->getParameter('cabecera_in');
 
-        
-        
+        $planillaDeta = ReciboDetalleQuery::create()->findOneByIdC($id_c);
+        if (!$planillaDeta) {
+            $planillaDeta = new ReciboDetalle();
+            $planillaDeta->setIdC($id_c);
+            $planillaDeta->save();
+        }
+        $planillaDeta->setCabeceraIn($cabecera_in);
+        $planillaDeta->setPlanillaResumenId($planilla_resumen_id);
+        $planillaDeta->setTipo($tipo);
+        $planillaDeta->setAfecaSs($afeca_ss);
+        $planillaDeta->setDescripcion($descripcion);
+        $planillaDeta->setMonto($monto);
+        $planillaDeta->setDebe($debe);
+        $planillaDeta->setHaber($haber);
+        $planillaDeta->setIdentificar($identificar);
+        $planillaDeta->save();
+        $resultado['detalle'] = 'ok';
+        $data_json = json_encode($resultado);
+        return $this->renderText($data_json);
     }
 
-    public function executeResumen(sfWebRequest $request) {
+    public function executeCabecera(sfWebRequest $request) {
         $planilla = $request->getParameter('planilla');
         $inicio = $request->getParameter('inicio');
         $fin = $request->getParameter('fin');
@@ -113,18 +123,28 @@ class restActions extends sfActions {
         $telefono = $request->getParameter('telefono');
         $nombre_comercial = $request->getParameter('nombre_comercial');
         $texto = $request->getParameter('texto');
-        
-//                planilla                       
-//      inicio                          
-//      fin                             
-//      proyecto                       
-//      empresa                        
-//      razon_social                   
-//      direccion                     
-//      email                                  
-//      telefono                         
-//      nombre_comercial                 
-//      texto                          
+        $cabecera_in = $request->getParameter('cabecera_in');
+        $Resum = ReciboCabeceraQuery::create()->findOneByCabeceraIn($cabecera_in);
+        if ($Resum) {
+            $ReSum = new ReciboCabecera();
+            $ReSum->setCabeceraIn($cabecera_in);
+            $Resum->save();
+        }
+        $ReSum->setPlanilla($planilla);
+        $ReSum->setFin($fin);
+        $ReSum->setInicio($inicio);
+        $ReSum->setProyecto($proyecto);
+        $ReSum->setEmpresa($empresa);
+        $ReSum->setRazonSocial($razon_social);
+        $ReSum->setDireccion($direccion);
+        $ReSum->setEmail($email);
+        $ReSum->setTelefono($telefono);
+        $ReSum->setNombreComercial($nombre_comercial);
+        $ReSum->setTexto($texto);
+        $ReSum->save();
+        $resultado['detalle'] = 'ok';
+        $data_json = json_encode($resultado);
+        return $this->renderText($data_json);
     }
 
     public function executeOkAusencia(sfWebRequest $request) {

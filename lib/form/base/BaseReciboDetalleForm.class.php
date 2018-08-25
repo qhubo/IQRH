@@ -24,6 +24,7 @@ abstract class BaseReciboDetalleForm extends BaseFormPropel
       'debe'                => new sfWidgetFormInputText(),
       'haber'               => new sfWidgetFormInputText(),
       'identificar'         => new sfWidgetFormInputText(),
+      'cabecera_in'         => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -37,6 +38,7 @@ abstract class BaseReciboDetalleForm extends BaseFormPropel
       'debe'                => new sfValidatorNumber(array('required' => false)),
       'haber'               => new sfValidatorNumber(array('required' => false)),
       'identificar'         => new sfValidatorString(array('max_length' => 10, 'required' => false)),
+      'cabecera_in'         => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('recibo_detalle[%s]');

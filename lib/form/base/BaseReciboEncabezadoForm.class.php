@@ -38,6 +38,7 @@ abstract class BaseReciboEncabezadoForm extends BaseFormPropel
       'fin'                  => new sfWidgetFormInputText(),
       'numero'               => new sfWidgetFormInputText(),
       'laborados'            => new sfWidgetFormInputText(),
+      'cabecera_in'          => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -65,6 +66,7 @@ abstract class BaseReciboEncabezadoForm extends BaseFormPropel
       'fin'                  => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'numero'               => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'laborados'            => new sfValidatorNumber(array('required' => false)),
+      'cabecera_in'          => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('recibo_encabezado[%s]');
