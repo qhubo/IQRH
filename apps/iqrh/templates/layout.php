@@ -57,8 +57,9 @@
                                 <?php if ($Parametro) { ?>
                                     <img src="<?php echo '/uploads/segmento/' . $Parametro->getLogo() ?>" height="48px" >
                                     <img src="<?php // echo  '/uploads/empresas/'. $empresquery->getLogo()  ?>"  height="48px" />
-                                <?php } ?>
+                                <?php } else {  ?>
                                    <img src="/images/logo.png"  height="48px" />
+                                <?php } ?>
 
                             </div>
                             <div class="col-md-1  font-yellow-crusta">

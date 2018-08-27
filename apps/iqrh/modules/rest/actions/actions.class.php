@@ -48,6 +48,7 @@ class restActions extends sfActions {
             $planillaRe->setPlanillaResumenId($Planilla_Resumen_id);
             $planillaRe->save();
         }
+
         $planillaRe->setCabeceraIn($cabecera_in);
         $planillaRe->setEmpleado($empleado);
         $planillaRe->setEmpleadoProyectoId($empleado_proyecto_id);
@@ -90,14 +91,20 @@ class restActions extends sfActions {
         $identificar = $request->getParameter('identificar');
         $cabecera_in = $request->getParameter('cabecera_in');
 
-        $planillaDeta = ReciboDetalleQuery::create()->findOneByIdC($id_c);
+        $planillaDeta = ReciboDetalleQuery::create()
+                ->filterByCabeceraIn($cabecera_in)
+                ->filterByIdC($id_c)
+                ->filterByPlanillaResumenId($planilla_resumen_id)
+                ->findOne();
+//                ->findOneByIdC($id_c);
         if (!$planillaDeta) {
             $planillaDeta = new ReciboDetalle();
             $planillaDeta->setIdC($id_c);
+            $planillaDeta->setCabeceraIn($cabecera_in);
+            $planillaDeta->setPlanillaResumenId($planilla_resumen_id);
             $planillaDeta->save();
         }
-        $planillaDeta->setCabeceraIn($cabecera_in);
-        $planillaDeta->setPlanillaResumenId($planilla_resumen_id);
+  
         $planillaDeta->setTipo($tipo);
         $planillaDeta->setAfecaSs($afeca_ss);
         $planillaDeta->setDescripcion($descripcion);
@@ -124,12 +131,13 @@ class restActions extends sfActions {
         $nombre_comercial = $request->getParameter('nombre_comercial');
         $texto = $request->getParameter('texto');
         $cabecera_in = $request->getParameter('cabecera_in');
-        $Resum = ReciboCabeceraQuery::create()->findOneByCabeceraIn($cabecera_in);
-        if ($Resum) {
+        $ReSum = ReciboCabeceraQuery::create()
+		->filterByCabeceraIn($cabecera_in)
+		->findOne();
+	    if (!$ReSum) {
             $ReSum = new ReciboCabecera();
             $ReSum->setCabeceraIn($cabecera_in);
-            $Resum->save();
-        }
+          }
         $ReSum->setPlanilla($planilla);
         $ReSum->setFin($fin);
         $ReSum->setInicio($inicio);

@@ -24,23 +24,13 @@ generator:
           codigo:
               attributes:
                   class:    form-control input-medium
-          precio_click:
-              attributes:
-                  class:    form-control input-medium                  
-          precio_impresion:
-              attributes:
-                  class:    form-control input-medium                  
-          precio_mil_impresion:
-              attributes:
-                  class:    form-control input-medium                  
- 
       list: 
         title:             Parametros
-        display:           [codigo,_logo,precio_click,precio_impresion]
+        display:           [codigo,slogan,_logo]
       filter:
         display:           [slogan,logo]
       form:
-        display:           [precio_click,precio_impresion,precio_mil_impresion,slogan,logo]
+        display:           [codigo,slogan, logo]
       edit:
         title:             Editar  "%%CODIGO%%"
       new:
