@@ -27,9 +27,12 @@
             <div class="row">
                 <div class="col-md-1"> </div>  
                 <div class="col-md-1">Empleado </div>  
-                <div class="col-md-7"> 
-                    <input class="form-control"  type="text" value="<?php  echo $usuario->getNombreCompleto() ?>"  readonly="true" name="emple" id="emple">
-                </div>  
+              <div class="col-md-7 <?php if ($form['empleado']->hasError()) echo "has-error" ?>">
+                    <?php echo $form['empleado'] ?>           
+                    <span class="help-block form-error"> 
+                        <?php echo $form['empleado']->renderError() ?>  
+                    </span>
+                </div>
             </div>
                 
           
@@ -73,20 +76,30 @@
             </div>
 
 
-            <div class="row">
-                <div class="col-md-1"> </div>  
+          <div class="row">
+                <div class="col-md-1"> </div>
                 <div class="col-md-1">Jefe</div>  
                 <div class="col-md-4"> 
-                    <input class="form-control"  value="<?php  echo $usuario->getJefe() ?>" type="text" readonly="true" name="jefe" id="jefe">
-                </div>    
+                    <input class="form-control"  value="<?php echo $usuario->getJefe() ?>" type="text" readonly="true" name="jefe" id="jefe">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"> </div>  
+                <div class="col-md-1">Archivo </div>
+                <div class="col-md-4">
+                     <?php echo $form['archivo'] ?>    
+                </div>
+                <div class="col-md-1"> </div>
+                
                 <div class="col-md-2">
+                    <br><br><br><br>
                     <div id="procesar" name="procesar" >
 
                         <button class="btn btn-primary btn-block  btn-block"
                                 procesa="procesa"
                                 type="submit">
                             <i class="fa fa-check "></i>
-                            <span>Procesar</span>
+                            Procesar
                         </button>
                     </div>
 

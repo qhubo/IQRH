@@ -26,6 +26,7 @@
                     <th align="center"><div align="center">Motivo</div></th>
                     <th align="center"><div align="center">Estado</div></th>
                     <th align="center"><div align="center">Observaciones</div></th>
+                     <td width="10%"></td>
                     <td width="10%"></td>
                 </tr> 
             </thead>
@@ -43,6 +44,9 @@
                         <td><?php echo $lista->getMotivo(); ?></td>
                         <td><?php echo $lista->getEstado(); ?></td>
                         <td><?php echo $lista->getObservaciones(); ?></td>
+                                                <td> <?php if ($lista->getArchivoUno()) { ?>
+                            <a class="btn  btn-xs  blue btn-outline" target="_new"  href="/uploads/carga/<?php echo $lista->getArchivoUno(); ?>" > <li class="fa fa-download"></li> Archivo </a>  
+                            <?php } ?></td>
                         <td> <a class="btn  blue-steel btn-xs btn-outline btn-block "   href="<?php echo url_for($modulo . '/autorizadov?id=' . $lista->getId()) ?>"  data-toggle="modal" data-target="#ajaxmodalV<?php echo $lista->getId() ?>"><i class="fa fa-check"></i> Aceptar</a>
                             <br>
                             <a class="btn  red btn-xs btn-outline btn-block "   href="<?php echo url_for($modulo . '/rechazov?id=' . $lista->getId()) ?>"  data-toggle="modal" data-target="#ajaxmodalVE<?php echo $lista->getId() ?>"><i class="fa fa-eraser"></i> Rechazar</a>
@@ -86,6 +90,7 @@
                     <th align="center"><div align="center"> Motivo </div></th>
                     <th align="center"><div align="center"> Estado </div></th>
                     <th align="center"><div align="center"> Observaciones </div></th>
+                        <td width="10%"></td>
                     <td width="10%"></td>
                 </tr> 
             </thead>
@@ -100,6 +105,9 @@
                         <td><?php echo $lista->getMotivo(); ?></td>
                         <td><?php echo $lista->getEstado(); ?></td>
                         <td><?php echo $lista->getObservaciones(); ?></td>
+                        <td> <?php if ($lista->getArchivoUno()) { ?>
+                            <a class="btn  btn-xs  blue btn-outline" target="_new"  href="/uploads/carga/<?php echo $lista->getArchivoUno(); ?>" > <li class="fa fa-download"></li> Archivo </a>  
+                            <?php } ?></td>
                         <td>
                             <a class="btn  blue-steel btn-xs btn-outline btn-block "   href="<?php echo url_for($modulo . '/autorizado?id=' . $lista->getId()) ?>"  data-toggle="modal" data-target="#ajaxmodal<?php echo $lista->getId() ?>"><i class="fa fa-check"></i> Aceptar</a>
                             <br>
@@ -144,6 +152,7 @@
                     <th align="center"><div align="center"> Motivo </div></th>
                     <th align="center"><div align="center"> Estado </div></th>
                     <th align="center"><div align="center"> Observaciones </div></th>
+                        <td width="10%"></td>
                     <td width="10%"></td>
                 </tr> 
             </thead>
@@ -158,6 +167,12 @@
                         <td><?php echo $lista->getCatalogoSolicitud(); ?></td>
                         <td><?php echo $lista->getEstado(); ?></td>
                         <td><?php echo $lista->getObservaciones(); ?></td>
+                        
+                        <td>
+                            <?php if ($lista->getArchivoUno()) { ?>
+                            <a class="btn  btn-xs  blue btn-outline" target="_new"  href="/uploads/carga/<?php echo $lista->getArchivoUno(); ?>" > <li class="fa fa-download"></li> Archivo </a>  
+                            <?php } ?>
+                        </td>
                         <td>
                             <a class="btn  blue-steel btn-xs btn-outline btn-block "   href="<?php echo url_for($modulo . '/autorizadoS?id=' . $lista->getId()) ?>"  data-toggle="modal" data-target="#ajaxmodalSS<?php echo $lista->getId() ?>"><i class="fa fa-check"></i> Aceptar</a>
                             <br>

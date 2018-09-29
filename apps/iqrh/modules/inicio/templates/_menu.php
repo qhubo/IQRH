@@ -30,7 +30,10 @@
                         <a href="<?php echo url_for("catalogo_solicitud/index"); ?>" 
                            class="nav-link  "> Catálogo Solicitud </a>
                     </li> 
-                
+   <li class=" ">
+                        <a href="<?php echo url_for("tipo_ausencia/index"); ?>" 
+                           class="nav-link  "> Catálogo Ausencias </a>
+                    </li>              
                     
                     
                 </ul>

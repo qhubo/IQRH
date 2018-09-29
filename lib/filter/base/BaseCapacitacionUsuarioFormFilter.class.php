@@ -16,6 +16,8 @@ abstract class BaseCapacitacionUsuarioFormFilter extends BaseFormFilterPropel
       'nombre'        => new sfWidgetFormFilterInput(),
       'fecha'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'observaciones' => new sfWidgetFormFilterInput(),
+      'archivo_uno'   => new sfWidgetFormFilterInput(),
+      'archivo_dos'   => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -23,6 +25,8 @@ abstract class BaseCapacitacionUsuarioFormFilter extends BaseFormFilterPropel
       'nombre'        => new sfValidatorPass(array('required' => false)),
       'fecha'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'observaciones' => new sfValidatorPass(array('required' => false)),
+      'archivo_uno'   => new sfValidatorPass(array('required' => false)),
+      'archivo_dos'   => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('capacitacion_usuario_filters[%s]');
@@ -45,6 +49,8 @@ abstract class BaseCapacitacionUsuarioFormFilter extends BaseFormFilterPropel
       'nombre'        => 'Text',
       'fecha'         => 'Date',
       'observaciones' => 'Text',
+      'archivo_uno'   => 'Text',
+      'archivo_dos'   => 'Text',
     );
   }
 }

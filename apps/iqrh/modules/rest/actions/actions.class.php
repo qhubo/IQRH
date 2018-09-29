@@ -84,7 +84,7 @@ class restActions extends sfActions {
         $planilla_resumen_id = $request->getParameter('planilla_resumen_id');
         $tipo = $request->getParameter('tipo');
         $afeca_ss = $request->getParameter('afeca_ss');
-        $descripcion = $request->getParameter('descripcion');
+        $descripcion = trim($request->getParameter('descripcion'));
         $monto = $request->getParameter('monto');
         $debe = $request->getParameter('debe');
         $haber = $request->getParameter('haber');
@@ -94,6 +94,7 @@ class restActions extends sfActions {
         $planillaDeta = ReciboDetalleQuery::create()
                 ->filterByCabeceraIn($cabecera_in)
                 ->filterByIdC($id_c)
+                ->filterByDescripcion($descripcion)
                 ->filterByPlanillaResumenId($planilla_resumen_id)
                 ->findOne();
 //                ->findOneByIdC($id_c);

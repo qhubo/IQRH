@@ -10,7 +10,25 @@ class IngresoVacacionForm extends sfForm {
 //                ), array('class' => 'form-control',
 //        )));
 //        $this->setValidator('motivo', new sfValidatorString(array('required' => true)));
-
+             $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+        $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+        $lista[$usuarioQ->getId()] = $usuarioQ->getNombreCompleto();
+        $empleados = UsuarioQuery::create()
+                ->orderByNombreCompleto()
+                ->filterByUsuarioJefe($usuarioId)
+                ->find();
+        foreach ($empleados as $listado) {
+            $lista[$listado->getId()] = $listado->getNombreCompleto();
+        }
+        $this->setWidget('empleado', new sfWidgetFormChoice(array(
+            "choices" => $lista,
+                ), array("class" => "form-control")));
+        $this->setValidator('empleado', new sfValidatorString(array('required' => true)));
+  $this->setWidget(
+                "archivo", new sfWidgetFormInputFile(array(), array(
+            "class" => "file-upload btn btn-file-upload",
+        )));
+        $this->setValidator('archivo', new sfValidatorFile(array('required' => false), array()));
         $this->setWidget('diaInicio', new sfWidgetFormInputText(array(), array('class' => 'form-control', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy')));
         $this->setValidator('diaInicio', new sfValidatorString(array('required' => true)));
 
@@ -35,6 +53,7 @@ class IngresoVacacionForm extends sfForm {
 
     public function valida(sfValidatorBase $validator, array $values) {
         $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+        $usuarioId  = $values['empleado'];
         $fechaInicio = $values['diaInicio'];
         $fechaFin = $values['diaFin'];
         if ($fechaInicio) {

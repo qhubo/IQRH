@@ -1,7 +1,7 @@
 propel:
   usuario:
     id:                                ~
-    codigo:                             { type: varchar(50)}
+    codigo:                            { type: varchar(50)}
     usuario:                           { type: varchar(32), required: true , primaryString: true}
     clave:                             { type: varchar(60) }
     correo:                            { type: varchar(255) }
@@ -90,6 +90,16 @@ propel:
      usuario_modero:                   { type: varchar(150)}
      estado:                           { type: varchar(150), default: 'Pendiente'} 
      comentario_modero:                { type: longvarchar }
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+     fecha_fin:                        { type: date }
+     
+  ausencia_detalle:
+     id:                               ~
+     usuario_id:                       ~
+     solicitud_ausencia_id:            ~
+     dia:                              { type: date }
+     
      
   solicitud_vacacion:
      id:                               ~
@@ -105,6 +115,9 @@ propel:
      created_at:                       ~   
      updated_at:                       ~  
      jefe:                             { type: integer}
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+
      
   solicitud_finquito:   
      id:                               ~
@@ -120,7 +133,10 @@ propel:
      usuario_modero:                   { type: varchar(150)}
      estado:                           { type: varchar(150)} 
      comentario_modero:                { type: longvarchar }
-     
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+
+
   vacacion_usuario:
      id:                               ~  
      usuario_id:                       ~   
@@ -130,6 +146,8 @@ propel:
      valor:                            { type: double } 
      dias:                             { type: integer } 
      observaciones:                    { type: longvarchar } 
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
 
 
   aumento_usuario:
@@ -141,6 +159,8 @@ propel:
      sueldo:                           { type: double } 
      nuevo_puesto:                     { type: varchar(250)}   
      observaciones:                    { type: longvarchar } 
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
 
 
   capacitacion_usuario:
@@ -149,6 +169,8 @@ propel:
      nombre:                           { type: varchar(250)}   
      fecha:                            { type: date } 
      observaciones:                    { type: longvarchar } 
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
      
      
   bitacora_usuario:
@@ -160,6 +182,8 @@ propel:
      tipo:                             { type: varchar(50)} 
      identificador:                    { type: varchar(250)}
      fecha:                            { type: timestamp } 
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
 
 
   catalogo_solicitud:
@@ -167,6 +191,8 @@ propel:
      nombre:                            { type: varchar(100), primaryString: true, default: '' }
      observaciones:                     { type: longvarchar }
      activo:                            { type: boolean, default: true }
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
      
   solicitud_usuario:
      id:                               ~
@@ -180,6 +206,8 @@ propel:
      jefe:                             { type: integer}
      usuario_modero:                   { type: varchar(150)}
      comentario_modero:                { type: longvarchar }
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
 
   recibo_encabezado:
       id:                             ~   
@@ -236,8 +264,13 @@ propel:
       texto:                          { type: longvarchar }
       cabecera_in:                    { type: integer}	  
      
-   
-   
+  tipo_ausencia:   
+      id:                             ~ 
+      empresa:                       { type: varchar(300) } 
+      observacioes:                  { type: longvarchar }
+      dia:                           { type: integer}	  
+      nombre:                       { type: varchar(300) } 
+      activo:                            { type: boolean, default: true }
    
    
    

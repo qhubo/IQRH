@@ -19,6 +19,8 @@ abstract class BaseCapacitacionUsuarioForm extends BaseFormPropel
       'nombre'        => new sfWidgetFormInputText(),
       'fecha'         => new sfWidgetFormDate(),
       'observaciones' => new sfWidgetFormTextarea(),
+      'archivo_uno'   => new sfWidgetFormInputText(),
+      'archivo_dos'   => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -27,6 +29,8 @@ abstract class BaseCapacitacionUsuarioForm extends BaseFormPropel
       'nombre'        => new sfValidatorString(array('max_length' => 250, 'required' => false)),
       'fecha'         => new sfValidatorDate(array('required' => false)),
       'observaciones' => new sfValidatorString(array('required' => false)),
+      'archivo_uno'   => new sfValidatorString(array('max_length' => 150, 'required' => false)),
+      'archivo_dos'   => new sfValidatorString(array('max_length' => 150, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('capacitacion_usuario[%s]');

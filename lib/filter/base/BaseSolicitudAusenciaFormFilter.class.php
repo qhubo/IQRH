@@ -22,6 +22,9 @@ abstract class BaseSolicitudAusenciaFormFilter extends BaseFormFilterPropel
       'jefe'              => new sfWidgetFormFilterInput(),
       'usuario_modero'    => new sfWidgetFormFilterInput(),
       'comentario_modero' => new sfWidgetFormFilterInput(),
+      'archivo_uno'       => new sfWidgetFormFilterInput(),
+      'archivo_dos'       => new sfWidgetFormFilterInput(),
+      'fecha_fin'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
     ));
 
     $this->setValidators(array(
@@ -35,6 +38,9 @@ abstract class BaseSolicitudAusenciaFormFilter extends BaseFormFilterPropel
       'jefe'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'usuario_modero'    => new sfValidatorPass(array('required' => false)),
       'comentario_modero' => new sfValidatorPass(array('required' => false)),
+      'archivo_uno'       => new sfValidatorPass(array('required' => false)),
+      'archivo_dos'       => new sfValidatorPass(array('required' => false)),
+      'fecha_fin'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
     $this->widgetSchema->setNameFormat('solicitud_ausencia_filters[%s]');
@@ -63,6 +69,9 @@ abstract class BaseSolicitudAusenciaFormFilter extends BaseFormFilterPropel
       'jefe'              => 'Number',
       'usuario_modero'    => 'Text',
       'comentario_modero' => 'Text',
+      'archivo_uno'       => 'Text',
+      'archivo_dos'       => 'Text',
+      'fecha_fin'         => 'Date',
     );
   }
 }

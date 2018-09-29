@@ -19,6 +19,8 @@ abstract class BaseBitacoraUsuarioFormFilter extends BaseFormFilterPropel
       'tipo'          => new sfWidgetFormFilterInput(),
       'identificador' => new sfWidgetFormFilterInput(),
       'fecha'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'archivo_uno'   => new sfWidgetFormFilterInput(),
+      'archivo_dos'   => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -29,6 +31,8 @@ abstract class BaseBitacoraUsuarioFormFilter extends BaseFormFilterPropel
       'tipo'          => new sfValidatorPass(array('required' => false)),
       'identificador' => new sfValidatorPass(array('required' => false)),
       'fecha'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'archivo_uno'   => new sfValidatorPass(array('required' => false)),
+      'archivo_dos'   => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('bitacora_usuario_filters[%s]');
@@ -54,6 +58,8 @@ abstract class BaseBitacoraUsuarioFormFilter extends BaseFormFilterPropel
       'tipo'          => 'Text',
       'identificador' => 'Text',
       'fecha'         => 'Date',
+      'archivo_uno'   => 'Text',
+      'archivo_dos'   => 'Text',
     );
   }
 }

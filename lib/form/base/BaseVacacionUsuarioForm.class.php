@@ -22,6 +22,8 @@ abstract class BaseVacacionUsuarioForm extends BaseFormPropel
       'valor'         => new sfWidgetFormInputText(),
       'dias'          => new sfWidgetFormInputText(),
       'observaciones' => new sfWidgetFormTextarea(),
+      'archivo_uno'   => new sfWidgetFormInputText(),
+      'archivo_dos'   => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -33,6 +35,8 @@ abstract class BaseVacacionUsuarioForm extends BaseFormPropel
       'valor'         => new sfValidatorNumber(array('required' => false)),
       'dias'          => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'observaciones' => new sfValidatorString(array('required' => false)),
+      'archivo_uno'   => new sfValidatorString(array('max_length' => 150, 'required' => false)),
+      'archivo_dos'   => new sfValidatorString(array('max_length' => 150, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('vacacion_usuario[%s]');

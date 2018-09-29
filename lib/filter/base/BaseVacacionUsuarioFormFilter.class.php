@@ -19,6 +19,8 @@ abstract class BaseVacacionUsuarioFormFilter extends BaseFormFilterPropel
       'valor'         => new sfWidgetFormFilterInput(),
       'dias'          => new sfWidgetFormFilterInput(),
       'observaciones' => new sfWidgetFormFilterInput(),
+      'archivo_uno'   => new sfWidgetFormFilterInput(),
+      'archivo_dos'   => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -29,6 +31,8 @@ abstract class BaseVacacionUsuarioFormFilter extends BaseFormFilterPropel
       'valor'         => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'dias'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'observaciones' => new sfValidatorPass(array('required' => false)),
+      'archivo_uno'   => new sfValidatorPass(array('required' => false)),
+      'archivo_dos'   => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('vacacion_usuario_filters[%s]');
@@ -54,6 +58,8 @@ abstract class BaseVacacionUsuarioFormFilter extends BaseFormFilterPropel
       'valor'         => 'Number',
       'dias'          => 'Number',
       'observaciones' => 'Text',
+      'archivo_uno'   => 'Text',
+      'archivo_dos'   => 'Text',
     );
   }
 }

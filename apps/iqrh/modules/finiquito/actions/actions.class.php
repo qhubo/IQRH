@@ -35,6 +35,19 @@ class finiquitoActions extends sfActions {
                 $nueva->setUsuarioRetiro($valores['empleado']);
                 $nueva->setEstado("Pendiente");
                 $nueva->save();
+                    $carpetaArchivos = sfConfig::get('sf_upload_dir'); // $ParametroConexion['ruta']; 
+   
+                 if ($valores["archivo"]) {
+                    $archivo = $valores["archivo"];
+                    $nombre = $archivo->getOriginalName();
+                    $nombre = str_replace(" ", "_", $nombre);
+                    $nombre = str_replace(".", "", $nombre);
+                    $filename = $nombre . date("ymdh") . $archivo->getExtension($archivo->getOriginalExtension());
+                    $archivo->save(sfConfig::get("sf_upload_dir") . DIRECTORY_SEPARATOR . 'carga' . DIRECTORY_SEPARATOR . $filename);
+                    $archivo->save($carpetaArchivos . 'carga' . DIRECTORY_SEPARATOR . $filename);
+                    $nueva->setArchivoUno($filename);
+                    $nueva->save();
+                }
                 $this->getUser()->setFlash('exito', ' La solicitud de retiro ha sido ingresada con  éxito ' );
                $this->redirect('finiquito/index');
             }

@@ -16,6 +16,11 @@ class IngresoSolicitudForm extends sfForm {
 
         $this->setWidget('observaciones', new sfWidgetFormTextarea(array(), array('class' => 'form-control')));
         $this->setValidator('observaciones', new sfValidatorString(array('required' => true)));
+  $this->setWidget(
+                "archivo", new sfWidgetFormInputFile(array(), array(
+            "class" => "file-upload btn btn-file-upload",
+        )));
+        $this->setValidator('archivo', new sfValidatorFile(array('required' => false), array()));
 
 
         $this->validatorSchema->setPostValidator(new sfValidatorCallback(array(

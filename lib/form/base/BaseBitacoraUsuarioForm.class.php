@@ -22,6 +22,8 @@ abstract class BaseBitacoraUsuarioForm extends BaseFormPropel
       'tipo'          => new sfWidgetFormInputText(),
       'identificador' => new sfWidgetFormInputText(),
       'fecha'         => new sfWidgetFormDateTime(),
+      'archivo_uno'   => new sfWidgetFormInputText(),
+      'archivo_dos'   => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -33,6 +35,8 @@ abstract class BaseBitacoraUsuarioForm extends BaseFormPropel
       'tipo'          => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'identificador' => new sfValidatorString(array('max_length' => 250, 'required' => false)),
       'fecha'         => new sfValidatorDateTime(array('required' => false)),
+      'archivo_uno'   => new sfValidatorString(array('max_length' => 150, 'required' => false)),
+      'archivo_dos'   => new sfValidatorString(array('max_length' => 150, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('bitacora_usuario[%s]');

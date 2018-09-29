@@ -23,6 +23,8 @@ abstract class BaseSolicitudFinquitoFormFilter extends BaseFormFilterPropel
       'jefe'              => new sfWidgetFormFilterInput(),
       'usuario_modero'    => new sfWidgetFormFilterInput(),
       'comentario_modero' => new sfWidgetFormFilterInput(),
+      'archivo_uno'       => new sfWidgetFormFilterInput(),
+      'archivo_dos'       => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -37,6 +39,8 @@ abstract class BaseSolicitudFinquitoFormFilter extends BaseFormFilterPropel
       'jefe'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'usuario_modero'    => new sfValidatorPass(array('required' => false)),
       'comentario_modero' => new sfValidatorPass(array('required' => false)),
+      'archivo_uno'       => new sfValidatorPass(array('required' => false)),
+      'archivo_dos'       => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('solicitud_finquito_filters[%s]');
@@ -66,6 +70,8 @@ abstract class BaseSolicitudFinquitoFormFilter extends BaseFormFilterPropel
       'jefe'              => 'Number',
       'usuario_modero'    => 'Text',
       'comentario_modero' => 'Text',
+      'archivo_uno'       => 'Text',
+      'archivo_dos'       => 'Text',
     );
   }
 }

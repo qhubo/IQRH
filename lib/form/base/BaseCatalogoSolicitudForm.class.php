@@ -18,6 +18,8 @@ abstract class BaseCatalogoSolicitudForm extends BaseFormPropel
       'nombre'        => new sfWidgetFormInputText(),
       'observaciones' => new sfWidgetFormTextarea(),
       'activo'        => new sfWidgetFormInputCheckbox(),
+      'archivo_uno'   => new sfWidgetFormInputText(),
+      'archivo_dos'   => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -25,6 +27,8 @@ abstract class BaseCatalogoSolicitudForm extends BaseFormPropel
       'nombre'        => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'observaciones' => new sfValidatorString(array('required' => false)),
       'activo'        => new sfValidatorBoolean(array('required' => false)),
+      'archivo_uno'   => new sfValidatorString(array('max_length' => 150, 'required' => false)),
+      'archivo_dos'   => new sfValidatorString(array('max_length' => 150, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('catalogo_solicitud[%s]');

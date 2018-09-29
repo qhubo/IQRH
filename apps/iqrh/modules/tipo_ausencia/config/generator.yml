@@ -1,0 +1,47 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           TipoAusencia
+    theme:                 admin15
+    non_verbose_templates: true
+    with_show:             false
+    singular:              TipoAusencia
+    plural:                TipoAusencias
+    route_prefix:          tipo_ausencia
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+          empresa:
+              label:       Empresa
+              attributes:
+                  class:    form-control input-xlarge
+          nombre:
+              label:       Nombre
+              attributes:
+                  class:   form-control input-xmedium
+                  
+          observacioes:
+              label:       Observaciones
+              attributes:
+                  class:   form-control input-xlarge
+          dia:
+              label:       Dia
+              attributes:
+                  type:    number
+                  class:   form-control input-small
+              
+      list: 
+        title:             Tipo Ausencias
+        display:           [empresa,nombre,observacioes,dia,activo]
+      filter:
+        display:           [empresa,nombre,observacioes,dia,activo]
+      form:
+        display:           [empresa,nombre,observacioes,dia,activo]
+      edit:
+        title:             Editar  
+      new:
+        title:             Nuevo
+

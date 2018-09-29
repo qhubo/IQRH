@@ -19,6 +19,8 @@ abstract class BaseAumentoUsuarioFormFilter extends BaseFormFilterPropel
       'sueldo'          => new sfWidgetFormFilterInput(),
       'nuevo_puesto'    => new sfWidgetFormFilterInput(),
       'observaciones'   => new sfWidgetFormFilterInput(),
+      'archivo_uno'     => new sfWidgetFormFilterInput(),
+      'archivo_dos'     => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -29,6 +31,8 @@ abstract class BaseAumentoUsuarioFormFilter extends BaseFormFilterPropel
       'sueldo'          => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'nuevo_puesto'    => new sfValidatorPass(array('required' => false)),
       'observaciones'   => new sfValidatorPass(array('required' => false)),
+      'archivo_uno'     => new sfValidatorPass(array('required' => false)),
+      'archivo_dos'     => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('aumento_usuario_filters[%s]');
@@ -54,6 +58,8 @@ abstract class BaseAumentoUsuarioFormFilter extends BaseFormFilterPropel
       'sueldo'          => 'Number',
       'nuevo_puesto'    => 'Text',
       'observaciones'   => 'Text',
+      'archivo_uno'     => 'Text',
+      'archivo_dos'     => 'Text',
     );
   }
 }

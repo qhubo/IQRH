@@ -26,6 +26,8 @@ abstract class BaseSolicitudFinquitoForm extends BaseFormPropel
       'jefe'              => new sfWidgetFormInputText(),
       'usuario_modero'    => new sfWidgetFormInputText(),
       'comentario_modero' => new sfWidgetFormTextarea(),
+      'archivo_uno'       => new sfWidgetFormInputText(),
+      'archivo_dos'       => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -41,6 +43,8 @@ abstract class BaseSolicitudFinquitoForm extends BaseFormPropel
       'jefe'              => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'usuario_modero'    => new sfValidatorString(array('max_length' => 150, 'required' => false)),
       'comentario_modero' => new sfValidatorString(array('required' => false)),
+      'archivo_uno'       => new sfValidatorString(array('max_length' => 150, 'required' => false)),
+      'archivo_dos'       => new sfValidatorString(array('max_length' => 150, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('solicitud_finquito[%s]');
