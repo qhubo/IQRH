@@ -269,8 +269,17 @@ propel:
       empresa:                       { type: varchar(300) } 
       observacioes:                  { type: longvarchar }
       dia:                           { type: integer}	  
-      nombre:                       { type: varchar(300) } 
-      activo:                            { type: boolean, default: true }
+      nombre:                        { type: varchar(300) } 
+      activo:                        { type: boolean, default: true }
+      
+  asistencia_usuario:
+      id:                            ~ 
+      empresa:                       { type: varchar(300) } 
+      usuario:                       { type: varchar(300) } 
+      dia:                           { type: date }
+      hora:                          { type: varchar(30) }
+      fecha_hora:                    { type: timestamp } 
+    
    
    
    
