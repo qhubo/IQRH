@@ -65,8 +65,12 @@ class rest_asisteActions extends sfActions {
                     $asistencia->setHora($hora);
                     $asistencia->save();
                 }
+
             }
-            
+                echo "<pre>";
+                print_r($asistencia);
+                echo "</pre>";
+                die();
             $resultado['valido'] = 1;
             $resultado['mensaje'] = 'ACTUALIZADO';
             $data_json = json_encode($resultado);
