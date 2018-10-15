@@ -36,9 +36,7 @@ class reporteActions extends sfActions
             'encabezado'=>$encabezado,
             'detalle'=>$detalle
         ));
-//        echo "<pre>";
-//        print_r($html);
-//        die();
+
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
         $pdf->SetTitle('Recibo Empleado');
@@ -65,4 +63,31 @@ class reporteActions extends sfActions
         // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
         $pdf->Output('Visita.pdf', 'I');
     }
+    
+    
+     public function executeAsistencia(sfWebRequest $request) {
+        $pdf = new sfTCPDF("P", "mm", "Letter");
+        $id = $request->getParameter("id");
+        $codigo = $request->getParameter("cod");
+//        $cabecera = ReciboCabeceraQuery::create()
+//                ->filterByCabeceraIn($id)
+//                ->findOne();
+//        $encabezado = ReciboEncabezadoQuery::create()
+//                ->filterByCabeceraIn($id)
+//                ->filterByCodigo($codigo)
+//                ->findOne();
+//        $detalle= ReciboDetalleQuery::create()
+//                ->filterByPlanillaResumenId($encabezado->getPlanillaResumenId())
+//                ->find();
+//        
+//        
+        $html = $this->getPartial('reporte/asistencia', array("muestra" => 0,
+//            'cabecera' => $cabecera,
+//            'encabezado'=>$encabezado,
+ //           'detalle'=>$detalle
+        ));
+        
+        echo $html;
+        die();
+     }
 }

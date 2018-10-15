@@ -1,3 +1,12 @@
+asistencia_usuario:
+  class: sfPropelORMRouteCollection
+  options:
+    model:                AsistenciaUsuario
+    module:               asistencia_usuario
+    prefix_path:          /asistencia_usuario
+    column:               id
+    with_wildcard_routes: true
+
 tipo_ausencia:
   class: sfPropelORMRouteCollection
   options:

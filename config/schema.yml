@@ -278,7 +278,9 @@ propel:
       usuario:                       { type: varchar(300) } 
       dia:                           { type: date }
       hora:                          { type: varchar(30) }
-      fecha_hora:                    { type: timestamp } 
+      fecha_hora:                    { type: timestamp }
+      tarde:                         { type: boolean, default: true } 
+      hora_tarde:                    { type: double }
     
    
    
