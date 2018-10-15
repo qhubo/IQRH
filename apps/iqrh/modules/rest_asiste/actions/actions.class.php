@@ -24,6 +24,7 @@ class rest_asisteActions extends sfActions {
         $hora = $request->getParameter('hora');
         $dia = $request->getParameter('dia');
         $usuario = $request->getParameter('usuario');
+        $resultado['mensaje'] = 'TOKEN NO VALIDO';
         if ($token <> "bbba722f948709955de06b9e2a7e703e3bc15996") {
             $resultado['valido'] = 0;
             $resultado['mensaje'] = 'TOKEN NO VALIDO';
