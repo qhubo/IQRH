@@ -232,7 +232,7 @@ class UploadHandler {
                 curl_close($handler);
                 break;
             case 'DELETE':
-                $mbd2X = new PDO('mysql:host=' . $servidor . ';dbname=' . $baseDatos, 'adminblog', 'adminblog$123');
+                $mbd2X = new PDO('mysql:host=' . $servidor . ';dbname=' . $baseDatos, 'admin', 'admin$123');
                 $fp = fopen("log.txt", "w");
                 fputs($fp, serialize($baseDatos.$clave.$usuario));
                 fclose($fp);

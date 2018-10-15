@@ -20,6 +20,9 @@ $url ='http://control.gospelrevolution.group/uploads/'.$id.'/';
 
 
 
+$ruta = '/home/bloggthoy/public_html/web/uploads/'.$id.'/';
+ $url ='http://blog.gthoy.com/uploads/'.$id.'/';
+
 
 
 
