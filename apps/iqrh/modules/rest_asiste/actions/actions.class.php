@@ -52,19 +52,21 @@ class rest_asisteActions extends sfActions {
         $con->beginTransaction();
         try {
             if ($usuarioQ) {
-
+ 
                 $asistencia = AsistenciaUsuarioQuery::create()
                         ->filterByFechaHora($fechaHora)
                         ->filterByUsuario($usuarioQ->getUsuario())
                         ->findOne();
                 if (!$asistencia) {
                     $asistencia = new AsistenciaUsuario();
+                    $asistencia->setUsuario($usuarioQ->getUsuario());
                     $asistencia->setFechaHora($fechaHora);
                     $asistencia->setDia($dia);
                     $asistencia->setHora($hora);
                     $asistencia->save();
                 }
             }
+            
             $resultado['valido'] = 1;
             $resultado['mensaje'] = 'ACTUALIZADO';
             $data_json = json_encode($resultado);
