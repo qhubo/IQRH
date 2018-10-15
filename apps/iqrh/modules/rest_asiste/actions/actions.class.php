@@ -67,10 +67,11 @@ class rest_asisteActions extends sfActions {
                 }
 
             }
-                echo "<pre>";
-                print_r($asistencia);
-                echo "</pre>";
-                die();
+               $con->commit();
+//                echo "<pre>";
+//                print_r($asistencia);
+//                echo "</pre>";
+//                die();
             $resultado['valido'] = 1;
             $resultado['mensaje'] = 'ACTUALIZADO';
             $data_json = json_encode($resultado);
