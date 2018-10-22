@@ -35,7 +35,10 @@
                            class="nav-link  "> Catálogo Ausencias </a>
                     </li>              
                     
-                    
+                     <li class=" ">
+                        <a href="<?php echo url_for("empresa_horario/index"); ?>" 
+                           class="nav-link  "> Horario</a>
+                    </li>      
                 </ul>
 
             </li>

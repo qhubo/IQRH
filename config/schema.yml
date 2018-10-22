@@ -281,6 +281,15 @@ propel:
       fecha_hora:                    { type: timestamp }
       tarde:                         { type: boolean, default: true } 
       hora_tarde:                    { type: double }
+      minuto_tarde:                  { type: double }
+      
+  empresa_horario:
+      id:                            ~ 
+      empresa:                       { type: varchar(300) }       
+      hora:                          { type: varchar(10) }
+      hora_fin:                      { type: varchar(10) }
+      hora24:                        { type: varchar(10) }
+      hora_fin24:                    { type: varchar(10) }
     
    
    

@@ -1,3 +1,12 @@
+empresa_horario:
+  class: sfPropelORMRouteCollection
+  options:
+    model:                EmpresaHorario
+    module:               empresa_horario
+    prefix_path:          /empresa_horario
+    column:               id
+    with_wildcard_routes: true
+
 asistencia_usuario:
   class: sfPropelORMRouteCollection
   options:

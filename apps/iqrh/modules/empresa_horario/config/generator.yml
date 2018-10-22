@@ -1,0 +1,41 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           EmpresaHorario
+    theme:                 admin15
+    non_verbose_templates: true
+    with_show:             false
+    singular:              EmpresaHorario
+    plural:                EmpresaHorarios
+    route_prefix:          empresa_horario
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+          empresa:
+              label:       Empresa
+              attributes:
+                  class:    form-control input-xlarge    
+          hora:
+              label:       Hora Entrada
+              attributes:
+                  class:    form-control input-xsmall  timepicker timepicker-24   
+          hora_fin:
+              label:       Hora Salida
+              attributes:
+                  class:    form-control input-xsmall   timepicker timepicker-24 
+
+      list: 
+        title:             Horario Empresas
+        display:           [empresa,hora,hora_fin]
+      filter:
+        display:           [empresa,hora,hora_fin]
+      form:
+        display:           [empresa,hora,hora_fin]
+      edit:
+        title:             Editar  Horario
+      new:
+        title:             Nuevo
+

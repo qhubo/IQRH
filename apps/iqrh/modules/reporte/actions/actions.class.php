@@ -19,24 +19,24 @@ class reporteActions extends sfActions
         $pdf = new sfTCPDF("P", "mm", "Letter");
         $id = $request->getParameter("id");
         $codigo = $request->getParameter("cod");
-        $cabecera = ReciboCabeceraQuery::create()
-                ->filterByCabeceraIn($id)
-                ->findOne();
-        $encabezado = ReciboEncabezadoQuery::create()
-                ->filterByCabeceraIn($id)
-                ->filterByCodigo($codigo)
-                ->findOne();
-        $detalle= ReciboDetalleQuery::create()
-                ->filterByPlanillaResumenId($encabezado->getPlanillaResumenId())
-                ->find();
-        
-        
-        $html = $this->getPartial('reporte/recibo', array("muestra" => 0,
-            'cabecera' => $cabecera,
-            'encabezado'=>$encabezado,
-            'detalle'=>$detalle
-        ));
-
+//        $cabecera = ReciboCabeceraQuery::create()
+//                ->filterByCabeceraIn($id)
+//                ->findOne();
+//        $encabezado = ReciboEncabezadoQuery::create()
+//                ->filterByCabeceraIn($id)
+//                ->filterByCodigo($codigo)
+//                ->findOne();
+//        $detalle= ReciboDetalleQuery::create()
+//                ->filterByPlanillaResumenId($encabezado->getPlanillaResumenId())
+//                ->find();
+//        
+//        
+//        $html = $this->getPartial('reporte/recibo', array("muestra" => 0,
+//            'cabecera' => $cabecera,
+//            'encabezado'=>$encabezado,
+//            'detalle'=>$detalle
+//        ));
+           $html = $this->getPartial('reporte/correo', array("muestra" => 0));
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
         $pdf->SetTitle('Recibo Empleado');
