@@ -19,4 +19,76 @@
  */
 class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery
 {
+      static public function procesa() {
+                  $Asistencia = AsistenciaUsuarioQuery::create()
+                ->filterByEmpresa(null)
+                ->find();
+        $actualizados = 0;
+        foreach ($Asistencia as $registro) {
+            $usuario = UsuarioQuery::create()->findOneByCodigo($registro->getUsuario());
+            if ($usuario) {
+                $actualizados++;
+                $empresa = $usuario->getEmpresa();
+                $HorarioQ = EmpresaHorarioQuery::create()->findOneByEmpresa($empresa);
+                if ($HorarioQ) {
+                    $llegoTarde = false;
+                    $Entrada = $HorarioQ->getHora24();
+                    $Salida = $HorarioQ->getHoraFin24();
+                    $IngresoActual = $registro->getHora();
+                    $IngresoActual = (int) str_replace(":", "", $IngresoActual);
+                    $hora = substr($IngresoActual, 0, strlen($IngresoActual) - 2);
+                    $minuto = substr($IngresoActual, -2);
+                    $HORAMIN = ($hora * 60) + $minuto;
+                    $horaEntrada = substr($Entrada, 0, strlen($Entrada) - 2);
+                    $minutoEntrada = substr($Entrada, -2);
+                    $HORAMINEntrada = ($horaEntrada * 60) + $minutoEntrada;
+                    $diferenica = $HORAMIN - $HORAMINEntrada;
+                    $horaDifecnia = $diferenica / 60;
+                    if ($diferenica > 0) {
+                        $llegoTarde = true;
+                    }
+                    echo "INGRESO " . $IngresoActual . " horario entrada " . $Entrada;
+                    $horario = explode(".", $horaDifecnia);
+                    $horaTarde = $horario[0];
+
+                    $minutoTarde = 0;
+                    if (count($horario) > 1) {
+                        $minuto = '0.' . $horario[1];
+                        if ($minuto) {
+                            $minutoTarde = $minuto * 60;
+                        }
+                    }
+                    $AsistenciaQ = AsistenciaUsuarioQuery::create()->findOneById($registro->getId());
+                    $AsistenciaQ->setEmpresa($empresa);
+                    $AsistenciaQ->setHoraTarde($horaTarde);
+                    $AsistenciaQ->setTarde($llegoTarde);
+                    $AsistenciaQ->setMinutoTarde($minutoTarde);
+                    $AsistenciaQ->save();
+                    // echo "<br>";
+                    // echo " hora tarde ".$hora." minuto  ".$minuto." minuto tarde ".$minutoTarde;
+                } else {
+                    //    echo "NO TIENE HORARIO " . $empresa;
+                    //  echo "<br>";
+                }
+            }
+        }
+      }
+      
+            static public function marcas($dia,$usuario) {
+                $retorna='';
+                $asistenciaUu = AsistenciaUsuarioQuery::create()
+                        ->orderByHora()
+                        ->filterByDia($dia)
+                        ->filterByUsuario($usuario)
+                        ->find();
+                $hora=null;
+                foreach ($asistenciaUu as $regi) {
+                    $hora[]=$regi->getHora();
+                }
+             if ($hora) {
+                 $retorna = implode("<br>", $hora);
+             }
+                
+                return $retorna;
+            }
 }

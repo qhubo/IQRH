@@ -96,6 +96,9 @@
                 </a>
                 <ul class="dropdown-menu pull-left">
                     <li class=" ">
+                              <a href="<?php echo url_for("reporte_asistencia/index"); ?>" 
+                           class="nav-link  ">Asistencia </a>
+                           
                         <a href="<?php echo url_for("reporte_recibo/index"); ?>" 
                            class="nav-link  ">Recibos </a>
 
