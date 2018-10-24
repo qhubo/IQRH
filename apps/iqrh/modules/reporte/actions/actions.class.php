@@ -91,9 +91,9 @@ class reporteActions extends sfActions
         
          $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
-        $pdf->SetTitle('Recibo Empleado');
-        $pdf->SetSubject('Recibo');
-        $pdf->SetKeywords('Recibo, Empleado,Pago'); // set default header data
+        $pdf->SetTitle('Asistencia Empleado');
+        $pdf->SetSubject('Asistencia');
+        $pdf->SetKeywords('Asistencia, Empleado,Asistencia'); // set default header data
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); // set margins
         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
         $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
