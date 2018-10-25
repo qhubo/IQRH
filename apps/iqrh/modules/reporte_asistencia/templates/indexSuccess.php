@@ -1,6 +1,8 @@
 <script src='/assets/global/plugins/jquery.min.js'></script>
 <?php $modulo = $sf_params->get('module'); ?>
-
+<?php $modulo = $sf_params->get('module'); ?>
+<?php echo $form->renderFormTag(url_for($modulo.'/index'), array('class' => 'form-horizontal"')) ?>
+<?php echo $form->renderHiddenFields() ?>
 <div class="portlet light">
     <div class="portlet-title">
         <div class="caption">
@@ -39,15 +41,12 @@
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-1 font font-blue bold Bold">Empresa</div>
-            <div class="col-md-4">
-                <form action="<?php echo url_for('reporte_asistencia/index?id=0') ?>" method="post">
-                    <select  xonchange="this.form.submit()" class="form-control" name="em" id="em">
-                        <option value="">[Seleccione]</option>
-                        <?php foreach ($empresas as $lista) { ?>
-                        <option <?php if ($empresaseleccion== $lista->getEmpresa() ) { ?>selected="selected"  <?php } ?>  value="<?php echo $lista->getEmpresa(); ?>"><?php echo $lista->getEmpresa(); ?></option>
-                        <?php } ?>
-                    </select>
-                </form>
+            <div class="col-md-4"> 
+                <?php echo $form['empresa'] ?>           
+                    <span class="help-block form-error"> 
+                        <?php echo $form['empresa']->renderError() ?>  
+                    </span>
+            
             </div>
             <div class="col-md-1"> </div>
             <div class="col-md-2">
@@ -83,7 +82,7 @@
                 
                     <tr>
                         <td> <?php echo $lista->getDia('d/m/Y'); ?>           </td>
-                        <td align="center"> <?php echo $usuariQ->getCodigo(); ?></td>
+                        <td align="center"><?php //echo $lista->getEmpresa(); ?>  <?php echo $usuariQ->getCodigo(); ?></td>
                         <td><?php echo $usuariQ->getNombreCompleto(); ?></td>
                         <td>  <?php echo AsistenciaUsuarioQuery::marcas($lista->getDia('Y-m-d'), $usuariQ->getUsuario())   ?>        </td>
                   </tr>
@@ -94,3 +93,4 @@
     </div>
 </div>
 
+<?php echo '</form>'; ?>

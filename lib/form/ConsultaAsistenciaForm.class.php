@@ -16,7 +16,7 @@ class ConsultaAsistenciaForm extends sfForm {
                 ->find();
              $opcionesU[null]='Seleccione Empresa';
         foreach ($empresas as $lista) {
-            $opcionesU[$lista->getId()]=$lista->getEmpresa();
+            $opcionesU[$lista->getEmpresa()]=$lista->getEmpresa();
         }
         
          $this->setWidget('empresa', new sfWidgetFormChoice(array(
