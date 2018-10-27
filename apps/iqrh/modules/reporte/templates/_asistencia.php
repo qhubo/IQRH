@@ -21,7 +21,7 @@
         <td style="width:40px">&nbsp;</td>
         <td style="width:640px; text-align: left">
             El presente documento muestra de forma gráfica y descriptiva el cumplimiento de la asistencia y puntualidad
-            de los colaboradores en las oficinas de Guatemala durante el mes de marzo del año en curso. A la vez
+            de los colaboradores en las oficinas de Guatemala durante el mes de <?php echo $mes; ?> del año en curso. A la vez
             busca promover el cumplimiento de las normas y procedimientos establecidos en el reglamento interno de
             la empresa
         </td> 
@@ -46,31 +46,31 @@
 
 </table>
 <br>
-<?php
-$Listado = UsuarioQuery::create()
-                ->filterByEmpresa('PCR GUATEMALA')
-                ->setLimit(10)->find();
-?>
-<table> 
-    <tr width="720px" style="background-color: #E9C171">
+
+<table cellpadding="3" > 
+    <tr width="720px"  style="background-color: #E9C171">
         <td  style=" border: 1px solid black;" width="150px" >&nbsp;<font size="-2"><strong>NOMBRE COMPLETO</strong></font>  </td>
         <td  style="border: 1px solid black;" width="170px" >&nbsp;<font size="-2"><strong>PUESTO</strong></font>   </td>
         <td  style="border: 1px solid black;" width="70px" >&nbsp;<font size="-2"><strong>DIAS<br>&nbsp;LABORADOS</strong></font>  </td>
         <td  style="border: 1px solid black;" width="70px" >&nbsp;<font size="-2"><strong>LLEGADAS<br>&nbsp;TARDE</strong></font>  </td>
-        <td  style="border: 1px solid black;" width="75px" >&nbsp;<font size="-2"><strong>%&nbsp;PUNTUALIDAD</strong></font>  </td>
+        <td  style="border: 1px solid black;" width="75px" >&nbsp;<font size="-2"><strong>%<br>PUNTUALIDAD</strong></font>  </td>
         <td  style="border: 1px solid black;" width="70px" >&nbsp;<font size="-2"><strong>HORAS<br>&nbsp; MENSUALES</strong></font>  </td>
         <td  style="border: 1px solid black;" width="70px" >&nbsp;<font size="-2"><strong>HORAS<br>&nbsp; REALES</strong></font> </td>      
         <td  style="border: 1px solid black;" width="50px" >&nbsp;<font size="-2"><strong>% HORAS</strong></font></td>
     </tr>
 <?php foreach ($Listado as $regi) { ?>
+    <?php $puntualidad =0; ?>
         <tr>
-            <td  style=" border: 1px solid black;" width="150px" >&nbsp;<font size="-2"><?php echo $regi->getNombreCompleto(); ?></font>  </td>
-            <td  style="border: 1px solid black;" width="170px" >&nbsp;<font size="-2"><?php echo $regi->getPuesto(); ?></font>   </td>
-            <td  style="border: 1px solid black;" width="70px" >&nbsp;<font size="-2"></font>  </td>
-            <td  style="border: 1px solid black;" width="70px" >&nbsp;<font size="-2"></font>  </td>
-            <td  style="border: 1px solid black;" width="75px" >&nbsp;<font size="-2"></font>  </td>
-            <td  style="border: 1px solid black;" width="70px" >&nbsp;<font size="-2"></font>  </td>
-            <td  style="border: 1px solid black;" width="70px" >&nbsp;<font size="-2"></font> </td>      
+            <td  style=" border: 1px solid black;" width="150px"  >&nbsp;<font size="-2"><?php echo $regi->getNombreCompleto(); ?></font>  </td>
+            <td  style="border: 1px solid black;" width="170px"   >&nbsp;<font size="-2"><?php echo $regi->getPuesto(); ?></font>   </td>
+            <td  style="border: 1px solid black;" width="70px" align="center" >&nbsp;<font size="-1"><?php echo  $dias= AsistenciaUsuarioQuery::laborados($inicio, $fin, $regi->getUsuario());  ?></font>&nbsp;&nbsp;&nbsp;  </td>
+            <td  style="border: 1px solid black;" width="70px" align="center" >&nbsp;<font size="-1"><?php echo $tardes= AsistenciaUsuarioQuery::tardes($inicio, $fin, $regi->getUsuario());  ?></font>  </td>
+            <?php if ($dias >0) { ?>
+            <?php $puntualidad =(($tardes *100) /$dias); ?>
+            <?php } ?>
+            <td  style="border: 1px solid black;" width="75px"  align="center" ><font size="-1">&nbsp; <?php echo  round($puntualidad,2); ?>%  </font></td>
+            <td  style="border: 1px solid black;" width="70px" align="center">&nbsp;<font size="-1"><?php echo $horamensual; ?> </font>  </td>
+            <td  style="border: 1px solid black;" width="70px" align="center">&nbsp;<font size="-1"><?php echo AsistenciaUsuarioQuery::Reales($inicio, $fin, $regi->getUsuario());  ?></font> </td>      
             <td  style="border: 1px solid black;" width="50px" >&nbsp;<font size="-2"></font></td>
 
         </tr>
@@ -81,11 +81,11 @@ $Listado = UsuarioQuery::create()
     <br><?php //echo GRAFICA ?><br>
 
 <?php } ?>
-<table style="width:720px">
+<!--<table style="width:720px">
     <tr>
-        <td style="width:100%">    <img src="<?php echo '/images/banner.PNG' ?>" width="720px" ></td> 
+        <td style="width:100%">    <img src="<?php //echo '/images/banner.PNG' ?>" width="720px" ></td> 
     </tr>
-</table>
+</table>-->
 <table>
     <tr>
         <td style="width:40px">&nbsp;</td>

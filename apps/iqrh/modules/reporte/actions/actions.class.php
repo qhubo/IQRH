@@ -8,14 +8,14 @@
  * @author     Via
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class reporteActions extends sfActions
-{
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
- public function executeRecibo(sfWebRequest $request) {
+class reporteActions extends sfActions {
+
+    /**
+     * Executes index action
+     *
+     * @param sfRequest $request A request object
+     */
+    public function executeRecibo(sfWebRequest $request) {
         $pdf = new sfTCPDF("P", "mm", "Letter");
         $id = $request->getParameter("id");
         $codigo = $request->getParameter("cod");
@@ -36,7 +36,7 @@ class reporteActions extends sfActions
 //            'encabezado'=>$encabezado,
 //            'detalle'=>$detalle
 //        ));
-           $html = $this->getPartial('reporte/correo', array("muestra" => 0));
+        $html = $this->getPartial('reporte/correo', array("muestra" => 0));
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
         $pdf->SetTitle('Recibo Empleado');
@@ -63,33 +63,60 @@ class reporteActions extends sfActions
         // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
         $pdf->Output('Visita.pdf', 'I');
     }
-    
-    
-     public function executeAsistencia(sfWebRequest $request) {
+
+    public function executeAsistencia(sfWebRequest $request) {
+        
+//        $usuario='PCRGT05';
+//        $dia='2018-10-10';
+//        $retorna = AsistenciaUsuarioQuery::horas($dia, $usuario);
+//         echo "<pre>";
+//         print_r($retorna['HORARIO_EFECTIVO']['DIFERENCIA']);
+//         echo "</pre>";
+//         die();
+               
+        
+        
         $pdf = new sfTCPDF("P", "mm", "Letter");
         $id = $request->getParameter("id");
         $codigo = $request->getParameter("cod");
-//        $cabecera = ReciboCabeceraQuery::create()
-//                ->filterByCabeceraIn($id)
-//                ->findOne();
-//        $encabezado = ReciboEncabezadoQuery::create()
-//                ->filterByCabeceraIn($id)
-//                ->filterByCodigo($codigo)
-//                ->findOne();
-//        $detalle= ReciboDetalleQuery::create()
-//                ->filterByPlanillaResumenId($encabezado->getPlanillaResumenId())
-//                ->find();
-//        
-//        
-        $html = $this->getPartial('reporte/asistencia', array("muestra" => 0,
-//            'cabecera' => $cabecera,
-//            'encabezado'=>$encabezado,
- //           'detalle'=>$detalle
-        ));
-     //           echo $html;
-     //   die();
+        $mes[1] = 'Enero';
+        $mes[2] = 'Febrero';
+        $mes[3] = 'Marzo';
+        $mes[4] = 'Abril';
+        $mes[5] = 'Mayo';
+        $mes[6] = 'Junio';
+        $mes[7] = 'Julio';
+        $mes[8] = 'Agosto';
+        $mes[7] = 'Julio';
+        $mes[8] = 'Agosto';
+        $mes[9] = 'Septiembre';
+        $mes[10] = 'Octubre';
+        $mes[11] = 'Noviembre';
+        $mes[12] = 'Diciembre';
+        $mesDescripcion = $mes[10];
+        $inicio='2018-10-01';
+        $fin='2018-10-31';
+        $horaMensual =160;
         
-         $pdf->SetCreator(PDF_CREATOR);
+        
+        $Listado = UsuarioQuery::create()
+//                      ->where("AsistenciaUsuario.Dia >= '" . $inicio . " 00:00:00" . "'")
+//                ->where("AsistenciaUsuario.Dia <= '" . $fin . " 23:59:00" . "'")
+                ->filterByUsuario('Demo', Criteria::NOT_IN)
+                ->orderByPrimerApellido("Desc")
+                   ->filterByEmpresa('PCR GUATEMALA')
+                ->find();
+
+        $html = $this->getPartial('reporte/asistencia', array("muestra" => 0, 'Listado' => $Listado,
+            'inicio'=>$inicio, 'fin'=>$fin, 'horamensual'=>$horaMensual,
+            'mes' => $mesDescripcion
+        ));
+        
+//        echo "<pre>";
+//        print_r($html);
+//        die();
+        
+        $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
         $pdf->SetTitle('Asistencia Empleado');
         $pdf->SetSubject('Asistencia');
@@ -113,7 +140,7 @@ class reporteActions extends sfActions
         //   $pdf->Image('./images/fondo.jpg', 0, 55, 720, 50, 'JPG', 'http://app.doblef.com/', '', true, 150, '', false, false, 1, false, false, false);
         $pdf->writeHTML($html);
         // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
-        $pdf->Output('Visita.pdf', 'I');
+        $pdf->Output('Asistencia.pdf', 'I');
+    }
 
-     }
 }
