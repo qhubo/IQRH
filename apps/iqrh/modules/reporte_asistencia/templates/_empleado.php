@@ -23,8 +23,16 @@
             <?php } ?>
             <td  style="xborder: 1px solid black;" xwidth="75px"  align="center" ><font size="-1">&nbsp; <?php echo  round($puntualidad,2); ?>%  </font></td>
             <td  style="xborder: 1px solid black;" xwidth="70px" align="center">&nbsp;<font size="-1"><?php echo $horamensual; ?> </font>  </td>
-            <td  style="xborder: 1px solid black;" xwidth="70px" align="center">&nbsp;<font size="-1"><?php echo AsistenciaUsuarioQuery::Reales($inicio, $fin, $regi->getUsuario());  ?></font> </td>      
-            <td  style="xborder: 1px solid black;" xwidth="50px" >&nbsp;<font size="-2"></font></td>
+            <td  style="xborder: 1px solid black;" xwidth="70px" align="center">&nbsp;<font size="-1"><?php echo $reales=AsistenciaUsuarioQuery::Reales($inicio, $fin, $regi->getUsuario());  ?></font> </td>      
+               <?php $horas=0 ?>         
+   <?php if  ($reales > $horamensual) {  ?>
+            <?php $horas=100 ?>
+            <?php } ?>
+            <?php if ($reales >0) { ?>
+            <?php $horas = (($reales *100) / $horamensual); ?>
+            <?php } ?>
+            <?php $horas =round($horas,2); ?>
+            <td  style="xborder: 1px solid black;" xwidth="50px" >&nbsp;<font size="-1"><?php echo $horas ?></font></td>
             <td>   <a class="btn  btn-xs blue-steel  btn-block "  target="_blank"  href="#<?php echo url_for('reporte/asistencia') ?>" >&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-print"></i></a>
 
      
