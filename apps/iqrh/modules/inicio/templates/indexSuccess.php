@@ -25,7 +25,6 @@
                         <li>
                             <a href="#tab_1_2" data-toggle="tab">Empleados</a>
                         </li>
-
                     </ul>
 
                     <div class="tab-content">

@@ -35,12 +35,8 @@
                         <?php $imagen = $lis->getLogo(); ?>
                         <tr>
                             <td>
-                                <?php //echo $imagen; ?>
-                              
                                 <img alt="" width="75px" src="<?php echo $imagen ?>">
-                        
-
-                            </td>
+                           </td>
                             <td><?php echo $lis->getCodigo() ?></td>
                             <td><?php echo $lis->getUsuario() ?></td>
                             <td><?php echo $lis->getNombreCompleto() ?></td>

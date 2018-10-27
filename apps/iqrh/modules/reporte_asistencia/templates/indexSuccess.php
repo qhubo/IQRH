@@ -57,7 +57,19 @@
             </div>
         </div>
 
-        <div class="row">
+                      <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1_1" data-toggle="tab">
+                                <span class="caption-subject font-green uppercase bold">Detallado </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tab_1_2" data-toggle="tab">Empleados</a>
+                        </li>
+                    </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1_1">
+                    <div class="row">
             <div class="col-md-10"></div>
             <div class="col-md-2">
                 <a class="btn  btn grey-cascade  btn-block "  target="_blank"  href="<?php echo url_for('reporte/asistencia') ?>" ><i class="fa fa-list"></i>&nbsp;&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-print"></i></a>
@@ -100,6 +112,16 @@
                 </tbody>
             </table>
         </div>
+            </div>
+            
+            <div class="tab-pane " id="tab_1_2">
+        
+                  <?php include_partial('reporte_asistencia/empleado' , array('Listado' => $Listado, 'inicio'=>$inicio, 'fin'=>$fin)) ?> 
+                
+            </div>
+        </div>
+        
+    
     </div>
 </div>
 
