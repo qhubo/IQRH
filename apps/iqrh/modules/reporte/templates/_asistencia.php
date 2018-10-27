@@ -86,7 +86,7 @@
         <td style="width:100%">    <img src="<?php //echo '/images/banner.PNG' ?>" width="720px" ></td> 
     </tr>
 </table>-->
-<table>
+<!--<table>
     <tr>
         <td style="width:40px">&nbsp;</td>
         <td style="width:640px;text-align: left">
@@ -116,7 +116,7 @@
         <td style="width:40px">&nbsp;</td>
 
     </tr>
-</table>
+</table>-->
 <!--GRFICA-->
 <?php for ($i = count($Listado); $i <= 20; $i++) { ?>
 
@@ -124,7 +124,7 @@
 
 <?php } ?>
 
-<table>
+<!--<table>
 
     <tr>
         <td style="width:40px">&nbsp;</td>
@@ -149,4 +149,4 @@
         <td style="width:40px">&nbsp;</td>
 
     </tr>
-</table>
+</table>-->
