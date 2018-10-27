@@ -16,7 +16,7 @@ class reporte_asistenciaActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeIndex(sfWebRequest $request) {
-//        AsistenciaUsuarioQuery::procesa();
+        AsistenciaUsuarioQuery::procesa();
 //        die();
         
         $this->empresaseleccion = $request->getParameter('em');
