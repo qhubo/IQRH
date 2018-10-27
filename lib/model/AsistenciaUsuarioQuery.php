@@ -95,7 +95,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 }
             }
         }
-        die();
+    //    die();
     }
 
     static public function marcas($dia, $usuario) {
