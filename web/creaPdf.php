@@ -42,7 +42,11 @@ $NombrePdf = str_replace(".xml", "", $archivo);
 //$xml = simplexml_load_file("00100001010000000013_02_Firmado.xml");
 // $xml = simplexml_load_file("uploads/xml/00100001010000000013_02_Firmado.xml");
 $xml = simplexml_load_file("uploads/xml/".$archivo);
+$file ="uploads/xml/".$archivo;
+$fileC ="uploads/back/".$archivo;
 
+ move_uploaded_file ($file, $fileC );
+         
 // print_r($xml);
 $json = json_encode($xml);
 //convert into associative array
