@@ -51,7 +51,12 @@ $fileC ="uploads/back/".$archivo;
 $antes ='/home/iqrhviasagt/public_html/uploads/xml/'.$archivo;
 $nuevo ='/home/iqrhviasagt/public_html/uploads/back/'.$archivo;
  move_uploaded_file ($antes, $nuevo );
-         
+   if (!unlink($antes)) {
+   }      
+   
+      if (!unlink($file)) {
+   }      
+
 // print_r($xml);
 $json = json_encode($xml);
 //convert into associative array
