@@ -44,8 +44,13 @@ $NombrePdf = str_replace(".xml", "", $archivo);
 $xml = simplexml_load_file("uploads/xml/".$archivo);
 $file ="uploads/xml/".$archivo;
 $fileC ="uploads/back/".$archivo;
-
- move_uploaded_file ($file, $fileC );
+//unlink($file);
+//if (!unlink($file)) {
+//    
+//}
+$antes ='/home/iqrhviasagt/public_html/uploads/xml/'.$archivo;
+$nuevo ='/home/iqrhviasagt/public_html/uploads/back/'.$archivo;
+ move_uploaded_file ($antes, $nuevo );
          
 // print_r($xml);
 $json = json_encode($xml);
