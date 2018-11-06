@@ -1,4 +1,4 @@
-<script src='/assets/global/plugins/jquery.min.js'></script>
+<!--<script src='/assets/global/plugins/jquery.min.js'></script>-->
 <?php      $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'); ?>
 <?php 
   $usuarios = UsuarioQuery::create()

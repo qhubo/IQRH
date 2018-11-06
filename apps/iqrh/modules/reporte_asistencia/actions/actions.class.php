@@ -15,7 +15,25 @@ class reporte_asistenciaActions extends sfActions {
      *
      * @param sfRequest $request A request object
      */
+       public function executeTest(sfWebRequest $request) {
+           
+       }
     public function executeIndex(sfWebRequest $request) {
+        
+//        $página_inicio = file_get_contents('http://iqrh:8080/grafica.php');
+//echo $página_inicio;
+//die();
+//        
+//             $ch = curl_init();
+//                curl_setopt($ch, CURLOPT_URL, "http://iqrh:8080/grafica.php");
+//                curl_setopt($ch, CURLOPT_POST, TRUE);
+//        //        curl_setopt($ch, CURLOPT_POSTFIELDS, $porst);
+//                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//                $remote_server_output = curl_exec($ch);
+//                curl_close($ch);
+//        echo "actua";
+//        die();
+                
         AsistenciaUsuarioQuery::procesa();
 //        die();
         

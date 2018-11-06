@@ -1,4 +1,4 @@
-<script src='/assets/global/plugins/jquery.min.js'></script>
+<!--<script src='/assets/global/plugins/jquery.min.js'></script>-->
 <?php $modulo = $sf_params->get('module'); ?>
 <div class="portlet light">
     <div class="portlet-title">

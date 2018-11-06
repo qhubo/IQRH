@@ -1,4 +1,4 @@
-<script src='/assets/global/plugins/jquery.min.js'></script>
+<!--<script src='/assets/global/plugins/jquery.min.js'></script>-->
 <?php $modulo = $sf_params->get('module'); ?>
 <?php $modulo = $sf_params->get('module'); ?>
 <?php echo $form->renderFormTag(url_for($modulo . '/index'), array('class' => 'form-horizontal"')) ?>
@@ -57,71 +57,84 @@
             </div>
         </div>
 
-                      <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#tab_1_1" data-toggle="tab">
-                                <span class="caption-subject font-green uppercase bold">Detallado </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#tab_1_2" data-toggle="tab">Empleados</a>
-                        </li>
-                    </ul>
+     
+
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#tab_1_1" data-toggle="tab">
+                    <span class="caption-subject font-green uppercase bold">Detallado </span>
+                </a>
+            </li>
+            <li>
+                <a href="#tab_1_2" data-toggle="tab">Empleados</a>
+            </li>
+        </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tab_1_1">
-                    <div class="row">
-            <div class="col-md-10"></div>
-            <div class="col-md-2">
-                <a class="btn  btn grey-cascade  btn-block "  target="_blank"  href="<?php echo url_for('reporte/asistencia') ?>" ><i class="fa fa-list"></i>&nbsp;&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-print"></i></a>
+                <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <a class="btn  btn grey-cascade  btn-block "  target="_blank"  href="<?php echo url_for('reporte/asistencia') ?>" ><i class="fa fa-list"></i>&nbsp;&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-print"></i></a>
 
-            </div>            
-        </div>
-        <div class="table-scrollable">
+                    </div>            
+                </div>
+                <div class="table-scrollable">
 
-            <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
-                <thead class="flip-content">
-                    <tr class="info">
-                        <td>Dia</td>
-                        <td>Codigo </td>
-                        <td>Empleado</td>
-                        <td>Marcas</td>
+                    <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
+                        <thead class="flip-content">
+                            <tr class="info">
+                                <td>Dia</td>
+                                <td>Codigo </td>
+                                <td>Empleado</td>
+                                <td>Marcas</td>
 
-                    </tr> 
-                </thead>
-                <tbody>
-                    <?Php foreach ($asistencias as $lista) { ?>
-                        <?php $usuariQ = UsuarioQuery::create()->findOneByCodigo($lista->getUsuario()); ?>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <?Php foreach ($asistencias as $lista) { ?>
+                                <?php $usuariQ = UsuarioQuery::create()->findOneByCodigo($lista->getUsuario()); ?>
 
-                        <tr>
-                            <td>
-                                <font color="white">                        
-                                <?php echo $lista->getDia('Ymd'); ?> 
-                                </font>
-                                <br>
-                                <font size="-1">   <?php echo $lista->getDia('d/m/Y'); ?></font>
-                            </td>
-                            <td align="center">
-                                <font size="-1"> <?php echo $usuariQ->getCodigo(); ?></font></td>
-                            <td>
-                            <font size="-1"><?php echo $usuariQ->getNombreCompleto(); ?></font></td>
-                            <td> 
-                                <font size="-1"> <?php echo AsistenciaUsuarioQuery::marcas($lista->getDia('Y-m-d'), $usuariQ->getUsuario()) ?>    </font>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
+                                <tr>
+                                    <td>
+                                        <font color="white">                        
+                                        <?php echo $lista->getDia('Ymd'); ?> 
+                                        </font>
+                                        <br>
+                                        <font size="-1">   <?php echo $lista->getDia('d/m/Y'); ?></font>
+                                    </td>
+                                    <td align="center">
+                                        <font size="-1"> <?php echo $usuariQ->getCodigo(); ?></font></td>
+                                    <td>
+                                        <font size="-1"><?php echo $usuariQ->getNombreCompleto(); ?></font></td>
+                                    <td> 
+                                        <font size="-1"> <?php echo AsistenciaUsuarioQuery::marcas($lista->getDia('Y-m-d'), $usuariQ->getUsuario()) ?>    </font>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
+
             <div class="tab-pane " id="tab_1_2">
-        
-                  <?php include_partial('reporte_asistencia/empleado' , array('Listado' => $Listado, 'inicio'=>$inicio, 'fin'=>$fin)) ?> 
-                
+
+                <?php include_partial('reporte_asistencia/empleado', array('Listado' => $Listado, 'inicio' => $inicio, 'fin' => $fin)) ?> 
+
             </div>
         </div>
+   <div class="row">
+            <div class="col-md-12">      
+                <table width="1500px" height="900px" cellpadding="0" cellspacing="0" border="0">
+                    <tr style='height:100%;background:white;'>
+                        <td>
+                            <iframe id="pes_frame"  src="http://iqrh:8080/grafica.php"  frameborder="0" style="width:100%; height:100%; overflow-x:hidden;" vspace="0" hspace="0"></iframe>
+                        </td>
+                    </tr>
+                </table>                
+            </div>     
+        </div>
         
-    
+
     </div>
 </div>
 

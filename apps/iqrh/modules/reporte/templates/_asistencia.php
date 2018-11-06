@@ -84,6 +84,13 @@
         </tr>
 <?php } ?>
 </table>
+
+<table style="width:720px">
+    <tr>
+        <td style="width:100%">    <img src="<?php echo '/uploads/empresas/grafica3.png' ?>" width="720px" ></td> 
+    </tr>
+</table>
+
 <?php for ($i = count($Listado); $i <= 20; $i++) { ?>
 
   <?php //echo GRAFICA ?>
