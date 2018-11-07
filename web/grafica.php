@@ -1,9 +1,9 @@
 <?php
 $empresa=$_GET["empresa"];
 $servidor = 'localhost'; // : 'localhost'
-$baseDatos = 'iqrh';
-$usuario = 'iqrh';
-$clave = 'iqrh$123';
+$baseDatos = 'pcr';
+$usuario = 'pcr';
+$clave = 'pcr$123';
 $mbd = new PDO('mysql:host=' . $servidor . ';dbname=' . $baseDatos, $usuario, $clave);
 $sqlconsulta = "select codigo, primer_nombre, primer_apellido, puntualida, asistencia from usuario where  empresa like '%".$empresa."%' order by primer_apellido ";
 $cantidad = 0;
@@ -126,7 +126,7 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
                 setTimeout(function () {
                     var imagen = document.getElementById("imagen").value;
                    // alert(imagen);
-                    $.post('http://iqrh.viasagt.com/iqrh_dev.php/rest_asiste/grafica', {imagen: imagen}, function (response) {
+                    $.post('http://pcr.viasagt.com/iqrh_dev.php/rest_asiste/grafica', {imagen: imagen}, function (response) {
                     });
                     // alert(imagen);
 
@@ -144,7 +144,7 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
             $(document).ready(function () {
                 $("#btnSubmit").click(function () {
                     var imagen = document.getElementById("imagen").value;
-                    $.post('http://iqrh.viasagt.com/iqrh_dev.php/rest_asiste/grafica', {imagen: imagen}, function (response) {
+                    $.post('http://pcr.viasagt.com/iqrh_dev.php/rest_asiste/grafica', {imagen: imagen}, function (response) {
                     });
 
                     alert("button");
