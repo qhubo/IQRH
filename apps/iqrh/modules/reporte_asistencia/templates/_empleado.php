@@ -12,11 +12,11 @@
         <td></td>
     </tr>
 <?php foreach ($Listado as $regi) { ?>
-    <?php $puntualidad =0; ?>
+    <?php $puntualidad =$regi->getPuntualida(); ?>
         <tr>
             <td  style=" xborder: 1px solid black;" xwidth="150px"  >&nbsp;<font size="-2"><?php echo $regi->getNombreCompleto(); ?></font>  </td>
             <td  style="xborder: 1px solid black;" xwidth="170px"   >&nbsp;<font size="-2"><?php echo $regi->getPuesto(); ?></font>   </td>
-            <td  style="xborder: 1px solid black;" xwidth="70px" align="center" >&nbsp;<font size="-1"><?php echo  $dias= AsistenciaUsuarioQuery::laborados($inicio, $fin, $regi->getUsuario());  ?></font>&nbsp;&nbsp;&nbsp;  </td>
+            <td  style="xborder: 1px solid black;" xwidth="70px" align="center" >&nbsp;<font size="-1"><?php echo  $dias= $regi->getAsistencia();   //AsistenciaUsuarioQuery::laborados($inicio, $fin, $regi->getUsuario());  ?></font>&nbsp;&nbsp;&nbsp;  </td>
             <td  style="xborder: 1px solid black;" xwidth="70px" align="center" >&nbsp;<font size="-1"><?php echo $tardes= AsistenciaUsuarioQuery::tardes($inicio, $fin, $regi->getUsuario());  ?></font>  </td>
             <?php if ($dias >0) { ?>
             <?php $puntualidad =(($tardes *100) /$dias); ?>

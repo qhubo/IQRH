@@ -30,6 +30,8 @@ propel:
     fecha_alta:                        { type: date }         
     sueldo:                            { type: double }  
     usuario_jefe:                      { type: integer }
+    asistencia:                        { type: double }  
+    puntualida:                        { type: double }  
     token:                             { type: varchar(150) }
     _uniques:
        llave:                          [ usuario ]

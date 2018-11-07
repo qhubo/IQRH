@@ -1,4 +1,6 @@
 <?php $Parametro = ParametroQuery::create()->findOne(); ?>
+  <?php         $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia')); ?>
+    
 <table style="width:720px">
     <tr>
         <td style="width:100%">    <img src="<?php echo '/images/banner.PNG' ?>" width="720px" ></td> 
@@ -21,7 +23,9 @@
         <td style="width:40px">&nbsp;</td>
         <td style="width:640px; text-align: left">
             El presente documento muestra de forma gráfica y descriptiva el cumplimiento de la asistencia y puntualidad
-            de los colaboradores en las oficinas de Guatemala durante el mes de <?php echo $mes; ?> del año en curso. A la vez
+            de los colaboradores en las oficinas de <strong><?php echo $valores['empresa']; ?>  </strong> durante del periodo del <?php echo $valores['fechaInicio'] ?>  
+            al   <?php echo $valores['fechaFin'] ?> 
+            . A la vez
             busca promover el cumplimiento de las normas y procedimientos establecidos en el reglamento interno de
             la empresa
         </td> 

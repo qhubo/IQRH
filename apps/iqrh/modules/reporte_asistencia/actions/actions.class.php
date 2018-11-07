@@ -15,28 +15,34 @@ class reporte_asistenciaActions extends sfActions {
      *
      * @param sfRequest $request A request object
      */
-       public function executeTest(sfWebRequest $request) {
-           
-       }
+    public function executeMuestra(sfWebRequest $request) {
+        $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
+        $this->valores = $valores;
+        $fechaInicio = $valores['fechaInicio'];
+        $fechaInicio = explode('/', $fechaInicio);
+        $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
+        $fechaFin = $valores['fechaFin'];
+        $fechaFin = explode('/', $fechaFin);
+        $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
+        $asistencia = new AsistenciaUsuarioQuery();
+        $asistencia->filterByEmpresa($valores['empresa']);
+        $asistencia->where("AsistenciaUsuario.Dia >= '" . $fechaInicio . " 00:00:00" . "'");
+        $asistencia->where("AsistenciaUsuario.Dia <= '" . $fechaFin . " 23:59:00" . "'");
+        $asistencia->orderByDia('Desc');
+        $asistencia->groupByDia();
+        $asistencia->groupByUsuario();
+        $this->asistencias = $asistencia->find();
+        $this->inicio = $fechaInicio;
+        $this->fin = $fechaFin;
+        $this->Listado = UsuarioQuery::create()
+                ->filterByUsuario('Demo', Criteria::NOT_IN)
+                ->orderByPrimerApellido("Desc")
+                ->filterByEmpresa('PCR GUATEMALA')
+                ->find();
+    }
+
     public function executeIndex(sfWebRequest $request) {
-        
-//        $página_inicio = file_get_contents('http://iqrh:8080/grafica.php');
-//echo $página_inicio;
-//die();
-//        
-//             $ch = curl_init();
-//                curl_setopt($ch, CURLOPT_URL, "http://iqrh:8080/grafica.php");
-//                curl_setopt($ch, CURLOPT_POST, TRUE);
-//        //        curl_setopt($ch, CURLOPT_POSTFIELDS, $porst);
-//                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//                $remote_server_output = curl_exec($ch);
-//                curl_close($ch);
-//        echo "actua";
-//        die();
-                
         AsistenciaUsuarioQuery::procesa();
-//        die();
-        
         $this->empresaseleccion = $request->getParameter('em');
         $empresaseleccion = $this->empresaseleccion;
         sfContext::getInstance()->getUser()->setAttribute('seleccion', $empresaseleccion, 'empresa');
@@ -57,38 +63,44 @@ class reporte_asistenciaActions extends sfActions {
             $this->form->bind($request->getParameter("consulta"), $request->getFiles("consulta"));
             if ($this->form->isValid()) {
                 $valores = $this->form->getValues();
+                $fechaInicio = $valores['fechaInicio'];
+                $fechaInicio = explode('/', $fechaInicio);
+                $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
+                $fechaFin = $valores['fechaFin'];
+                $fechaFin = explode('/', $fechaFin);
+                $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
+
+                $Listado = UsuarioQuery::create()
+                        ->filterByUsuario('Demo', Criteria::NOT_IN)
+                        ->orderByPrimerApellido("Desc")
+                        ->filterByEmpresa('PCR GUATEMALA')
+                        ->find();
+                foreach ($Listado as $regi) {
+                    $usuarioQ = UsuarioQuery::create()->findOneById($regi->getId());
+                    $puntualidad = 0;
+                    $dias = AsistenciaUsuarioQuery::laborados($fechaInicio, $fechaFin, $regi->getUsuario());
+                    $tardes = AsistenciaUsuarioQuery::tardes($fechaInicio, $fechaFin, $regi->getUsuario());
+                    if ($dias > 0) {
+                        $puntualidad = (($tardes * 100) / $dias);
+                        $puntualidad= round($puntualidad,2);
+                    }
+                    $usuarioQ->setAsistencia($dias);
+                    $usuarioQ->setPuntualida($puntualidad);
+                    $usuarioQ->save();
+               //     echo $regi->getCodigo()." ".$dias." ".$puntualidad;
+               //     echo "<br>";
+                }
+ //die();
+                sfContext::getInstance()->getUser()->setAttribute('valores', serialize($valores), 'Asistencia');
+                $this->redirect("reporte_asistencia/muestra");
             }
         }
-        $fechaInicio = $valores['fechaInicio'];
-        $fechaInicio = explode('/', $fechaInicio);
-        $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
-        $fechaFin = $valores['fechaFin'];
-        $fechaFin = explode('/', $fechaFin);
-        $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
-        $asistencia = new AsistenciaUsuarioQuery();
-        $asistencia->filterByEmpresa($valores['empresa']);
-        $asistencia->where("AsistenciaUsuario.Dia >= '" . $fechaInicio . " 00:00:00" . "'");
-        $asistencia->where("AsistenciaUsuario.Dia <= '" . $fechaFin . " 23:59:00" . "'");
-        $asistencia->orderByDia('Desc');
-        $asistencia->groupByDia();
-        $asistencia->groupByUsuario();
-        $this->asistencias = $asistencia->find();
-        $this->inicio =$fechaInicio;
-        $this->fin=$fechaFin;
-        
-        $this->Listado = UsuarioQuery::create()
-               ->filterByUsuario('Demo', Criteria::NOT_IN)
-                ->orderByPrimerApellido("Desc")
-                   ->filterByEmpresa('PCR GUATEMALA')
-                ->find();
+
 
 //        $html = $this->getPartial('reporte/asistencia', array("muestra" => 0, 'Listado' => $Listado,
 //            'inicio'=>$inicio, 'fin'=>$fin, 'horamensual'=>$horaMensual,
 //            'mes' => $mesDescripcion
 //        ));
-        
-        
-        
     }
 
 }

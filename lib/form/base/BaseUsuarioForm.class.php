@@ -44,6 +44,8 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'fecha_alta'       => new sfWidgetFormDate(),
       'sueldo'           => new sfWidgetFormInputText(),
       'usuario_jefe'     => new sfWidgetFormInputText(),
+      'asistencia'       => new sfWidgetFormInputText(),
+      'puntualida'       => new sfWidgetFormInputText(),
       'token'            => new sfWidgetFormInputText(),
     ));
 
@@ -78,6 +80,8 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'fecha_alta'       => new sfValidatorDate(array('required' => false)),
       'sueldo'           => new sfValidatorNumber(array('required' => false)),
       'usuario_jefe'     => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'asistencia'       => new sfValidatorNumber(array('required' => false)),
+      'puntualida'       => new sfValidatorNumber(array('required' => false)),
       'token'            => new sfValidatorString(array('max_length' => 150, 'required' => false)),
     ));
 

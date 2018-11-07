@@ -19,6 +19,17 @@ class reporteActions extends sfActions {
         $pdf = new sfTCPDF("P", "mm", "Letter");
         $id = $request->getParameter("id");
         $codigo = $request->getParameter("cod");
+        
+                $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
+        $this->valores = $valores;
+        $fechaInicio = $valores['fechaInicio'];
+        $fechaInicio = explode('/', $fechaInicio);
+        $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
+        $fechaFin = $valores['fechaFin'];
+        $fechaFin = explode('/', $fechaFin);
+        $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
+        
+        
 //        $cabecera = ReciboCabeceraQuery::create()
 //                ->filterByCabeceraIn($id)
 //                ->findOne();
@@ -74,6 +85,14 @@ class reporteActions extends sfActions {
 //         echo "</pre>";
 //         die();
                
+                $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
+        $this->valores = $valores;
+        $fechaInicio = $valores['fechaInicio'];
+        $fechaInicio = explode('/', $fechaInicio);
+        $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
+        $fechaFin = $valores['fechaFin'];
+        $fechaFin = explode('/', $fechaFin);
+        $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
         
         
         $pdf = new sfTCPDF("P", "mm", "Letter");
@@ -94,8 +113,8 @@ class reporteActions extends sfActions {
         $mes[11] = 'Noviembre';
         $mes[12] = 'Diciembre';
         $mesDescripcion = $mes[10];
-        $inicio='2018-10-01';
-        $fin='2018-10-31';
+//        $inicio='2018-10-01';
+//        $fin='2018-10-31';
         $horaMensual =160;
         
         
@@ -108,7 +127,8 @@ class reporteActions extends sfActions {
                 ->find();
 
         $html = $this->getPartial('reporte/asistencia', array("muestra" => 0, 'Listado' => $Listado,
-            'inicio'=>$inicio, 'fin'=>$fin, 'horamensual'=>$horaMensual,
+            'inicio'=>$fechaInicio, 'fin'=>$fechaFin, 'horamensual'=>$horaMensual,
+            
             'mes' => $mesDescripcion
         ));
         
