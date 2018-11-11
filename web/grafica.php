@@ -16,9 +16,9 @@ $sqlconsulta = "select codigo, primer_nombre, primer_apellido, puntualida, asist
 $cantidad = 0;
 $data = null;
 foreach ($mbd->query($sqlconsulta) as $fila) {
-    $nombre = $fila['primer_nombre'];
+    $nombre = utf8_encode($fila['primer_nombre']);
     $codigo = $fila['codigo'];
-    $apellido = $fila['primer_apellido'];
+    $apellido = utf8_encode($fila['primer_apellido']);
     $nombreCompleto = $apellido . " " . $nombre;
     $nombreCompleto = str_replace("á", "a", $nombreCompleto);
     $nombreCompleto = str_replace("é", "e", $nombreCompleto);
