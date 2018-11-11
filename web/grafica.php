@@ -33,6 +33,8 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
     $nombreCompleto = str_replace("Ú", "U", $nombreCompleto);
     $nombreCompleto = str_replace("", "", $nombreCompleto);
     
+    echo $nombreCompleto;
+    echo "<br>";
     $lista['nombre'] = $nombreCompleto; // . " " . $apellido;
     //  $lista['nombre'] = $codigo;
     $lista['dos'] = $fila['puntualida'];
