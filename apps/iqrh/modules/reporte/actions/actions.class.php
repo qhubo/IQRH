@@ -102,7 +102,7 @@ class reporteActions extends sfActions {
         $horaMensual = 160;
         $Listado = UsuarioQuery::create()
                 ->filterByUsuario('Demo', Criteria::NOT_IN)
-                ->orderByPrimerApellido("Desc")
+                ->orderByPrimerApellido("Asc")
                 ->filterByEmpresa('PCR GUATEMALA')
                 ->find();
         $html = $this->getPartial('reporte/asistencia', array("muestra" => 0, 'Listado' => $Listado,

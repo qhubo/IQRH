@@ -1,0 +1,301 @@
+propel:
+  usuario:
+    id:                                ~
+    codigo:                            { type: varchar(50)}
+    usuario:                           { type: varchar(32), required: true , primaryString: true}
+    clave:                             { type: varchar(60) }
+    correo:                            { type: varchar(255) }
+    estado:                            { type: varchar(32) }
+    imagen:                            { type: varchar(255) }
+    administrador:                     { type: boolean, default: false }
+    validado:                          { type: boolean, default: true }
+    ultimo_ingreso:                    { type: date }
+    tema:                              { type: varchar(255) }
+    frase:                             { type: varchar(255) }
+    genero:                            { type: varchar(30) }
+    fecha_nacimiento:                  { type: date}
+    nombre_completo:                   { type: varchar(320) }
+    empresa:                           { type: varchar(320) }
+    logo:                              { type: varchar(200) } 
+    activo:                            { type: boolean, default: true } 
+    tipo_usuario:                      { type: varchar(320) }
+    observaciones:                     { type: longvarchar }
+    primer_nombre:                     { type: varchar(200) }
+    segundo_nombre:                    { type: varchar(200) } 
+    primer_apellido:                   { type: varchar(200) }
+    segundo_apellido:                  { type: varchar(200) } 
+    puesto:                            { type: varchar(200) }         
+    departamento:                      { type: varchar(300) }         
+    jefe:                              { type: varchar(300) }
+    fecha_alta:                        { type: date }         
+    sueldo:                            { type: double }  
+    usuario_jefe:                      { type: integer }
+    asistencia:                        { type: double }  
+    puntualida:                        { type: double }  
+    token:                             { type: varchar(150) }
+    _uniques:
+       llave:                          [ usuario ]
+ 
+  perfil:
+     id:                                ~
+     descripcion:                       { type: varchar(100), primaryString: true, default: '' }
+     observaciones:                     { type: longvarchar }
+     activo:                            { type: boolean, default: true }
+
+  menu_seguridad:
+     id:                                ~
+     descripcion:                       { type: varchar(100), primaryString: true, default: ''  }
+     credencial:                        { type: varchar(100)}
+     modulo:                            { type: varchar(100)}
+     icono:                             { type: varchar(50)}
+     accion:                            { type: varchar(100)}
+     superior:                          { type: integer }
+     orden:                             { type: integer }  
+ 
+  usuario_perfil:
+     id:                                ~
+     perfil_id:                         ~
+     usuario_id:                        ~      
+  
+  correlativo_codigo:
+     id:                                  ~
+     numero_asginar:                      { type: integer }
+     prefijo:                             { type: varchar(50)}
+     tipo:                                { type: varchar(100)}     
+    
+  parametro:   
+     id:                                ~
+     codigo:                            { type: varchar(50)}
+     slogan:                            { type: longvarchar }
+     logo:                              { type: varchar(150)}
+     
+  alerta_ausencia:
+     id:                               ~
+     usuario_id:                       ~ 
+     fecha:                            { type: date } 
+     estado:                           { type: varchar(150)}
+     usuario_modero:                   { type: varchar(150)}
+     created_at:                       ~   
+     updated_at:                       ~           
+      
+ ## cuando no marca
+  solicitud_ausencia:   
+     id:                               ~
+     usuario_id:                       ~
+     fecha:                            { type: date }
+     motivo:                           { type: varchar(250)}  
+     observaciones:                    { type: longvarchar }
+     estado:                           { type: varchar(150)} 
+     created_at:                       ~   
+     updated_at:                       ~  
+     jefe:                             { type: integer}
+     usuario_modero:                   { type: varchar(150)}
+     estado:                           { type: varchar(150), default: 'Pendiente'} 
+     comentario_modero:                { type: longvarchar }
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+     fecha_fin:                        { type: date }
+     
+  ausencia_detalle:
+     id:                               ~
+     usuario_id:                       ~
+     solicitud_ausencia_id:            ~
+     dia:                              { type: date }
+     
+     
+  solicitud_vacacion:
+     id:                               ~
+     usuario_id:                       ~
+     fecha_inicio:                     { type: date }
+     fecha_fin:                        { type: date }
+     dia:                              { type: integer }
+     motivo:                           { type: varchar(250)}  
+     observaciones:                    { type: longvarchar }
+     usuario_modero:                   { type: varchar(150)}
+     estado:                           { type: varchar(150), default: 'Pendiente'} 
+     comentario_modero:                { type: longvarchar }
+     created_at:                       ~   
+     updated_at:                       ~  
+     jefe:                             { type: integer}
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+
+     
+  solicitud_finquito:   
+     id:                               ~
+     usuario_graba:                    { type: integer, foreignTable: usuario, foreignReference: id, index: true, required: false }  
+     usuario_retiro:                   { type: integer, foreignTable: usuario, foreignReference: id, index: true, required: false } 
+     fecha_retiro:                     { type: date }
+     motivo:                           { type: varchar(250)}  
+     observaciones:                    { type: longvarchar }
+     estado:                           { type: varchar(150), default: 'Pendiente'} 
+     created_at:                       ~   
+     updated_at:                       ~  
+     jefe:                             { type: integer}
+     usuario_modero:                   { type: varchar(150)}
+     estado:                           { type: varchar(150)} 
+     comentario_modero:                { type: longvarchar }
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+
+
+  vacacion_usuario:
+     id:                               ~  
+     usuario_id:                       ~   
+     periodo:                          { type: integer }
+     fecha_inicio:                     { type: date }
+     fecha_fin:                        { type: date }
+     valor:                            { type: double } 
+     dias:                             { type: integer } 
+     observaciones:                    { type: longvarchar } 
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+
+
+  aumento_usuario:
+     id:                               ~   
+     usuario_id:                       ~  
+     fecha_aumento:                    { type: date }   
+     sueldo_anterior:                  { type: double }  
+     puesto_anterior:                  { type: varchar(250)}
+     sueldo:                           { type: double } 
+     nuevo_puesto:                     { type: varchar(250)}   
+     observaciones:                    { type: longvarchar } 
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+
+
+  capacitacion_usuario:
+     id:                               ~   
+     usuario_id:                       ~  
+     nombre:                           { type: varchar(250)}   
+     fecha:                            { type: date } 
+     observaciones:                    { type: longvarchar } 
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+     
+     
+  bitacora_usuario:
+     id:                               ~   
+     usuario_id:                       ~  
+     usuario_jefe:                     { type: integer }  
+     motivo:                           { type: longvarchar } 
+     leido:                            { type: boolean, default: false } 
+     tipo:                             { type: varchar(50)} 
+     identificador:                    { type: varchar(250)}
+     fecha:                            { type: timestamp } 
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+
+
+  catalogo_solicitud:
+     id:                                ~
+     nombre:                            { type: varchar(100), primaryString: true, default: '' }
+     observaciones:                     { type: longvarchar }
+     activo:                            { type: boolean, default: true }
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+     
+  solicitud_usuario:
+     id:                               ~
+     usuario_id:                       ~
+     fecha:                            { type: date }
+     catalogo_solicitud_id:            ~
+     observaciones:                    { type: longvarchar }
+     estado:                           { type: varchar(150), default: 'Pendiente'} 
+     created_at:                       ~   
+     updated_at:                       ~  
+     jefe:                             { type: integer}
+     usuario_modero:                   { type: varchar(150)}
+     comentario_modero:                { type: longvarchar }
+     archivo_uno:                      { type: varchar(150)} 
+     archivo_dos:                      { type: varchar(150)} 
+
+  recibo_encabezado:
+      id:                             ~   
+      Planilla_Resumen_id:            { type: integer}	
+      empleado:                       { type: varchar(150)}	
+      empleado_proyecto_id:           { type: integer}	
+      sueldo_base:                    { type: double }	
+      bonificacion_base:              { type: varchar(50)}	
+      dias_ausencias:                 { type: double }	
+      dias_suspendido:                { type: double }	
+      septimos:                       { type: double }	
+      total_descuentos:               { type: double }	
+      total_ingresos:                 { type: double }	
+      total_extras:                   { type: double }	
+      total_sueldo_liquido:           { type: double }	
+      alta:                           { type: varchar(150)}	
+      baja:                           { type: varchar(150)}	
+      codigo:                         { type: varchar(150)}	
+      puesto:                         { type: varchar(150)}	
+      departamento:                   { type: varchar(150)}	 
+      dias_base:                      { type: double }	
+      bloque:                         { type: varchar(50)}	            
+      inicio:                         { type: varchar(50)}	                                    
+      fin:                            { type: varchar(50)}	
+      numero:                         { type: varchar(50)}	
+      laborados:                      { type: double }  
+      cabecera_in:                    { type: integer}	  
+
+  recibo_detalle:
+      id:                             ~ 
+      id_c:                           { type: integer }
+      planilla_resumen_id:            { type: integer } 
+      tipo:                           { type: varchar(20) }
+      afeca_ss:                       { type: integer }
+      descripcion:                    { type: varchar(200) } 
+      monto:                          { type: double }
+      debe:                           { type: double }
+      haber:                          { type: double } 
+      identificar:                    { type: varchar(10) } 
+      cabecera_in:                    { type: integer}	  
+
+  recibo_cabecera:
+      id:                             ~ 
+      planilla:                       { type: varchar(100) } 
+      inicio:                         { type: varchar(15) } 
+      fin:                            { type: varchar(15) } 
+      proyecto:                       { type: varchar(200) } 
+      empresa:                        { type: varchar(200) }
+      razon_social:                   { type: varchar(200) }
+      direccion:                      { type: varchar(300) } 
+      email:                          { type: varchar(10) }        
+      telefono:                       { type: varchar(10) }  
+      nombre_comercial:               { type: varchar(300) }   
+      texto:                          { type: longvarchar }
+      cabecera_in:                    { type: integer}	  
+     
+  tipo_ausencia:   
+      id:                             ~ 
+      empresa:                       { type: varchar(300) } 
+      observacioes:                  { type: longvarchar }
+      dia:                           { type: integer}	  
+      nombre:                        { type: varchar(300) } 
+      activo:                        { type: boolean, default: true }
+      
+  asistencia_usuario:
+      id:                            ~ 
+      empresa:                       { type: varchar(300) } 
+      usuario:                       { type: varchar(300) } 
+      dia:                           { type: date }
+      hora:                          { type: varchar(30) }
+      fecha_hora:                    { type: timestamp }
+      tarde:                         { type: boolean, default: true } 
+      hora_tarde:                    { type: double }
+      minuto_tarde:                  { type: double }
+      hora_diaria:                   { type: double }
+   
+      
+  empresa_horario:
+      id:                            ~ 
+      empresa:                       { type: varchar(300) }       
+      hora:                          { type: varchar(10) }
+      hora_fin:                      { type: varchar(10) }
+      hora24:                        { type: varchar(10) }
+      hora_fin24:                    { type: varchar(10) }
+    
+   
+   
+   
+   

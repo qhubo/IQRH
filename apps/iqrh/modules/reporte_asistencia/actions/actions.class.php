@@ -37,7 +37,7 @@ class reporte_asistenciaActions extends sfActions {
         $this->fin = $fechaFin;
         $this->Listado = UsuarioQuery::create()
                 ->filterByUsuario('Demo', Criteria::NOT_IN)
-                ->orderByPrimerApellido("Desc")
+                 ->orderByPrimerApellido("Asc")
                 ->filterByEmpresa('PCR GUATEMALA')
                 ->find();
     }
