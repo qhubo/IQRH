@@ -54,6 +54,7 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
     }	
 </style>
 
+
 <!-- Resources -->
 <!--<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>-->
 
