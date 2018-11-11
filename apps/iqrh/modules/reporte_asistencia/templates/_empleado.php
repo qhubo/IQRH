@@ -33,7 +33,7 @@
             <?php } ?>
             <?php $horas =round($horas,2); ?>
             <td  style="xborder: 1px solid black;" xwidth="50px" >&nbsp;<font size="-1"><?php echo $horas ?></font></td>
-            <td>   <a class="btn  btn-xs blue-steel  btn-block "  target="_blank"  href="#<?php echo url_for('reporte/asistencia') ?>" >&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-print"></i></a>
+            <td>   <a class="btn  btn-xs blue-steel  btn-block "  target="_blank"  href="<?php echo url_for('reporte/empleado?id='.$regi->getId()) ?>" >&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-print"></i></a>
 
      
                 

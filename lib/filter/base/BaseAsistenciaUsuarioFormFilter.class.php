@@ -20,6 +20,7 @@ abstract class BaseAsistenciaUsuarioFormFilter extends BaseFormFilterPropel
       'tarde'        => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'hora_tarde'   => new sfWidgetFormFilterInput(),
       'minuto_tarde' => new sfWidgetFormFilterInput(),
+      'hora_diaria'  => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -31,6 +32,7 @@ abstract class BaseAsistenciaUsuarioFormFilter extends BaseFormFilterPropel
       'tarde'        => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'hora_tarde'   => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'minuto_tarde' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'hora_diaria'  => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('asistencia_usuario_filters[%s]');
@@ -57,6 +59,7 @@ abstract class BaseAsistenciaUsuarioFormFilter extends BaseFormFilterPropel
       'tarde'        => 'Boolean',
       'hora_tarde'   => 'Number',
       'minuto_tarde' => 'Number',
+      'hora_diaria'  => 'Number',
     );
   }
 }

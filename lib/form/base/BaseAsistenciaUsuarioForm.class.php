@@ -23,6 +23,7 @@ abstract class BaseAsistenciaUsuarioForm extends BaseFormPropel
       'tarde'        => new sfWidgetFormInputCheckbox(),
       'hora_tarde'   => new sfWidgetFormInputText(),
       'minuto_tarde' => new sfWidgetFormInputText(),
+      'hora_diaria'  => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -35,6 +36,7 @@ abstract class BaseAsistenciaUsuarioForm extends BaseFormPropel
       'tarde'        => new sfValidatorBoolean(array('required' => false)),
       'hora_tarde'   => new sfValidatorNumber(array('required' => false)),
       'minuto_tarde' => new sfValidatorNumber(array('required' => false)),
+      'hora_diaria'  => new sfValidatorNumber(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('asistencia_usuario[%s]');

@@ -16,6 +16,7 @@ class reporte_asistenciaActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeMuestra(sfWebRequest $request) {
+    
         $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
         $this->valores = $valores;
         $fechaInicio = $valores['fechaInicio'];
@@ -71,6 +72,7 @@ class reporte_asistenciaActions extends sfActions {
                 $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
 
                 $Listado = UsuarioQuery::create()
+                      //  ->filterById(416)
                         ->filterByUsuario('Demo', Criteria::NOT_IN)
                         ->orderByPrimerApellido("Desc")
                         ->filterByEmpresa('PCR GUATEMALA')
@@ -78,8 +80,16 @@ class reporte_asistenciaActions extends sfActions {
                 foreach ($Listado as $regi) {
                     $usuarioQ = UsuarioQuery::create()->findOneById($regi->getId());
                     $puntualidad = 0;
+//                    echo $fechaInicio;
+//                    echo "  ";
+//                    echo $fechaFin;
+//                    echo "<br>";
                     $dias = AsistenciaUsuarioQuery::laborados($fechaInicio, $fechaFin, $regi->getUsuario());
                     $tardes = AsistenciaUsuarioQuery::tardes($fechaInicio, $fechaFin, $regi->getUsuario());
+//                  echo $dias;
+//                  echo "<br>";
+//                  echo $tardes;
+//                  die();
                     if ($dias > 0) {
                         $puntualidad = (($tardes * 100) / $dias);
                         $puntualidad= round($puntualidad,2);

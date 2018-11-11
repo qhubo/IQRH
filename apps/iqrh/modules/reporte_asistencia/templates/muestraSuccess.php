@@ -73,14 +73,18 @@
                 <a href="#tab_1_3" data-toggle="tab">Detalle de dias</a>
             </li>
         </ul>
+             <?php  $port=''; ?>   
+        <?php if ($_SERVER['SERVER_NAME']=='iqrh') { ?>
+     <?php  $port=':8080'; ?>   
+     <?php  } ?>
         <div class="tab-content">
             <div class="tab-pane active" id="tab_1_1">
                  <div class="row">
             <div class="col-md-12">      
-                <table width="1500px" height="900px" cellpadding="0" cellspacing="0" border="0">
+                <table width="900px" height="900px" cellpadding="0" cellspacing="0" border="0">
                     <tr style='height:100%;background:white;'>
                         <td>
-                            <iframe id="pes_frame"  src="http://pcr.viasagt.com/grafica.php?empresa=<?php echo trim($valores['empresa']) ?>"  frameborder="0" style="width:100%; height:100%; overflow-x:hidden;" vspace="0" hspace="0"></iframe>
+                            <iframe id="pes_frame"  src="http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/grafica.php?empresa=<?php echo trim($valores['empresa']) ?>"  frameborder="0" style="width:100%; height:100%; overflow-x:hidden;" vspace="0" hspace="0"></iframe>
                         </td>
                     </tr>
                 </table>                

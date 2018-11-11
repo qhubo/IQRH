@@ -2,10 +2,10 @@
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1530039063.
- * Generated on 2018-06-26 20:51:03 
+ * up to version 1541910516.
+ * Generated on 2018-11-11 05:28:36 
  */
-class PropelMigration_1530039063
+class PropelMigration_1541910516
 {
 
     public function preUp($manager)
@@ -42,35 +42,8 @@ class PropelMigration_1530039063
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
 
-ALTER TABLE `solicitud_ausencia`
-    ADD `jefe` INTEGER AFTER `updated_at`,
-    ADD `usuario_modero` VARCHAR(150) AFTER `jefe`,
-    ADD `comentario_modero` TEXT AFTER `usuario_modero`;
-
-ALTER TABLE `solicitud_finquito`
-    ADD `jefe` INTEGER AFTER `updated_at`,
-    ADD `usuario_modero` VARCHAR(150) AFTER `jefe`,
-    ADD `comentario_modero` TEXT AFTER `usuario_modero`;
-
-ALTER TABLE `solicitud_vacacion`
-    ADD `jefe` INTEGER AFTER `updated_at`;
-
-ALTER TABLE `usuario`
-    ADD `usuario_jefe` INTEGER AFTER `sueldo`;
-
-CREATE TABLE `capacitacion_usuario`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `usuario_id` INTEGER,
-    `nombre` VARCHAR(250),
-    `fecha` DATE,
-    `observaciones` TEXT,
-    PRIMARY KEY (`id`),
-    INDEX `capacitacion_usuario_FI_1` (`usuario_id`),
-    CONSTRAINT `capacitacion_usuario_FK_1`
-        FOREIGN KEY (`usuario_id`)
-        REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB;
+ALTER TABLE `asistencia_usuario`
+    ADD `hora_diaria` DOUBLE AFTER `minuto_tarde`;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
@@ -92,23 +65,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS `capacitacion_usuario`;
-
-ALTER TABLE `solicitud_ausencia` DROP `jefe`;
-
-ALTER TABLE `solicitud_ausencia` DROP `usuario_modero`;
-
-ALTER TABLE `solicitud_ausencia` DROP `comentario_modero`;
-
-ALTER TABLE `solicitud_finquito` DROP `jefe`;
-
-ALTER TABLE `solicitud_finquito` DROP `usuario_modero`;
-
-ALTER TABLE `solicitud_finquito` DROP `comentario_modero`;
-
-ALTER TABLE `solicitud_vacacion` DROP `jefe`;
-
-ALTER TABLE `usuario` DROP `usuario_jefe`;
+ALTER TABLE `asistencia_usuario` DROP `hora_diaria`;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

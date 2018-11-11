@@ -17,6 +17,38 @@
  */
 class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
 
+    
+        static public function diferencia($inicio, $salida) {
+                    $arrayInicio = explode(":",$inicio);
+        $MinutosInicio = ($arrayInicio[0]*60) +  $arrayInicio[1];
+                
+        $arrayFin = explode(":",$salida);        
+        $MinutosFin = ($arrayFin[0]*60) +  $arrayFin[1];
+//        echo "<br>";
+//        echo $MinutosInicio." ".$MinutosFin;
+//        echo "<br>"; 
+        $minutos = $MinutosFin -$MinutosInicio;
+        
+        $horaDifecnia= $minutos/60;
+            $horario = explode(".", $horaDifecnia);
+                    $horaTarde = $horario[0];
+                    $minutoTarde = 0;
+                    if (count($horario) > 1) {
+                        $minuto = '0.' . $horario[1];
+                        if ($minuto) {
+                            $minutoTarde = $minuto * 60;
+                        }
+                    }
+                    $minutoTarde =round($minutoTarde,0);
+          // $retorna = $horaTarde." ".$minutoTarde;
+           $retorna['hora']=$horaTarde;
+           $retorna['minuto']=$minutoTarde;
+           $retorna['muestra']=$horaTarde." ".$minutoTarde;
+           $retorna['minutos']=$minutos;
+           return $retorna;
+                    
+        }
+    
     static public function procesa() {
         $Asistencia = AsistenciaUsuarioQuery::create()
                 ->filterByEmpresa(null)
@@ -67,8 +99,8 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                         }
                     }
                     if ($llegoTarde) {
-                        echo $registro->getUsuario() . " INGRESO EN DIA  " . $registro->getDia('d/m/Y') . " " . $IngresoActual . " Horario " . $Entrada . " -->  Llego tarde  " . $diferenica . "  minutos ";
-                        echo "<br>";
+                   //     echo $registro->getUsuario() . " INGRESO EN DIA  " . $registro->getDia('d/m/Y') . " " . $IngresoActual . " Horario " . $Entrada . " -->  Llego tarde  " . $diferenica . "  minutos ";
+                     //   echo "<br>";
                     }
                     //echo "INGRESO " . $IngresoActual . " horario entrada " . $Entrada;
                     $horario = explode(".", $horaDifecnia);
@@ -120,6 +152,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 ->filterByUsuario($usuario)
                 ->where("AsistenciaUsuario.Dia >= '" . $inicio . " 00:00:00" . "'")
                 ->where("AsistenciaUsuario.Dia <= '" . $fin . " 23:59:00" . "'")
+                ->groupByDia()
                 ->count();
         return $laborados;
     }
@@ -130,6 +163,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 ->filterByTarde(true)
                 ->where("AsistenciaUsuario.Dia >= '" . $inicio . " 00:00:00" . "'")
                 ->where("AsistenciaUsuario.Dia <= '" . $fin . " 23:59:00" . "'")
+                   ->groupByDia()
                 ->count();
         return $laborados;
     }

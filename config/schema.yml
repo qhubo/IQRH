@@ -284,6 +284,7 @@ propel:
       tarde:                         { type: boolean, default: true } 
       hora_tarde:                    { type: double }
       minuto_tarde:                  { type: double }
+      hora_diaria:                   { type: double }
    
       
   empresa_horario:
