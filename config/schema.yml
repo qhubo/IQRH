@@ -295,7 +295,13 @@ propel:
       hora24:                        { type: varchar(10) }
       hora_fin24:                    { type: varchar(10) }
     
-   
+  dia_feriado:
+      id:                            ~ 
+      dia:                           { type: date }
+      _uniques:
+        llave:                          [ dia ]      
+       
+       
    
    
    

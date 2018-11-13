@@ -1,0 +1,29 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           DiaFeriado
+    theme:                 admin15
+    non_verbose_templates: true
+    with_show:             false
+    singular:              DiaFeriado
+    plural:                DiaFeriados
+    route_prefix:          dia_feriado
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+          dia:
+              label:       dia 
+      list: 
+        title:             Listado Feriados
+        display:           [dia]
+      filter:
+        display:           [dia]
+      form:
+        display:           [dia]
+      edit:
+        title:             Editar Dia Feriado 
+      new:
+        title:             Nuevo Dia Feriado

@@ -72,7 +72,7 @@
             <?php if ($dias >0) { ?>
             <?php $puntualidad =(($tardes *100) /$dias); ?>
             <?php } ?>
-            <td  style="border: 1px solid black;" width="75px"  align="center" ><font size="-1">&nbsp; <?php echo  round($puntualidad,2); ?>%  </font></td>
+            <td  style="border: 1px solid black;" width="75px"  align="center" ><font size="-1">&nbsp; <?php echo  round($puntualidad,0); ?>%  </font></td>
             <td  style="border: 1px solid black;" width="70px" align="center">&nbsp;<font size="-1"><?php echo $horamensual; ?> </font>  </td>
             <td  style="border: 1px solid black;" width="70px" align="center">&nbsp;<font size="-1"><?php echo $reales= AsistenciaUsuarioQuery::Reales($inicio, $fin, $regi->getUsuario());  ?></font> </td>      
    <?php $horas=0 ?>         

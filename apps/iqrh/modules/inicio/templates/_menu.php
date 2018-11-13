@@ -39,6 +39,10 @@
                         <a href="<?php echo url_for("empresa_horario/index"); ?>" 
                            class="nav-link  "> Horario</a>
                     </li>      
+                          <li class=" ">
+                        <a href="<?php echo url_for("dia_feriado/index"); ?>" 
+                           class="nav-link  "> Dias Feriado</a>
+                    </li>   
                 </ul>
 
             </li>

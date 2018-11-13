@@ -35,10 +35,24 @@ class reporte_asistenciaActions extends sfActions {
         $this->asistencias = $asistencia->find();
         $this->inicio = $fechaInicio;
         $this->fin = $fechaFin;
+            $asistencia = AsistenciaUsuarioQuery::create()
+                    
+                 ->where("AsistenciaUsuario.Dia >= '" . $fechaInicio . " 00:00:00" . "'")
+                ->where("AsistenciaUsuario.Dia <= '" . $fechaFin. " 23:59:00" . "'")
+                         ->filterByEmpresa($valores['empresa'])
+                       ->groupByUsuario()
+                        ->find();
+                $usuario[]=0;
+                foreach ($asistencia as $reg) {
+                    $usuario[]=$reg->getUsuario();
+                }
+                
         $this->Listado = UsuarioQuery::create()
+                     ->filterByUsuario($usuario,Criteria::IN)
                 ->filterByUsuario('Demo', Criteria::NOT_IN)
                  ->orderByPrimerApellido("Asc")
-                ->filterByEmpresa('PCR GUATEMALA')
+                //->filterByEmpresa('PCR GUATEMALA')
+                 ->filterByEmpresa($valores['empresa'])
                 ->find();
     }
 
@@ -71,11 +85,22 @@ class reporte_asistenciaActions extends sfActions {
                 $fechaFin = explode('/', $fechaFin);
                 $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
 
+                $asistencia = AsistenciaUsuarioQuery::create()
+                 ->where("AsistenciaUsuario.Dia >= '" . $fechaInicio . " 00:00:00" . "'")
+                ->where("AsistenciaUsuario.Dia <= '" . $fechaFin. " 23:59:00" . "'")
+                         ->filterByEmpresa($valores['empresa'])
+                       ->groupByUsuario()
+                        ->find();
+                $usuario[]=0;
+                foreach ($asistencia as $reg) {
+                    $usuario[]=$reg->getUsuario();
+                }
                 $Listado = UsuarioQuery::create()
-                      //  ->filterById(416)
+                        ->filterByUsuario($usuario,Criteria::IN)
                         ->filterByUsuario('Demo', Criteria::NOT_IN)
                         ->orderByPrimerApellido("Desc")
-                        ->filterByEmpresa('PCR GUATEMALA')
+                       // ->filterByEmpresa('PCR GUATEMALA')
+                        ->filterByEmpresa($valores['empresa'])
                         ->find();
                 foreach ($Listado as $regi) {
                     $usuarioQ = UsuarioQuery::create()->findOneById($regi->getId());

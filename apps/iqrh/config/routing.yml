@@ -1,3 +1,12 @@
+dia_feriado:
+  class: sfPropelORMRouteCollection
+  options:
+    model:                DiaFeriado
+    module:               dia_feriado
+    prefix_path:          /dia_feriado
+    column:               id
+    with_wildcard_routes: true
+
 empresa_horario:
   class: sfPropelORMRouteCollection
   options:
