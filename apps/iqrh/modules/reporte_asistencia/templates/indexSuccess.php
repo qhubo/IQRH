@@ -59,7 +59,9 @@
 
      
 
-
+        <div class="row">
+            <img src="<?php echo '/uploads/empresas/grafica3.png' ?>">
+        </div>
         
 
     </div>

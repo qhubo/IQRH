@@ -12,19 +12,23 @@ abstract class BaseEmpresaHorarioFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'empresa'    => new sfWidgetFormFilterInput(),
-      'hora'       => new sfWidgetFormFilterInput(),
-      'hora_fin'   => new sfWidgetFormFilterInput(),
-      'hora24'     => new sfWidgetFormFilterInput(),
-      'hora_fin24' => new sfWidgetFormFilterInput(),
+      'empresa'         => new sfWidgetFormFilterInput(),
+      'hora'            => new sfWidgetFormFilterInput(),
+      'hora_fin'        => new sfWidgetFormFilterInput(),
+      'hora24'          => new sfWidgetFormFilterInput(),
+      'hora_fin24'      => new sfWidgetFormFilterInput(),
+      'estricto'        => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'minuto_prorroga' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'empresa'    => new sfValidatorPass(array('required' => false)),
-      'hora'       => new sfValidatorPass(array('required' => false)),
-      'hora_fin'   => new sfValidatorPass(array('required' => false)),
-      'hora24'     => new sfValidatorPass(array('required' => false)),
-      'hora_fin24' => new sfValidatorPass(array('required' => false)),
+      'empresa'         => new sfValidatorPass(array('required' => false)),
+      'hora'            => new sfValidatorPass(array('required' => false)),
+      'hora_fin'        => new sfValidatorPass(array('required' => false)),
+      'hora24'          => new sfValidatorPass(array('required' => false)),
+      'hora_fin24'      => new sfValidatorPass(array('required' => false)),
+      'estricto'        => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'minuto_prorroga' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('empresa_horario_filters[%s]');
@@ -42,12 +46,14 @@ abstract class BaseEmpresaHorarioFormFilter extends BaseFormFilterPropel
   public function getFields()
   {
     return array(
-      'id'         => 'Number',
-      'empresa'    => 'Text',
-      'hora'       => 'Text',
-      'hora_fin'   => 'Text',
-      'hora24'     => 'Text',
-      'hora_fin24' => 'Text',
+      'id'              => 'Number',
+      'empresa'         => 'Text',
+      'hora'            => 'Text',
+      'hora_fin'        => 'Text',
+      'hora24'          => 'Text',
+      'hora_fin24'      => 'Text',
+      'estricto'        => 'Boolean',
+      'minuto_prorroga' => 'Number',
     );
   }
 }

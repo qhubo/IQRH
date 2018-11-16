@@ -245,6 +245,7 @@ class inicioActions extends sfActions {
         $usuario_id = $this->getUser()->getAttribute('usuario', null, 'seguridad');
         $this->usuario = UsuarioQuery::create()->findOneById($usuario_id);
         $this->empleados = UsuarioQuery::create()->filterByUsuarioJefe($usuario_id)->find();
+        AsistenciaUsuarioQuery::procesa();
     }
 
     public function executeImagen(sfWebRequest $request) {

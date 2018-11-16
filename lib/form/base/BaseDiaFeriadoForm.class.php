@@ -23,6 +23,10 @@ abstract class BaseDiaFeriadoForm extends BaseFormPropel
       'dia' => new sfValidatorDate(array('required' => false)),
     ));
 
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorPropelUnique(array('model' => 'DiaFeriado', 'column' => array('dia')))
+    );
+
     $this->widgetSchema->setNameFormat('dia_feriado[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

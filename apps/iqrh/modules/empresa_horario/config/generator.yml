@@ -33,7 +33,7 @@ generator:
       filter:
         display:           [empresa,hora,hora_fin]
       form:
-        display:           [empresa,hora,hora_fin]
+        display:           [empresa,hora,hora_fin,minuto_prorroga,estricto]
       edit:
         title:             Editar  Horario
       new:

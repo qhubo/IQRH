@@ -294,6 +294,8 @@ propel:
       hora_fin:                      { type: varchar(10) }
       hora24:                        { type: varchar(10) }
       hora_fin24:                    { type: varchar(10) }
+      estricto:                      { type: boolean, default: true }  
+      minuto_prorroga:               { type: integer, default: 0  } 
     
   dia_feriado:
       id:                            ~ 

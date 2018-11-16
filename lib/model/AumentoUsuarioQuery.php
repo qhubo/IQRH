@@ -19,4 +19,26 @@
  */
 class AumentoUsuarioQuery extends BaseAumentoUsuarioQuery
 {
+        static public function fines($fechaInicio, $fechaFin) {
+                         $datetime1 = new DateTime($fechaInicio);
+        $datetime2 = new DateTime($fechaFin);
+        $interval = $datetime1->diff($datetime2);
+        $dias = str_replace("+", "", $interval->format('%R%a'));
+        $SEMANA = NULL;
+        $fines =0;
+        for ($i = 0; $i <= $dias; $i++) {
+            $fecha = $fechaInicio;
+            $nuevafecha = strtotime('+' . $i . ' day', strtotime($fecha));
+            $fecha = date('Y-m-d', $nuevafecha);
+            $diaSemana = date('N', $nuevafecha);
+            if ($diaSemana ==7) {
+                $fines = $fines+1;       
+            }
+      
+            if ($diaSemana ==6) {
+              $fines = $fines+1;               
+            }
+        }
+        return $fines;
+        }
 }

@@ -17,38 +17,68 @@
  */
 class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
 
-    
-        static public function diferencia($inicio, $salida) {
-                    $arrayInicio = explode(":",$inicio);
-        $MinutosInicio = ($arrayInicio[0]*60) +  $arrayInicio[1];
-                
-        $arrayFin = explode(":",$salida);        
-        $MinutosFin = ($arrayFin[0]*60) +  $arrayFin[1];
+    static public function laboradosReales($fechaInicio, $fechaFin) {
+
+        $datetime1 = new DateTime($fechaInicio);
+        $datetime2 = new DateTime($fechaFin);
+        
+        $interval = $datetime1->diff($datetime2);
+        $dias = str_replace("+", "", $interval->format('%R%a'));
+        $SEMANA = NULL;
+        $fines = 0;
+        $diasOk =0;
+        for ($i = 0; $i <= $dias; $i++) {
+            $fecha = $fechaInicio;
+            $nuevafecha = strtotime('+' . $i . ' day', strtotime($fecha));
+            $fecha = date('Y-m-d', $nuevafecha);
+            echo "<strong>".$fecha."</strong> ";
+            $diaSemana = date('N', $nuevafecha);
+            if (($diaSemana <>7) && ($diaSemana <> 6)) {
+                $diasOk = $diasOk+1;
+             //   echo $fecha." ";
+            //    echo $diaSemana;
+            //    echo "<br>";
+            }
+//            if ($diaSemana == 7) {
+//                $fines = $fines + 1;
+//            }
+//            if ($diaSemana == 6) {
+//                $fines = $fines + 1;
+//            }
+        }
+        return $diasOk;
+    }
+
+    static public function diferencia($inicio, $salida) {
+        $arrayInicio = explode(":", $inicio);
+        $MinutosInicio = ($arrayInicio[0] * 60) + $arrayInicio[1];
+
+        $arrayFin = explode(":", $salida);
+        $MinutosFin = ($arrayFin[0] * 60) + $arrayFin[1];
 //        echo "<br>";
 //        echo $MinutosInicio." ".$MinutosFin;
 //        echo "<br>"; 
-        $minutos = $MinutosFin -$MinutosInicio;
-        
-        $horaDifecnia= $minutos/60;
-            $horario = explode(".", $horaDifecnia);
-                    $horaTarde = $horario[0];
-                    $minutoTarde = 0;
-                    if (count($horario) > 1) {
-                        $minuto = '0.' . $horario[1];
-                        if ($minuto) {
-                            $minutoTarde = $minuto * 60;
-                        }
-                    }
-                    $minutoTarde =round($minutoTarde,0);
-          // $retorna = $horaTarde." ".$minutoTarde;
-           $retorna['hora']=$horaTarde;
-           $retorna['minuto']=$minutoTarde;
-           $retorna['muestra']=$horaTarde." ".$minutoTarde;
-           $retorna['minutos']=$minutos;
-           return $retorna;
-                    
+        $minutos = $MinutosFin - $MinutosInicio;
+
+        $horaDifecnia = $minutos / 60;
+        $horario = explode(".", $horaDifecnia);
+        $horaTarde = $horario[0];
+        $minutoTarde = 0;
+        if (count($horario) > 1) {
+            $minuto = '0.' . $horario[1];
+            if ($minuto) {
+                $minutoTarde = $minuto * 60;
+            }
         }
-    
+        $minutoTarde = round($minutoTarde, 0);
+        // $retorna = $horaTarde." ".$minutoTarde;
+        $retorna['hora'] = $horaTarde;
+        $retorna['minuto'] = $minutoTarde;
+        $retorna['muestra'] = $horaTarde . " " . $minutoTarde;
+        $retorna['minutos'] = $minutos;
+        return $retorna;
+    }
+
     static public function procesa() {
         $Asistencia = AsistenciaUsuarioQuery::create()
                 ->filterByEmpresa(null)
@@ -75,6 +105,8 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                     $horaEntrada = substr($Entrada, 0, strlen($Entrada) - 2);
                     $minutoEntrada = substr($Entrada, -2);
                     $HORAMINEntrada = ($horaEntrada * 60) + $minutoEntrada;
+                    // *****SUMA 10 DE BUENA ONDA
+                    $HORAMINEntrada=$HORAMINEntrada + $HorarioQ->getMinutoProrroga();
                     $diferenica = $HORAMIN - $HORAMINEntrada;
                     $horaDifecnia = $diferenica / 60;
                     /// encontro diferencia
@@ -99,8 +131,8 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                         }
                     }
                     if ($llegoTarde) {
-                   //     echo $registro->getUsuario() . " INGRESO EN DIA  " . $registro->getDia('d/m/Y') . " " . $IngresoActual . " Horario " . $Entrada . " -->  Llego tarde  " . $diferenica . "  minutos ";
-                     //   echo "<br>";
+                        //     echo $registro->getUsuario() . " INGRESO EN DIA  " . $registro->getDia('d/m/Y') . " " . $IngresoActual . " Horario " . $Entrada . " -->  Llego tarde  " . $diferenica . "  minutos ";
+                        //   echo "<br>";
                     }
                     //echo "INGRESO " . $IngresoActual . " horario entrada " . $Entrada;
                     $horario = explode(".", $horaDifecnia);
@@ -127,7 +159,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 }
             }
         }
-    //    die();
+        //    die();
     }
 
     static public function marcas($dia, $usuario) {
@@ -163,7 +195,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 ->filterByTarde(true)
                 ->where("AsistenciaUsuario.Dia >= '" . $inicio . " 00:00:00" . "'")
                 ->where("AsistenciaUsuario.Dia <= '" . $fin . " 23:59:00" . "'")
-                   ->groupByDia()
+                ->groupByDia()
                 ->count();
         return $laborados;
     }
@@ -213,20 +245,20 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
 
         $retorna['HORARIO_EFECTIVO']['DIFERENCIA'] = $retorna['REALES']['SALIDA']['COMPLETO'] - $retorna['REALES']['ENTRADA']['COMPLETO'];
         $resultado = $retorna['HORARIO_EFECTIVO']['DIFERENCIA'] / 60;
-        
+
         $horario = explode(".", $resultado);
         $hora = $horario[0];
         $retorna['HORARIO_EFECTIVO']['HORA'] = $hora;
         $minutoCalculo = 0;
         if (count($horario) > 1) {
             $minuto = '0.' . $horario[1];
-           // echo $minuto;
-            
+            // echo $minuto;
+
             if ($minuto) {
                 $minutoCalculo = $minuto * 60;
             }
         }
-    $retorna['HORARIO_EFECTIVO']['MINUTO'] =round($minutoCalculo,0);
+        $retorna['HORARIO_EFECTIVO']['MINUTO'] = round($minutoCalculo, 0);
 
 
 
@@ -234,8 +266,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         return $retorna;
     }
 
-    
-        static public function horasTotal($dia, $usuario) {
+    static public function horasTotal($dia, $usuario, $estricto=false) {
         $asistenciaUu = AsistenciaUsuarioQuery::create()
                 ->withColumn('min(AsistenciaUsuario.Hora)', 'Min')
                 ->withColumn('max(AsistenciaUsuario.Hora)', 'Max')
@@ -251,19 +282,25 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
             $horaEntra = $empresa->getHora24();
             $horaSalida = $empresa->getHoraFin24();
         }
+        $estricto = $empresa->getEstricto();
         $retorna['HORARIO']['ENTRADA'] = $horaEntra;
         $retorna['HORARIO']['SALIDA'] = $horaSalida;
 
         $retorna['MARCA']['ENTRADA'] = $entro;
         $retorna['MARCA']['SALIDA'] = $salio;
         $horaEntraOk = $horaEntra;
-//        if ($entro > $horaEntra) {
-//            $horaEntraOk = $entro;
-//        }
+        if ($estricto){
+         if ($entro > $horaEntra) {
+            $horaEntraOk = $entro;
+        }
+        }
+        
         $horaSalidaOk = $horaSalida;
-//        if ($salio < $horaSalida) {
-//            $horaSalidaOk = $salio;
-//        }
+        if ($estricto) {
+        if ($salio < $horaSalida) {
+            $horaSalidaOk = $salio;
+        }
+        }
         $hora = substr($horaEntraOk, 0, strlen($horaEntraOk) - 2);
         $minuto = substr($horaEntraOk, -2);
         $retorna['REALES']['ENTRADA']['MARCA'] = $horaEntraOk;
@@ -280,42 +317,41 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
 
         $retorna['HORARIO_EFECTIVO']['DIFERENCIA'] = $retorna['REALES']['SALIDA']['COMPLETO'] - $retorna['REALES']['ENTRADA']['COMPLETO'];
         $resultado = $retorna['HORARIO_EFECTIVO']['DIFERENCIA'] / 60;
-        
+
         $horario = explode(".", $resultado);
         $hora = $horario[0];
         $retorna['HORARIO_EFECTIVO']['HORA'] = $hora;
         $minutoCalculo = 0;
         if (count($horario) > 1) {
             $minuto = '0.' . $horario[1];
-           // echo $minuto;
-            
+            // echo $minuto;
+
             if ($minuto) {
                 $minutoCalculo = $minuto * 60;
             }
         }
-       $retorna['HORARIO_EFECTIVO']['MINUTO'] =round($minutoCalculo,0);
+        $retorna['HORARIO_EFECTIVO']['MINUTO'] = round($minutoCalculo, 0);
         return $retorna;
     }
-    
-    
-    
-      static public function Reales($inicio, $fin, $usuario) {
+
+    static public function Reales($inicio, $fin, $usuario) {
         $laborados = AsistenciaUsuarioQuery::create()
                 ->filterByUsuario($usuario)
                 ->where("AsistenciaUsuario.Dia >= '" . $inicio . " 00:00:00" . "'")
                 ->where("AsistenciaUsuario.Dia <= '" . $fin . " 23:59:00" . "'")
                 ->groupByDia()
                 ->find();
-        $minutos=0;
+        $minutos = 0;
         foreach ($laborados as $reg) {
-            $dia=$reg->getDia('Y-m-d');
-         //   $resultado = AsistenciaUsuarioQuery::horas($dia, $usuario);
+            $dia = $reg->getDia('Y-m-d');
+            //   $resultado = AsistenciaUsuarioQuery::horas($dia, $usuario);
             $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario);
-            $DIA_MINUTO =$resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
-            $minutos = $DIA_MINUTO+$minutos;
+            $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
+            $minutos = $DIA_MINUTO + $minutos;
         }
-        
-        $retorna= round($minutos/60,0);
+
+        $retorna = round($minutos / 60, 0);
         return $retorna;
     }
+
 }
