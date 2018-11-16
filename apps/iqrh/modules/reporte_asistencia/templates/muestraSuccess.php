@@ -50,7 +50,7 @@
            <div class="row">
                     <div class="col-md-10"></div>
                     <div class="col-md-2">
-                        <a class="btn  btn grey-cascade  btn-block "  target="_blank"  href="<?php echo url_for('reporte/asistencia') ?>" ><i class="fa fa-list"></i>&nbsp;&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-print"></i></a>
+                        <a class="btn  btn red-flamingo btn-outline  btn-block "  target="_blank"  href="<?php echo url_for('reporte/asistencia') ?>" ><i class="fa fa-list"></i>&nbsp;&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-file-pdf-o "></i></a>
 
                     </div>            
                 </div> 
@@ -93,7 +93,13 @@
             </div>
 
             <div class="tab-pane " id="tab_1_2">
+ <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <a class="btn  btn green-jungle btn-outline  btn-block "    href="<?php echo url_for('reporte/resumenAsiste') ?>" >&nbsp;&nbsp;Reporte&nbsp;&nbsp; <i class="fa fa-file-excel-o"></i> </a>
 
+                    </div>            
+                </div>
                 <?php include_partial('reporte_asistencia/empleado', array('Listado' => $Listado, 'inicio' => $inicio, 'fin' => $fin)) ?> 
 
             </div>
