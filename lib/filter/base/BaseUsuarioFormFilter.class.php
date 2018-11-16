@@ -44,6 +44,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'asistencia'       => new sfWidgetFormFilterInput(),
       'puntualida'       => new sfWidgetFormFilterInput(),
       'token'            => new sfWidgetFormFilterInput(),
+      'fecha_reporte'    => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -79,6 +80,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'asistencia'       => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'puntualida'       => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'token'            => new sfValidatorPass(array('required' => false)),
+      'fecha_reporte'    => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('usuario_filters[%s]');
@@ -129,6 +131,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'asistencia'       => 'Number',
       'puntualida'       => 'Number',
       'token'            => 'Text',
+      'fecha_reporte'    => 'Text',
     );
   }
 }

@@ -33,6 +33,7 @@ propel:
     asistencia:                        { type: double }  
     puntualida:                        { type: double }  
     token:                             { type: varchar(150) }
+    fecha_reporte:                     { type: varchar(300) }
     _uniques:
        llave:                          [ usuario ]
  

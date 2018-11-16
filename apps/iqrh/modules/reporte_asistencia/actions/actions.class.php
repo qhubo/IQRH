@@ -73,6 +73,15 @@ class reporte_asistenciaActions extends sfActions {
             $valores['empresa'] = 'PCR GUATEMALA';
             sfContext::getInstance()->getUser()->setAttribute('valores', serialize($valores), 'Asistencia');
         }
+      
+        $usuarioQ = UsuarioQuery::create()
+                ->filterByFechaReporte('', Criteria::NOT_EQUAL)
+                ->orderByFechaReporte("Desc")
+                ->findOne();
+$this->fechaRepor ='xxx';
+        if ($usuarioQ) {
+        $this->fechaRepor = $usuarioQ->getFechaReporte();
+        }
         $this->form = new ConsultaAsistenciaForm($valores);
         if ($request->isMethod('post')) {
             $this->form->bind($request->getParameter("consulta"), $request->getFiles("consulta"));
@@ -119,6 +128,7 @@ class reporte_asistenciaActions extends sfActions {
                         $puntualidad = (($tardes * 100) / $dias);
                         $puntualidad = round($puntualidad, 2);
                     }
+                    $usuarioQ->setFechaReporte($valores['fechaInicio']." AL  ".$valores['fechaFin']);
                     $usuarioQ->setAsistencia($dias);
                     $usuarioQ->setPuntualida($puntualidad);
                     $usuarioQ->save();

@@ -56,11 +56,21 @@
                 </button>
             </div>
         </div>
-
-     
+     <div class="row">
+         <div class="col-md-10"> <br><br><br></div>
+     </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+               <div class="col-md-4 font-blue-steel"  align="right">Resultados de Grafica Correspondiente a :</div>
+            <div class="col-md-6 font-blue-hoki bold Bold">        <?php echo $fechaRepor; ?></div>
+            
+        </div>
 
         <div class="row">
+            <div class="col-md-1"> </div>
+                 <div class="col-md-10">
             <img src="<?php echo '/uploads/empresas/grafica3.png' ?>">
+            </div>
         </div>
         
 
