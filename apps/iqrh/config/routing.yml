@@ -1,3 +1,12 @@
+usuario_horario:
+  class: sfPropelORMRouteCollection
+  options:
+    model:                UsuarioHorario
+    module:               usuario_horario
+    prefix_path:          /usuario_horario
+    column:               id
+    with_wildcard_routes: true
+
 dia_feriado:
   class: sfPropelORMRouteCollection
   options:

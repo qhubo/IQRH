@@ -1,0 +1,42 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           UsuarioHorario
+    theme:                 admin15
+    non_verbose_templates: true
+    with_show:             false
+    singular:              UsuarioHorario
+    plural:                UsuarioHorarios
+    route_prefix:          usuario_horario
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+          usuario:
+              label:       Empleado
+              attributes:
+                  class:    form-control input-xlarge    
+          hora:
+              label:       Hora Entrada
+              attributes:
+                  class:    form-control input-xsmall  timepicker timepicker-24   
+          hora_fin:
+              label:       Hora Salida
+              attributes:
+                  class:    form-control input-xsmall   timepicker timepicker-24 
+
+      list: 
+        title:             Horario Empleado
+        display:           [usuario,hora,hora_fin]
+      filter:
+        display:           [usuario,hora,hora_fin]
+      form:
+        display:           [usuario,hora,hora_fin,minuto_prorroga,estricto]
+      edit:
+        title:             Editar  Horario Empleado
+      new:
+        title:             Nuevo
+
+

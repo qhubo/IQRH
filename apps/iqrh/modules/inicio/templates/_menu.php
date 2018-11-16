@@ -42,7 +42,12 @@
                           <li class=" ">
                         <a href="<?php echo url_for("dia_feriado/index"); ?>" 
                            class="nav-link  "> Dias Feriado</a>
-                    </li>   
+                    </li>
+                    
+                           <li class=" ">
+                        <a href="<?php echo url_for("usuario_horario/index"); ?>" 
+                           class="nav-link  "> Horario Empleado</a>
+                    </li>  
                 </ul>
 
             </li>

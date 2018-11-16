@@ -78,7 +78,7 @@ class reporte_asistenciaActions extends sfActions {
                 ->filterByFechaReporte('', Criteria::NOT_EQUAL)
                 ->orderByFechaReporte("Desc")
                 ->findOne();
-$this->fechaRepor ='xxx';
+$this->fechaRepor ='';
         if ($usuarioQ) {
         $this->fechaRepor = $usuarioQ->getFechaReporte();
         }
