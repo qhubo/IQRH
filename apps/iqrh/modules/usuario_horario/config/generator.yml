@@ -29,7 +29,7 @@ generator:
 
       list: 
         title:             Horario Empleado
-        display:           [usuario,hora,hora_fin]
+        display:           [usuario,_empleado, hora,hora_fin]
       filter:
         display:           [usuario,hora,hora_fin]
       form:
