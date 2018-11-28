@@ -168,7 +168,7 @@ chart.addListener("rendered", function (e) {
                 setTimeout(function () {
                     var imagen = document.getElementById("imagen").value;
                    // alert(imagen);
-                    $.post('http://iqrh:8080/iqrh_dev.php/rest_asiste/graficaXY', {imagen: imagen}, function (response) {
+                    $.post('http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/iqrh_dev.php/rest_asiste/graficaXY', {imagen: imagen}, function (response) {
                     });
                     // alert(imagen);
 
