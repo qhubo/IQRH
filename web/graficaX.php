@@ -157,7 +157,7 @@ chart.addListener("rendered", function (e) {
                         document.getElementById("imagen").value = datastring;
                         document.getElementById("results").appendChild(img);
                     });
-                }, 3000); // startDuration
+                }, 2000); // startDuration
                 setTimeout(function () {
                     var imagen = document.getElementById("imagen").value;
                   //  alert(imagen);
