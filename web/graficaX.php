@@ -80,7 +80,6 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
 <script type="text/javascript" src="/js/amexport_combined.js"></script>
 
 
-    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 <!--        <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
         <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
         <script type="text/javascript" src="http://www.amcharts.com/lib/3/exporting/amexport_combined.js"></script>
