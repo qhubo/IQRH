@@ -115,7 +115,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
   } ],
   "startDuration": 1.5,
   "graphs": [ {
-    "balloonText": "COD[[x]] Horas:<b>[[y]]</b>",
+    "balloonText": "<strong>COD </strong> [[x]] Horas:<b>[[y]]</b>",
     "bullet": "diamond",
     "bulletBorderAlpha": 0.2,
     "bulletAlpha": 0.8,
