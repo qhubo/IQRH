@@ -81,7 +81,7 @@
             <div class="tab-pane active" id="tab_1_1">
                  <div class="row">
             <div class="col-md-12">      
-                <table width="900px" height="500px" cellpadding="0" cellspacing="0" border="0">
+                <table width="900px" height="530px" cellpadding="0" cellspacing="0" border="0">
                     <tr style='height:100%;background:white;'>
                         <td>
                             <iframe id="pes_frame"  src="http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/grafica.php?empresa=<?php echo trim($valores['empresa']) ?>"  frameborder="0"
