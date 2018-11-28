@@ -11,6 +11,7 @@ class SeleccionEmpleadoForm extends sfForm {
 
         $registro = UsuarioQuery::create()
                 ->orderByNombreCompleto()
+             
                 ->find();
         $listado[null]='[Seleccione]';
         foreach ($usuario as $query) {

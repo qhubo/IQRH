@@ -37,14 +37,21 @@ class asigna_jefeActions extends sfActions {
         $this->usuarios = UsuarioQuery::create()
                 ->filterByCodigo('', Criteria::NOT_EQUAL)
                 ->filterByEmpresa($empresaseleccion)
+               //  ->filterByUsuarioJefe(0, Criteria::GREATER_THAN)
                // ->setLimit(10)
                 ->find();
+        $this->usuariosR= $this->usuarios;
         $usuario = UsuarioQuery::create()
                 ->orderByNombreCompleto()
                 ->find();
         foreach ($usuario as $reg) {
-            $default['empleado_' . $reg->getId()] = $reg->getUsuarioJefe();
+            $default['empleado_'.$reg->getId()] = 406;  //$reg->getUsuarioJefe();
         }
+        
+//        echo "<pre>";
+//        print_r($default);
+//        echo "</pre>";
+//        
         $this->form = new SeleccionEmpleadoForm($default);
         if ($request->isMethod('post')) {
             $this->form->bind($request->getParameter("consulta"), $request->getFiles("consulta"));
