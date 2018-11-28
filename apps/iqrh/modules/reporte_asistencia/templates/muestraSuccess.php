@@ -89,10 +89,17 @@
                                 </td>
                             </tr>
                         </table>                
-                    </div>   
+                    </div>  
+                    <div class="row">
+                                              
+                           <div class="col-md-9 ">
+                    <?php echo $form['texto'] ?>           
+
+                </div>
+                    </div>
                     <div class="col-md-12">   
 
-                        <table width="1100px" height="900px" cellpadding="0" cellspacing="0" border="0">
+                        <table width="1100px" height="500px" cellpadding="0" cellspacing="0" border="0">
                             <tr style='height:100%;background:white;'>
                                 <td width="200px">
                                     <table>
@@ -118,9 +125,17 @@
 
                     
                     </div> 
+                   <div class="row">
+                       <div class="col-md-2 "> </div>        
+                           <div class="col-md-9 ">
+                    <?php echo $form['texto2'] ?>           
+
                 </div>
+                    </div>
             </div>
 
+                
+            </div>
             <div class="tab-pane " id="tab_1_2">
                 <div class="row">
                     <div class="col-md-10"></div>

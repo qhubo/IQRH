@@ -55,6 +55,9 @@ class reporte_asistenciaActions extends sfActions {
                 ->find();
         $empresa = $valores['empresa'];
     $this->dataGra = EmpresaHorarioQuery::data($empresa);
+    
+    $default=null;
+       $this->form = new TextosForm($default);
         
 //        echo "<pre>";
 //        print_r($this->dataGra);

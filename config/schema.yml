@@ -298,7 +298,9 @@ propel:
       hora_fin24:                    { type: varchar(10) }
       estricto:                      { type: boolean, default: true }  
       minuto_prorroga:               { type: integer, default: 0  } 
-      
+      texto_uno:                     { type: longvarchar } 
+      texto_dos:                     { type: longvarchar } 
+          
   usuario_horario:
       id:                            ~ 
       usuario:                       { type: varchar(300) }       

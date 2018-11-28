@@ -22,6 +22,8 @@ abstract class BaseEmpresaHorarioForm extends BaseFormPropel
       'hora_fin24'      => new sfWidgetFormInputText(),
       'estricto'        => new sfWidgetFormInputCheckbox(),
       'minuto_prorroga' => new sfWidgetFormInputText(),
+      'texto_uno'       => new sfWidgetFormTextarea(),
+      'texto_dos'       => new sfWidgetFormTextarea(),
     ));
 
     $this->setValidators(array(
@@ -33,6 +35,8 @@ abstract class BaseEmpresaHorarioForm extends BaseFormPropel
       'hora_fin24'      => new sfValidatorString(array('max_length' => 10, 'required' => false)),
       'estricto'        => new sfValidatorBoolean(array('required' => false)),
       'minuto_prorroga' => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'texto_uno'       => new sfValidatorString(array('required' => false)),
+      'texto_dos'       => new sfValidatorString(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('empresa_horario[%s]');
