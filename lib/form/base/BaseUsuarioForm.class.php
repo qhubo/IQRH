@@ -48,6 +48,7 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'puntualida'       => new sfWidgetFormInputText(),
       'token'            => new sfWidgetFormInputText(),
       'fecha_reporte'    => new sfWidgetFormInputText(),
+      'horas'            => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -85,6 +86,7 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'puntualida'       => new sfValidatorNumber(array('required' => false)),
       'token'            => new sfValidatorString(array('max_length' => 150, 'required' => false)),
       'fecha_reporte'    => new sfValidatorString(array('max_length' => 300, 'required' => false)),
+      'horas'            => new sfValidatorNumber(array('required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(

@@ -2,10 +2,10 @@
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1542149984.
- * Generated on 2018-11-13 23:59:44 
+ * up to version 1543363376.
+ * Generated on 2018-11-28 01:02:56 
  */
-class PropelMigration_1542149984
+class PropelMigration_1543363376
 {
 
     public function preUp($manager)
@@ -42,12 +42,8 @@ class PropelMigration_1542149984
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
 
-CREATE TABLE `dia_feriado`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `dia` DATE,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+ALTER TABLE `usuario`
+    ADD `horas` DOUBLE AFTER `fecha_reporte`;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
@@ -69,7 +65,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS `dia_feriado`;
+ALTER TABLE `usuario` DROP `horas`;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

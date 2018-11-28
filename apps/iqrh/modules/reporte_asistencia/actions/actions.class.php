@@ -128,9 +128,11 @@ $this->fechaRepor ='';
                         $puntualidad = (($tardes * 100) / $dias);
                         $puntualidad = round($puntualidad, 2);
                     }
+                    $reales=AsistenciaUsuarioQuery::Reales($fechaInicio, $fechaFin, $regi->getUsuario());
                     $usuarioQ->setFechaReporte($valores['fechaInicio']." AL  ".$valores['fechaFin']);
                     $usuarioQ->setAsistencia($dias);
                     $usuarioQ->setPuntualida($puntualidad);
+                    $usuarioQ->setHoras($reales);
                     $usuarioQ->save();
                     //     echo $regi->getCodigo()." ".$dias." ".$puntualidad;
                     //     echo "<br>";
