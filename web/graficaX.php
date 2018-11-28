@@ -40,8 +40,14 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
 //    echo "<br>";
     $lista['nombre'] = $nombreCompleto; // . " " . $apellido;
     //  $lista['nombre'] = $codigo;
-    $lista['y'] = ($conta+5);
+    $lista['y'] = ($conta*5);
     $lista['x'] = $fila['horas'];
+//    if ($conta <> 3) {
+//    $lista['v'] = 25;
+//    } else {
+    $lista['v'] =25; // $fila['horas'];
+//        
+//    }
     $data[] = $lista;
 }
 
@@ -66,14 +72,14 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
 
 <script type="text/javascript" src="/js/serial.js"></script>
 
-<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="/js/export.min.js"></script>
+<link rel="stylesheet" href="/js/export.css" type="text/css" media="all" />
+<script src="/js/light.js"></script>
 
 
 
 <!-- Resources -->
-<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="/js/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/xy.js"></script>
 
 <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -93,7 +99,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                 {
                     "y": "<?php echo $regi['x'] ?>",
                     "x": <?php echo $regi['y'] ?>,
-                    "value": 25
+                    "value": <?php echo $regi['v'] ?>
                 },
 <?php } ?>
 
@@ -109,8 +115,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
   } ],
   "startDuration": 1.5,
   "graphs": [ {
-    "balloonText": "x:<b>[[x]]</b> y:<b>[[y]]</b><br>value:<b>[[value]]</b>",
-    "bullet": "circle",
+    "balloonText": "COD[[x]] Horas:<b>[[y]]</b>",
+    "bullet": "diamond",
     "bulletBorderAlpha": 0.2,
     "bulletAlpha": 0.8,
     "lineAlpha": 0,
@@ -118,7 +124,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "valueField": "value",
     "xField": "x",
     "yField": "y",
-    "maxBulletSize": 100
+    "maxBulletSize": 50
   }, {
     "balloonText": "x:<b>[[x]]</b> y:<b>[[y]]</b><br>value:<b>[[value]]</b>",
     "bullet": "diamond",
@@ -131,8 +137,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "yField": "y2",
     "maxBulletSize": 100
   } ],
-  "marginLeft": 46,
-  "marginBottom": 35,
+  "marginLeft": 6,
+  "marginBottom": 15,
   "export": {
     "enabled": true
   }
@@ -156,7 +162,7 @@ chart.addListener("rendered", function (e) {
                     var imagen = document.getElementById("imagen").value;
                   //  alert(imagen);
                     $.post('http://pcr.viasagt.com/iqrh_dev.php/rest_asiste/graficaXY', {imagen: imagen}, function (response) {
-            
+                 //  alert(imagen);
     });
                   
 
