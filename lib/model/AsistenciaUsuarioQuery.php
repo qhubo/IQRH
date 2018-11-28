@@ -31,7 +31,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
             $fecha = $fechaInicio;
             $nuevafecha = strtotime('+' . $i . ' day', strtotime($fecha));
             $fecha = date('Y-m-d', $nuevafecha);
-            echo "<strong>".$fecha."</strong> ";
+         //   echo "<strong>".$fecha."</strong> ";
             $diaSemana = date('N', $nuevafecha);
             if (($diaSemana <>7) && ($diaSemana <> 6)) {
                 $diasOk = $diasOk+1;
