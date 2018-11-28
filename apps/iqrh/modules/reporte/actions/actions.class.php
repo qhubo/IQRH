@@ -257,16 +257,35 @@ $horamensual =160;
         $mes[12] = 'Diciembre';
         $mesDescripcion = $mes[10];
         $horaMensual = 160;
+           $asistencia = AsistenciaUsuarioQuery::create()
+                ->where("AsistenciaUsuario.Dia >= '" . $fechaInicio . " 00:00:00" . "'")
+                ->where("AsistenciaUsuario.Dia <= '" . $fechaFin . " 23:59:00" . "'")
+                ->filterByEmpresa($valores['empresa'])
+                ->groupByUsuario()
+                ->find();
+        $usuario[] = 0;
+        foreach ($asistencia as $reg) {
+            $usuario[] = $reg->getUsuario();
+        }
+        
         $Listado = UsuarioQuery::create()
+                 ->filterByUsuario($usuario, Criteria::IN)
                 ->filterByUsuario('Demo', Criteria::NOT_IN)
                 ->orderByPrimerApellido("Asc")
-                ->filterByEmpresa('PCR GUATEMALA')
+                   ->filterByEmpresa($valores['empresa'])
                 ->find();
+      $datagra=  EmpresaHorarioQuery::data($valores['empresa']);
+//      echo "<pre>";
+//      print_r($datagra);
+//      die();
         $html = $this->getPartial('reporte/asistencia', array("muestra" => 0, 'Listado' => $Listado,
             'inicio' => $fechaInicio, 'fin' => $fechaFin, 'horamensual' => $horaMensual,
+            'datagra'=>$datagra,
             'mes' => $mesDescripcion
         ));
 
+//        echo $html;
+//        die();
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
         $pdf->SetTitle('Asistencia Resumen');
