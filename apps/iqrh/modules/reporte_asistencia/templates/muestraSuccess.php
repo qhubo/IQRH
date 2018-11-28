@@ -84,11 +84,22 @@
                 <table width="900px" height="900px" cellpadding="0" cellspacing="0" border="0">
                     <tr style='height:100%;background:white;'>
                         <td>
-                            <iframe id="pes_frame"  src="http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/grafica.php?empresa=<?php echo trim($valores['empresa']) ?>"  frameborder="0" style="width:100%; height:100%; overflow-x:hidden;" vspace="0" hspace="0"></iframe>
+                            <iframe id="pes_frame"  src="http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/grafica.php?empresa=<?php echo trim($valores['empresa']) ?>"  frameborder="0"
+                                    style="width:900px; height:100%; overflow-x:hidden;" vspace="0" hspace="0"></iframe>
                         </td>
                     </tr>
                 </table>                
-            </div>     
+            </div>   
+                       <div class="col-md-12">      
+                <table width="900px" height="900px" cellpadding="0" cellspacing="0" border="0">
+                    <tr style='height:100%;background:white;'>
+                        <td>
+                            <iframe id="pes_frame"  src="http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/graficaX.php?empresa=<?php echo trim($valores['empresa']) ?>"  frameborder="0"
+                                    style="width:900px; height:100%; overflow-x:hidden;" vspace="0" hspace="0"></iframe>
+                        </td>
+                    </tr>
+                </table>                
+            </div> 
         </div>
             </div>
 
