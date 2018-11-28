@@ -89,7 +89,7 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
 <!-- Resources -->
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/xy.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
 
 <!-- Chart code -->
 <script>
