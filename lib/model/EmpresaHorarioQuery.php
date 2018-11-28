@@ -19,4 +19,37 @@
  */
 class EmpresaHorarioQuery extends BaseEmpresaHorarioQuery
 {
+    
+    static public function  data ($empresa) {
+            $sqlconsulta = "select codigo, primer_nombre, primer_apellido,horas, puntualida, asistencia from usuario where horas >0 and  empresa like '%" . $empresa . "%' order by primer_apellido ";
+        $cantidad = 0;
+        $data = null;
+        $conta = 0;
+        $con = Propel::getConnection();
+        $stmt = $con->prepare($sqlconsulta);
+        $resource = $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $dataEmpl=null;
+        foreach ($result as $fila) {
+            $codigo = $fila['codigo'];
+            $nombre = utf8_encode($fila['primer_nombre']);
+            $apellido = utf8_encode($fila['primer_apellido']);
+            $nombreCompleto = $apellido . " " . $nombre;
+            $nombreCompleto = str_replace("á", "a", $nombreCompleto);
+            $nombreCompleto = str_replace("é", "e", $nombreCompleto);
+            $nombreCompleto = str_replace("í", "i", $nombreCompleto);
+            $nombreCompleto = str_replace("ó", "o", $nombreCompleto);
+            $nombreCompleto = str_replace("ú", "u", $nombreCompleto);
+            $nombreCompleto = str_replace("´", "", $nombreCompleto);
+            $nombreCompleto = str_replace("Á", "A", $nombreCompleto);
+            $nombreCompleto = str_replace("É", "E", $nombreCompleto);
+            $nombreCompleto = str_replace("Í", "I", $nombreCompleto);
+            $nombreCompleto = str_replace("Ó", "O", $nombreCompleto);
+            $nombreCompleto = str_replace("Ú", "U", $nombreCompleto);
+            $nombreCompleto = str_replace("", "", $nombreCompleto);
+            $nombreCompleto = substr($nombreCompleto,0,50); 
+            $dataEmpl[]=$nombreCompleto;
+        }
+        return $dataEmpl;
+    }
 }

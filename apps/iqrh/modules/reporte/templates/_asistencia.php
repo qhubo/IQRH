@@ -1,6 +1,6 @@
 <?php $Parametro = ParametroQuery::create()->findOne(); ?>
-  <?php         $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia')); ?>
-    
+<?php $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia')); ?>
+
 <table style="width:720px">
     <tr>
         <td style="width:100%">    <img src="<?php echo '/images/banner.PNG' ?>" width="720px" ></td> 
@@ -62,31 +62,31 @@
         <td  style="border: 1px solid black;" width="70px" >&nbsp;<font size="-2"><strong>HORAS<br>&nbsp; REALES</strong></font> </td>      
         <td  style="border: 1px solid black;" width="50px" >&nbsp;<font size="-2"><strong>% HORAS</strong></font></td>
     </tr>
-<?php foreach ($Listado as $regi) { ?>
-    <?php $puntualidad =0; ?>
+    <?php foreach ($Listado as $regi) { ?>
+        <?php $puntualidad = 0; ?>
         <tr>
             <td  style=" border: 1px solid black;" width="150px"  >&nbsp;<font size="-2"><?php echo $regi->getNombreCompleto(); ?></font>  </td>
             <td  style="border: 1px solid black;" width="170px"   >&nbsp;<font size="-2"><?php echo $regi->getPuesto(); ?></font>   </td>
-            <td  style="border: 1px solid black;" width="70px" align="center" >&nbsp;<font size="-1"><?php echo  $dias= AsistenciaUsuarioQuery::laborados($inicio, $fin, $regi->getUsuario());  ?></font>&nbsp;&nbsp;&nbsp;  </td>
-            <td  style="border: 1px solid black;" width="70px" align="center" >&nbsp;<font size="-1"><?php echo $tardes= AsistenciaUsuarioQuery::tardes($inicio, $fin, $regi->getUsuario());  ?></font>  </td>
-            <?php if ($dias >0) { ?>
-            <?php $puntualidad =(($tardes *100) /$dias); ?>
+            <td  style="border: 1px solid black;" width="70px" align="center" >&nbsp;<font size="-1"><?php echo $dias = AsistenciaUsuarioQuery::laborados($inicio, $fin, $regi->getUsuario()); ?></font>&nbsp;&nbsp;&nbsp;  </td>
+            <td  style="border: 1px solid black;" width="70px" align="center" >&nbsp;<font size="-1"><?php echo $tardes = AsistenciaUsuarioQuery::tardes($inicio, $fin, $regi->getUsuario()); ?></font>  </td>
+            <?php if ($dias > 0) { ?>
+                <?php $puntualidad = (($tardes * 100) / $dias); ?>
             <?php } ?>
-            <td  style="border: 1px solid black;" width="75px"  align="center" ><font size="-1">&nbsp; <?php echo  round($puntualidad,0); ?>%  </font></td>
+            <td  style="border: 1px solid black;" width="75px"  align="center" ><font size="-1">&nbsp; <?php echo round($puntualidad, 0); ?>%  </font></td>
             <td  style="border: 1px solid black;" width="70px" align="center">&nbsp;<font size="-1"><?php echo $horamensual; ?> </font>  </td>
-            <td  style="border: 1px solid black;" width="70px" align="center">&nbsp;<font size="-1"><?php echo $reales= AsistenciaUsuarioQuery::Reales($inicio, $fin, $regi->getUsuario());  ?></font> </td>      
-   <?php $horas=0 ?>         
-   <?php if  ($reales > $horamensual) {  ?>
-            <?php $horas=100 ?>
+            <td  style="border: 1px solid black;" width="70px" align="center">&nbsp;<font size="-1"><?php echo $reales = AsistenciaUsuarioQuery::Reales($inicio, $fin, $regi->getUsuario()); ?></font> </td>      
+            <?php $horas = 0 ?>         
+            <?php if ($reales > $horamensual) { ?>
+                <?php $horas = 100 ?>
             <?php } ?>
-            <?php if ($reales >0) { ?>
-            <?php $horas = (($reales *100) / $horamensual); ?>
+            <?php if ($reales > 0) { ?>
+                <?php $horas = (($reales * 100) / $horamensual); ?>
             <?php } ?>
-            <?php $horas =round($horas,2); ?>
-            <td  style="border: 1px solid black;" width="50px" >&nbsp;<font size="-2"><?php  echo $horas ?>%  </font></td>
+            <?php $horas = round($horas, 2); ?>
+            <td  style="border: 1px solid black;" width="50px" >&nbsp;<font size="-2"><?php echo $horas ?>%  </font></td>
 
         </tr>
-<?php } ?>
+    <?php } ?>
 </table>
 
 <table style="width:720px">
@@ -100,62 +100,32 @@
         <td style="width:100%">    <img src="<?php echo '/uploads/empresas/graficaX.png' ?>" width="720px" ></td> 
     </tr>
 </table>
-<?php $empresa = 'PCR GUATEMALA';
-$servidor = 'localhost'; // : 'localhost'
-$baseDatos = 'pcr';
-$usuario = 'pcr';
-$clave = 'pcr$123';
-if ($_SERVER['SERVER_NAME']=='iqrh') { 
-$baseDatos = 'iqrh';
-$usuario = 'root';
-$clave = '';
-}
-
-$mbd = new PDO('mysql:host=' . $servidor . ';dbname=' . $baseDatos, $usuario, $clave);
-$sqlconsulta = "select codigo, primer_nombre, primer_apellido,horas, puntualida, asistencia from usuario where horas >0 and  empresa like '%" . $empresa . "%' order by primer_apellido ";
-$cantidad = 0;
-$data = null;
- $conta=0; ?>
 
 
 <table style="width:720px">
-<tr>
-<?php foreach ($mbd->query($sqlconsulta) as $fila) { ?>
-<?php 
-    $codigo = $fila['codigo'];
-        $nombre = utf8_encode($fila['primer_nombre']);
-    $apellido = utf8_encode($fila['primer_apellido']);
-    $nombreCompleto = $apellido . " " . $nombre;
-    $nombreCompleto = str_replace("á", "a", $nombreCompleto);
-    $nombreCompleto = str_replace("é", "e", $nombreCompleto);
-    $nombreCompleto = str_replace("í", "i", $nombreCompleto);
-    $nombreCompleto = str_replace("ó", "o", $nombreCompleto);
-    $nombreCompleto = str_replace("ú", "u", $nombreCompleto);
-    $nombreCompleto = str_replace("´", "", $nombreCompleto);
-    
-       $nombreCompleto = str_replace("Á", "A", $nombreCompleto);
-    $nombreCompleto = str_replace("É", "E", $nombreCompleto);
-    $nombreCompleto = str_replace("Í", "I", $nombreCompleto);
-    $nombreCompleto = str_replace("Ó", "O", $nombreCompleto);
-    $nombreCompleto = str_replace("Ú", "U", $nombreCompleto);
-    $nombreCompleto = str_replace("", "", $nombreCompleto); ?>
-    <td>
-        <font size="-2"> <?php echo substr($nombreCompleto,0,50); ?> </font>
-    </td>
-    <?php  } ?>
-</tr>
+    <?php $li = 0; ?>
+    <?php foreach ($datagra as $reg) { ?>
+        <?php $li++; ?>
+        <tr>
+            <td width="100px"> </td>
+            <td width="50px"><strong><font size="-2"> <?php echo ($li * 5); ?></font></strong>&nbsp;&nbsp;</td>
+            <td><font size="-2"><?php echo $reg ?></font></td>
+
+        </tr>
+    <?php } ?>
 </table>
+
 
 
 
 <?php for ($i = count($Listado); $i <= 20; $i++) { ?>
 
-  <?php //echo GRAFICA ?>
+    <?php //echo GRAFICA ?>
 
 <?php } ?>
 <!--<table style="width:720px">
     <tr>
-        <td style="width:100%">    <img src="<?php //echo '/images/banner.PNG' ?>" width="720px" ></td> 
+        <td style="width:100%">    <img src="<?php //echo '/images/banner.PNG'  ?>" width="720px" ></td> 
     </tr>
 </table>-->
 <!--<table>
@@ -192,7 +162,7 @@ $data = null;
 <!--GRFICA-->
 <?php for ($i = count($Listado); $i <= 20; $i++) { ?>
 
-   <?php //echo $i ?>
+    <?php //echo $i ?>
 
 <?php } ?>
 

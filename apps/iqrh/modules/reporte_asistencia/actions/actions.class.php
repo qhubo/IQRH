@@ -53,12 +53,19 @@ class reporte_asistenciaActions extends sfActions {
                 //->filterByEmpresa('PCR GUATEMALA')
                 ->filterByEmpresa($valores['empresa'])
                 ->find();
+        $empresa = $valores['empresa'];
+    $this->dataGra = EmpresaHorarioQuery::data($empresa);
+        
+//        echo "<pre>";
+//        print_r($this->dataGra);
+//        echo "</pre>";
+        
     }
 
     public function executeIndex(sfWebRequest $request) {
-       // echo AsistenciaUsuarioQuery::laboradosReales($fechaInicio, $fechaFin);
-      //   echo "<br>";
-         $this->empresaseleccion = $request->getParameter('em');
+        // echo AsistenciaUsuarioQuery::laboradosReales($fechaInicio, $fechaFin);
+        //   echo "<br>";
+        $this->empresaseleccion = $request->getParameter('em');
         $empresaseleccion = $this->empresaseleccion;
         sfContext::getInstance()->getUser()->setAttribute('seleccion', $empresaseleccion, 'empresa');
         $this->empresas = UsuarioQuery::create()
@@ -73,14 +80,14 @@ class reporte_asistenciaActions extends sfActions {
             $valores['empresa'] = 'PCR GUATEMALA';
             sfContext::getInstance()->getUser()->setAttribute('valores', serialize($valores), 'Asistencia');
         }
-      
+
         $usuarioQ = UsuarioQuery::create()
                 ->filterByFechaReporte('', Criteria::NOT_EQUAL)
                 ->orderByFechaReporte("Desc")
                 ->findOne();
-$this->fechaRepor ='';
+        $this->fechaRepor = '';
         if ($usuarioQ) {
-        $this->fechaRepor = $usuarioQ->getFechaReporte();
+            $this->fechaRepor = $usuarioQ->getFechaReporte();
         }
         $this->form = new ConsultaAsistenciaForm($valores);
         if ($request->isMethod('post')) {
@@ -93,7 +100,7 @@ $this->fechaRepor ='';
                 $fechaFin = $valores['fechaFin'];
                 $fechaFin = explode('/', $fechaFin);
                 $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
-                $dias=AsistenciaUsuarioQuery::laboradosReales($fechaInicio, $fechaFin);
+                $dias = AsistenciaUsuarioQuery::laboradosReales($fechaInicio, $fechaFin);
                 $asistencia = AsistenciaUsuarioQuery::create()
                         ->where("AsistenciaUsuario.Dia >= '" . $fechaInicio . " 00:00:00" . "'")
                         ->where("AsistenciaUsuario.Dia <= '" . $fechaFin . " 23:59:00" . "'")
@@ -128,8 +135,8 @@ $this->fechaRepor ='';
                         $puntualidad = (($tardes * 100) / $dias);
                         $puntualidad = round($puntualidad, 2);
                     }
-                    $reales=AsistenciaUsuarioQuery::Reales($fechaInicio, $fechaFin, $regi->getUsuario());
-                    $usuarioQ->setFechaReporte($valores['fechaInicio']." AL  ".$valores['fechaFin']);
+                    $reales = AsistenciaUsuarioQuery::Reales($fechaInicio, $fechaFin, $regi->getUsuario());
+                    $usuarioQ->setFechaReporte($valores['fechaInicio'] . " AL  " . $valores['fechaFin']);
                     $usuarioQ->setAsistencia($dias);
                     $usuarioQ->setPuntualida($puntualidad);
                     $usuarioQ->setHoras($reales);
