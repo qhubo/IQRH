@@ -170,7 +170,7 @@ chart.addListener("rendered", function (e) {
                     alert(imagen);
                     $.post('http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/iqrh_dev.php/rest_asiste/graficaXY', {imagen: imagen}, function (response) {
                     });
-                     alert(imagen);
+                     alert(response);
 
                 }, 3010); // startDuration
             });

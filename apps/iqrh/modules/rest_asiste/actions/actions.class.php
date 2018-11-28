@@ -36,7 +36,7 @@ class rest_asisteActions extends sfActions {
 //            $paremtro->setSlogan($imagen);
 //            $paremtro->save();
         }
-        echo "actuaizad";
+        echo $BaseImagen;
         die();
     }
     
