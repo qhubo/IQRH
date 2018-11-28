@@ -164,10 +164,10 @@ chart.addListener("rendered", function (e) {
                         document.getElementById("imagen").value = datastring;
                         document.getElementById("results").appendChild(img);
                     });
-                }, 2000); // startDuration
+                }, 3000); // startDuration
                 setTimeout(function () {
                     var imagen = document.getElementById("imagen").value;
-                   // alert(imagen);
+                    alert(imagen);
                     $.post('http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/iqrh_dev.php/rest_asiste/graficaXY', {imagen: imagen}, function (response) {
                     });
                     // alert(imagen);
