@@ -70,26 +70,14 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
-<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-<!--        <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
-<script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
-<script type="text/javascript" src="http://www.amcharts.com/lib/3/exporting/amexport_combined.js"></script>
--->
-
-
-<script type="text/javascript" src="/js/amexport_combined.js"></script>
-
-
-<!--        <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
-        <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
-        <script type="text/javascript" src="http://www.amcharts.com/lib/3/exporting/amexport_combined.js"></script>
-      -->
 
 
 <!-- Resources -->
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/xy.js"></script>
 
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="/js/amexport_combined.js"></script>
 
 <!-- Chart code -->
 <script>
@@ -166,10 +154,11 @@ chart.addListener("rendered", function (e) {
                 }, 3000); // startDuration
                 setTimeout(function () {
                     var imagen = document.getElementById("imagen").value;
-                    alert(imagen);
-                    $.post('http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/iqrh_dev.php/rest_asiste/graficaXY', {imagen: imagen}, function (response) {
-                    });
-                     alert(response);
+                  //  alert(imagen);
+                    $.post('http://pcr.viasagt.com/iqrh_dev.php/rest_asiste/graficaXY', {imagen: imagen}, function (response) {
+            
+    });
+                  
 
                 }, 3010); // startDuration
             });
