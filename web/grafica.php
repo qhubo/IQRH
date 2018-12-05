@@ -10,7 +10,6 @@ $baseDatos = 'iqrh';
 $usuario = 'root';
 $clave = '';
 }
-
 $mbd = new PDO('mysql:host=' . $servidor . ';dbname=' . $baseDatos, $usuario, $clave);
 $sqlconsulta = "select codigo, primer_nombre, primer_apellido, puntualida, asistencia from usuario where  asistencia > 0 and empresa like '%" . $empresa . "%' order by primer_apellido ";
 $cantidad = 0;
