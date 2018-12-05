@@ -158,7 +158,7 @@ foreach ($mbd->query($sqlconsulta) as $fila) {
         setTimeout(function () {
             var imagen = document.getElementById("imagen").value;
             //   alert(imagen);
-            $.post('http://<?php  echo $_SERVER['SERVER_NAME'];  ?><?php echo $port; ?>/iqrh_dev.php/rest_asiste/grafica', {imagen: imagen}, function (response) {
+            $.post('http://pcr.viasagt.com/iqrh_dev.php/rest_asiste/grafica', {imagen: imagen}, function (response) {
             });
             // alert(imagen);
 
