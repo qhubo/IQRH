@@ -93,11 +93,43 @@
     <tr>
         <td style="width:100%">    <img src="<?php echo '/uploads/empresas/grafica3.png' ?>" width="720px" ></td> 
     </tr>
+     <tr>
+         <td style="width:100%"> 
+             <table style="width: 100%">
+                 <tr>
+                     <td style="width: 10%"></td>
+                     <td style="width: 90%">     <br>
+             <br>
+             <?php echo html_entity_decode($empresaQ->getTextoUno()); ?> </td>
+                     
+                 </tr>
+                 
+             </table>
+        </td> 
+    </tr>
+    
+    
 </table>
 
 <table style="width:720px">
     <tr>
         <td style="width:100%">    <img src="<?php echo '/uploads/empresas/graficaX.png' ?>" width="720px" ></td> 
+    </tr>
+       <tr>
+           <td style="width:100%"> 
+            <table style="width: 100%">
+                 <tr>
+                     <td style="width: 10%"></td>
+                     <td style="width: 90%">     <br>
+             <br>
+             <?php echo html_entity_decode($empresaQ->getTextoDos()); ?> </td>
+                     
+                 </tr>
+                 
+             </table>
+           
+           
+           </td> 
     </tr>
 </table>
 

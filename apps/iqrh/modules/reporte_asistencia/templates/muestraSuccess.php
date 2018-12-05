@@ -1,4 +1,4 @@
-<!--<script src='/assets/global/plugins/jquery.min.js'></script>-->
+<script src='/assets/global/plugins/jquery.min.js'></script>
 <?php $modulo = $sf_params->get('module'); ?>
 <?php $modulo = $sf_params->get('module'); ?>
 
@@ -91,12 +91,22 @@
                         </table>                
                     </div>  
                     <div class="row">
-                                              
                            <div class="col-md-9 ">
                     <?php echo $form['texto'] ?>           
-
                 </div>
+                      </div>
+                    
+                    <div class="row">
+                        <div class="col-md-5"></div>
+                        <div class="col-md-2  font-blue-steel Bold bold  " > <div id ="label1" name="label1"></div> </div>
+                        <div class="col-md-2"><br>
+                          <a   class="btn  btn-xs blue-steel btn-block btn-outline"  href="#tab_reversed_1_2" id="Btn1"> 
+         <li class="fa fa-check"> </li> Grabar
+    </a>
+                        </div>
+                        
                     </div>
+                    
                     <div class="col-md-12">   
 
                         <table width="1100px" height="500px" cellpadding="0" cellspacing="0" border="0">
@@ -131,6 +141,18 @@
                     <?php echo $form['texto2'] ?>           
 
                 </div>
+                    </div>
+                    
+                         <div class="row">
+                                                     <div class="col-md-5"></div>
+
+                        <div class="col-md-2 font-blue-steel Bold bold "><div id ="label2" name="label2"></div></div>
+                        <div class="col-md-2"><br>
+                          <a   class="btn  btn-xs blue-steel btn-block btn-outline"  href="#tab_reversed_1_2" id="Btn2"> 
+         <li class="fa fa-check"> </li> Grabar
+    </a>
+                        </div>
+                        
                     </div>
             </div>
 
@@ -184,13 +206,39 @@
                         <?php } ?>
                     </tbody>
                 </table>
-                <!--                </div>-->
             </div>
         </div>
-
-
-
     </div>
 </div>
 
+
+
+   <script type="text/javascript">
+
+       $('#Btn1').click(function () {
+           var id=<?php echo $idHorario; ?>;
+  var idv = $("#consulta_texto").val();
+    $.get('<?php echo url_for("reporte_asistencia/observacion") ?>', {id: id, idv: idv}, function (response) {
+       $("#label1").html("Información  Actualizada con exito");
+                });
+});
+    </script>
+
+   <script type="text/javascript">
+
+       $('#Btn2').click(function () {
+            var id=<?php echo $idHorario; ?>;
+      
+  var idv = $("#consulta_texto2").val();
+    $.get('<?php echo url_for("reporte_asistencia/observacion2") ?>', {id: id, idv: idv}, function (response) {
+          $("#label2").html("Información  Actualizada con exito");        
+    });
+ 
+});
+    
+    </script>
+    
+    
+
+    
 <?php echo '</form>'; ?>

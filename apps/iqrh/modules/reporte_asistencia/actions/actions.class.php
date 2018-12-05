@@ -15,6 +15,29 @@ class reporte_asistenciaActions extends sfActions {
      *
      * @param sfRequest $request A request object
      */
+    
+     public function executeObservacion(sfWebRequest $request) {
+        $empresa = $request->getParameter('id');
+        $valor  = $request->getParameter('idv');
+        $empresHorario = EmpresaHorarioQuery::create()->findOneById($empresa);
+        $empresHorario->setTextoUno($valor);
+        $empresHorario->save();
+        echo 'actualizado ';
+        die();
+        
+      }
+          
+     public function executeObservacion2(sfWebRequest $request) {
+         $empresa = $request->getParameter('id');
+        $valor  = $request->getParameter('idv');
+        $empresHorario = EmpresaHorarioQuery::create()->findOneById($empresa);
+        $empresHorario->setTextoDos($valor);
+        $empresHorario->save();
+        echo 'actualizado ';
+        die();
+   
+        }
+
     public function executeMuestra(sfWebRequest $request) {
 
         $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
@@ -55,10 +78,21 @@ class reporte_asistenciaActions extends sfActions {
                 ->find();
         $empresa = $valores['empresa'];
     $this->dataGra = EmpresaHorarioQuery::data($empresa);
+    $emrresaHora = EmpresaHorarioQuery::create()->findOneByEmpresa($empresa);
     
     $default=null;
-       $this->form = new TextosForm($default);
-        
+     
+       $this->idHorario='';
+       $this->textoUno='';
+       $this->textoDos='';
+       if ($emrresaHora) {
+       $this->idHorario=$emrresaHora->getId();
+         $this->textoUno=$emrresaHora->getTextoUno();
+       $this->textoDos=$emrresaHora->getTextoDos();
+       }
+       $default['texto']= $this->textoUno;
+       $default['texto2']= $this->textoDos;
+        $this->form = new TextosForm($default);
 //        echo "<pre>";
 //        print_r($this->dataGra);
 //        echo "</pre>";
@@ -66,6 +100,18 @@ class reporte_asistenciaActions extends sfActions {
     }
 
     public function executeIndex(sfWebRequest $request) {
+//        $resulta = 'a:2:{s:13:"Autenticacion";a:2:{s:5:"Login";s:9:"JANDRESGA";s:8:"Password";s:10:"OUZVWk4681";}s:10:"DatosEnvio";a:5:{s:20:"CodigoPobladoDestino";s:4:"1020";s:11:"CodigoPieza";i:2;s:12:"TipoServicio";i:1;s:9:"PesoTotal";s:1:"1";s:13:"CodigoCredito";s:7:"1803237";}}';
+//        echo "<pre>";
+//        print_r(unserialize($resulta));
+//        echo "</pre>";
+//        $resulta ='O:8:"stdClass":1:{s:22:"ResultadoObtenerTarifa";O:8:"stdClass":3:{s:18:"ResultadoOperacion";O:8:"stdClass":3:{s:16:"ResultadoExitoso";b:0;s:12:"MensajeError";s:139:"La cadena de entrada no tiene el formato correcto.Revise el tipo de autorización con sus credenciales  y las url del sistema de parametros";s:15:"CodigoRespuesta";i:0;}s:4:"Peso";s:1:"0";s:11:"MontoTarifa";s:1:"0";}}';
+//        echo "<pre>";
+//        print_r(unserialize($resulta));
+//        echo "</pre>";
+//        die();
+//        
+        
+        
         // echo AsistenciaUsuarioQuery::laboradosReales($fechaInicio, $fechaFin);
         //   echo "<br>";
         $this->empresaseleccion = $request->getParameter('em');

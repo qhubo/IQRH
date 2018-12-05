@@ -278,7 +278,10 @@ $horamensual =160;
 //      echo "<pre>";
 //      print_r($datagra);
 //      die();
-        $html = $this->getPartial('reporte/asistencia', array("muestra" => 0, 'Listado' => $Listado,
+      
+        $empresaQ= EmpresaHorarioQuery::create()->findOneByEmpresa($valores['empresa']);
+        
+        $html = $this->getPartial('reporte/asistencia', array("empresaQ"=>$empresaQ, "muestra" => 0, 'Listado' => $Listado,
             'inicio' => $fechaInicio, 'fin' => $fechaFin, 'horamensual' => $horaMensual,
             'datagra'=>$datagra,
             'mes' => $mesDescripcion
