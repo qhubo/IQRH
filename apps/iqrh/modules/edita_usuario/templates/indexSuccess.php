@@ -40,7 +40,13 @@
                             <td><?php echo $lis->getCodigo() ?></td>
                             <td><?php echo $lis->getUsuario() ?></td>
                             <td><?php echo $lis->getNombreCompleto() ?></td>
-                            <td><?php echo $lis->getCorreo(); ?></td>
+                            <td>
+                            
+                            <input type="text" name="correo_usuario<?php echo $lis->getId(); ?>" 
+                                   value="<?php echo $lis->getCorreo(); ?>" class="form-control input-xlarge" id="correo_usuario<?php echo $lis->getId(); ?>">
+                            <div class="labelactua<?php echo $lis->getId(); ?>" id="labelactua<?php echo $lis->getId(); ?>">
+                            </div>
+                            </td>
                             <td align="center"><?php if ($lis->getActivo()) { ?>
                         <li class="fa fa-hand-o-up font-blue-steel "></li>
                     <?php } else { ?>
@@ -71,6 +77,18 @@
 
 
 <?php foreach ($usuarios as $lista) { ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#correo_usuario<?php echo $lista->getId(); ?>").on('change', function () {
+            var id = $("#correo_usuario<?php echo $lista->getId(); ?>").val();
+            var idv = <?php echo $lista->getId(); ?>;
+            $.get('<?php echo url_for("edita_usuario/correo") ?>', {id: id, idv: idv}, function (response) {
+                $("#labelactua<?php echo $lista->getId(); ?>").html(response);
+            });
+        });
+    });
+</script>
+
 
     <div id="static<?php echo $lista->getId() ?>" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">

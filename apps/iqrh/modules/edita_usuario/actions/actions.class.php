@@ -10,6 +10,15 @@
  */
 class edita_usuarioActions extends sfActions {
 
+        public function executeCorreo(sfWebRequest $request) {
+        $valor = $request->getParameter('id');
+        $id = $request->getParameter('idv');
+        $usuarioQ = UsuarioQuery::create()->findOneById($id);
+        $usuarioQ->setCorreo($valor);
+        $usuarioQ->save();
+        echo "<span class='font font-green bold Bold' >Correo Actualizado </span>";
+        die();
+        }
     public function executeCambioClave(sfWebRequest $request) {
         $id = $request->getParameter('id');
 
