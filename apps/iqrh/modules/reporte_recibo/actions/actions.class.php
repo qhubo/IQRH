@@ -15,12 +15,19 @@ class reporte_reciboActions extends sfActions {
      
         $usuario = UsuarioQuery::create()->findOneById($usuarioId);
         $codigo = $usuario->getCodigo();
- 
+        $nombreUsu = $usuario->getUsuario();
         
+        if (strtoupper(trim($nombreUsu)) <>'DEMO') {
         $this->encabezados = ReciboEncabezadoQuery::create()
                 ->filterByCodigo($codigo)
                 ->orderByCabeceraIn("Desc")
                 ->find();
+        } else {
+        $this->encabezados = ReciboEncabezadoQuery::create()
+                ->orderByCabeceraIn("Desc")
+                ->find();
+            
+        }
     }
 
 }
