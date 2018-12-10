@@ -176,7 +176,16 @@ $horamensual =160;
         $pdf = new sfTCPDF("P", "mm", "Letter");
         $id = $request->getParameter("id");
         $codigo = $request->getParameter("cod");
-
+  $cabecera = ReciboCabeceraQuery::create()
+                ->filterByCabeceraIn($id)
+                ->findOne();
+        $encabezado = ReciboEncabezadoQuery::create()
+                ->filterByCabeceraIn($id)
+                ->filterByCodigo($codigo)
+                ->findOne();
+        $detalle= ReciboDetalleQuery::create()
+                ->filterByPlanillaResumenId($encabezado->getPlanillaResumenId())
+                ->find();
         $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
         $this->valores = $valores;
         $fechaInicio = $valores['fechaInicio'];
@@ -185,7 +194,11 @@ $horamensual =160;
         $fechaFin = $valores['fechaFin'];
         $fechaFin = explode('/', $fechaFin);
         $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
-        $html = $this->getPartial('reporte/correo', array("muestra" => 0));
+            $html = $this->getPartial('reporte/recibo', array("muestra" => 0,
+            'cabecera' => $cabecera,
+            'encabezado'=>$encabezado,
+            'detalle'=>$detalle
+        ));
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
         $pdf->SetTitle('Recibo Empleado');
