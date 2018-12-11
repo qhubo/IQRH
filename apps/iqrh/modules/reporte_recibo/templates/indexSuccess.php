@@ -33,8 +33,8 @@
                <?php $cod =trim($lista->getCodigo()); ?>
                 <tr>
                     <td align="center"><?php echo $cabecera->getPlanilla(); ?></td>
-                     <td><?php echo $cabecera->getCodigo(); ?></td>
-                      <td><?php echo $cabecera->getEmpleado(); ?></td>
+                     <td><?php echo $lista->getCodigo(); ?></td>
+                      <td><?php echo $lista->getEmpleado(); ?></td>
                     <td><?php echo $cabecera->getInicio(); ?></td>
                     <td><?php echo $cabecera->getFin(); ?></td>
                     <td align="center"> <?php echo $lista->getDepartamento(); ?></td>
