@@ -18,8 +18,19 @@ class reporte_reciboActions extends sfActions {
         $nombreUsu = $usuario->getUsuario();
         
         if (strtoupper(trim($nombreUsu)) <>'DEMO') {
+            
+               $empleados = UsuarioQuery::create()
+                ->orderByNombreCompleto()
+                ->filterByUsuarioJefe($usuarioId)
+                ->find();
+               $listadoEm[]=$codigo;
+        foreach ($empleados as $listado) {
+            $listadoEm[]=$listado->getCodigo();
+        }
+        
+        
         $this->encabezados = ReciboEncabezadoQuery::create()
-                ->filterByCodigo($codigo)
+                ->filterByCodigo($listadoEm, Criteria::IN)
                 ->orderByCabeceraIn("Desc")
                 ->find();
         } else {

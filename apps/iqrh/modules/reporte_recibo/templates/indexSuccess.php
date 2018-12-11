@@ -16,6 +16,9 @@
             <thead class="flip-content">
                 <tr class="info">
                     <td>Planilla</td>
+                    <td>Codigo</td>
+                    <td>Empleado</td>
+                    
                     <td>Fecha Inicio </td>
                     <td>Fecha Fin</td>     
                     <td>Departamento</td>
@@ -30,6 +33,8 @@
                <?php $cod =trim($lista->getCodigo()); ?>
                 <tr>
                     <td align="center"><?php echo $cabecera->getPlanilla(); ?></td>
+                     <td><?php echo $cabecera->getCodigo(); ?></td>
+                      <td><?php echo $cabecera->getEmpleado(); ?></td>
                     <td><?php echo $cabecera->getInicio(); ?></td>
                     <td><?php echo $cabecera->getFin(); ?></td>
                     <td align="center"> <?php echo $lista->getDepartamento(); ?></td>
