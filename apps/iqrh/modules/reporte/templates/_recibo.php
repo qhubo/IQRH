@@ -3,9 +3,9 @@
 <table style="width:720px">
     <tr>        
         <td style="width:5%"></td> 
-        <td style="width:40%"><img src="<?php echo '/uploads/segmento/' . $Parametro->getLogo() ?>" height="35px" ></td>
-        <td style="width:35%"></td> 
-        <td style="width:25%"><font size="+2"><BR><?php echo $cabecera->getProyecto() ?> </font></td>
+        <td style="width:20%"><img src="<?php echo '/uploads/segmento/' . $Parametro->getLogo() ?>" height="35px" ></td>
+        <td style="width:25%"></td> 
+        <td style="width:55%"><font size="+2"><BR><?php echo $cabecera->getProyecto() ?> </font></td>
     </tr>
     <tr>
         <td style="width:10%"></td> 
