@@ -199,6 +199,8 @@ $horamensual =160;
             'encabezado'=>$encabezado,
             'detalle'=>$detalle
         ));
+            echo $html;
+            die();
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
         $pdf->SetTitle('Recibo Empleado');
