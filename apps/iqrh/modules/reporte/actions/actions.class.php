@@ -225,7 +225,7 @@ $horamensual =160;
         //   $pdf->Image('./images/fondo.jpg', 0, 55, 720, 50, 'JPG', 'http://app.doblef.com/', '', true, 150, '', false, false, 1, false, false, false);
         $pdf->writeHTML($html);
         // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
-        $pdf->Output('Visita.pdf', 'I');
+        $pdf->Output('ReciboPago.pdf', 'I');
     }
 
     public function executeAsistencia(sfWebRequest $request) {

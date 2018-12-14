@@ -1,0 +1,21 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Licenciamiento
+    theme:                 admin15
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Licenciamiento
+    plural:                Licenciamientos
+    route_prefix:          licenciamiento
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:    ~
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

@@ -317,7 +317,11 @@ propel:
       _uniques:
         llave:                          [ dia ]      
        
-       
+  licenciamiento:
+      id:                             ~ 
+      empresa:                       { type: varchar(100) } 
+      mac:                           { type: varchar(200) }
+      activo:                         { type: boolean, default: false }  
    
    
    
