@@ -41,8 +41,8 @@
                         </td>
                         <td align="center"><?php echo $lista->getFechaFin('d/m/Y'); ?></td>
                         <td align="right"><?php echo $lista->getDia() ?></td>
-                        <td><?php echo $lista->getMotivo(); ?></td>
-                        <td><?php echo $lista->getEstado(); ?></td>
+                        <td><?php echo html_entity_decode($lista->getMotivo()); ?></td>
+                        <td><?php echo ($lista->getEstado()); ?></td>
                         <td><?php echo $lista->getObservaciones(); ?></td>
                                                 <td> <?php if ($lista->getArchivoUno()) { ?>
                             <a class="btn  btn-xs  blue btn-outline" target="_new"  href="/uploads/carga/<?php echo $lista->getArchivoUno(); ?>" > <li class="fa fa-download"></li> Archivo </a>  
