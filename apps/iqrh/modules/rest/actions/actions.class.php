@@ -199,11 +199,14 @@ class restActions extends sfActions {
         $id = $request->getParameter('id');
         $estado = 'EnviadoRH';
         if ($request->getParameter('estado')) {
-            $estado = $request->getParameter('estado');
+            $estado = $request->getParameter('estado')."RH";
         }
+       
         $ausencia = SolicitudVacacionQuery::create()->findOneById($id);
+        if ($ausencia) {
         $ausencia->setEstado($estado);
         $ausencia->save();
+        }
         die();
     }
 
@@ -246,11 +249,13 @@ class restActions extends sfActions {
         $id = $request->getParameter('id');
         $estado = 'EnviadoRH';
         if ($request->getParameter('estado')) {
-            $estado = $request->getParameter('estado');
+            $estado = $request->getParameter('estado')."RH";
         }
         $ausencia = SolicitudFinquitoQuery::create()->findOneById($id);
+           if ($ausencia) {
         $ausencia->setEstado($estado);
         $ausencia->save();
+           }
         die();
     }
 
