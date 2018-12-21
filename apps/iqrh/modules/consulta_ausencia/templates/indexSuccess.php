@@ -25,7 +25,7 @@
                 <?Php foreach ($registros as $lista) { ?>
                     <tr>
                         <td align="center"> <?php echo $lista->getFecha('d/m/Y'); ?></td>
-                        <td><?php echo $lista->getMotivo(); ?></td>
+                        <td><?php echo html_entity_decode($lista->getMotivo()); ?></td>
                         <td><?php echo $lista->getEstado(); ?></td>
                         <td><?php echo $lista->getObservaciones(); ?></td>
                     </tr>

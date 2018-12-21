@@ -102,7 +102,7 @@
                         <td><strong><?php echo $lista->getUsuario()->getCodigo(); ?></strong>
                             <br>
                             <?php echo $lista->getUsuario()->getNombreCompleto(); ?></td>
-                        <td><?php echo $lista->getMotivo(); ?></td>
+                        <td><?php echo html_entity_decode($lista->getMotivo()); ?></td>
                         <td><?php echo $lista->getEstado(); ?></td>
                         <td><?php echo $lista->getObservaciones(); ?></td>
                         <td> <?php if ($lista->getArchivoUno()) { ?>

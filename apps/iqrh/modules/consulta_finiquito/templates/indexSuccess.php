@@ -33,7 +33,7 @@
                         <td><?php echo $usuarioGra->getNombreCompleto(); ?></td>
                         <td><?php echo $usuarioRet->getNombreCompleto(); ?></td>
                         <td align="center"> <?php echo $lista->getFechaRetiro('d/m/Y'); ?></td>
-                        <td><?php echo $lista->getMotivo(); ?></td>
+                        <td><?php echo html_entity_decode($lista->getMotivo()); ?></td>
                         <td><?php echo $lista->getEstado(); ?></td>
                          <td><?php echo $lista->getObservaciones(); ?></td>
                     </tr>

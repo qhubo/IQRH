@@ -34,7 +34,7 @@
                     <td align="center"><?php echo $lista->getUsuario()->getCodigo(); ?></td>
                      <td align="center"><?php echo $lista->getUsuario()->getNombreCompleto(); ?></td>
                     <td align="right"><?php echo $lista->getTipo(); ?></td>
-                    <td><?php echo $lista->getMotivo(); ?></td>
+                    <td><?php echo html_entity_decode($lista->getMotivo()); ?></td>
                     
                 </tr>
                     

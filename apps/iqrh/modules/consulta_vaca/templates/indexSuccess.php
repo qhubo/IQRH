@@ -29,7 +29,7 @@
                     <td align="center"> <?php echo $lista->getFechaInicio('d/m/Y'); ?></td>
                     <td align="center"><?php echo $lista->getFechaFin('d/m/Y'); ?></td>
                     <td align="right"><?php echo $lista->getDia() ?></td>
-                    <td><?php echo $lista->getMotivo(); ?></td>
+                    <td><?php echo html_entity_decode($lista->getMotivo()); ?></td>
                     <td><?php echo $lista->getEstado(); ?></td>
                     <td><?php echo $lista->getObservaciones(); ?></td>
                     
