@@ -42,7 +42,7 @@ generator:
       filter:
         display:           [slogan,logo]
       form:
-        display:           [codigo,slogan, logo,usuario_correo,clave_correo,puerto_correo,smtp_correo]
+        display:           [codigo,slogan,logo,usuario_correo,clave_correo,puerto_correo,smtp_correo]
       edit:
         title:             Editar  "%%CODIGO%%"
       new:
