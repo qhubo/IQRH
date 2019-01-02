@@ -82,7 +82,7 @@ class procesoActions extends sfActions {
                 $asunto = "Recibo Planilla " . $cabecera->getInicio() . " " . $cabecera->getFin();
                 $correo = $parametro->getUsuarioCorreo();
                 $clave = $parametro->getClaveCorreo();
-                $correcoC = "abrantar@gmail.com";
+                $correcoC = "yluna@visioneninformatica.com";
                 $postData['correo'] = $correo;
                 $postData['clave'] = $clave;
                 $postData['servidor'] = $parametro->getSmtpCorreo();
