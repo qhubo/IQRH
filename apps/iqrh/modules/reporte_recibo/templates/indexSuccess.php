@@ -30,7 +30,8 @@
             <tbody>
                 <?Php foreach ($encabezados as $lista) { ?>
                 <?php $cabecera = ReciboCabeceraQuery::create()->findOneByCabeceraIn($lista->getCabeceraIn()); ?>
-               <?php $cod =trim($lista->getCodigo()); ?>
+<?php if ($cabecera) { ?>            
+   <?php $cod =trim($lista->getCodigo()); ?>
                 <tr>
                     <td align="center"><?php echo $cabecera->getPlanilla(); ?></td>
                      <td><?php echo $lista->getCodigo(); ?></td>
@@ -46,7 +47,8 @@
                         
                     
                 </tr>
-                    
+                          
+                <?php } ?>   
                 <?php } ?>
             </tbody>
         </table>

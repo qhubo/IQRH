@@ -70,6 +70,10 @@ propel:
      codigo:                            { type: varchar(50)}
      slogan:                            { type: longvarchar }
      logo:                              { type: varchar(150)}
+     puerto_correo:                     { type: varchar(50) }
+     smtp_correo:                       { type: varchar(50) }
+     usuario_correo:                    { type: varchar(100) } 
+     clave_correo:                      { type: varchar(100) } 
      
   alerta_ausencia:
      id:                               ~
@@ -238,7 +242,8 @@ propel:
       fin:                            { type: varchar(50)}	
       numero:                         { type: varchar(50)}	
       laborados:                      { type: double }  
-      cabecera_in:                    { type: integer}	  
+      cabecera_in:                    { type: integer}	 
+      enviado_correo:                 { type: boolean , default: false }  
 
   recibo_detalle:
       id:                             ~ 
@@ -300,6 +305,7 @@ propel:
       minuto_prorroga:               { type: integer, default: 0  } 
       texto_uno:                     { type: longvarchar } 
       texto_dos:                     { type: longvarchar } 
+      correo_notifica:               { type: varchar(300) } 
           
   usuario_horario:
       id:                            ~ 

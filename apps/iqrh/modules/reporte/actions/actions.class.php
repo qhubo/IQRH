@@ -186,21 +186,13 @@ $horamensual =160;
         $detalle= ReciboDetalleQuery::create()
                 ->filterByPlanillaResumenId($encabezado->getPlanillaResumenId())
                 ->find();
-      //  $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
-      //  $this->valores = $valores;
-//        $fechaInicio =$cabecera->getInicio();  $valores['fechaInicio'];
-//        $fechaInicio = explode('/', $fechaInicio);
-//        $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
-//        $fechaFin = $valores['fechaFin'];
-//        $fechaFin = explode('/', $fechaFin);
-//        $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
+
             $html = $this->getPartial('reporte/recibo', array("muestra" => 0,
             'cabecera' => $cabecera,
             'encabezado'=>$encabezado,
             'detalle'=>$detalle
         ));
-//            echo $html;
-//            die();
+
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
         $pdf->SetTitle('Recibo Empleado');

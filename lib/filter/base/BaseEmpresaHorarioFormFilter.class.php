@@ -21,6 +21,7 @@ abstract class BaseEmpresaHorarioFormFilter extends BaseFormFilterPropel
       'minuto_prorroga' => new sfWidgetFormFilterInput(),
       'texto_uno'       => new sfWidgetFormFilterInput(),
       'texto_dos'       => new sfWidgetFormFilterInput(),
+      'correo_notifica' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -33,6 +34,7 @@ abstract class BaseEmpresaHorarioFormFilter extends BaseFormFilterPropel
       'minuto_prorroga' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'texto_uno'       => new sfValidatorPass(array('required' => false)),
       'texto_dos'       => new sfValidatorPass(array('required' => false)),
+      'correo_notifica' => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('empresa_horario_filters[%s]');
@@ -60,6 +62,7 @@ abstract class BaseEmpresaHorarioFormFilter extends BaseFormFilterPropel
       'minuto_prorroga' => 'Number',
       'texto_uno'       => 'Text',
       'texto_dos'       => 'Text',
+      'correo_notifica' => 'Text',
     );
   }
 }
