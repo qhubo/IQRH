@@ -19,6 +19,7 @@ abstract class BaseParametroFormFilter extends BaseFormFilterPropel
       'smtp_correo'    => new sfWidgetFormFilterInput(),
       'usuario_correo' => new sfWidgetFormFilterInput(),
       'clave_correo'   => new sfWidgetFormFilterInput(),
+      'banner_reporte' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -29,6 +30,7 @@ abstract class BaseParametroFormFilter extends BaseFormFilterPropel
       'smtp_correo'    => new sfValidatorPass(array('required' => false)),
       'usuario_correo' => new sfValidatorPass(array('required' => false)),
       'clave_correo'   => new sfValidatorPass(array('required' => false)),
+      'banner_reporte' => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('parametro_filters[%s]');
@@ -54,6 +56,7 @@ abstract class BaseParametroFormFilter extends BaseFormFilterPropel
       'smtp_correo'    => 'Text',
       'usuario_correo' => 'Text',
       'clave_correo'   => 'Text',
+      'banner_reporte' => 'Text',
     );
   }
 }

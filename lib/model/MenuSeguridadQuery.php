@@ -19,4 +19,128 @@
  */
 class MenuSeguridadQuery extends BaseMenuSeguridadQuery
 {
+    static function menu() {
+        $empresaId = sfContext::getInstance()->getUser()->getAttribute("usuario", null, 'empresa');
+    
+        $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+        $admin = sfContext::getInstance()->getUser()->getAttribute('administrador', null, 'seguridad');
+        $tipo =  sfContext::getInstance()->getUser()->getAttribute("usuario", null, 'tipo');
+        
+        $admin=true;
+        $perfiles = PerfilQuery::create()
+                ->useUsuarioPerfilQuery()
+                ->filterByUsuarioId($usuarioId)
+                ->endUse()
+                ->find();
+//        echo $admin;
+//        die();
+        $reg = null;
+        foreach ($perfiles as $perfil) {
+            $reg[] = $perfil->getId();
+        }
+        
+       // echo $tipo;
+        $perfiQ = PerfilQuery::create()->findOneByDescripcion($tipo);
+        if  ($perfiQ) {
+        $reg[]=$perfiQ->getId();
+        }
+        if ($admin){
+        $menusacceso = MenuSeguridadQuery::create()
+                ->find();
+        
+        } else {
+        
+        $menusacceso = MenuSeguridadQuery::create()
+                ->usePerfilMenuQuery()
+                ->filterByPerfilId($reg, criteria::IN)
+                ->endUse()
+                ->find();
+        
+        }
+        $listado = null;
+        foreach ($menusacceso as $menu) {
+            $listado[$menu->getId()] = $menu->getId();
+        }
+        $menus = MenuSeguridadQuery::create()
+                ->filterBySuperior(null, Criteria::EQUAL)
+                ->orderByOrden()
+                ->find();
+        $arrayMenus = array();
+        foreach ($menus as $menu) {
+            $titulo = $menu->getDescripcion();
+            $linea['titulo'] = $titulo;
+            $linea['id'] = $menu->getId();
+            $linea['imagen'] = $menu->getIcono();
+            $Submenus = MenuSeguridadQuery::create()
+                    ->filterBySuperior($menu->getId())
+                    ->orderByOrden()
+                    ->find();
+            $arraySubmenu = null;
+            foreach ($Submenus as $submenu) {
+                $sublinea['titulo'] = $submenu->getDescripcion();
+                $sublinea['id'] = $submenu->getId();
+                $sublinea['imagen'] = $submenu->getIcono();
+                $sublinea['modulo'] = $submenu->getModulo();
+         
+               //  if ($admin){
+                // if ($listado){
+                if (($admin) or ( array_key_exists($submenu->getId(), $listado))) {
+                    $arraySubmenu[] = $sublinea;
+                }
+               //   }
+                //  }
+            }
+            $linea['submenu'] = $arraySubmenu;
+            if (count($arraySubmenu) > 0) {
+                $arrayMenus[] = $linea;
+            }
+        }
+        return $arrayMenus;
+    }
+     static function menuAcceso($opcionMenu) {
+         $tipo =  sfContext::getInstance()->getUser()->getAttribute("usuario", null, 'tipo');
+        
+        
+         $valido = sfContext::getInstance()->getUser()->getAttribute('administrador', null, 'seguridad');
+        $admin = sfContext::getInstance()->getUser()->getAttribute('administrador', null, 'seguridad');
+        if (!$admin) {
+            $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+            $perfiles = PerfilQuery::create()
+                    ->useUsuarioPerfilQuery()
+                    ->filterByUsuarioId($usuarioId)
+                    ->endUse()
+                    ->find();
+            $reg[] = 0;
+            foreach ($perfiles as $perfil) {
+                $reg[] = $perfil->getId();
+            }
+                  $perfiQ = PerfilQuery::create()->findOneByDescripcion($tipo);
+        if  ($perfiQ) {
+        $reg[]=$perfiQ->getId();
+        }
+            $menusacceso = MenuSeguridadQuery::create()
+                    ->usePerfilMenuQuery()
+                    ->filterByPerfilId($reg, criteria::IN)
+                    ->endUse()
+                    ->find();
+            $opcionMenu = strtoupper(trim($opcionMenu));
+            $opcionMenu = str_replace(" ", "", $opcionMenu);
+            foreach ($menusacceso as $men) {
+                $men = MenuSeguridadQuery::create()->findOneById($men->getId());
+                $nombre = $men->getModulo();
+                $nombre = strtoupper(trim($nombre));
+                $nombre = str_replace(" ", "", $nombre);
+//                
+//                
+//                if ($men->getSuperior()==74) {
+//                echo $nombre." ".$men->getDescripcion()." ".$men->getCredencial()." ".$men->getId();
+//                echo "<br>";
+//                }
+                if ($opcionMenu == $nombre) {
+                    $valido = true;
+                }
+            }
+        }
+        return $valido;
+    }
 }

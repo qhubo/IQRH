@@ -1,0 +1,54 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           MenuSeguridad
+    theme:                 admin15
+    non_verbose_templates: true
+    with_show:             false
+    singular:              MenuSeguridad
+    plural:                MenuSeguridads
+    route_prefix:          menu_seguridad
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+          descripcion:
+              label:       Titulo Menu
+              attributes:
+                  class:   form-control input-medium
+          credencial:
+              attributes:
+                  class:   form-control input-medium
+          modulo:
+              attributes:
+                  class:   form-control input-medium
+          accion:
+              attributes:
+                  class:   form-control  input-medium  
+          orden:
+              attributes:
+                  class:   form-control       input-medium     
+                  type:  number
+          superior:
+              attributes:
+                  class:   form-control input-medium
+          icono:
+              attributes:
+                  class:   form-control
+      list: 
+          display:         [descripcion,_codigo_superior,  _superior, orden]
+          title:           Listado de Menus de Acceso
+      filter:
+          display:         [descripcion,superior]
+      form:
+          display:         [descripcion,  modulo, superior, orden, icono]
+      edit:
+          title:            Editar Menus
+          display:         [descripcion,  modulo,superior, orden, icono]
+  
+      new:
+          title:            Nuevo Menus
+          display:         [descripcion,  modulo, superior,icono ,orden]
+  

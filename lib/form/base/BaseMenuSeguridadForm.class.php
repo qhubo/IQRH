@@ -29,7 +29,7 @@ abstract class BaseMenuSeguridadForm extends BaseFormPropel
       'descripcion' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'credencial'  => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'modulo'      => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'icono'       => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'icono'       => new sfValidatorString(array('max_length' => 250, 'required' => false)),
       'accion'      => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'superior'    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'orden'       => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),

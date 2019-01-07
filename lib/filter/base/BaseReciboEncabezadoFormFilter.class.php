@@ -36,7 +36,7 @@ abstract class BaseReciboEncabezadoFormFilter extends BaseFormFilterPropel
       'numero'               => new sfWidgetFormFilterInput(),
       'laborados'            => new sfWidgetFormFilterInput(),
       'cabecera_in'          => new sfWidgetFormFilterInput(),
-      'enviado_correo'       => new sfWidgetFormFilterInput(),
+      'enviado_correo'       => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -64,7 +64,7 @@ abstract class BaseReciboEncabezadoFormFilter extends BaseFormFilterPropel
       'numero'               => new sfValidatorPass(array('required' => false)),
       'laborados'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'cabecera_in'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'enviado_correo'       => new sfValidatorPass(array('required' => false)),
+      'enviado_correo'       => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('recibo_encabezado_filters[%s]');
@@ -107,7 +107,7 @@ abstract class BaseReciboEncabezadoFormFilter extends BaseFormFilterPropel
       'numero'               => 'Text',
       'laborados'            => 'Number',
       'cabecera_in'          => 'Number',
-      'enviado_correo'       => 'Text',
+      'enviado_correo'       => 'Boolean',
     );
   }
 }

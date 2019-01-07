@@ -13,10 +13,7 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="dropdown-menu pull-left">
-<!--                    <li class=" ">
-                        <a href="<?php echo url_for("crea_usuario/index"); ?>" 
-                           class="nav-link  ">Crear Usuario </a>
-                    </li>  -->
+
 
                     <li class=" ">
                         <a href="<?php echo url_for("edita_usuario/index"); ?>" 
@@ -54,8 +51,7 @@
    
             <li class="menu-dropdown classic-menu-dropdown active">
                 <a href="javascript:;"> 
-                    <i class="fa fa-rocket font-grey-cararra"></i>
-                    Solicitudes
+                    <i class="fa fa-rocket font-grey-cararra"></i> Solicitudes
                     <span class="arrow"></span>
                 </a>
                 <ul class="dropdown-menu pull-left">

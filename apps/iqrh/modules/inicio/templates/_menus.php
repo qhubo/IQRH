@@ -10,8 +10,12 @@
                 </a>
             </li>
             <?php foreach ($opciones as $menu) { ?>
+                 <?php $image= $menu['imagen'] ?>
+    <?php $image= str_replace("li", "i", $image); ?>
                 <li class="menu-dropdown classic-menu-dropdown active">
-                    <a href="javascript:;"> <?php echo $menu['titulo'] ?>
+                    <a href="javascript:;">
+
+ <?php echo $image ?> <?php echo $menu['titulo'] ?>
                         <span class="arrow"></span>
                     </a>
                     <ul class="dropdown-menu pull-left">

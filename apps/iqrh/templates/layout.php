@@ -105,9 +105,14 @@
             <!-- END HEADER TOP -->
             <!-- BEGIN HEADER MENU -->
             <div class="page-header-menu">
-
-                <?php include_partial('inicio/menu') ?> 
-                <?php //include_partial('inicio/menus') ?> 
+<?php $menus = MenuSeguridadQuery::create()->count(); ?>
+            <?php if ($menus >6) { ?>
+                     <?php include_partial('inicio/menus') ?> 
+            <?Php } else  { ?>
+                   <?php include_partial('inicio/menu') ?> 
+            <?php } ?>
+             
+           
                 <div class="row">
                     <div class="col-md-1"> </div>  
 
