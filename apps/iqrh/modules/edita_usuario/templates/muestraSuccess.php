@@ -52,15 +52,15 @@
                     </span>
                 </div>
                 <div class="col-md-1">  </div>
-                <label class="col-md-1 control-label font-green right ">Tipo&nbsp;Usuario</label>
+<!--                <label class="col-md-1 control-label font-green right ">Tipo&nbsp;Usuario</label>
                 <div class="col-md-3 <?php if ($form['tipo']->hasError()) echo "has-error" ?>">
                     <?php echo $form['tipo'] ?>           
                     <span class="help-block form-error"> 
                         <?php echo $form['tipo']->renderError() ?>  
                     </span>
-                </div>
+                </div>-->
             </div>    
-            <div class="row">
+<!--            <div class="row">
                 <div class="col-md-1"> </div>        
                 <label class="col-md-1 control-label font-green right ">Empresa  </label>
                 <div class="col-md-9 <?php if ($form['empresa']->hasError()) echo "has-error" ?>">
@@ -70,7 +70,7 @@
                     </span>
                 </div>
                 <div class="col-md-1">  </div>
-            </div>
+            </div>-->
             <div class="row">
                 <div class="col-md-1"> </div>        
                 <label class="col-md-1 control-label font-green right ">Observaciones  </label>

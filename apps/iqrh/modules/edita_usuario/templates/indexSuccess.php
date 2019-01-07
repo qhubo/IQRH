@@ -54,7 +54,7 @@
                     <?php } ?>
                     </td>
                     <td>
-<!--                        <a class="btn  btn-info"  href="<?php echo url_for($modulo . '/muestra?id=' . $lis->getId()) ?>" ><i class="fa fa-pencil"></i> Editar&nbsp;&nbsp;&nbsp;&nbsp;</a>  -->
+                        <a class="btn  btn-info"  href="<?php echo url_for($modulo . '/muestra?id=' . $lis->getId()) ?>" ><i class="fa fa-pencil"></i> Editar&nbsp;&nbsp;&nbsp;&nbsp;</a>  
                 
         <?php if ($usuarioId <> $lis->getId()) { ?>
                         <a class="btn btn-xs btn-danger" data-toggle="modal" href="#static<?php echo $lis->getId() ?>"><i class="fa fa-trash"></i>  Eliminar </a>
