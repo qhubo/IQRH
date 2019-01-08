@@ -21,11 +21,12 @@
             <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
                 <thead class="flip-content">
                     <tr class="info">
-                        <th align="center" width="20px"></th>
+<!--                        <th align="center" width="20px"></th>-->
                         <th align="center" width="20px"> Código</th>
                         <th align="center" width="20px">Usuario</th>
                         <th  align="center"> Nombre Completo</th>
                         <th  align="center">Correo</th>
+                         <th  width="125px" align="center">Codigo</th>
                         <th  align="center"> Activo</th>
                         <th>Acción</th>
                     </tr>
@@ -34,17 +35,24 @@
                     <?php foreach ($usuarios as $lis) { ?>
                         <?php $imagen = $lis->getLogo(); ?>
                         <tr>
-                            <td>
+<!--                            <td>
                                 <img alt="" width="75px" src="<?php echo $imagen ?>">
-                           </td>
+                           </td>-->
                             <td><?php echo $lis->getCodigo() ?></td>
                             <td><?php echo $lis->getUsuario() ?></td>
                             <td><?php echo $lis->getNombreCompleto() ?></td>
                             <td>
                             
                             <input type="text" name="correo_usuario<?php echo $lis->getId(); ?>" 
-                                   value="<?php echo $lis->getCorreo(); ?>" class="form-control input-xlarge" id="correo_usuario<?php echo $lis->getId(); ?>">
+                                   value="<?php echo $lis->getCorreo(); ?>" class="form-control input-medium" id="correo_usuario<?php echo $lis->getId(); ?>">
                             <div class="labelactua<?php echo $lis->getId(); ?>" id="labelactua<?php echo $lis->getId(); ?>">
+                            </div>
+                            </td>
+                                <td>
+                            
+                            <input type="text" name="codigo_usuario<?php echo $lis->getId(); ?>" 
+                                   value="<?php echo $lis->getCodigo(); ?>" class="form-control input-medium" id="codigo_usuario<?php echo $lis->getId(); ?>">
+                            <div class="labelactuaC<?php echo $lis->getId(); ?>" id="labelactuaC<?php echo $lis->getId(); ?>">
                             </div>
                             </td>
                             <td align="center"><?php if ($lis->getActivo()) { ?>
@@ -84,6 +92,19 @@
             var idv = <?php echo $lista->getId(); ?>;
             $.get('<?php echo url_for("edita_usuario/correo") ?>', {id: id, idv: idv}, function (response) {
                 $("#labelactua<?php echo $lista->getId(); ?>").html(response);
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#codigo_usuario<?php echo $lista->getId(); ?>").on('change', function () {
+            var id = $("#codigo_usuario<?php echo $lista->getId(); ?>").val();
+            var idv = <?php echo $lista->getId(); ?>;
+           
+            $.get('<?php echo url_for("edita_usuario/codigo") ?>', {id: id, idv: idv}, function (response) {
+                $("#labelactuaC<?php echo $lista->getId(); ?>").html(response);
             });
         });
     });

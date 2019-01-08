@@ -10,6 +10,18 @@
  */
 class edita_usuarioActions extends sfActions {
 
+    
+        public function executeCodigo(sfWebRequest $request) {
+        $valor = $request->getParameter('id');
+        $id = $request->getParameter('idv');
+        $usuarioQ = UsuarioQuery::create()->findOneById($id);
+        $usuarioQ->setCodigo($valor);
+        $usuarioQ->save();
+        echo "<span class='font font-green bold Bold' >Codigo Actualizado </span>";
+        die();
+        }
+        
+        
         public function executeCorreo(sfWebRequest $request) {
         $valor = $request->getParameter('id');
         $id = $request->getParameter('idv');
