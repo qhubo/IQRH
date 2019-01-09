@@ -24,10 +24,10 @@ class reporte_reciboActions extends sfActions {
                 ->filterByUsuarioJefe($usuarioId)
                 ->find();
                $listadoEm[]=$codigo;
-        foreach ($empleados as $listado) {
-            $listadoEm[]=$listado->getCodigo();
-        }
-        
+//        foreach ($empleados as $listado) {
+//            $listadoEm[]=$listado->getCodigo();
+//        }
+//        
         
         $this->encabezados = ReciboEncabezadoQuery::create()
                 ->filterByCodigo($listadoEm, Criteria::IN)
