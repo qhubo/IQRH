@@ -24,9 +24,9 @@ class MenuSeguridadQuery extends BaseMenuSeguridadQuery
     
         $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
         $admin = sfContext::getInstance()->getUser()->getAttribute('administrador', null, 'seguridad');
-        $tipo =  sfContext::getInstance()->getUser()->getAttribute("usuario", null, 'tipo');
+        $tipo =  sfContext::getInstance()->getUser()->getAttribute('usuario',null, 'tipo');
         
-        $admin=true;
+       // $admin=true;
         $perfiles = PerfilQuery::create()
                 ->useUsuarioPerfilQuery()
                 ->filterByUsuarioId($usuarioId)
@@ -35,6 +35,11 @@ class MenuSeguridadQuery extends BaseMenuSeguridadQuery
 //        echo $admin;
 //        die();
         $reg = null;
+         $perfiQ = PerfilQuery::create()->findOneByDescripcion($tipo);
+        if  ($perfiQ) {
+        $reg[]=$perfiQ->getId();
+        }
+        
         foreach ($perfiles as $perfil) {
             $reg[] = $perfil->getId();
         }

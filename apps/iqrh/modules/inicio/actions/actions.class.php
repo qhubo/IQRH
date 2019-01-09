@@ -245,6 +245,12 @@ class inicioActions extends sfActions {
         $usuario_id = $this->getUser()->getAttribute('usuario', null, 'seguridad');
         $this->usuario = UsuarioQuery::create()->findOneById($usuario_id);
         $this->empleados = UsuarioQuery::create()->filterByUsuarioJefe($usuario_id)->find();
+       
+    
+        sfContext::getInstance()->getUser()->setAttribute('usuario','Empleado', 'tipo');
+        sfContext::getInstance()->getUser()->setAttribute('usuario','Supervisor', 'tipo');
+
+          
         AsistenciaUsuarioQuery::procesa();
     }
 

@@ -39,12 +39,9 @@
 <?php // } ?>
 &nbsp;&nbsp;
 <?php //if (MenuSeguridadQuery::menuAcceso('Entrega')) { ?>
-<!--<li class="dropdown dropdown-extended dropdown-tasks dropdown-dark  " id="header_task_bar">
-    <a href="<?php echo url_for("crea_envio/index") ?>" class="dropdown-toggle font-purple-studio">
-        <i class="fa fa-opencart font-purple-plum"></i>&nbsp;Atajo # 3
-
-    </a>
-</li>-->
+<li class="dropdown dropdown-extended dropdown-tasks dropdown-dark  " id="header_task_bar">
+<?php echo $tipo= sfContext::getInstance()->getUser()->getAttribute('usuario',null, 'tipo'); ?>
+</li>
 <?php // } ?>
 &nbsp;&nbsp;
 
@@ -129,7 +126,7 @@
 
         <span class="username username-hide-mobile">
             <font color="#97D700">
-            <?php echo $usuarioQ->getNombreCompleto(); ?>
+           <?php echo $usuarioQ->getNombreCompleto(); ?>
             <?php //echo sfContext::getInstance()->getUser()->getAttribute('usuarioNombre', null, 'seguridad'); ?>
             </font>
         </span>

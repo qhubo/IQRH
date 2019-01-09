@@ -47,6 +47,18 @@ class LoginPortalForm extends sfForm {
             $user = sfContext::getInstance()->getUser();
             if ($valido) {
                 if ($valido->getValidado()) {
+                    
+                    
+                     $empleados = UsuarioQuery::create()->filterByUsuarioJefe($valido->getId())->count();
+       
+    
+        sfContext::getInstance()->getUser()->setAttribute('usuario','Empleado', 'tipo');
+  if ($empleados >0 )  { 
+        sfContext::getInstance()->getUser()->setAttribute('usuario','Supervisor', 'tipo');
+  }
+          
+        
+        
                     $user->setAuthenticated(true);
                     $user->setAttribute('usuario', $valido->getId(), 'seguridad');
                  //    sfContext::getInstance()->getUser()->setAttribute("usuario", $valido->getEmpresaId(), 'empresa');
@@ -62,7 +74,7 @@ class LoginPortalForm extends sfForm {
                     
                    sfContext::getInstance()->getUser()->setAttribute('supervisa', $supervisa, 'seguridad');
                   
-                      
+                sfContext::getInstance()->getUser()->setAttribute('administrador', $valido->getAdministrador(), 'seguridad');
                     UsuarioQuery::menuUsuario($valido->getId());
                 } else {
                     $user->setFlash('error', 'Usuario no validado.');
