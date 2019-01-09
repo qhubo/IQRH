@@ -26,7 +26,7 @@
                         <th align="center" width="20px">Usuario</th>
                         <th  align="center"> Nombre Completo</th>
                         <th  align="center">Correo</th>
-                         <th  width="125px" align="center">Codigo</th>
+<!--                         <th  width="125px" align="center">Codigo</th>-->
                         <th  align="center"> Activo</th>
                         <th>Acción</th>
                     </tr>
@@ -48,13 +48,13 @@
                             <div class="labelactua<?php echo $lis->getId(); ?>" id="labelactua<?php echo $lis->getId(); ?>">
                             </div>
                             </td>
-                                <td>
+<!--                                <td>
                             
                             <input type="text" name="codigo_usuario<?php echo $lis->getId(); ?>" 
                                    value="<?php echo $lis->getCodigo(); ?>" class="form-control input-medium" id="codigo_usuario<?php echo $lis->getId(); ?>">
                             <div class="labelactuaC<?php echo $lis->getId(); ?>" id="labelactuaC<?php echo $lis->getId(); ?>">
                             </div>
-                            </td>
+                            </td>-->
                             <td align="center"><?php if ($lis->getActivo()) { ?>
                         <li class="fa fa-hand-o-up font-blue-steel "></li>
                     <?php } else { ?>
