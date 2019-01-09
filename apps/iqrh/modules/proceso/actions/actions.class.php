@@ -10,6 +10,25 @@
  */
 class procesoActions extends sfActions {
 
+      public function executeClaves(sfWebRequest $request) {
+          
+          
+          $ussuario = UsuarioQuery::create()
+                  ->filterByUsuario('Demo', Criteria::NOT_IN)
+                  ->find();
+          $cant=0;
+          foreach ($ussuario as $lista) {
+              $codigo = $ussuario->getCodigo();
+              $usuarioQ = UsuarioQuery::create()->findOneById($lista->getId());
+              $usuarioQ->setUsuario($codigo);
+              $usuarioQ->setClave(sha1($codigo));
+              $usuarioQ->save();
+              $cant++;
+          } 
+          echo 'actualizados '.$cant;
+          die();
+          
+      }
     public function executeCorreo(sfWebRequest $request) {
         $url = "http://iqrh:8080/envio.php";
         $urlH = "http://" . $_SERVER['SERVER_NAME'];
