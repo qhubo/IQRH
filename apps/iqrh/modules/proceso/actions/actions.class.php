@@ -43,7 +43,7 @@ class procesoActions extends sfActions {
 
         $registros = ReciboEncabezadoQuery::create()
                 ->filterByEnviadoCorreo(false)
-                ->setlimit(1)
+                ->setlimit(5)
                 ->find();
 
         foreach ($registros as $planilla) {
