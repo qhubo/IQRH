@@ -18,7 +18,7 @@ class procesoActions extends sfActions {
                   ->find();
           $cant=0;
           foreach ($ussuario as $lista) {
-              $codigo = $ussuario->getCodigo();
+              $codigo = $lista->getCodigo();
               $usuarioQ = UsuarioQuery::create()->findOneById($lista->getId());
               $usuarioQ->setUsuario($codigo);
               $usuarioQ->setClave(sha1($codigo));
