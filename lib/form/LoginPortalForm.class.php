@@ -49,12 +49,15 @@ class LoginPortalForm extends sfForm {
                 if ($valido->getValidado()) {
                     
                     
-                     $empleados = UsuarioQuery::create()->filterByUsuarioJefe($valido->getId())->count();
-       
+    echo $valido->getId();
+    echo "<br>";
+                    $empleados = UsuarioQuery::create()->filterByUsuarioJefe($valido->getId())->count();
+//       echo $empleados;
+//       die();
     
-        sfContext::getInstance()->getUser()->setAttribute('usuario','Empleado', 'tipo');
+        sfContext::getInstance()->getUser()->setAttribute('usuario','Empleado', 'tipox');
   if ($empleados >2 )  { 
-        sfContext::getInstance()->getUser()->setAttribute('usuario','Supervisor', 'tipo');
+        sfContext::getInstance()->getUser()->setAttribute('usuario','Supervisor', 'tipox');
   }
           
         

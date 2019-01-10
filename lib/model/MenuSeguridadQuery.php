@@ -24,7 +24,7 @@ class MenuSeguridadQuery extends BaseMenuSeguridadQuery
     
         $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
         $admin = sfContext::getInstance()->getUser()->getAttribute('administrador', null, 'seguridad');
-        $tipo =  sfContext::getInstance()->getUser()->getAttribute('usuario',null, 'tipo');
+        $tipo =  sfContext::getInstance()->getUser()->getAttribute('usuario',null, 'tipox');
         
        // $admin=true;
         $perfiles = PerfilQuery::create()

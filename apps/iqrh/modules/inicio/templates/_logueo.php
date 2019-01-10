@@ -40,7 +40,7 @@
 &nbsp;&nbsp;
 <?php //if (MenuSeguridadQuery::menuAcceso('Entrega')) { ?>
 <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark  " id="header_task_bar">
-<?php echo $tipo= sfContext::getInstance()->getUser()->getAttribute('usuario',null, 'tipo'); ?>
+<?php echo $tipo= sfContext::getInstance()->getUser()->getAttribute('usuario',null, 'tipox'); ?>
 </li>
 <?php // } ?>
 &nbsp;&nbsp;
