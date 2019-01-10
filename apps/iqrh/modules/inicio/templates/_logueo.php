@@ -47,7 +47,7 @@
 
 <?php $bitacoras = BitacoraUsuarioQuery::create()->filterByUsuarioJefe($usuarioId)->filterByLeido(false)->find(); ?>
 <?php $cantida = count($bitacoras) ?>
-
+<?php if ($cantida >0) { ?>
 <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <i class="icon-bell"></i>
@@ -104,7 +104,7 @@
         </li>
     </ul>
 </li>
-
+<?php  } ?>
 <li class="dropdown dropdown-user dropdown-dark">
     &nbsp;&nbsp;&nbsp;&nbsp;
 </li>
