@@ -53,7 +53,7 @@ class LoginPortalForm extends sfForm {
        
     
         sfContext::getInstance()->getUser()->setAttribute('usuario','Empleado', 'tipo');
-  if ($empleados >0 )  { 
+  if ($empleados >2 )  { 
         sfContext::getInstance()->getUser()->setAttribute('usuario','Supervisor', 'tipo');
   }
           
