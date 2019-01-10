@@ -49,8 +49,8 @@ class LoginPortalForm extends sfForm {
                 if ($valido->getValidado()) {
                     
                     
-    echo $valido->getId();
-    echo "<br>";
+//    echo $valido->getId();
+//    echo "<br>";
                     $empleados = UsuarioQuery::create()->filterByUsuarioJefe($valido->getId())->count();
 //       echo $empleados;
 //       die();
