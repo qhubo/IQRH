@@ -34,7 +34,7 @@ propel:
     puntualida:                        { type: double }  
     token:                             { type: varchar(150) }
     fecha_reporte:                     { type: varchar(300) }
-    horas:                        { type: double }  
+    horas:                             { type: double }  
     _uniques:
        llave:                          [ usuario ]
  
@@ -340,4 +340,11 @@ propel:
      created_at:                        ~
      updated_at:                        ~    
    
+  usuario_vacacion:
+      id:                            ~ 
+      usuario:                       { type: varchar(50) }  
+      periodo:                       { type: integer } 
+      pagado:                        { type: double } 
+      derecho:                       { type: double } 
+      nuevo:                         { type: boolean, default: false }  
    

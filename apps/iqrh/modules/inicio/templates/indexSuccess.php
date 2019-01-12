@@ -22,9 +22,14 @@
                                 <span class="caption-subject font-green uppercase bold">Información  </span>
                             </a>
                         </li>
+                         <li>
+                            <a href="#tab_1_3" data-toggle="tab">Vacaciones</a>
+                        </li>
+                        <?php if (count($empleados) >0) { ?>
                         <li>
                             <a href="#tab_1_2" data-toggle="tab">Empleados</a>
                         </li>
+                        <?php } ?>
                     </ul>
 
                     <div class="tab-content">
@@ -75,7 +80,7 @@
                         <div class="tab-pane " id="tab_1_2">
                             <div class="portlet light ">
                                 <div class="portlet-body">
-                                    <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2x">
+                                    <table class="table table-bordered  dataTable table-condensed flip-content" >
                                         <thead class="flip-content">
                                             <tr class="success">
                                                
@@ -100,8 +105,34 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane " id="tab_1_3">
+                                                              <table class="table table-bordered  dataTable table-condensed flip-content" >
+                                        <thead class="flip-content">
+                                            <tr class="info">
+                                                <td>Periodo</td>
+                                                <td>Dias Derecho</td>
+                                                <td>Dias Pagado</td>
+                                            </tr> 
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($vacaciones as $reg) { ?>
+                                            <tr>
+                                                <td align="center" ><?php echo $reg['periodo']; ?></td>
+                                                <td align="right"><?php echo $reg['derecho']; ?></td>
+                                                <td  align="right"><?php echo $reg['pagada']; ?></td>
+                                                
+                                            </tr>
+                                            <?php } ?>
+
+                                        </tbody>
+                                                              </table>
+                                        
+                                            
+                        </div>
                     </div>
 
+                    
+                    
 
                 </div>
                 <div class="col-md-4 col-sm-4">
@@ -114,6 +145,11 @@
                             <div class="col-md-6"> <?php echo $usuario->getFechaAlta('d/m/Y'); ?></div>                                
                         </div> 
                         </p>
+                        <div class="row">
+                            <div class="col-md-1"><li class="fa fa-trophy font-yellow-crusta"></li> </div>
+                            <div class="col-md-7 font-blue-sharp bold Bold uppercase">Vacaciones Pendientes</div>
+                            <div class="col-md-3"> <?php echo $pendientes ?><font size="-2"> Dias </font></div>                                
+                        </d
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-1"></div>

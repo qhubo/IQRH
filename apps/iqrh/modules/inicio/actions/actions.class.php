@@ -243,8 +243,17 @@ class inicioActions extends sfActions {
 
     public function executeIndex(sfWebRequest $request) {
         $usuario_id = $this->getUser()->getAttribute('usuario', null, 'seguridad');
+        $usuarioQ = UsuarioQuery::create()->findOneById($usuario_id);
         $this->usuario = UsuarioQuery::create()->findOneById($usuario_id);
         $this->empleados = UsuarioQuery::create()->filterByUsuarioJefe($usuario_id)->find();
+        $this->vacaciones =UsuarioVacacionQuery::periodos($usuarioQ->getCodigo());
+        $totalderecho=0;
+        $totalpagado=0;
+        foreach ($this->vacaciones as $reg) {
+            $totalderecho =$totalderecho+$reg['derecho'];
+            $totalpagado = $totalpagado+$reg['pagada'];
+        }
+        $this->pendientes = $totalderecho-$totalpagado;
        
     
         sfContext::getInstance()->getUser()->setAttribute('usuario','Empleado', 'tipo');
