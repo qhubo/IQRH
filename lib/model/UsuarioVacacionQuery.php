@@ -37,7 +37,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery
         $totalPagado =0;
         for ($periodo = $ano; $periodo < date('Y'); $periodo++) {
             $vacacioQ = UsuarioVacacionQuery::create()
-                    ->filterByUsuario(20)
+                    ->filterByUsuario($codigo)
                     ->filterByPeriodo($periodo)
                     ->findOne();
             $derecho = 0;
