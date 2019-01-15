@@ -43,7 +43,7 @@ class perfilActions extends autoPerfilActions
         
         $this->superiores = MenuSeguridadQuery::create()
                 ->orderByOrden()
-                ->filterByDescripcion('Configuración', Criteria::NOT_EQUAL)
+              //  ->filterByDescripcion('Configuración', Criteria::NOT_EQUAL)
                 ->filterBySuperior(null, Criteria::EQUAL)
                 //->setlimit(1)
                 ->find();
