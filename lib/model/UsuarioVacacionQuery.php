@@ -21,9 +21,10 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery
 {
     
      static public function periodos ($codigo) {
-         
+                 $listado = null;
               $usuarioQ = UsuarioQuery::create()
                 ->findOneByCodigo($codigo);
+              if ($usuarioQ->getFechaAlta()) {
         $fechaAlta = $usuarioQ->getFechaAlta('Y');
         $ano = $usuarioQ->getFechaAlta('Y');
         $datetime1 = new DateTime('2013-10-01');
@@ -32,7 +33,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery
         $dias=  $interval->format('%a');
         $derechos = ($dias/365) *15;
         $derechos = round($derechos,2);
-        $listado = null;
+
         $saldo = $derechos;
         $totalPagado =0;
         for ($periodo = $ano; $periodo < date('Y'); $periodo++) {
@@ -71,6 +72,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery
             //$data['TotalPagado'] = $totalPagado;
             $listado[] = $data;
         }
+              }
         return $listado;
      }
              
