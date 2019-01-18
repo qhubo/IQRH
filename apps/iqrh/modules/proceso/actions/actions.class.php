@@ -180,5 +180,14 @@ class procesoActions extends sfActions {
         echo "cantidad " . $cantida;
         die();
     }
-
+    
+      public function executeVacacion(sfWebRequest $request) {
+          $valor = $request->getParameter('id');
+          $usuarioQ = UsuarioQuery::create()->findOneById($valor);
+    $vacaciones =UsuarioVacacionQuery::periodos($usuarioQ->getCodigo());
+    echo "<pre>";
+print_R($vacaciones);
+die();
+    
+      }
 }
