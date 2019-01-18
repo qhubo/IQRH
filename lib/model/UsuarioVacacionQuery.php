@@ -27,15 +27,24 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery
               if ($usuarioQ->getFechaAlta()) {
         $fechaAlta = $usuarioQ->getFechaAlta('Y');
         $ano = $usuarioQ->getFechaAlta('Y');
-        $datetime1 = new DateTime('2013-10-01');
+        $datetime1 = new DateTime($usuarioQ->getFechaAlta('Y-m-d'));
         $datetime2 = new DateTime(date('Y-m-d'));
         $interval = $datetime1->diff($datetime2);
+        
         $dias=  $interval->format('%a');
+        
+//        echo $dias;
+//        echo "<br>";
         $derechos = ($dias/365) *15;
-        $derechos = round($derechos,2);
+       // echo ($dias/365);
+       // echo "<br>";
 
+        $derechos = round($derechos,2);
+//        echo $derechos;
+//        echo "<br>";        
         $saldo = $derechos;
         $totalPagado =0;
+        
         for ($periodo = $ano; $periodo < date('Y'); $periodo++) {
             $vacacioQ = UsuarioVacacionQuery::create()
                     ->filterByUsuario($codigo)
