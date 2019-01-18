@@ -184,6 +184,9 @@ class procesoActions extends sfActions {
       public function executeVacacion(sfWebRequest $request) {
           $valor = $request->getParameter('id');
           $usuarioQ = UsuarioQuery::create()->findOneById($valor);
+          echo $usuarioQ->getNombreCompleto();
+          echo "<br>";
+          
     $vacaciones =UsuarioVacacionQuery::periodos($usuarioQ->getCodigo());
     echo "<pre>";
 print_R($vacaciones);
