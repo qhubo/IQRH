@@ -186,6 +186,8 @@ class procesoActions extends sfActions {
           $usuarioQ = UsuarioQuery::create()->findOneById($valor);
           echo $usuarioQ->getNombreCompleto();
           echo "<br>";
+          echo $usuarioQ->getFechaAlta();
+          echo "<br>";
           
     $vacaciones =UsuarioVacacionQuery::periodos($usuarioQ->getCodigo());
     echo "<pre>";
