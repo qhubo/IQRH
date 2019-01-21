@@ -111,7 +111,7 @@ class procesoActions extends sfActions {
                 $postData['asunto'] = $asunto;
                 $postData['mensaje'] = $texto;
                 $postData['empresa'] = 'IQRH';
-                $postData['archivo'] = 'Recibo'.$id.'pdf';
+                $postData['archivo'] = 'Recibo'.$id.'.pdf';
                 echo "<pre>";
                 print_r($postData);
                 echo "</pre>";
