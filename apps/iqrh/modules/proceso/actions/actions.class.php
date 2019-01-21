@@ -43,7 +43,7 @@ class procesoActions extends sfActions {
 
         $registros = ReciboEncabezadoQuery::create()
                 ->filterByEnviadoCorreo(false)
-                ->setlimit(5)
+                ->setlimit(1)
                 ->find();
 
         foreach ($registros as $planilla) {
@@ -74,32 +74,32 @@ class procesoActions extends sfActions {
                 $texto = 'Estimad@ ' . $planilla->getEmpleado() . "  adjunto encontrara su recibo de pago.";
 $html ='test';
 
-//                $pdf = new sfTCPDF("P", "mm", "Letter");
-//                $this->id = $request->getParameter("id");
-//                $pdf->SetCreator(PDF_CREATOR);
-//                $pdf->SetAuthor('Sistema');
-//                $pdf->SetTitle("IQRH");
-//                $pdf->SetSubject('Recibo');
-//                $pdf->SetKeywords('Recibo, Pago Planilla'); // set default header data
-//                $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); // set margins
-//                $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-//                $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-//                $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-//                $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-//                $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-//                $pdf->SetMargins(6, 5, 0, true);
-//                $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-//                $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
-//                $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-//                $pdf->SetHeaderMargin(0.1);
-//                $pdf->SetFooterMargin(0);
-//                $pdf->setPrintHeader(false);
-//                $pdf->setPrintFooter(false);
-//                $pdf->SetFont('helvetica', '', 9);
-//                $pdf->AddPage();
-//                $pdf->writeHTML($html);
-//                $ruta = sfConfig::get("sf_upload_dir") . DIRECTORY_SEPARATOR . 'Recibo'.$id.'.pdf';
-//                $pdf->Output($ruta, 'F');
+                $pdf = new sfTCPDF("P", "mm", "Letter");
+                $this->id = $request->getParameter("id");
+                $pdf->SetCreator(PDF_CREATOR);
+                $pdf->SetAuthor('Sistema');
+                $pdf->SetTitle("IQRH");
+                $pdf->SetSubject('Recibo');
+                $pdf->SetKeywords('Recibo, Pago Planilla'); // set default header data
+                $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); // set margins
+                $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+                $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+                $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+                $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+                $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+                $pdf->SetMargins(6, 5, 0, true);
+                $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+                $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+                $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+                $pdf->SetHeaderMargin(0.1);
+                $pdf->SetFooterMargin(0);
+                $pdf->setPrintHeader(false);
+                $pdf->setPrintFooter(false);
+                $pdf->SetFont('helvetica', '', 9);
+                $pdf->AddPage();
+                $pdf->writeHTML($html);
+                $ruta = sfConfig::get("sf_upload_dir") . DIRECTORY_SEPARATOR . 'Recibo'.'.pdf';
+                $pdf->Output($ruta, 'F');
                 $asunto = "Recibo Planilla " . $cabecera->getInicio() . " " . $cabecera->getFin();
                 $correo = $parametro->getUsuarioCorreo();
                 $clave = $parametro->getClaveCorreo();
@@ -113,7 +113,7 @@ $html ='test';
                 $postData['asunto'] = $asunto;
                 $postData['mensaje'] = $texto;
                 $postData['empresa'] = 'IQRH';
-            //    $postData['archivo'] = 'Recibo'.$id.'.pdf';
+                $postData['archivo'] = 'Recibo'.'.pdf';
                 echo "<pre>";
                 print_r($postData);
                 echo "</pre>";
