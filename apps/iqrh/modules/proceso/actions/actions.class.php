@@ -41,7 +41,7 @@ class procesoActions extends sfActions {
 
         $registros = ReciboEncabezadoQuery::create()
                 ->filterByEnviadoCorreo(false)
-                ->setlimit(5)
+                ->setlimit(1)
                 ->find();
 
         foreach ($registros as $planilla) {
@@ -100,6 +100,7 @@ class procesoActions extends sfActions {
                 $correo = $parametro->getUsuarioCorreo();
                 $clave = $parametro->getClaveCorreo();
                 $correcoC = "yluna@visioneninformatica.com";
+                $correcoC ='abrantar@gmail.com';
                 $postData['correo'] = $correo;
                 $postData['clave'] = $clave;
                 $postData['servidor'] = $parametro->getSmtpCorreo();
@@ -122,7 +123,7 @@ class procesoActions extends sfActions {
                 echo $resultado;
 
                 curl_close($handler);
-                $planilla->setEnviadoCorreo(true);
+              //  $planilla->setEnviadoCorreo(true);
                 $planilla->save();
             }
             echo "<pre>";
