@@ -67,6 +67,8 @@ class procesoActions extends sfActions {
                     'encabezado' => $encabezado,
                     'detalle' => $detalle
                 ));
+                echo $html;
+                die();
                 $texto = 'Estimad@ ' . $planilla->getEmpleado() . "  adjunto encontrara su recibo de pago.";
 
 
