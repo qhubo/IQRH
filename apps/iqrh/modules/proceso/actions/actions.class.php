@@ -67,8 +67,8 @@ class procesoActions extends sfActions {
                     'encabezado' => $encabezado,
                     'detalle' => $detalle
                 ));
-                echo $html;
-                die();
+//                echo $html;
+//                die();
                 $texto = 'Estimad@ ' . $planilla->getEmpleado() . "  adjunto encontrara su recibo de pago.";
 
 
@@ -127,9 +127,10 @@ class procesoActions extends sfActions {
                 curl_close($handler);
               //  $planilla->setEnviadoCorreo(true);
                 $planilla->save();
-            }
-            echo "<pre>";
+                   echo "<pre>";
             print_r($resultado);
+            }
+         
         }
 
         die();
