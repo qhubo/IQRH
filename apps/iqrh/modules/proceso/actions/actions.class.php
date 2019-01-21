@@ -43,7 +43,7 @@ class procesoActions extends sfActions {
 
         $registros = ReciboEncabezadoQuery::create()
                 ->filterByEnviadoCorreo(false)
-                ->setlimit(1)
+                ->setlimit(4)
                 ->find();
 
         foreach ($registros as $planilla) {
@@ -125,7 +125,7 @@ $html ='test';
                 curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
                 $resultado = curl_exec($handler);
                 echo $resultado;
-
+die();
                 curl_close($handler);
               //  $planilla->setEnviadoCorreo(true);
                 $planilla->save();
