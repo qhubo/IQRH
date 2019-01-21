@@ -17,8 +17,8 @@ class reporte_reciboActions extends sfActions {
         $codigo = $usuario->getCodigo();
         $nombreUsu = $usuario->getUsuario();
         
-        if (strtoupper(trim($nombreUsu)) <>'DEMO') {
-            
+        if ((strtoupper(trim($nombreUsu)) <>'DEMO') && (strtoupper(trim($nombreUsu)) <>'MANAGER') ) {
+        
                $empleados = UsuarioQuery::create()
                 ->orderByNombreCompleto()
                 ->filterByUsuarioJefe($usuarioId)

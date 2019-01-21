@@ -1,5 +1,5 @@
 <?php $Parametro = ParametroQuery::create()->findOne(); ?>
-
+<?php $usuarioQ = UsuarioQuery::create()->findOneByCodigo($encabezado->getCodigo()); ?>
 <table style="width:720px">
     <tr>        
         <td style="width:5%"></td> 
@@ -10,7 +10,10 @@
     <tr>
         <td style="width:10%"></td> 
         <td  colspan="4" style="width:90%;border-bottom: 1px solid black; " >
-            <br><font size="+2"><strong>RECIBO DE PAGO DE SUELDOS Y SALARIOS COMPRENDIDOS:</strong></font>
+           
+              <?php if ($cabecera->getInicio() == '01/12/2017') { ?>  <br><font size="+2"><strong>PAGO DE AGUINALDO</strong></font> <?php } else  { ?>
+              <br><font size="+2"><strong>RECIBO DE PAGO DE SUELDOS Y SALARIOS COMPRENDIDOS:</strong></font> 
+              <?php } ?>
         </td> 
     </tr>
     <tr>
@@ -47,8 +50,8 @@
     <tr><td  style="width:100%" colspan="4"><br></td> </tr>
        <tr>
         <td style="width:5%">   </td> 
-        <td style="width:15%"><strong></strong></td>      
-        <td style="width:35%"><strong></strong></td> 
+        <td style="width:15%"><?php if ($cabecera->getInicio() == '01/12/2017') { ?> <strong>Fecha Alta</strong><?php } ?></td>      
+        <td style="width:35%"><strong><?php if ($cabecera->getInicio() == '01/12/2017') { ?><?php if ($usuarioQ) { ?>  <strong><?php echo $usuarioQ->getFechaAlta('d/m/Y'); ?> </strong><?php } ?></strong><?php } ?> </td> 
         <td style="width:25%"><br><strong>Ingresos</strong></td>
         <td style="width:20%"><br><strong>Egresos</strong></td>
     </tr>
@@ -74,9 +77,27 @@
         <td style="text-align: right; width:20%"><?php  if ($montoEgreso) { echo number_format($montoEgreso,2);  } ?> </td>
     </tr>
     <?php } ?>
-    <?php for ($i =$count; $i <= 10; $i++) { ?>
+    <?php if ($cabecera->getInicio() <> '01/12/2017') { ?>
+    <?php for ($i =$count; $i <= 8; $i++) { ?>
     <tr><td  style="text-align: right; width:100%" colspan="4"><br></td> </tr>
     <?php } ?>
+    <?php } else  { ?>
+         <tr>
+             
+             <td  colspan="2" width="50%">
+                 <p align="justify">
+        Por este medio hago constar, que el monto indicado en esta boleta, corresponde al 100% de la prestación 
+        de AGUINALDO que me corresponde según mi fecha de ingreso por tal razón lo acepto como bueno,
+        Tengo conocimiento tambien que cuento con 5 días para realizar algún
+        reclamo respecto al monto depositado en mi cuenta monetaria,
+        caso contrario se dará por correcto el pago realizado y en adelante no realizaré ningun reclamo
+                 </p>
+             </td>
+             <td  colspan="2"></td>
+         
+         </tr>
+    <?php } ?>
+    
     <tr>
         <td style="width:5%;border-bottom: 1px solid black; ">   </td>  
         <td style="width:50%;border-bottom: 1px solid black; " colspan="2"></td> 
