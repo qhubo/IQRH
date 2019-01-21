@@ -96,7 +96,7 @@ class procesoActions extends sfActions {
                 $pdf->SetFont('helvetica', '', 9);
                 $pdf->AddPage();
                 $pdf->writeHTML($html);
-                $ruta = sfConfig::get("sf_upload_dir") . DIRECTORY_SEPARATOR . 'Recibo.pdf';
+                $ruta = sfConfig::get("sf_upload_dir") . DIRECTORY_SEPARATOR . 'Recibo'.$id.'.pdf';
                 $pdf->Output($ruta, 'F');
                 $asunto = "Recibo Planilla " . $cabecera->getInicio() . " " . $cabecera->getFin();
                 $correo = $parametro->getUsuarioCorreo();
@@ -111,7 +111,7 @@ class procesoActions extends sfActions {
                 $postData['asunto'] = $asunto;
                 $postData['mensaje'] = $texto;
                 $postData['empresa'] = 'IQRH';
-                $postData['archivo'] = 'Recibo.pdf';
+                $postData['archivo'] = 'Recibo'.$id.'pdf';
                 echo "<pre>";
                 print_r($postData);
                 echo "</pre>";
