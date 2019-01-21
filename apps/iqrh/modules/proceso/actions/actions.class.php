@@ -72,7 +72,7 @@ class procesoActions extends sfActions {
 //                echo $html;
 //                die();
                 $texto = 'Estimad@ ' . $planilla->getEmpleado() . "  adjunto encontrara su recibo de pago.";
-$html ='test';
+
 
                 $pdf = new sfTCPDF("P", "mm", "Letter");
                 $this->id = $request->getParameter("id");
