@@ -68,7 +68,7 @@ class procesoActions extends sfActions {
             if (count($detalle) > 0 && count($cabecera) > 0) {
                 $codigoEmpleado = $encabezado->getCodigo();
                 $usuarioQ = UsuarioQuery::create()->findOneByCodigo($codigoEmpleado);
-                if ($codigoEmpleado) {
+                if ($usuarioQ) {
                 $correcoC = $usuarioQ->getCorreo();
 
                 $html = $this->getPartial('reporte/recibo', array("muestra" => 0,
