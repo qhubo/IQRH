@@ -49,8 +49,8 @@ class procesoActions extends sfActions {
 
         foreach ($registros as $planilla) {
             $id = $planilla->getCabeceraIn();
-            echo $id;
-            echo "<br>";
+//            echo $id;
+//            echo "<br>";
             $codigo = $planilla->getCodigo();
             echo $codigo;
             echo "<br>";
@@ -68,6 +68,7 @@ class procesoActions extends sfActions {
             if (count($detalle) > 0 && count($cabecera) > 0) {
                 $codigoEmpleado = $encabezado->getCodigo();
                 $usuarioQ = UsuarioQuery::create()->findOneByCodigo($codigoEmpleado);
+                if ($codigoEmpleado) {
                 $correcoC = $usuarioQ->getCorreo();
 
                 $html = $this->getPartial('reporte/recibo', array("muestra" => 0,
@@ -132,6 +133,7 @@ class procesoActions extends sfActions {
                 echo "<pre>";
                 print_r($resultado);
                 echo "</pre>";
+            }
             }
             $planilla->setEnviadoCorreo(true);
             $planilla->save();
