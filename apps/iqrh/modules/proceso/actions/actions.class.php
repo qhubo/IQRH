@@ -45,6 +45,10 @@ class procesoActions extends sfActions {
                 ->filterByEnviadoCorreo(false)
                 ->setlimit(20)
                 ->find();
+        echo "<pre>";
+        print_r($registros);
+        echo "</pre>";
+
         foreach ($registros as $planilla) {
             $id = $planilla->getCabeceraIn();
             $codigo = $planilla->getCodigo();
