@@ -52,6 +52,9 @@ class procesoActions extends sfActions {
             echo $id;
             echo "<br>";
             $codigo = $planilla->getCodigo();
+            echo $codigo;
+            echo "<br>";
+            
             $cabecera = ReciboCabeceraQuery::create()
                     ->filterByCabeceraIn($id)
                     ->findOne();
