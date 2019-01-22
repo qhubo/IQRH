@@ -43,7 +43,7 @@ class procesoActions extends sfActions {
         $parametro = ParametroQuery::create()->findOne();
         $registros = ReciboEncabezadoQuery::create()
                 ->filterByEnviadoCorreo(false)
-                ->setlimit(4)
+                ->setlimit(20)
                 ->find();
         foreach ($registros as $planilla) {
             $id = $planilla->getCabeceraIn();
@@ -58,7 +58,6 @@ class procesoActions extends sfActions {
             $detalle = ReciboDetalleQuery::create()
                     ->filterByPlanillaResumenId($encabezado->getPlanillaResumenId())
                     ->find();
-
             if (count($detalle) > 0 && count($cabecera) > 0) {
                 $codigoEmpleado = $encabezado->getCodigo();
                 $usuarioQ = UsuarioQuery::create()->findOneByCodigo($codigoEmpleado);
@@ -124,12 +123,13 @@ class procesoActions extends sfActions {
                 curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
                 $resultado = curl_exec($handler);
                 curl_close($handler);
-                $planilla->setEnviadoCorreo(true);
-                $planilla->save();               
+
                 echo "<pre>";
                 print_r($resultado);
                 echo "</pre>";
-          }
+            }
+            $planilla->setEnviadoCorreo(true);
+            $planilla->save();
         }
         die();
     }
