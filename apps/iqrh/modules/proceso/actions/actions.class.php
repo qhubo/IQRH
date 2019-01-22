@@ -45,12 +45,12 @@ class procesoActions extends sfActions {
                 ->filterByEnviadoCorreo(false)
                 ->setlimit(20)
                 ->find();
-        echo "<pre>";
-        print_r($registros);
-        echo "</pre>";
+   
 
         foreach ($registros as $planilla) {
             $id = $planilla->getCabeceraIn();
+            echo $id;
+            echo "<br>";
             $codigo = $planilla->getCodigo();
             $cabecera = ReciboCabeceraQuery::create()
                     ->filterByCabeceraIn($id)
@@ -133,6 +133,9 @@ class procesoActions extends sfActions {
             $planilla->setEnviadoCorreo(true);
             $planilla->save();
         }
+             echo "<pre>";
+        print_r($registros);
+        echo "</pre>";
         die();
     }
 
