@@ -28,8 +28,8 @@ class procesoActions extends sfActions {
     }
 
     public function executeCorreo(sfWebRequest $request) {
-//        echo 'test';
-//        die();
+        echo 'test';
+        die();
         $url = "http://iqrh:8080/envio.php";
         $urlH = "http://" . $_SERVER['SERVER_NAME'];
         $PortA = $_SERVER['SERVER_PORT'];
