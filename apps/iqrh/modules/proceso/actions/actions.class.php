@@ -67,7 +67,7 @@ class procesoActions extends sfActions {
                 'jefe' => $jefe,
                 'observacion' => $observacion
             ));
-            $correo = 'abrantar@gmail.com';
+         //   $correo = 'abrantar@gmail.com';
             $resultado = ParametroQuery::Correo($correo, $parametro, $html);
             echo "<pre>";
             print_r($resultado);
@@ -105,7 +105,7 @@ class procesoActions extends sfActions {
                 'jefe' => $jefe,
                 'observacion' => $observacion
             ));
-            $correo = 'abrantar@gmail.com';
+         //   $correo = 'abrantar@gmail.com';
             $resultado = ParametroQuery::Correo($correo, $parametro, $html);
             echo "<pre>";
             print_r($resultado);
@@ -143,7 +143,7 @@ class procesoActions extends sfActions {
                 'jefe' => $jefe,
                 'observacion' => $observacion
             ));
-            $correo = 'abrantar@gmail.com';
+            // $correo = 'abrantar@gmail.com';
             $resultado = ParametroQuery::Correo($correo, $parametro, $html);
             echo "<pre>";
             print_r($resultado);
@@ -182,7 +182,7 @@ class procesoActions extends sfActions {
             ));
             // echo $html;
 
-            $correo = 'abrantar@gmail.com';
+         //   $correo = 'abrantar@gmail.com';
             $resultado = ParametroQuery::Correo($correo, $parametro, $html);
             echo "<pre>";
             print_r($resultado);
