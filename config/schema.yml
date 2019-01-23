@@ -75,7 +75,8 @@ propel:
      usuario_correo:                    { type: varchar(100) } 
      clave_correo:                      { type: varchar(100) } 
      banner_reporte:                    { type: varchar(250)}
-     
+     correo_notifica:                   { type: varchar(50) }
+      
      
   alerta_ausencia:
      id:                               ~

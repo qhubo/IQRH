@@ -19,7 +19,193 @@
  */
 class ParametroQuery extends BaseParametroQuery
 {
-    
+
+       static public function Sol() {
+           
+        $parametro = ParametroQuery::create()->findOne();
+        $correoNotifica = $parametro->getCorreoNotifica();
+        $soliC = SolicitudFinquitoQuery::create()
+                ->filterByEnviadoCorreo(false)
+                ->find();
+        foreach ($soliC as $lista) {
+            $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioRetiro());
+            $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
+            $empleado = $usuarioGra->getNombreCompleto();
+            $fecha = $lista->getCreatedAt('d/m/Y');
+            $jefe = '';
+            $correo = '';
+            if ($usuarioRet) {
+                $jefe = $usuarioRet->getNombreCompleto();
+                $correo = $usuarioRet->getCorreo();
+            }
+            echo $correo;
+            echo "<br>";
+            $observacion = html_entity_decode($lista->getObservaciones());
+            $tipo = " Finiquito de Empleado ";
+            $html = $this->getPartial('proceso/nota', array(
+                'empleado' => $empleado,
+                'fecha' => $fecha,
+                'tipo' => $tipo,
+                'jefe' => $jefe,
+                'observacion' => $observacion
+            ));
+            $correo = 'abrantar@gmail.com';
+            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+            echo "<pre>";
+            print_r($resultado);
+            echo "</pre>";
+
+            $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+            $lista->setEnviadoCorreo(true);
+            $lista->save();
+        }
+
+
+
+        $soliC = SolicitudAusenciaQuery::create()
+                ->filterByEnviadoCorreo(false)
+                ->find();
+        foreach ($soliC as $lista) {
+            $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioId());
+            $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
+            $empleado = $usuarioGra->getNombreCompleto();
+            $fecha = $lista->getCreatedAt('d/m/Y');
+            $jefe = '';
+            $correo = '';
+            if ($usuarioRet) {
+                $jefe = $usuarioRet->getNombreCompleto();
+                $correo = $usuarioRet->getCorreo();
+            }
+            echo $correo;
+            echo "<br>";
+            $observacion = html_entity_decode($lista->getMotivo());
+            $tipo = " Ausencia ";
+            $html = $this->getPartial('proceso/nota', array(
+                'empleado' => $empleado,
+                'fecha' => $fecha,
+                'tipo' => $tipo,
+                'jefe' => $jefe,
+                'observacion' => $observacion
+            ));
+            $correo = 'abrantar@gmail.com';
+            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+            echo "<pre>";
+            print_r($resultado);
+            echo "</pre>";
+            $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+            $lista->setEnviadoCorreo(true);
+            $lista->save();
+        }
+
+
+
+        $soliC = SolicitudVacacionQuery::create()
+                ->filterByEnviadoCorreo(false)
+                ->find();
+        foreach ($soliC as $lista) {
+            $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioId());
+            $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
+            $empleado = $usuarioGra->getNombreCompleto();
+            $fecha = $lista->getCreatedAt('d/m/Y');
+            $jefe = '';
+            $correo = '';
+            if ($usuarioRet) {
+                $jefe = $usuarioRet->getNombreCompleto();
+                $correo = $usuarioRet->getCorreo();
+            }
+            echo $correo;
+            echo "<br>";
+            $observacion = html_entity_decode($lista->getObservaciones());
+            $tipo = " Vacaciones ";
+            $observacion = "Dias Solicitados del " . $lista->getFechaInicio('d/m/Y') . "  Al " . $lista->getFechaFin('d/m/Y');
+            $html = $this->getPartial('proceso/nota', array(
+                'empleado' => $empleado,
+                'fecha' => $fecha,
+                'tipo' => $tipo,
+                'jefe' => $jefe,
+                'observacion' => $observacion
+            ));
+            $correo = 'abrantar@gmail.com';
+            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+            echo "<pre>";
+            print_r($resultado);
+            echo "</pre>";
+            $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+            $lista->setEnviadoCorreo(true);
+            $lista->save();
+        }
+
+
+
+        $soliC = SolicitudUsuarioQuery::create()
+                ->filterByEnviadoCorreo(false)
+                ->find();
+        foreach ($soliC as $lista) {
+            $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioId());
+            $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
+            $empleado = $usuarioGra->getNombreCompleto();
+            $fecha = $lista->getCreatedAt('d/m/Y');
+            $jefe = '';
+            $correo = '';
+            if ($usuarioRet) {
+                $jefe = $usuarioRet->getNombreCompleto();
+                $correo = $usuarioRet->getCorreo();
+            }
+            echo $correo;
+            echo "<br>";
+            $observacion = html_entity_decode($lista->getObservaciones());
+            $tipo = $lista->getCatalogoSolicitud();
+            $html = $this->getPartial('proceso/nota', array(
+                'empleado' => $empleado,
+                'fecha' => $fecha,
+                'tipo' => $tipo,
+                'jefe' => $jefe,
+                'observacion' => $observacion
+            ));
+            // echo $html;
+
+            $correo = 'abrantar@gmail.com';
+            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+            echo "<pre>";
+            print_r($resultado);
+            echo "</pre>";
+       
+            $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+            $lista->setEnviadoCorreo(true);
+            $lista->save();
+        }
+       }
+    static public function Correo($correoC, $parametro, $texto) {
+        $asunto = "Notificación de Nomina";
+        $url = "http://iqrh:8080/envio.php";
+        $urlH = "http://" . $_SERVER['SERVER_NAME'];
+        $PortA = $_SERVER['SERVER_PORT'];
+        $port = '';
+        if ($PortA == '8080') {
+            $port = ':8080';
+        }
+        $url = $urlH . $port . "/envio.php";
+        $correo = $parametro->getUsuarioCorreo();
+        $clave = $parametro->getClaveCorreo();
+        // $correcoC = "yluna@visioneninformatica.com";
+        //$correcoC ='abrantar@gmail.com';
+        $postData['correo'] = $correo;
+        $postData['clave'] = $clave;
+        $postData['servidor'] = $parametro->getSmtpCorreo();
+        $postData['puerto'] = $parametro->getPuertoCorreo();
+        $postData['correo_cliente'] = $correoC;
+        $postData['asunto'] = $asunto;
+        $postData['mensaje'] = $texto;
+        $postData['empresa'] = 'IQRH';
+        $handler = curl_init();
+        curl_setopt($handler, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($handler, CURLOPT_URL, $url);
+        curl_setopt($handler, CURLOPT_POST, true);
+        curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
+        $resultado = curl_exec($handler);
+        curl_close($handler);
+        return $resultado;
+    }
     
    static public function limpiezaCaracter($texto) {
         $texto = str_replace(",", "comacoma", $texto);

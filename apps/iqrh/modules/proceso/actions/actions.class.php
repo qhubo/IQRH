@@ -10,6 +10,14 @@
  */
 class procesoActions extends sfActions {
 
+    public function executeSol(sfWebRequest $request) {
+
+ 
+        die();
+    }
+
+
+
     public function executeClaves(sfWebRequest $request) {
         $ussuario = UsuarioQuery::create()
                 ->filterByUsuario('Demo', Criteria::NOT_IN)
@@ -21,6 +29,7 @@ class procesoActions extends sfActions {
             $usuarioQ->setUsuario($codigo);
             $usuarioQ->setClave(sha1($codigo));
 //            $usuarioQ->save();
+
             $cant++;
         }
         echo 'actualizados ' . $cant;
@@ -28,8 +37,165 @@ class procesoActions extends sfActions {
     }
 
     public function executeCorreo(sfWebRequest $request) {
-     //   echo 'test';
-      //  die();
+        
+        
+        
+               $parametro = ParametroQuery::create()->findOne();
+        $correoNotifica = $parametro->getCorreoNotifica();
+        $soliC = SolicitudFinquitoQuery::create()
+                ->filterByEnviadoCorreo(false)
+                ->find();
+        foreach ($soliC as $lista) {
+            $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioRetiro());
+            $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
+            $empleado = $usuarioGra->getNombreCompleto();
+            $fecha = $lista->getCreatedAt('d/m/Y');
+            $jefe = '';
+            $correo = '';
+            if ($usuarioRet) {
+                $jefe = $usuarioRet->getNombreCompleto();
+                $correo = $usuarioRet->getCorreo();
+            }
+            echo $correo;
+            echo "<br>";
+            $observacion = html_entity_decode($lista->getObservaciones());
+            $tipo = " Finiquito de Empleado ";
+            $html = $this->getPartial('proceso/nota', array(
+                'empleado' => $empleado,
+                'fecha' => $fecha,
+                'tipo' => $tipo,
+                'jefe' => $jefe,
+                'observacion' => $observacion
+            ));
+            $correo = 'abrantar@gmail.com';
+            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+            echo "<pre>";
+            print_r($resultado);
+            echo "</pre>";
+
+            $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+            $lista->setEnviadoCorreo(true);
+            $lista->save();
+        }
+
+
+
+        $soliC = SolicitudAusenciaQuery::create()
+                ->filterByEnviadoCorreo(false)
+                ->find();
+        foreach ($soliC as $lista) {
+            $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioId());
+            $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
+            $empleado = $usuarioGra->getNombreCompleto();
+            $fecha = $lista->getCreatedAt('d/m/Y');
+            $jefe = '';
+            $correo = '';
+            if ($usuarioRet) {
+                $jefe = $usuarioRet->getNombreCompleto();
+                $correo = $usuarioRet->getCorreo();
+            }
+            echo $correo;
+            echo "<br>";
+            $observacion = html_entity_decode($lista->getMotivo());
+            $tipo = " Ausencia ";
+            $html = $this->getPartial('proceso/nota', array(
+                'empleado' => $empleado,
+                'fecha' => $fecha,
+                'tipo' => $tipo,
+                'jefe' => $jefe,
+                'observacion' => $observacion
+            ));
+            $correo = 'abrantar@gmail.com';
+            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+            echo "<pre>";
+            print_r($resultado);
+            echo "</pre>";
+            $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+            $lista->setEnviadoCorreo(true);
+            $lista->save();
+        }
+
+
+
+        $soliC = SolicitudVacacionQuery::create()
+                ->filterByEnviadoCorreo(false)
+                ->find();
+        foreach ($soliC as $lista) {
+            $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioId());
+            $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
+            $empleado = $usuarioGra->getNombreCompleto();
+            $fecha = $lista->getCreatedAt('d/m/Y');
+            $jefe = '';
+            $correo = '';
+            if ($usuarioRet) {
+                $jefe = $usuarioRet->getNombreCompleto();
+                $correo = $usuarioRet->getCorreo();
+            }
+            echo $correo;
+            echo "<br>";
+            $observacion = html_entity_decode($lista->getObservaciones());
+            $tipo = " Vacaciones ";
+            $observacion = "Dias Solicitados del " . $lista->getFechaInicio('d/m/Y') . "  Al " . $lista->getFechaFin('d/m/Y');
+            $html = $this->getPartial('proceso/nota', array(
+                'empleado' => $empleado,
+                'fecha' => $fecha,
+                'tipo' => $tipo,
+                'jefe' => $jefe,
+                'observacion' => $observacion
+            ));
+            $correo = 'abrantar@gmail.com';
+            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+            echo "<pre>";
+            print_r($resultado);
+            echo "</pre>";
+            $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+            $lista->setEnviadoCorreo(true);
+            $lista->save();
+        }
+
+
+
+        $soliC = SolicitudUsuarioQuery::create()
+                ->filterByEnviadoCorreo(false)
+                ->find();
+        foreach ($soliC as $lista) {
+            $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioId());
+            $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
+            $empleado = $usuarioGra->getNombreCompleto();
+            $fecha = $lista->getCreatedAt('d/m/Y');
+            $jefe = '';
+            $correo = '';
+            if ($usuarioRet) {
+                $jefe = $usuarioRet->getNombreCompleto();
+                $correo = $usuarioRet->getCorreo();
+            }
+            echo $correo;
+            echo "<br>";
+            $observacion = html_entity_decode($lista->getObservaciones());
+            $tipo = $lista->getCatalogoSolicitud();
+            $html = $this->getPartial('proceso/nota', array(
+                'empleado' => $empleado,
+                'fecha' => $fecha,
+                'tipo' => $tipo,
+                'jefe' => $jefe,
+                'observacion' => $observacion
+            ));
+            // echo $html;
+
+            $correo = 'abrantar@gmail.com';
+            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+            echo "<pre>";
+            print_r($resultado);
+            echo "</pre>";
+       
+            $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+            $lista->setEnviadoCorreo(true);
+            $lista->save();
+        }
+        
+        die();
+        //   echo 'test';
+        //  die();
         $url = "http://iqrh:8080/envio.php";
         $urlH = "http://" . $_SERVER['SERVER_NAME'];
         $PortA = $_SERVER['SERVER_PORT'];
@@ -45,7 +211,7 @@ class procesoActions extends sfActions {
                 ->filterByEnviadoCorreo(false)
                 ->setlimit(20)
                 ->find();
-   
+
 
         foreach ($registros as $planilla) {
             $id = $planilla->getCabeceraIn();
@@ -54,7 +220,7 @@ class procesoActions extends sfActions {
             $codigo = $planilla->getCodigo();
             echo $codigo;
             echo "<br>";
-            
+
             $cabecera = ReciboCabeceraQuery::create()
                     ->filterByCabeceraIn($id)
                     ->findOne();
@@ -69,76 +235,73 @@ class procesoActions extends sfActions {
                 $codigoEmpleado = $encabezado->getCodigo();
                 $usuarioQ = UsuarioQuery::create()->findOneByCodigo($codigoEmpleado);
                 if ($usuarioQ) {
-                $correcoC = $usuarioQ->getCorreo();
+                    $correcoC = $usuarioQ->getCorreo();
 
-                $html = $this->getPartial('reporte/recibo', array("muestra" => 0,
-                    'cabecera' => $cabecera,
-                    'encabezado' => $encabezado,
-                    'detalle' => $detalle
-                ));
-                echo $correcoC;
-                echo "<br>";
-                $texto = 'Estimad@ ' . $planilla->getEmpleado() . "  adjunto encontrara su recibo de pago.";
-                $pdf = new sfTCPDF("P", "mm", "Letter");
-                $this->id = $request->getParameter("id");
-                $pdf->SetCreator(PDF_CREATOR);
-                $pdf->SetAuthor('Sistema');
-                $pdf->SetTitle("IQRH");
-                $pdf->SetSubject('Recibo');
-                $pdf->SetKeywords('Recibo, Pago Planilla'); // set default header data
-                $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); // set margins
-                $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-                $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-                $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-                $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-                $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-                $pdf->SetMargins(6, 5, 0, true);
-                $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-                $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
-                $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-                $pdf->SetHeaderMargin(0.1);
-                $pdf->SetFooterMargin(0);
-                $pdf->setPrintHeader(false);
-                $pdf->setPrintFooter(false);
-                $pdf->SetFont('helvetica', '', 9);
-                $pdf->AddPage();
-                $pdf->writeHTML($html);
-                $ruta = sfConfig::get("sf_upload_dir") . DIRECTORY_SEPARATOR . 'Recibo' . '.pdf';
-                $pdf->Output($ruta, 'F');
-                $asunto = "Recibo Planilla " . $cabecera->getInicio() . " " . $cabecera->getFin();
-                $correo = $parametro->getUsuarioCorreo();
-                $clave = $parametro->getClaveCorreo();
-                // $correcoC = "yluna@visioneninformatica.com";
-                //$correcoC ='abrantar@gmail.com';
-                $postData['correo'] = $correo;
-                $postData['clave'] = $clave;
-                $postData['servidor'] = $parametro->getSmtpCorreo();
-                $postData['puerto'] = $parametro->getPuertoCorreo();
-                $postData['correo_cliente'] = $correcoC;
-                $postData['asunto'] = $asunto;
-                $postData['mensaje'] = $texto;
-                $postData['empresa'] = 'IQRH';
-                $postData['archivo'] = 'Recibo' . '.pdf';
-//                echo "<pre>";
-//                print_r($postData);
-//                echo "</pre>";
-                $handler = curl_init();
-                curl_setopt($handler, CURLOPT_RETURNTRANSFER, TRUE);
-                curl_setopt($handler, CURLOPT_URL, $url);
-                curl_setopt($handler, CURLOPT_POST, true);
-                curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
-                $resultado = curl_exec($handler);
-                curl_close($handler);
+                    $html = $this->getPartial('reporte/recibo', array("muestra" => 0,
+                        'cabecera' => $cabecera,
+                        'encabezado' => $encabezado,
+                        'detalle' => $detalle
+                    ));
+                    echo $correcoC;
+                    echo "<br>";
+                    $texto = 'Estimad@ ' . $planilla->getEmpleado() . "  adjunto encontrara su recibo de pago.";
+                    $pdf = new sfTCPDF("P", "mm", "Letter");
+                    $this->id = $request->getParameter("id");
+                    $pdf->SetCreator(PDF_CREATOR);
+                    $pdf->SetAuthor('Sistema');
+                    $pdf->SetTitle("IQRH");
+                    $pdf->SetSubject('Recibo');
+                    $pdf->SetKeywords('Recibo, Pago Planilla'); // set default header data
+                    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); // set margins
+                    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+                    $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+                    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+                    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+                    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+                    $pdf->SetMargins(6, 5, 0, true);
+                    $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+                    $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+                    $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+                    $pdf->SetHeaderMargin(0.1);
+                    $pdf->SetFooterMargin(0);
+                    $pdf->setPrintHeader(false);
+                    $pdf->setPrintFooter(false);
+                    $pdf->SetFont('helvetica', '', 9);
+                    $pdf->AddPage();
+                    $pdf->writeHTML($html);
+                    $ruta = sfConfig::get("sf_upload_dir") . DIRECTORY_SEPARATOR . 'Recibo' . '.pdf';
+                    $pdf->Output($ruta, 'F');
+                    $asunto = "Recibo Planilla " . $cabecera->getInicio() . " " . $cabecera->getFin();
+                    $correo = $parametro->getUsuarioCorreo();
+                    $clave = $parametro->getClaveCorreo();
+                    // $correcoC = "yluna@visioneninformatica.com";
+                    //$correcoC ='abrantar@gmail.com';
+                    $postData['correo'] = $correo;
+                    $postData['clave'] = $clave;
+                    $postData['servidor'] = $parametro->getSmtpCorreo();
+                    $postData['puerto'] = $parametro->getPuertoCorreo();
+                    $postData['correo_cliente'] = $correcoC;
+                    $postData['asunto'] = $asunto;
+                    $postData['mensaje'] = $texto;
+                    $postData['empresa'] = 'IQRH';
+                    $postData['archivo'] = 'Recibo' . '.pdf';
+                    $handler = curl_init();
+                    curl_setopt($handler, CURLOPT_RETURNTRANSFER, TRUE);
+                    curl_setopt($handler, CURLOPT_URL, $url);
+                    curl_setopt($handler, CURLOPT_POST, true);
+                    curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
+                    $resultado = curl_exec($handler);
+                    curl_close($handler);
 
-                echo "<pre>";
-                print_r($resultado);
-                echo "</pre>";
-            }
+                    echo "<pre>";
+                    print_r($resultado);
+                    echo "</pre>";
+                }
             }
             $planilla->setEnviadoCorreo(true);
             $planilla->save();
         }
-             echo "<pre>";
+        echo "<pre>";
         print_r($registros);
         echo "</pre>";
         die();
