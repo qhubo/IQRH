@@ -40,7 +40,7 @@
 &nbsp;&nbsp;
 <?php //if (MenuSeguridadQuery::menuAcceso('Entrega')) { ?>
 <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark  " id="header_task_bar">
-<?php echo $tipo= sfContext::getInstance()->getUser()->getAttribute('usuario',null, 'tipox'); ?>
+<?php  $tipo= sfContext::getInstance()->getUser()->getAttribute('usuario',null, 'tipox'); ?>
 </li>
 <?php // } ?>
 &nbsp;&nbsp;
@@ -119,9 +119,9 @@
     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 
         <?php if ($imagen) { ?>
-            <img alt="" class="img-circle" src="<?php echo $imagen ?>">
+            <img alt="" xclass="img-circle" src="<?php echo $imagen ?>">
         <?php } else { ?>
-            <img alt="" class="img-circle" src="../assets/layouts/layout3/img/avatar9.jpg">
+            <img alt="" xclass="img-circle" src="../assets/layouts/layout3/img/avatar9.jpg">
         <?php } ?>
 
         <span class="username username-hide-mobile">

@@ -27,6 +27,8 @@ class asigna_jefeActions extends sfActions {
 
     public function executeIndex(sfWebRequest $request) {
         $this->empresaseleccion = $request->getParameter('em');
+        $this->estatu = $request->getParameter('estatu');
+        
         $empresaseleccion= $this->empresaseleccion;
         sfContext::getInstance()->getUser()->setAttribute('seleccion', $empresaseleccion, 'empresa');        
         $this->empresas = UsuarioQuery::create()
@@ -34,12 +36,19 @@ class asigna_jefeActions extends sfActions {
                 ->orderByEmpresa()
                 ->groupByEmpresa()
                 ->find();
-        $this->usuarios = UsuarioQuery::create()
-                ->filterByCodigo('', Criteria::NOT_EQUAL)
-                ->filterByEmpresa($empresaseleccion)
-               //  ->filterByUsuarioJefe(0, Criteria::GREATER_THAN)
-               // ->setLimit(10)
-                ->find();
+        
+        $usuarios = UsuarioQuery::create();
+        $usuarios->filterByCodigo('', Criteria::NOT_EQUAL);
+        $usuarios->filterByEmpresa($empresaseleccion);
+        if ($this->estatu==1) {
+            $usuarios->filterByUsuarioJefe(0, Criteria::NOT_EQUAL);
+        }
+        if ($this->estatu==2) {
+            $usuarios->filterByUsuarioJefe(0);
+        }
+        
+        $this->usuarios = $usuarios->find();
+        
         $this->usuariosR= $this->usuarios;
         $usuario = UsuarioQuery::create()
                 ->orderByNombreCompleto()

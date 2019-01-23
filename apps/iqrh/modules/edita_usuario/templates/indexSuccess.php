@@ -16,12 +16,57 @@
                 </div>-->
     </div>
     <div class="portlet-body">
+        
+        <?php $modulo = $sf_params->get('module'); ?>
+<?php echo $form->renderFormTag(url_for($modulo.'/index'), array('class' => 'form-horizontal"')) ?>
+<?php echo $form->renderHiddenFields() ?>
+          <div class="row">
+                <div class="col-md-1"> </div>        
+                <label class="col-md-2 control-label font-green right ">Todas Las  Empresas  </label>
+                <div class="col-md-8 <?php if ($form['empresa']->hasError()) echo "has-error" ?>">
+                    <?php echo $form['empresa'] ?>           
+                    <span class="help-block form-error"> 
+                        <?php echo $form['empresa']->renderError() ?>  
+                    </span>
+                </div>
+            </div> 
+        
+          <div class="row">
+                <div class="col-md-1"> </div>        
+                <label class="col-md-2 control-label font-green right ">Texto Busqueda  </label>
+                <div class="col-md-6 <?php if ($form['nombre']->hasError()) echo "has-error" ?>">
+                    <?php echo $form['nombre'] ?>           
+                    <span class="help-block form-error"> 
+                        <?php echo $form['nombre']->renderError() ?>  
+                    </span>
+                </div>
+                   <div class="col-md-2">
+
+                    <button class="btn blue-steel btn-block btn-outline" type="submit">
+                        <i class="fa fa-search "></i>
+                  Buscar
+                    </button>
+                </div> 
+            </div> 
+        
+        
+   
+        
+        
+           <div class="row">
+               <div class="col-md-9"><br><br><br><br> </div> 
+           </div>
+        
+        
+        
+        
 
         <div class="form-body">      
             <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
                 <thead class="flip-content">
                     <tr class="info">
 <!--                        <th align="center" width="20px"></th>-->
+                        <th align="center" width="75px">Imagen</th>
                         <th align="center" width="20px"> Código</th>
                         <th align="center" width="20px">Usuario</th>
                         <th  align="center"> Nombre Completo</th>
@@ -33,8 +78,14 @@
                 </thead>
                 <tbody>
                     <?php foreach ($usuarios as $lis) { ?>
-                        <?php $imagen = $lis->getLogo(); ?>
+                        <?php $imagen = $lis->getImagen(); ?>
                         <tr>
+                            <td>
+                                <font size="-2" color="white"><?php echo $lis->getPrimerApellido() ?> </font>
+                              <?php if ($lis->getImagen()) { ?>
+                <img alt=""  width="100px"  src="/uploads/empresas/<?php echo $lis->getImagen() ?>">
+                              <?php } ?>    
+                            </td>
 <!--                            <td>
                                 <img alt="" width="75px" src="<?php echo $imagen ?>">
                            </td>-->

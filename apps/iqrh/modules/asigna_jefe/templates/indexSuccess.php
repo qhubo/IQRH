@@ -15,20 +15,40 @@
         </div>
     </div>
     <div class="portlet-body">
+                <form action="<?php echo url_for('asigna_jefe/index?id=0') ?>" method="post">
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-1 font font-blue bold Bold">Empresa</div>
             <div class="col-md-4">
-                <form action="<?php echo url_for('asigna_jefe/index?id=0') ?>" method="post">
-                    <select  onchange="this.form.submit()" class="form-control" name="em" id="em">
+                  <select  onchange="this.form.submit()" class="form-control" name="em" id="em">
                         <option value="">[Seleccione]</option>
                         <?php foreach ($empresas as $lista) { ?>
                         <option <?php if ($empresaseleccion== $lista->getEmpresa() ) { ?>selected="selected"  <?php } ?>  value="<?php echo $lista->getEmpresa(); ?>"><?php echo $lista->getEmpresa(); ?></option>
                         <?php } ?>
                     </select>
-                </form>
             </div>
         </div>
+    
+                     <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-1 font font-blue bold Bold">Estatus</div>
+            <div class="col-md-4">
+    
+                    <select  onchange="this.form.submit()" class="form-control" name="estatu" id="estatu">
+                        <option value="">[Seleccione]</option>
+                        <option <?php if ($estatu== 1 ) { ?>selected="selected"  <?php } ?>  value="1">Asignados</option>
+                        <option <?php if ($estatu== 2 ) { ?>selected="selected"  <?php } ?>  value="2">No Asignados</option>
+
+                    </select>
+                    
+      
+            </div>
+            
+        </div>
+                    
+                </form>
+        
+                    
 
         <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
             <thead class="flip-content">
@@ -42,7 +62,9 @@
             <tbody>
                 <?Php foreach ($usuarios as $lista) { ?>
                     <tr>
-                        <td align="center"> <?php echo $lista->getCodigo(); ?></td>
+                        <td align="center"> 
+                            <font size="-2" color="white"> <?php echo $lista->getNombreCompleto(); ?></font><br>
+                            <?php echo $lista->getCodigo(); ?></td>
                         <td><?php echo $lista->getNombreCompleto(); ?></td>
                         <td><?php echo $lista->getJefe(); ?></td>
 

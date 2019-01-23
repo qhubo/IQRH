@@ -31,12 +31,21 @@ $this->setWidget('activo' , new sfWidgetFormInputCheckbox(array(),array('class'=
         $tipo['Publico'] = 'Publico';
         $tipo['Administrador'] = 'Administrador';
         $tipo['Moderador'] = 'Moderador';
-      
+              $this->setWidget(
+                "archivo", new sfWidgetFormInputFile(array(), array(
+            "class" => "file-upload btn btn-file-upload",
+        )));
+        $this->setValidator('archivo', 
+                 new sfValidatorFile(array(
+			'required'   => false,
+			'path'       => sfConfig::get('sf_upload_dir').'/empresas',
+			'mime_types' => 'web_images',
+			)));
         
         $this->setWidget('tipo', new sfWidgetFormChoice(array(
             "choices" => $tipo,
                 ), array("class" => "form-control")));
-        $this->setValidator('tipo', new sfValidatorString(array('required' => true)));
+        $this->setValidator('tipo', new sfValidatorString(array('required' =>false)));
         $this->setWidget('observaciones', new sfWidgetFormTextarea(array(), array('class' => 'form-control EditorMce')));
         $this->setValidator('observaciones', new sfValidatorString(array('required' => false)));
         

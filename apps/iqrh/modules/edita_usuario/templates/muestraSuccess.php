@@ -82,6 +82,32 @@
                 </div>
                 <div class="col-md-1">  </div>
             </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <span class="font-blue bold Bold" >Actual</span><br>
+                <?php if ($usuario->getImagen()) { ?>
+                <img alt=""  width="150px"  xclass="img-circle" src="/uploads/empresas/<?php echo $usuario->getImagen() ?>">
+                <?php } else { ?>
+                    <img alt="" xclass="img-circle" src="../assets/layouts/layout3/img/avatar9.jpg">
+                <?php } ?>
+ 
+            </div>
+            <div   class="col-md-5  <?php if ($form['archivo']->hasError()) echo "has-error" ?>">
+                <span class="font-blue bold Bold" >Nueva</span>
+                <br>
+                <?php echo $form['archivo'] ?>           
+                <span class="help-block form-error"> 
+                    <?php echo $form['archivo']->renderError() ?>  
+                </span>
+                <br>
+
+<!--                <button class="btn btn-primary " type="submit">
+                    <i class="fa fa-check"></i>
+                    <span>Guardar</span>
+                </button>-->
+            </div>
+        </div>
             <div class="row">
                 <div class="col-md-9"> </div> 
                 <div class="col-md-2">

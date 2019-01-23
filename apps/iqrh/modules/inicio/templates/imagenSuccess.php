@@ -38,9 +38,9 @@
             <div class="col-md-5">
                 <span class="font-blue bold Bold" >Actual</span><br>
                 <?php if ($imagen) { ?>
-                    <img alt=""   class="img-circle" src="/uploads/empresas/<?php echo $imagen ?>">
+                    <img alt=""   xclass="img-circle" src="/uploads/empresas/<?php echo $imagen ?>">
                 <?php } else { ?>
-                    <img alt="" class="img-circle" src="../assets/layouts/layout3/img/avatar9.jpg">
+                    <img alt="" xclass="img-circle" src="../assets/layouts/layout3/img/avatar9.jpg">
                 <?php } ?>
  
             </div>

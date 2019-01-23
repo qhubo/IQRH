@@ -285,7 +285,7 @@ class inicioActions extends sfActions {
                     $archivo->save($carpetaArchivos . 'empresas' . DIRECTORY_SEPARATOR . $filename);
                     sfContext::getInstance()->getUser()->setAttribute('usuario', $filename, 'imagen');
                     $UsuarioQuer->setImagen($filename);
-                    $UsuarioQuer->setLogo($filename);
+                    //$UsuarioQuer->setLogo($filename);
                     $UsuarioQuer->save();
                     $this->getUser()->setFlash('exito', ' Foto perfil actualizada con exito  ');
                     $this->redirect('inicio/index');
