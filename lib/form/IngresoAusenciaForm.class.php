@@ -68,6 +68,14 @@ class IngresoAusenciaForm extends sfForm {
                     ->filterByUsuarioId($usuarioId)
                     ->filterByFecha($fechaInicio)
                     ->count();
+              if ($fechaInicio <= date('Y-m-d')) {
+                $msg = 'La fecha de inicio no puede ser menor a la fecha actual';
+                throw new sfValidatorErrorSchema($validator, array("dia" => new sfValidatorError($validator, $msg)));
+                
+                
+            }
+            
+            
             if ($ausencia > 0) {
                 $msg = 'Ausencia ya ingresa para este día';
                 throw new sfValidatorErrorSchema($validator, array("observaciones" => new sfValidatorError($validator, $msg)));

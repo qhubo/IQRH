@@ -103,6 +103,8 @@ propel:
      archivo_uno:                      { type: varchar(150)} 
      archivo_dos:                      { type: varchar(150)} 
      fecha_fin:                        { type: date }
+     enviado_correo:                   { type: boolean, default: false }  
+
      
   ausencia_detalle:
      id:                               ~
@@ -127,6 +129,7 @@ propel:
      jefe:                             { type: integer}
      archivo_uno:                      { type: varchar(150)} 
      archivo_dos:                      { type: varchar(150)} 
+     enviado_correo:                   { type: boolean, default: false }  
 
      
   solicitud_finquito:   
@@ -145,6 +148,8 @@ propel:
      comentario_modero:                { type: longvarchar }
      archivo_uno:                      { type: varchar(150)} 
      archivo_dos:                      { type: varchar(150)} 
+     enviado_correo:                   { type: boolean, default: false }  
+     
 
 
   vacacion_usuario:
@@ -218,6 +223,8 @@ propel:
      comentario_modero:                { type: longvarchar }
      archivo_uno:                      { type: varchar(150)} 
      archivo_dos:                      { type: varchar(150)} 
+     enviado_correo:                   { type: boolean, default: false }  
+
 
   recibo_encabezado:
       id:                             ~   

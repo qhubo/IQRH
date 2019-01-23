@@ -19,6 +19,7 @@ abstract class BaseUsuarioVacacionForm extends BaseFormPropel
       'periodo' => new sfWidgetFormInputText(),
       'pagado'  => new sfWidgetFormInputText(),
       'derecho' => new sfWidgetFormInputText(),
+      'nuevo'   => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -27,6 +28,7 @@ abstract class BaseUsuarioVacacionForm extends BaseFormPropel
       'periodo' => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'pagado'  => new sfValidatorNumber(array('required' => false)),
       'derecho' => new sfValidatorNumber(array('required' => false)),
+      'nuevo'   => new sfValidatorBoolean(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('usuario_vacacion[%s]');

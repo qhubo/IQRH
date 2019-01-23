@@ -17,6 +17,15 @@
  */
 class Usuario extends BaseUsuario {
 
+    
+      public function getJefe() {
+$retorna ='';
+$usuarioQ = UsuarioQuery::create()->findOneById($this->getUsuarioJefe());
+if ($usuarioQ) {
+    $retorna = $usuarioQ->getNombreCompleto();
+}
+     return $retorna;     
+    }
     public function getNombreCompleto() {
 
         $nombre = trim(trim($this->getPrimerApellido()) . "  " . trim($this->getSegundoApellido()).", ".trim($this->getPrimerNombre()) . "  " . trim($this->getSegundoNombre()));

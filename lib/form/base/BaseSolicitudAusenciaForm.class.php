@@ -28,6 +28,7 @@ abstract class BaseSolicitudAusenciaForm extends BaseFormPropel
       'archivo_uno'       => new sfWidgetFormInputText(),
       'archivo_dos'       => new sfWidgetFormInputText(),
       'fecha_fin'         => new sfWidgetFormDate(),
+      'enviado_correo'    => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -45,6 +46,7 @@ abstract class BaseSolicitudAusenciaForm extends BaseFormPropel
       'archivo_uno'       => new sfValidatorString(array('max_length' => 150, 'required' => false)),
       'archivo_dos'       => new sfValidatorString(array('max_length' => 150, 'required' => false)),
       'fecha_fin'         => new sfValidatorDate(array('required' => false)),
+      'enviado_correo'    => new sfValidatorBoolean(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('solicitud_ausencia[%s]');

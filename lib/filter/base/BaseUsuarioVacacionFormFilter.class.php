@@ -16,6 +16,7 @@ abstract class BaseUsuarioVacacionFormFilter extends BaseFormFilterPropel
       'periodo' => new sfWidgetFormFilterInput(),
       'pagado'  => new sfWidgetFormFilterInput(),
       'derecho' => new sfWidgetFormFilterInput(),
+      'nuevo'   => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -23,6 +24,7 @@ abstract class BaseUsuarioVacacionFormFilter extends BaseFormFilterPropel
       'periodo' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'pagado'  => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'derecho' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'nuevo'   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('usuario_vacacion_filters[%s]');
@@ -45,6 +47,7 @@ abstract class BaseUsuarioVacacionFormFilter extends BaseFormFilterPropel
       'periodo' => 'Number',
       'pagado'  => 'Number',
       'derecho' => 'Number',
+      'nuevo'   => 'Boolean',
     );
   }
 }

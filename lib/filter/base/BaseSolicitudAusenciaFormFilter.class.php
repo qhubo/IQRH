@@ -25,6 +25,7 @@ abstract class BaseSolicitudAusenciaFormFilter extends BaseFormFilterPropel
       'archivo_uno'       => new sfWidgetFormFilterInput(),
       'archivo_dos'       => new sfWidgetFormFilterInput(),
       'fecha_fin'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'enviado_correo'    => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -41,6 +42,7 @@ abstract class BaseSolicitudAusenciaFormFilter extends BaseFormFilterPropel
       'archivo_uno'       => new sfValidatorPass(array('required' => false)),
       'archivo_dos'       => new sfValidatorPass(array('required' => false)),
       'fecha_fin'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'enviado_correo'    => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('solicitud_ausencia_filters[%s]');
@@ -72,6 +74,7 @@ abstract class BaseSolicitudAusenciaFormFilter extends BaseFormFilterPropel
       'archivo_uno'       => 'Text',
       'archivo_dos'       => 'Text',
       'fecha_fin'         => 'Date',
+      'enviado_correo'    => 'Boolean',
     );
   }
 }

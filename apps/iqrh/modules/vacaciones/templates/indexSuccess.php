@@ -1,5 +1,5 @@
 <?php $modulo = $sf_params->get('module'); ?>
-<?php //include_partial('soporte/avisos')    ?>
+<?php //include_partial('soporte/avisos')       ?>
 <?php $bodegaId = sfContext::getInstance()->getUser()->getAttribute("usuario", null, 'bodega'); ?>
 <script src='/assets/global/plugins/jquery.min.js'></script>
 <?php $muestrabusqueda = sfContext::getInstance()->getUser()->getAttribute('muestrabusqueda', null, 'busqueda'); ?>
@@ -11,7 +11,7 @@
         <div class="caption">
 
             <span class="caption-subject bold font-yellow-crusta uppercase"> Solicitud de Vacaciones </span> 
-            
+
             <i class="fa fa-ship font-purple-plum"></i>
             <span class="caption-helper">&nbsp;&nbsp;&nbsp; Ingresa el dia que te ausentarás&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <div class="portlet-input input-inline input-small">
@@ -24,89 +24,53 @@
     <div class="portlet-body">
         <div class="form-body">
 
-            <div class="row">
-                <div class="col-md-1"> </div>  
-                <div class="col-md-1">Empleado </div>  
-              <div class="col-md-7 <?php if ($form['empleado']->hasError()) echo "has-error" ?>">
-                    <?php echo $form['empleado'] ?>           
-                    <span class="help-block form-error"> 
-                        <?php echo $form['empleado']->renderError() ?>  
-                    </span>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_1" data-toggle="tab">
+                        <span class="caption-subject font-green uppercase bold">Ingreso  </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#tab_1_3" data-toggle="tab">Periodos</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- PERSONAL INFO TAB -->
+                <div class="tab-pane active" id="tab_1_1">
+                    <?php include_partial('vacaciones/forma', array('pendientes'=>$pendientes, 'form' => $form, 'usuario' => $usuario)) ?> 
                 </div>
-            </div>
-                
-          
-              <div class="row">
-                <div class="col-md-1"> </div>  
-            
-            <label class="col-md-1 control-label right ">Inicio </label>
-                <div class="col-md-2 <?php if ($form['diaInicio']->hasError()) echo "has-error" ?>">
-                    <?php echo $form['diaInicio'] ?>           
-                    <span class="help-block form-error"> 
-                        <?php echo $form['diaInicio']->renderError() ?>  
-                    </span>
-                </div>
-             <label class="col-md-1 control-label right ">Fin</label>
-                <div class="col-md-2 <?php if ($form['diaFin']->hasError()) echo "has-error" ?>">
-                    <?php echo $form['diaFin'] ?>           
-                    <span class="help-block form-error"> 
-                        <?php echo $form['diaFin']->renderError() ?>  
-                    </span>
-                </div>
-               <label class="col-md-1 control-label right ">Dias </label>
-                <div class="col-md-1 <?php if ($form['dia']->hasError()) echo "has-error" ?>">
-                    <?php echo $form['dia'] ?>           
-                    <span class="help-block form-error"> 
-                        <?php echo $form['dia']->renderError() ?>  
-                    </span>
-                </div>
-             
-  </div>
-            <div class="row">
-                <div class="col-md-1"> </div>        
-                <label class="col-md-1 control-label right ">Motivo </label>
-                   
-                <div class="col-md-7 <?php if ($form['observaciones']->hasError()) echo "has-error" ?>">
-                         <span class="help-block form-error"> 
-                        <?php echo $form['observaciones']->renderError() ?>  
-                    </span>
-                    <?php echo $form['observaciones'] ?>           
-            
-                </div>
-            </div>
 
 
-          <div class="row">
-                <div class="col-md-1"> </div>
-                <div class="col-md-1">Jefe</div>  
-                <div class="col-md-4"> 
-                    <input class="form-control"  value="<?php echo $usuario->getJefe() ?>" type="text" readonly="true" name="jefe" id="jefe">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1"> </div>  
-                <div class="col-md-1">Archivo </div>
-                <div class="col-md-4">
-                     <?php echo $form['archivo'] ?>    
-                </div>
-                <div class="col-md-1"> </div>
-                
-                <div class="col-md-2">
-                    <br><br><br><br>
-                    <div id="procesar" name="procesar" >
+                <div class="tab-pane " id="tab_1_3">
+                    <table class="table table-bordered  dataTable table-condensed flip-content" >
+                        <thead class="flip-content">
+                            <tr class="info">
+                                <td>Periodo</td>
+                                <td>Dias Derecho</td>
+                                <td>Dias Pagado</td>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <?php foreach ($vacaciones as $reg) { ?>
+                                <tr>
+                                    <td align="center" ><?php echo $reg['periodo']; ?></td>
+                                    <td align="right"><?php echo $reg['derecho']; ?></td>
+                                    <td  align="right"><?php echo $reg['pagada']; ?></td>
 
-                        <button class="btn btn-primary btn-block  btn-block"
-                                procesa="procesa"
-                                type="submit">
-                            <i class="fa fa-check "></i>
-                            Procesar
-                        </button>
-                    </div>
+                                </tr>
+                            <?php } ?>
+
+                        </tbody>
+                    </table>
+
 
                 </div>
+
+
             </div>
         </div>
-<?php echo '</form>'; ?>      
+        <?php echo '</form>'; ?>      
     </div>
 
 </div>

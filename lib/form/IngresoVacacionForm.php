@@ -56,9 +56,19 @@ class IngresoVacacionForm extends sfForm {
         $usuarioId  = $values['empleado'];
         $fechaInicio = $values['diaInicio'];
         $fechaFin = $values['diaFin'];
+        
+        
         if ($fechaInicio) {
             $fechaInicio = explode('/', $fechaInicio);
             $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
+            
+            if ($fechaInicio < date('Y-m-d')) {
+                $msg = 'La fecha de inicio no puede ser menor a la fecha actual';
+                throw new sfValidatorErrorSchema($validator, array("diaInicio" => new sfValidatorError($validator, $msg)));
+                
+                
+            }
+            
             $ingreso = SolicitudVacacionQuery::create()
                     ->filterByUsuarioId($usuarioId)
                     ->where("SolicitudVacacion.FechaInicio <= '" . $fechaInicio . " 00:00:00" . "'")

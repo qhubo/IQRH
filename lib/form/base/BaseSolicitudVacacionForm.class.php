@@ -29,6 +29,7 @@ abstract class BaseSolicitudVacacionForm extends BaseFormPropel
       'jefe'              => new sfWidgetFormInputText(),
       'archivo_uno'       => new sfWidgetFormInputText(),
       'archivo_dos'       => new sfWidgetFormInputText(),
+      'enviado_correo'    => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -47,6 +48,7 @@ abstract class BaseSolicitudVacacionForm extends BaseFormPropel
       'jefe'              => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'archivo_uno'       => new sfValidatorString(array('max_length' => 150, 'required' => false)),
       'archivo_dos'       => new sfValidatorString(array('max_length' => 150, 'required' => false)),
+      'enviado_correo'    => new sfValidatorBoolean(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('solicitud_vacacion[%s]');

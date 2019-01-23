@@ -26,6 +26,7 @@ abstract class BaseSolicitudVacacionFormFilter extends BaseFormFilterPropel
       'jefe'              => new sfWidgetFormFilterInput(),
       'archivo_uno'       => new sfWidgetFormFilterInput(),
       'archivo_dos'       => new sfWidgetFormFilterInput(),
+      'enviado_correo'    => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -43,6 +44,7 @@ abstract class BaseSolicitudVacacionFormFilter extends BaseFormFilterPropel
       'jefe'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'archivo_uno'       => new sfValidatorPass(array('required' => false)),
       'archivo_dos'       => new sfValidatorPass(array('required' => false)),
+      'enviado_correo'    => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('solicitud_vacacion_filters[%s]');
@@ -75,6 +77,7 @@ abstract class BaseSolicitudVacacionFormFilter extends BaseFormFilterPropel
       'jefe'              => 'Number',
       'archivo_uno'       => 'Text',
       'archivo_dos'       => 'Text',
+      'enviado_correo'    => 'Boolean',
     );
   }
 }

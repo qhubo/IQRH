@@ -154,7 +154,7 @@
                             <div class="col-md-12">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-10">
-                                    <img src="<?php echo $usuario->getLogo(); ?>" height="150px"  alt="">
+                                    <img src="/uploads/empresas/<?php echo $usuario->getImagen() ?><?php //echo $usuario->getImagen(); ?>" height="150px"  alt="">
                                     <br>
                                 </div>
                             </div>

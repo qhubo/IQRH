@@ -25,32 +25,8 @@
         <div class="form-body">
 
 
-            <div class="row">
-                <div class="col-md-1"> </div>  
-                <div class="col-md-1">Tipo Ausencia </div>  
-                <div class="col-md-7"> 
-                    <?php echo $form['tipo'] ?> 
-                </div>  
-
-
-            </div>
-            <div class="row">
-                <br>
-            </div> 
-            <div class="row">
-                <div class="col-md-1"> </div>  
-                <div class="col-md-1">Empleado </div>  
-                <div class="col-md-7"> 
-                    <?php echo $form['empleado'] ?> 
-<!--                    <input class="form-control"  type="text" value="<?php echo $usuario->getNombreCompleto() ?>"  readonly="true" name="emple" id="emple">-->
-                </div>  
-
-
-            </div>
-            <div class="row">
-                <br>
-
-            </div>
+     
+   
 
             <div class="row">
                 <div class="col-md-1"> </div> 
@@ -66,11 +42,42 @@
                     1
                 </div>   
             </div>
+            
+               <div class="row">
+                <br>
+            </div> 
+            
+                   <div class="row">
+                <div class="col-md-1"> </div>  
+                <div class="col-md-2">Tipo Ausencia </div>  
+                <div class="col-md-4"> 
+                    <?php echo $form['tipo'] ?> 
+                </div>  
+
+
+            </div>
+            <div class="row">
+                <br>
+            </div> 
+                     <div class="row">
+                <div class="col-md-1"> </div>  
+                <div class="col-md-2">Empleado </div>  
+                <div class="col-md-7"> 
+                    <?php echo $form['empleado'] ?> 
+<!--                    <input class="form-control"  type="text" value="<?php echo $usuario->getNombreCompleto() ?>"  readonly="true" name="emple" id="emple">-->
+                </div>  
+
+
+            </div>
+            <div class="row">
+                <br>
+
+            </div>
 
             <div class="row">
                 <div class="col-md-1"> </div>        
-                <label class="col-md-1 control-label right ">Motivo </label>
-                <div class="col-md-7 <?php if ($form['observaciones']->hasError()) echo "has-error" ?>">
+                <label class="col-md-2 control-label right ">Motivo </label>
+                <div class="col-md-8 <?php if ($form['observaciones']->hasError()) echo "has-error" ?>">
                     <span class="help-block form-error"> 
                         <?php echo $form['observaciones']->renderError() ?>  
                     </span>               
@@ -81,14 +88,14 @@
 
             <div class="row">
                 <div class="col-md-1"> </div>
-                <div class="col-md-1">Jefe</div>  
+                <div class="col-md-2">Jefe</div>  
                 <div class="col-md-4"> 
                     <input class="form-control"  value="<?php echo $usuario->getJefe() ?>" type="text" readonly="true" name="jefe" id="jefe">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-1"> </div>  
-                <div class="col-md-1">Archivo </div>
+                <div class="col-md-2">Archivo </div>
                 <div class="col-md-4">
                      <?php echo $form['archivo'] ?>    
                 </div>
