@@ -43,20 +43,28 @@ class inicioActions extends sfActions {
                 $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
                 $bitacora->setMotivo('Autorizado: ' . $valores['observaciones']);
                 $bitacora->save();
+   $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+
+                $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+                $html = $this->getPartial('proceso/respuesta', array(
+                    'empleado' => $usuQ->getNombreCompleto(),
+                    'fecha' => date('d/m/Y'),
+                    'califica' => 'Autorizada',
+                    'tipo' => 'Ausencia',
+                    'jefe' => $usuarioQ->getNombreCompleto(),
+                    'observacion' => $motivo
+                ));
+//            echo $html;
+//            die();
+                $parametro = ParametroQuery::create()->findOne();
+             
+                $correo = $usuQ->getCorreo();
+                //   $correo = 'abrantar@gmail.com';
+                $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+                $correoNotifica = $parametro->getCorreoNotifica();
+                $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
 
 
-//                $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
-//               
-//                $parametro = ParametroQuery::create()->findOne();
-//                 $html = $this->getPartial('proceso/nota', array(
-//                'empleado' => $empleado,
-//                'fecha' => $fecha,
-//                'tipo' => $tipo,
-//                'jefe' => $jefe,
-//                'observacion' => $observacion
-//            ));
-            //   $correo = 'abrantar@gmail.com';
-            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
                 $this->getUser()->setFlash('exito', 'Ausencia Autorizada con exito');
                 $this->redirect("inicio/notifica");
             }
@@ -80,6 +88,23 @@ class inicioActions extends sfActions {
                 $ausencia->setEstado('Rechazado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
+                $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+                $html = $this->getPartial('proceso/respuesta', array(
+                    'empleado' => '',
+                    'fecha' => date('d/m/Y'),
+                    'califica' => 'Rechazada',
+                    'tipo' => 'Ausencia',
+                    'jefe' => $usuarioQ->getNombreCompleto(),
+                    'observacion' => $motivo
+                ));
+//            echo $html;
+//            die();
+                $parametro = ParametroQuery::create()->findOne();
+                $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+                $correo = $usuQ->getCorreo();
+                //   $correo = 'abrantar@gmail.com';
+                $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+
                 $bitacora = New BitacoraUsuario();
                 $bitacora->setFecha(date('Y-m-d H:i'));
                 $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
@@ -112,6 +137,27 @@ class inicioActions extends sfActions {
                 $ausencia->setEstado('Autorizado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
+   $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+
+                $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+                $html = $this->getPartial('proceso/respuesta', array(
+                    'empleado' => $usuQ->getNombreCompleto(),
+                    'fecha' => date('d/m/Y'),
+                    'califica' => 'Autorizado',
+                    'tipo' => 'Vacacion',
+                    'jefe' => $usuarioQ->getNombreCompleto(),
+                    'observacion' => $motivo
+                ));
+//            echo $html;
+//            die();
+                $parametro = ParametroQuery::create()->findOne();
+                $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+                $correo = $usuQ->getCorreo();
+                //  $correo = 'abrantar@gmail.com';
+                $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+                $correoNotifica = $parametro->getCorreoNotifica();
+                $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+
                 $bitacora = New BitacoraUsuario();
                 $bitacora->setFecha(date('Y-m-d H:i'));
                 $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
@@ -143,6 +189,26 @@ class inicioActions extends sfActions {
                 $ausencia->setEstado('Autorizado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
+
+                $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+                $html = $this->getPartial('proceso/respuesta', array(
+                    'empleado' => '',
+                    'fecha' => date('d/m/Y'),
+                    'califica' => 'Rechazada',
+                    'tipo' => 'Vacacion',
+                    'jefe' => $usuarioQ->getNombreCompleto(),
+                    'observacion' => $motivo
+                ));
+//            echo $html;
+//            die();
+                $parametro = ParametroQuery::create()->findOne();
+                $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+                $correo = $usuQ->getCorreo();
+                // $correo = 'abrantar@gmail.com';
+                $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+
+
+
                 $bitacora = New BitacoraUsuario();
                 $bitacora->setFecha(date('Y-m-d H:i'));
                 $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
@@ -202,12 +268,12 @@ class inicioActions extends sfActions {
 
         $this->solicitudes = SolicitudUsuarioQuery::create()
                 ->filterByEstado('Pendiente')
- //               ->filterByUsuarioId($empleado, Criteria::IN)
+                //               ->filterByUsuarioId($empleado, Criteria::IN)
                 ->find();
 
-        
-        
-        
+
+
+
         $this->bitacoras = $bitacoras;
     }
 
@@ -260,22 +326,22 @@ class inicioActions extends sfActions {
         $usuarioQ = UsuarioQuery::create()->findOneById($usuario_id);
         $this->usuario = UsuarioQuery::create()->findOneById($usuario_id);
         $this->empleados = UsuarioQuery::create()
-                ->filterByActivo(true)
-                ->filterByUsuarioJefe($usuario_id)->find();
-        $this->vacaciones =UsuarioVacacionQuery::periodos($usuarioQ->getCodigo());
-        $totalderecho=0;
-        $totalpagado=0;
+                        ->filterByActivo(true)
+                        ->filterByUsuarioJefe($usuario_id)->find();
+        $this->vacaciones = UsuarioVacacionQuery::periodos($usuarioQ->getCodigo());
+        $totalderecho = 0;
+        $totalpagado = 0;
         foreach ($this->vacaciones as $reg) {
-            $totalderecho =$totalderecho+$reg['derecho'];
-            $totalpagado = $totalpagado+$reg['pagada'];
+            $totalderecho = $totalderecho + $reg['derecho'];
+            $totalpagado = $totalpagado + $reg['pagada'];
         }
-        $this->pendientes = $totalderecho-$totalpagado;
-       
-    
-        sfContext::getInstance()->getUser()->setAttribute('usuario','Empleado', 'tipo');
-        sfContext::getInstance()->getUser()->setAttribute('usuario','Supervisor', 'tipo');
+        $this->pendientes = $totalderecho - $totalpagado;
 
-          
+
+        sfContext::getInstance()->getUser()->setAttribute('usuario', 'Empleado', 'tipo');
+        sfContext::getInstance()->getUser()->setAttribute('usuario', 'Supervisor', 'tipo');
+
+
         AsistenciaUsuarioQuery::procesa();
     }
 
@@ -310,8 +376,7 @@ class inicioActions extends sfActions {
         }
     }
 
-    
-        public function executeAutorizadoS(sfWebRequest $request) {
+    public function executeAutorizadoS(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
         $this->ausencia = SolicitudUsuarioQuery::create()->findOneById($id);
@@ -329,6 +394,28 @@ class inicioActions extends sfActions {
                 $ausencia->setEstado('Autorizado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
+   $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+
+                $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+                $html = $this->getPartial('proceso/respuesta', array(
+                    'empleado' => $usuQ->getNombreCompleto(),
+                    'fecha' => date('d/m/Y'),
+                    'califica' => 'Autorizada',
+                    'tipo' => $ausencia->getCatalogoSolicitud(),
+                    'jefe' => $usuarioQ->getNombreCompleto(),
+                    'observacion' => $motivo
+                ));
+//            echo $html;
+//            die();
+                $parametro = ParametroQuery::create()->findOne();
+                $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+                $correo = $usuQ->getCorreo();
+                //   $correo = 'abrantar@gmail.com';
+                $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+                $correoNotifica = $parametro->getCorreoNotifica();
+                $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
+
+
                 $bitacora = New BitacoraUsuario();
                 $bitacora->setFecha(date('Y-m-d H:i'));
                 $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
@@ -360,6 +447,25 @@ class inicioActions extends sfActions {
                 $ausencia->setEstado('Rechazado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
+
+                $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+                $html = $this->getPartial('proceso/respuesta', array(
+                    'empleado' => '',
+                    'fecha' => date('d/m/Y'),
+                    'califica' => 'Rechazada',
+                    'tipo' => $ausencia->getCatalogoSolicitud(),
+                    'jefe' => $usuarioQ->getNombreCompleto(),
+                    'observacion' => $motivo
+                ));
+//            echo $html;
+//            die();
+                $parametro = ParametroQuery::create()->findOne();
+                $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+                $correo = $usuQ->getCorreo();
+                //   $correo = 'abrantar@gmail.com';
+                $resultado = ParametroQuery::Correo($correo, $parametro, $html);
+
+
                 $bitacora = New BitacoraUsuario();
                 $bitacora->setFecha(date('Y-m-d H:i'));
                 $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
@@ -373,6 +479,5 @@ class inicioActions extends sfActions {
             }
         }
     }
-    
-    
+
 }
