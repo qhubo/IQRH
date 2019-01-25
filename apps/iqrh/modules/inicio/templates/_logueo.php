@@ -112,14 +112,14 @@
 <?php $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId); ?>
 
 
-<?php $imagen = $usuarioQ->getLogo(); ?>
+<?php $imagen = $usuarioQ->getImagen(); ?>
 
 
 <li class="dropdown dropdown-user dropdown-dark">
     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 
         <?php if ($imagen) { ?>
-            <img alt="" xclass="img-circle" src="<?php echo $imagen ?>">
+            <img alt="" xclass="img-circle" src="/uploads/empresas/<?php echo $imagen ?>">
         <?php } else { ?>
             <img alt="" xclass="img-circle" src="../assets/layouts/layout3/img/avatar9.jpg">
         <?php } ?>
@@ -138,10 +138,10 @@
                 <i class="icon-lock-open"></i> Cambiar Clave </a>
         </li>
         <li class="divider"> </li>
-        <li>
+<!--        <li>
             <a href="<?php echo url_for("inicio/imagen"); ?>">
                 <i class="fa fa-user-secret"></i>  Perfil </a>
-        </li>
+        </li>-->
     </ul>
 </li>
 
