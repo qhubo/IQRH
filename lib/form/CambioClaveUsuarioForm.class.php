@@ -55,7 +55,8 @@ class CambioClaveUsuarioForm extends sfForm {
             array("nueva" => new sfValidatorError($validator, "Nueva Clave y Verificación no coinciden")));
    } else {
 
-    $valido = UsuarioQuery::create()->filterById($usuarioId)->findOne();
+    $valido = UsuarioQuery::create()
+            ->filterById($usuarioId)->findOne();
      if ($valido) {
     
       $valido->setClave(sha1($nueva));

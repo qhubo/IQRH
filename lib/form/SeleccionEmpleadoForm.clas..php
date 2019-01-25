@@ -5,11 +5,13 @@ class SeleccionEmpleadoForm extends sfForm {
     public function configure() {
         $empresaseleccion=sfContext::getInstance()->getUser()->getAttribute('seleccion', null, 'empresa');  
         $usuario = UsuarioQuery::create()
+                  ->filterByActivo(true)
                 ->filterByEmpresa($empresaseleccion)
                 ->orderByNombreCompleto()
                 ->find();
 
         $registro = UsuarioQuery::create()
+                       ->filterByActivo(true)
                 ->orderByNombreCompleto()
              
                 ->find();

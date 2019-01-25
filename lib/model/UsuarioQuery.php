@@ -23,6 +23,7 @@ class UsuarioQuery extends BaseUsuarioQuery {
         $segundos_bloqueo = 10; // sfConfig::get("app_seguridad_tiempo",60);
         $hora_bloqueo = date('Y-m-d H:i:s', mktime(date('H'), date('i'), date('s') + $segundos_bloqueo, date('m'), date('d'), date('Y')));
         $usuario = UsuarioQuery::create()
+                ->filterByActivo(true)
                 ->filterByUsuario($u)
                 ->findOne();
 

@@ -43,6 +43,20 @@ class inicioActions extends sfActions {
                 $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
                 $bitacora->setMotivo('Autorizado: ' . $valores['observaciones']);
                 $bitacora->save();
+
+
+//                $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+//               
+//                $parametro = ParametroQuery::create()->findOne();
+//                 $html = $this->getPartial('proceso/nota', array(
+//                'empleado' => $empleado,
+//                'fecha' => $fecha,
+//                'tipo' => $tipo,
+//                'jefe' => $jefe,
+//                'observacion' => $observacion
+//            ));
+            //   $correo = 'abrantar@gmail.com';
+            $resultado = ParametroQuery::Correo($correo, $parametro, $html);
                 $this->getUser()->setFlash('exito', 'Ausencia Autorizada con exito');
                 $this->redirect("inicio/notifica");
             }
@@ -245,7 +259,9 @@ class inicioActions extends sfActions {
         $usuario_id = $this->getUser()->getAttribute('usuario', null, 'seguridad');
         $usuarioQ = UsuarioQuery::create()->findOneById($usuario_id);
         $this->usuario = UsuarioQuery::create()->findOneById($usuario_id);
-        $this->empleados = UsuarioQuery::create()->filterByUsuarioJefe($usuario_id)->find();
+        $this->empleados = UsuarioQuery::create()
+                ->filterByActivo(true)
+                ->filterByUsuarioJefe($usuario_id)->find();
         $this->vacaciones =UsuarioVacacionQuery::periodos($usuarioQ->getCodigo());
         $totalderecho=0;
         $totalpagado=0;

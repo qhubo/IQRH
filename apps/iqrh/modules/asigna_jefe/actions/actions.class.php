@@ -38,6 +38,7 @@ class asigna_jefeActions extends sfActions {
                 ->find();
         
         $usuarios = UsuarioQuery::create();
+        $usuarios->filterByActivo(true);
         $usuarios->filterByCodigo('', Criteria::NOT_EQUAL);
         $usuarios->filterByEmpresa($empresaseleccion);
         if ($this->estatu==1) {
@@ -51,6 +52,7 @@ class asigna_jefeActions extends sfActions {
         
         $this->usuariosR= $this->usuarios;
         $usuario = UsuarioQuery::create()
+                ->filterByActivo(true)
                 ->orderByNombreCompleto()
                 ->find();
         foreach ($usuario as $reg) {

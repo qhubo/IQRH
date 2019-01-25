@@ -16,6 +16,7 @@ class IngresoFiniquitoForm extends sfForm {
         $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
         $lista[$usuarioQ->getId()] = $usuarioQ->getNombreCompleto();
         $empleados = UsuarioQuery::create()
+                ->filterByActivo(true)
                 ->orderByNombreCompleto()
                 ->filterByUsuarioJefe($usuarioId)
                 ->find();

@@ -8,6 +8,7 @@ class BusquedaUsuarioForm extends sfForm {
         )));
         $this->setValidator('nombre', new sfValidatorString(array('required' => false)));
              $empresas = UsuarioQuery::create()
+                ->filterByActivo(true)
                 ->filterByEmpresa('', Criteria::NOT_EQUAL)
                 ->orderByEmpresa()
                 ->groupByEmpresa()

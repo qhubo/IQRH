@@ -10,6 +10,7 @@ class ConsultaAsistenciaForm extends sfForm {
         $this->setValidator('fechaFin', new sfValidatorString(array('required' => true)));
 
              $empresas = UsuarioQuery::create()
+                            ->filterByActivo(true)
                 ->filterByEmpresa('', Criteria::NOT_EQUAL)
                 ->orderByEmpresa()
                 ->groupByEmpresa()

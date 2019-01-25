@@ -12,11 +12,9 @@ class procesoActions extends sfActions {
 
     public function executeSol(sfWebRequest $request) {
 
- 
+
         die();
     }
-
-
 
     public function executeClaves(sfWebRequest $request) {
         $ussuario = UsuarioQuery::create()
@@ -37,10 +35,10 @@ class procesoActions extends sfActions {
     }
 
     public function executeCorreo(sfWebRequest $request) {
-        
-        
-        
-               $parametro = ParametroQuery::create()->findOne();
+
+
+
+        $parametro = ParametroQuery::create()->findOne();
         $correoNotifica = $parametro->getCorreoNotifica();
         $soliC = SolicitudFinquitoQuery::create()
                 ->filterByEnviadoCorreo(false)
@@ -67,7 +65,7 @@ class procesoActions extends sfActions {
                 'jefe' => $jefe,
                 'observacion' => $observacion
             ));
-         //   $correo = 'abrantar@gmail.com';
+            //   $correo = 'abrantar@gmail.com';
             $resultado = ParametroQuery::Correo($correo, $parametro, $html);
             echo "<pre>";
             print_r($resultado);
@@ -105,7 +103,7 @@ class procesoActions extends sfActions {
                 'jefe' => $jefe,
                 'observacion' => $observacion
             ));
-         //   $correo = 'abrantar@gmail.com';
+            //   $correo = 'abrantar@gmail.com';
             $resultado = ParametroQuery::Correo($correo, $parametro, $html);
             echo "<pre>";
             print_r($resultado);
@@ -181,18 +179,17 @@ class procesoActions extends sfActions {
                 'observacion' => $observacion
             ));
             // echo $html;
-
-         //   $correo = 'abrantar@gmail.com';
+            //   $correo = 'abrantar@gmail.com';
             $resultado = ParametroQuery::Correo($correo, $parametro, $html);
             echo "<pre>";
             print_r($resultado);
             echo "</pre>";
-       
+
             $resultado = ParametroQuery::Correo($correoNotifica, $parametro, $html);
             $lista->setEnviadoCorreo(true);
             $lista->save();
         }
-        
+
         die();
         //   echo 'test';
         //  die();
