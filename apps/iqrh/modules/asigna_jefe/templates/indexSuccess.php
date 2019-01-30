@@ -55,7 +55,7 @@
                 <tr class="info">
                     <td>Codigo </td>
                     <td>Empleado</td>
-                    <td>Jefe</td>
+<!--                    <td>Jefe</td>-->
                     <td>Supervisor Web</td>
                 </tr> 
             </thead>
@@ -66,7 +66,7 @@
                             <font size="-2" color="white"> <?php echo $lista->getNombreCompleto(); ?></font><br>
                             <?php echo $lista->getCodigo(); ?></td>
                         <td><?php echo $lista->getNombreCompleto(); ?></td>
-                        <td><?php echo $lista->getJefe(); ?></td>
+<!--                        <td><?php //echo $lista->getJefe(); ?></td>-->
 
                         <td>
                             
