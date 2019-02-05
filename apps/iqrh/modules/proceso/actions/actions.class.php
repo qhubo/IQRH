@@ -118,6 +118,7 @@ class procesoActions extends sfActions {
         $soliC = SolicitudVacacionQuery::create()
                 ->filterByEnviadoCorreo(false)
                 ->find();
+   
         foreach ($soliC as $lista) {
             $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioId());
             $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
