@@ -133,7 +133,7 @@ class procesoActions extends sfActions {
             echo "<br>";
             $observacion = html_entity_decode($lista->getObservaciones())."<br> El cual inicia del dia <strong> " .$lista->getFechaInicio('d/m/Y')." </strong> al  <strong>".$lista->getFechaFin( 'd/m/Y')."</strong>";
             $tipo = " Vacaciones ";
-            $observacion = "Dias Solicitados del " . $lista->getFechaInicio('d/m/Y') . "  Al " . $lista->getFechaFin('d/m/Y');
+            $observacion = "Dias Solicitados del " . $lista->getFechaInicio('d/m/Y') . "  Al " . $lista->getFechaFin('d/m/Y'). "<br>  Dias a cuenta de vacaciones ".$lista->getDia();
             $html = $this->getPartial('proceso/nota', array(
                 'empleado' => $empleado,
                 'fecha' => $fecha,
