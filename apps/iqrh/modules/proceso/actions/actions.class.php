@@ -190,7 +190,7 @@ class procesoActions extends sfActions {
             $lista->save();
         }
 
-        die();
+     //   die();
         //   echo 'test';
         //  die();
         $url = "http://iqrh:8080/envio.php";
