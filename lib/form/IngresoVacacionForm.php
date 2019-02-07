@@ -34,7 +34,7 @@ class IngresoVacacionForm extends sfForm {
 
         
         $this->setWidget('dia', new sfWidgetFormInputText(array(), array('class' => 'form-control',
-             'type' => 'number')));
+             'type' => 'number', "step"=>"any")));
         $this->setValidator('dia', new sfValidatorString(array('required' => true)));
 
         $this->setWidget('diaFin', new sfWidgetFormInputText(array(), array('class' => 'form-control', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy')));
