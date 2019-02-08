@@ -18,7 +18,14 @@ class consulta_solicitudActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
-    $this->registros = SolicitudUsuarioQuery::create()->find();
+      $this->registros = SolicitudUsuarioQuery::create()
+            ->find();
+    if ($usuarioId <>5) {
+
+    $this->registros = SolicitudUsuarioQuery::create()
+            ->filterByUsuarioId($usuarioId)
+            ->find();
+    }
  
     }
 }
