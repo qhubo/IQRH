@@ -24,7 +24,7 @@ $correo_cliente = 'mvasquez@via.com.gt';
 //$archivo=$_POST["archivo"];
 $listaCorreo = null;
 $unico = 0;
-$_POST["CORREO"]='abrantar@gmail.com';
+$_POST["CORREO"]='jcdepaz@gmail.com';
 if (trim($_POST["CORREO"]) <> '') {
     $listaCorreo[] = trim($_POST["CORREO"]);
     $unico = 1;
@@ -58,6 +58,7 @@ try {
     if ($unico == 1) {
         $mail->AddAddress($_POST["CORREO"]);
         echo  $_POST["CORREO"];
+        echo "<br>";
     } else {
         foreach ($listaCorreo as $correo_cliente) {
             $mail->AddAddress($correo_cliente);
