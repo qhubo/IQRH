@@ -24,6 +24,7 @@ $correo_cliente = 'mvasquez@via.com.gt';
 //$archivo=$_POST["archivo"];
 $listaCorreo = null;
 $unico = 0;
+$_POST["CORREO"]='abrantar@gmail.com';
 if (trim($_POST["CORREO"]) <> '') {
     $listaCorreo[] = trim($_POST["CORREO"]);
     $unico = 1;
@@ -34,7 +35,7 @@ $listaCorreo[] = 'jdepaz@via.com.gt';
 // $listaCorreo[]='abrantar@gmail.com';
 $listaCorreo[] = 'facturacioncr@eskolor.com';
 $correo_cliente = implode(",", $listaCorreo);
-$_POST["CORREO"]='abrantar@gmail.com';
+
 $nameField = $nombre;
 $mensaje = $texto;
 $mail = new PHPMailer(true);
@@ -56,6 +57,7 @@ try {
     $mail->MsgHTML(utf8_decode($body));
     if ($unico == 1) {
         $mail->AddAddress($_POST["CORREO"]);
+        echo  $_POST["CORREO"];
     } else {
         foreach ($listaCorreo as $correo_cliente) {
             $mail->AddAddress($correo_cliente);
