@@ -14,13 +14,14 @@ class IngresoProyVacacionForm extends sfForm {
         $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
        // $lista[$usuarioQ->getId()] = $usuarioQ->getNombreCompleto();
         $empleados = UsuarioQuery::create()
+                ->filterByActivo(true)
                 ->filterByUsuario(array('demo','manager'), Criteria::NOT_IN)
                 ->orderByNombreCompleto("Desc")
                 // ->filterByUsuarioJefe($usuarioId)
                 ->find();
         $lista[null]='[Seleccione Empleado]';
         foreach ($empleados as $listado) {
-            $lista[$listado->getCodigo()] = $listado->getNombreCompleto()."[".$listado->getCodigo()."]";
+            $lista[$listado->getCodigo()] = $listado->getNombreCompleto()."  [".$listado->getCodigo()."]";
         }
         $this->setWidget('empleado', new sfWidgetFormChoice(array(
             "choices" => $lista,
