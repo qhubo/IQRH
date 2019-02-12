@@ -6,13 +6,13 @@ include("phpmailer/class.smtp.php");
 require 'phpmailer/PHPMailerAutoload.php';
 
 
-$asunto = 'Skolor Facturación Electrónica';
+$asunto = 'Eskolor Facturación Electrónica';
 $correo = 'abraham.araujo@cybercompgt.net';
 $clav = 'admin123';
 $correo = 'sapsrvcr@eskolor.com';
 $clave = 's@ps3rv3rcr';
-$correo = 'facturacr@eskolor.com';
-$clave = 'F1@1c2t3u5r8@13C21R34';
+$correo = 'facturaeskolorcr@gmail.com';
+$clave = 'Admin.2019*';
 
 $archivo = 'FacturaFace.pdf';
 $texto = "Estimado Cliente: <br>
@@ -44,12 +44,12 @@ try {
     //$mail->Host       = "mail.gmail.com"; // SMTP server
     $mail->SMTPKeepAlive = true;
     $mail->Mailer = "smtp";
-    $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-    $mail->Host = "serv.grupomegatel.com";      // sets GMAIL as the SMTP server
-    $mail->Port = 465;   //465  set the SMTP port for the GMAIL server
+    $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+    $mail->Host ="smtp.gmail.com"; //  GMAIL as the SMTP server
+    $mail->Port = 587;   //465  set the SMTP port for the GMAIL server
     $mail->SMTPDebug = 0;                     // enables SMTP debug information (for testing)
     $mail->From = $correo;
-    $mail->FromName = utf8_decode('Facturación Electronica Skolor ');
+    $mail->FromName = utf8_decode('Facturación Electronica Eskolor ');
     $mail->Subject = utf8_decode($asunto);
     $mail->AddReplyTo($correo, $nombre);
     $mail->AltBody = utf8_decode($mensaje); // optional - MsgHTML will create an alternate automatically
@@ -73,10 +73,8 @@ try {
         $rutaXml = 'uploads/xml/' . $archivoXml;
         echo $rutaXml;
         echo "<br>";
-        if (file_exists($rutaXml)) {
         $fecha = date('YmdHi');
-        $mail->AddAttachment($rutaXml, 'Firmado_' . $fecha);
-        }
+        $mail->AddAttachment($rutaXml, 'Firmado_' . $fecha.".xml");
     }
 
     if (trim($archivoXml) <> "") {
@@ -86,19 +84,10 @@ try {
             echo $rutaXml;
             echo "<br>";
             $fecha = date('YmdHi');
-            $mail->AddAttachment($rutaXml, 'Aceptado_' . $fecha);
+            $mail->AddAttachment($rutaXml, 'Aceptado_' . $fecha.".xml");
         }
     }
-    if (trim($archivoXml) <> "") {
-        $archivoXml = str_replace("Firmado", 'Aceptado', $archivoXml);
-        $rutaXml = 'uploads/nce/' . $archivoXml;
-        if (file_exists($rutaXml)) {
-            echo $rutaXml;
-            echo "<br>";
-            $fecha = date('YmdHi');
-            $mail->AddAttachment($rutaXml, 'Aceptado_' . $fecha);
-        }
-    }
+
 
 
     $mail->Send();
