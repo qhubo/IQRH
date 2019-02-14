@@ -362,7 +362,7 @@ propel:
       fecha_inicio:                  { type: date } 
       fecha_fin:                     { type: date } 
       periodo:                       { type: integer } 
-      dia_vacacion:                  { type: boolean, default: false }  
+      dia_vacacion:                  { type: double }  
       estatus:                       { type: varchar(50) }
       usuario_creo:                  { type: varchar(50) }  
       fecha_crea:                    { type: date }

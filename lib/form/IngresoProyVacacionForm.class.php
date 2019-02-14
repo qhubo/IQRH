@@ -13,7 +13,9 @@ class IngresoProyVacacionForm extends sfForm {
         $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
         $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
        // $lista[$usuarioQ->getId()] = $usuarioQ->getNombreCompleto();
+        $empresaseleccion= sfContext::getInstance()->getUser()->getAttribute('seleccion',null, 'empresa');
         $empleados = UsuarioQuery::create()
+                ->filterByEmpresa($empresaseleccion)
                 ->filterByActivo(true)
                 ->filterByUsuario(array('demo','manager'), Criteria::NOT_IN)
                 ->orderByNombreCompleto("Desc")
