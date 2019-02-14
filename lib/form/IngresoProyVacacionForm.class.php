@@ -44,7 +44,8 @@ class IngresoProyVacacionForm extends sfForm {
             'type' => 'number')));
         $this->setValidator('dia', new sfValidatorString(array('required' => true)));
 
-
+       $this->setWidget('observaciones', new sfWidgetFormTextarea(array(), array('class' => 'form-control')));
+        $this->setValidator('observaciones', new sfValidatorString(array('required' => true)));
 
         $this->validatorSchema->setPostValidator(new sfValidatorCallback(array(
             'callback' => array($this, "valida")
