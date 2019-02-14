@@ -1,8 +1,9 @@
+<?php $parametro = ParametroQuery::create()->findOne(); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>IQ SOFT</title>
+        <title>IQ SOFT <?Php if ($parametro) { ?> <?php echo $parametro->getCodigo();  ?> <?php } ?> </title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -244,7 +245,7 @@
         <?php } ?>
         <?php if ($oculta == 0) { ?>
             <?php if ($excepcion == 1) { ?>
-                <?php if (($modulo <> 'pagina_online')) { ?>
+                <?php if (($modulo <> 'ingresa_vacacion')) { ?>
                     <script src="/js/kenScript.js" type="text/javascript"></script>
                 <?php } ?> 
             <?php } ?> 

@@ -8,7 +8,10 @@
         </span>
     </div>
        
-    <div class="col-md-3 font-green bold Bold"   name="respuesta" id="respuesta"> </div>
+    <div class="col-md-3 font-green bold Bold"   name="respuesta" id="respuesta"> 
+    
+<?php echo  sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'Dia') ?>
+    </div>
        
 </div>
 

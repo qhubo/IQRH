@@ -21,18 +21,9 @@ class ingresa_vacacionActions extends sfActions {
              $retorna =" Ultimo Periodo Pagada ".$periodo;
            }
        }
-       
-//        $totalderecho=0;
-//        $totalpagado=0;
-//        foreach ($vacaciones as $reg) {
-//            $totalderecho =$totalderecho+$reg['derecho'];
-//            $totalpagado = $totalpagado+$reg['pagada'];
-//        }
-//       $pendientes = $totalderecho-$totalpagado;
-       
+       sfContext::getInstance()->getUser()->setAttribute('usuario', $retorna, 'Diap');
         echo $retorna;
         die();
-        
     }
     
     public function executeDia(sfWebRequest $request) {
@@ -46,6 +37,8 @@ class ingresa_vacacionActions extends sfActions {
         }
        $pendientes = $totalderecho-$totalpagado;
         $retorna =" Dias Pendientes ".$pendientes;
+          sfContext::getInstance()->getUser()->setAttribute('usuario', $retorna, 'Dia');
+
         echo $retorna;
         die();
         
@@ -66,7 +59,7 @@ class ingresa_vacacionActions extends sfActions {
                 $nuevo = new ProyeccionVacacion();
                 $nuevo->setUsuario($valores['empleado']);
                 $nuevo->setFechaInicio($diaInicio);
-                  $fechaInicio = explode('/', $valores['diaFin']);
+                $fechaInicio = explode('/', $valores['diaFin']);
                 $fechaFin = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
                 $nuevo->setFechaFin($fechaFin);
                 $nuevo->setDiaVacacion($valores['dia']);
@@ -74,12 +67,14 @@ class ingresa_vacacionActions extends sfActions {
                 $nuevo->setPeriodo($valores['periodo']);
                 $nuevo->setEstatus('Nuevo');
                 $nuevo->setUsuarioCreo($usuarioQ->getCodigo());
+                $nuevo->setObservaciones($valores['observaciones']);
                 $nuevo->save();
                 $this->getUser()->setFlash('exito', 'Proyeccion de Vacacion ingresdas con exito');
                 $this->redirect("ingresa_vacacion/index");
             }
         }
         $this->listado = ProyeccionVacacionQuery::create()
+                ->orderByFechaInicio("Asc")
                 ->find();
         
     }

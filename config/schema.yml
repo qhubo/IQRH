@@ -366,5 +366,6 @@ propel:
       estatus:                       { type: varchar(50) }
       usuario_creo:                  { type: varchar(50) }  
       fecha_crea:                    { type: date }
+      observaciones:                 { type: longvarchar } 
       
 
