@@ -2,8 +2,20 @@
     <div class="col-md-1"> </div>  
     <div class="col-md-1">Empleado </div>  
     <div class="col-md-4 <?php if ($form['empleado']->hasError()) echo "has-error" ?>">
-        <?php echo $form['empleado'] ?>           
-        <span class="help-block form-error"> 
+<?php if ($edit) { ?> 
+        <?php $usuq = UsuarioQuery::create()->findOneByCodigo($edit->getUsuario()); ?>
+        
+        <span class="font-blue bold Bold "><?php echo $usuq->getNombreCompleto();    ?>  </span> <br> 
+        <div style="visibility: hidden;" >
+    
+<?php }  ?>
+
+  <?php echo $form['empleado'] ?>           
+<?php if ($edit) { ?> 
+        </div>
+<?php }  ?>
+
+            <span class="help-block form-error"> 
             <?php echo $form['empleado']->renderError() ?>  
         </span>
     </div>

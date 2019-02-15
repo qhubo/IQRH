@@ -115,6 +115,7 @@
                                             </tr> 
                                         </thead>
                                         <tbody>
+                                                <?php   if ($vacaciones) { ?>
                                             <?php foreach ($vacaciones as $reg) { ?>
                                             <tr>
                                                 <td align="center" ><?php echo $reg['periodo']; ?></td>
@@ -123,7 +124,7 @@
                                                 
                                             </tr>
                                             <?php } ?>
-
+                                            <?php } ?>
                                         </tbody>
                                                               </table>
                                         

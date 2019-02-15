@@ -331,9 +331,11 @@ class inicioActions extends sfActions {
         $this->vacaciones = UsuarioVacacionQuery::periodos($usuarioQ->getCodigo());
         $totalderecho = 0;
         $totalpagado = 0;
+        if ($this->vacaciones) {
         foreach ($this->vacaciones as $reg) {
             $totalderecho = $totalderecho + $reg['derecho'];
             $totalpagado = $totalpagado + $reg['pagada'];
+        }
         }
         $this->pendientes = $totalderecho - $totalpagado;
 

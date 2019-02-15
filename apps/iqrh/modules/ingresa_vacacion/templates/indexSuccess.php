@@ -29,20 +29,24 @@
                     <div class="col-md-1"></div>
                     <div class="col-md-1 font font-blue bold Bold">Empresa</div>
                     <div class="col-md-4">
+                        <?php if (!$edit) { ?>
                         <select  onchange="this.form.submit()" class="form-control" name="em" id="em">
                             <option value="">[Seleccione]</option>
                             <?php foreach ($empresas as $lista) { ?>
                                 <option <?php if ($empresaseleccion == $lista->getEmpresa()) { ?>selected="selected"  <?php } ?>  value="<?php echo $lista->getEmpresa(); ?>"><?php echo $lista->getEmpresa(); ?></option>
                             <?php } ?>
                         </select>
+                        <?php } else { ?>
+                        <?php echo $empresaseleccion; ?>
+                        <?php } ?>
                     </div>
                 </div>
             </form>
 
             <div class="tab-pane active" id="tab_1_1">
-                <?php echo $form->renderFormTag(url_for($modulo . '/index?t=1&em='.$empresaseleccion), array('class' => 'form-horizontal"')) ?>
+                <?php echo $form->renderFormTag(url_for($modulo . '/index?t=1&em='.$empresaseleccion."&edit=".$q), array('class' => 'form-horizontal"')) ?>
                 <?php echo $form->renderHiddenFields() ?>
-                <?php include_partial('ingresa_vacacion/forma', array('form' => $form)) ?> 
+                <?php include_partial('ingresa_vacacion/forma', array('edit'=>$edit,'form' => $form)) ?> 
 
 
 
@@ -102,6 +106,7 @@
                             <th align="center" width="100px"><font size='-1'>Dias Vacaciones</font></th>
                             <th align="center" width="100px"><font size='-1'>Creación</font></th>
                             <th align="center" width="5px"><font size='-1'></font></th>
+                            <th align="center" width="5px"><font size='-1'></font></th>
                             <th align="center" width="10px"><font size='-1'></font></th>
                         </tr>
                     </thead>
@@ -123,7 +128,12 @@
                                 <td align='center'>
                                     <a class="btn btn-xs btn-info" data-toggle="modal" href="#staticIN<?php echo $reg->getId() ?>"><i class="fa fa-info-circle"></i>   </a>
                                 </td>
+                                <td>
+                                  <a class="btn  btn-xs yellow btn-outline"  href="<?php echo url_for($modulo . '/index?edit=' . $reg->getId()) ?>" ><i class="fa fa-edit"></i> </a>  
+                                   
+                                </td>
 
+                                
                                 <td align='center'>
                                     <a class="btn btn-xs btn-danger" data-toggle="modal" href="#static<?php echo $reg->getId() ?>"><i class="fa fa-trash"></i>   </a>
                                 </td>

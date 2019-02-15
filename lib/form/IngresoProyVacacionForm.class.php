@@ -61,8 +61,9 @@ class IngresoProyVacacionForm extends sfForm {
         $usuario = $values['empleado'];
         $fechaInicio = $values['diaInicio'];
         $fechaFin = $values['diaFin'];
-
-
+       $vaca=   sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'val');
+//echo $vaca;
+//die();
         if ($fechaInicio) {
             $fechaInicio = explode('/', $fechaInicio);
             $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
@@ -73,6 +74,7 @@ class IngresoProyVacacionForm extends sfForm {
 //            }
 
             $ingreso = ProyeccionVacacionQuery::create()
+                    ->filterById($vaca, Criteria::NOT_EQUAL)
                     ->filterByUsuario($usuario)
                     ->where("ProyeccionVacacion.FechaInicio <= '" . $fechaInicio . " 00:00:00" . "'")
                     ->where("ProyeccionVacacion.FechaFin >= '" . $fechaInicio . " 23:59:00" . "'")
