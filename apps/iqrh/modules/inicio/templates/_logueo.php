@@ -1,6 +1,9 @@
 <!--<script src='/assets/global/plugins/jquery.min.js'></script>-->
 <?php      $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'); ?>
-<?php 
+<?php        $usuaqrui = UsuarioQuery::create()->findOneById($usuarioId); ?>
+   <?php     $codigoUsuario = $usuaqrui->getCodigo(); ?>
+
+    <?php 
   $usuarios = UsuarioQuery::create()
                 ->filterByUsuarioJefe($usuarioId)
                 ->find();
@@ -17,7 +20,18 @@
     <?php $pend2 = SolicitudAusenciaQuery::create()->filterByEstado('Pendiente')
             ->filterByUsuarioId($empleado, Criteria::IN)->count(); ?>
 
-<?php $pendientes = $pend1+$pend2; ?>
+    <?php $pend3 = SolicitudUsuarioQuery::create()->filterByEstado('Pendiente')
+            ->filterByUsuarioId($empleado, Criteria::IN)->count(); ?>
+
+<?php   if ($codigoUsuario == 'PCRGT03') { ?>
+   <?php $pend1 = SolicitudVacacionQuery::create()->filterByEstado('Pendiente')->count(); ?>
+    <?php $pend2 = SolicitudAusenciaQuery::create()->filterByEstado('Pendiente')->count(); ?>
+
+    <?php $pend3 = SolicitudUsuarioQuery::create()->filterByEstado('Pendiente')->count(); ?>
+
+<?php } ?>
+
+<?php $pendientes = $pend1+$pend2+$pend3; ?>
 <?php //if (MenuSeguridadQuery::menuAcceso('PuntoVenta')) {  ?>
 <!--<li class="dropdown dropdown-extended dropdown-tasks dropdown-dark  " id="header_task_bar">
     <a href="<?php echo url_for("pos/index?inicio=1") ?>" class="dropdown-toggle font-green-jungle" >
@@ -46,7 +60,11 @@
 &nbsp;&nbsp;
 
 <?php $bitacoras = BitacoraUsuarioQuery::create()->filterByUsuarioJefe($usuarioId)->filterByLeido(false)->find(); ?>
-<?php $cantida = count($bitacoras) ?>
+<?php   if ($codigoUsuario == 'PCRGT03') { ?>
+<?php $bitacoras = BitacoraUsuarioQuery::create()->filterByUsuarioJefe(0, Criteria::GREATER_THAN)->filterByLeido(false)->find(); ?>
+
+    <?php } ?>
+    <?php $cantida = count($bitacoras) ?>
 <?php if ($cantida >0) { ?>
 <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">

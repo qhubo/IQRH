@@ -43,7 +43,7 @@ class inicioActions extends sfActions {
                 $bitacora->setUsuarioJefe($ausencia->getUsuarioId());
                 $bitacora->setMotivo('Autorizado: ' . $valores['observaciones']);
                 $bitacora->save();
-   $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+                $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
 
                 $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
                 $html = $this->getPartial('proceso/respuesta', array(
@@ -57,7 +57,7 @@ class inicioActions extends sfActions {
 //            echo $html;
 //            die();
                 $parametro = ParametroQuery::create()->findOne();
-             
+
                 $correo = $usuQ->getCorreo();
                 //   $correo = 'abrantar@gmail.com';
                 $resultado = ParametroQuery::Correo($correo, $parametro, $html);
@@ -137,7 +137,7 @@ class inicioActions extends sfActions {
                 $ausencia->setEstado('Autorizado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
-   $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+                $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
 
                 $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
                 $html = $this->getPartial('proceso/respuesta', array(
@@ -246,7 +246,8 @@ class inicioActions extends sfActions {
                 ->find();
         $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
         $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
-
+        $usuaqrui = UsuarioQuery::create()->findOneById($usuarioId);
+        $codigoUsuario = $usuaqrui->getCodigo();
 
         $usuarios = UsuarioQuery::create()
                 ->filterByUsuarioJefe($usuarioId)
@@ -268,10 +269,22 @@ class inicioActions extends sfActions {
 
         $this->solicitudes = SolicitudUsuarioQuery::create()
                 ->filterByEstado('Pendiente')
-                //               ->filterByUsuarioId($empleado, Criteria::IN)
+                ->filterByUsuarioId($empleado, Criteria::IN)
                 ->find();
 
 
+        if ($codigoUsuario == 'PCRGT03') {
+            $this->vacaciones = SolicitudVacacionQuery::create()
+                    ->filterByEstado('Pendiente')
+                    ->find();
+            $this->ausencias = SolicitudAusenciaQuery::create()
+                    ->filterByEstado('Pendiente')
+                    ->find();
+
+            $this->solicitudes = SolicitudUsuarioQuery::create()
+                    ->filterByEstado('Pendiente')
+                    ->find();
+        }
 
 
         $this->bitacoras = $bitacoras;
@@ -332,10 +345,10 @@ class inicioActions extends sfActions {
         $totalderecho = 0;
         $totalpagado = 0;
         if ($this->vacaciones) {
-        foreach ($this->vacaciones as $reg) {
-            $totalderecho = $totalderecho + $reg['derecho'];
-            $totalpagado = $totalpagado + $reg['pagada'];
-        }
+            foreach ($this->vacaciones as $reg) {
+                $totalderecho = $totalderecho + $reg['derecho'];
+                $totalpagado = $totalpagado + $reg['pagada'];
+            }
         }
         $this->pendientes = $totalderecho - $totalpagado;
 
@@ -396,7 +409,7 @@ class inicioActions extends sfActions {
                 $ausencia->setEstado('Autorizado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
-   $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
+                $usuQ = UsuarioQuery::create()->findOneById($ausencia->getUsuarioId());
 
                 $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
                 $html = $this->getPartial('proceso/respuesta', array(
