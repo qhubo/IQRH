@@ -37,6 +37,24 @@ class asigna_jefeActions extends sfActions {
                 ->groupByEmpresa()
                 ->find();
         
+        
+          $usuarios = UsuarioQuery::create();
+        $usuarios->filterByActivo(true);
+        $usuarios->filterByCodigo('', Criteria::NOT_EQUAL);
+    //    $usuarios->filterByEmpresa($empresaseleccion);
+        if ($this->estatu==1) {
+            $usuarios->filterByUsuarioJefe(0, Criteria::NOT_EQUAL);
+        }
+        if ($this->estatu==2) {
+            $usuarios->filterByUsuarioJefe(0);
+        }
+        
+        $this->usuarios = $usuarios->find();
+        
+        $this->usuariosQ= $this->usuarios;
+        
+        
+        
         $usuarios = UsuarioQuery::create();
         $usuarios->filterByActivo(true);
         $usuarios->filterByCodigo('', Criteria::NOT_EQUAL);
