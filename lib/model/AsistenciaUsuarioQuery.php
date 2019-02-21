@@ -212,6 +212,8 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         $entro = (int) str_replace(":", "", $entro);
         $salio = (int) str_replace(":", "", $salio);
         $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($asistenciaUu->getEmpresa());
+         $horaEntra =0;
+         $horaSalida =0;
         if ($empresa) {
             $horaEntra = $empresa->getHora24();
             $horaSalida = $empresa->getHoraFin24();
@@ -278,11 +280,15 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         $entro = (int) str_replace(":", "", $entro);
         $salio = (int) str_replace(":", "", $salio);
         $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($asistenciaUu->getEmpresa());
+        $estricto=false;
+          $horaEntra = 0;
+         $horaSalida = 0;
         if ($empresa) {
             $horaEntra = $empresa->getHora24();
             $horaSalida = $empresa->getHoraFin24();
+                    $estricto = $empresa->getEstricto();
+
         }
-        $estricto = $empresa->getEstricto();
         $retorna['HORARIO']['ENTRADA'] = $horaEntra;
         $retorna['HORARIO']['SALIDA'] = $horaSalida;
 

@@ -69,7 +69,7 @@
         <div class="row">
             <div class="col-md-1"> </div>
                  <div class="col-md-10">
-            <img src="<?php echo '/uploads/empresas/grafica3.png' ?>">
+                     <img width="900px"  src="<?php echo '/uploads/empresas/grafica3.png' ?>">
             </div>
         </div>
           <div class="row">

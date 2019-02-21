@@ -94,8 +94,13 @@
                 <div class="row">
                     <div class="col-md-9"><br><br><br><br> </div> 
                 </div>
-
-                <table class="table table-bordered  dataTable table-condensed flip-content" id='sample_2'>
+                <div class="row">
+                    <div class="col-md-9"> </div>
+                     <div class="col-md-2">
+                         <a class="btn  btn green-jungle btn-outline  btn-block "  target="_blank"  href="<?php echo url_for('ingresa_vacacion/reporte?id='.$empresaseleccion) ?>" >&nbsp;&nbsp;Reporte&nbsp;&nbsp; <i class="fa fa-file-pdf-o"></i> </a>
+                     </div>
+                     </div>
+                <table class="table table-bordered  dataTable table-condensed flip-content" id='sample_x2'>
                     <thead class="flip-content">
                         <tr class="success">
                             <th align="center" width="50px"><font size='-1'>Inicio</font></th>

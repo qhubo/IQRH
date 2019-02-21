@@ -61,7 +61,8 @@
         
         
 
-        <div class="form-body">      
+        <div class="form-body">     
+            
             <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
                 <thead class="flip-content">
                     <tr class="info">
