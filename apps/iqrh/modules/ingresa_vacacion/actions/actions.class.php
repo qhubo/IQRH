@@ -23,7 +23,7 @@ class ingresa_vacacionActions extends sfActions {
             $listaOk[] = $cod->getCodigo();
         }
         $listado = ProyeccionVacacionQuery::create()
-             //   ->filterByUsuario($listaOk, Criteria::IN)
+                ->filterByUsuario($listaOk, Criteria::IN)
                 ->orderByFechaInicio("Asc")
                 ->filterById($request->getParameter('edit'), Criteria::NOT_EQUAL)
                 ->find();
