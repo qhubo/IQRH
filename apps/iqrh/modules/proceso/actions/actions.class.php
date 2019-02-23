@@ -99,8 +99,9 @@ class procesoActions extends sfActions {
                         curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
                         $resultado = curl_exec($handler);
                         curl_close($handler);
+                            echo $resultado;
                         }
-                        echo $resultado;
+                    
                     }
                 }
 
