@@ -10,117 +10,112 @@
  */
 class procesoActions extends sfActions {
 
-  
-
     public function executeCorreo(sfWebRequest $request) {
-       date_default_timezone_set("America/Guatemala"); 
+        date_default_timezone_set("America/Guatemala");
         $minuto = date('i');
         AsistenciaUsuarioQuery::procesa();
-       if ($minuto <= 10) {
-           $Gminuto =0;
-       }
-       if (($minuto >=10) && ($minuto <20)) {
-           $Gminuto =10;
-       }
-       if (($minuto >=20) && ($minuto <30)) {
-           $Gminuto =20;
-       }
-       if (($minuto >=30) && ($minuto <40)) {
-           $Gminuto =30;
-       }
-       if (($minuto >=40) && ($minuto <50)) {
-           $Gminuto =40;
-       }
-       if (($minuto >=50) && ($minuto <60)) {
-           $Gminuto =50;
-       }
-       if (($minuto >50)) {
-           $Gminuto =60;
-       }
-
-       $empresaHorario = EmpresaHorarioQuery::create()
-               ->find();
-       foreach ($empresaHorario as $reg) {
-           $horas= explode(":", $reg->getHora());
-           $hora = $horas[0];
-           $empresaQ= $reg->getEmpresa();
-           $horaInicio =date('Y-m-d 0'.$hora.":i:s");
-           $horaActual =date('Y-m-d H:i:s');
-           if ($horaInicio < $horaActual) {
-           $marcas = AsistenciaUsuarioQuery::create()
-                   ->filterByEmpresa($empresaQ)
-                   ->filterByDia(date('Y-m-d'))
-                   ->count();
-           if ($marcas ==0) {
-               $bitacora= BitacoraAlertaQuery::create()
-                       ->filterByEmpresa($empresaQ)
-                       ->filterByMinuto($Gminuto)
-                       ->filterByHora(date('H'))
-                       ->filterByFecha(date('Y-m-d'))
-                       ->count();
-               if ($bitacora==0) {
-                   echo "<br> ENVIA CORREO <BR>";
-                   $bitacora = new BitacoraAlerta();
-                   $bitacora->setEmpresa($empresaQ);
-                   $bitacora->setMinuto($Gminuto);
-                   $bitacora->setHora(date('H'));
-                   $bitacora->setFecha(date('Y-m-d'));
-                   $bitacora->save();
-                   
-                        $url = "http://iqrh:8080/envio.php";
-        $urlH = "http://" . $_SERVER['SERVER_NAME'];
-        $PortA = $_SERVER['SERVER_PORT'];
-        $port = '';
-        if ($PortA == '8080') {
-            $port = ':8080';
+        if ($minuto <= 10) {
+            $Gminuto = 0;
         }
-        $url = $urlH . $port . "/envio.php";
-        echo $url;
-        echo "<br>";
-        $correo = 'iqrhdemo@gmail.com';
-        $clave = 'iqrh2019';
-        // $correcoC = "yluna@visioneninformatica.com";
-        $correcoC ='lavila@ratingspcr.com';
-        $postData['correo'] = $correo;
-        $postData['clave'] = $clave;
-        $postData['servidor'] = 'smtp.gmail.com';
-        $postData['puerto'] = '465';
-        $postData['correo_cliente'] = $correcoC ;
-        $postData['asunto'] = 'Alerta Biometrico '.$empresaQ;
-        $postData['mensaje'] = "El Biometrico de la empresa ".$empresaQ." no tienes marcas registradas para este dia ".date('d/m/Y');
-        $postData['empresa'] = 'IQRH';
-        echo "<pre>";
-        print_r($postData);
-        echo "</pre>";
-        
-        $handler = curl_init();
-        curl_setopt($handler, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($handler, CURLOPT_URL, $url);
-        curl_setopt($handler, CURLOPT_POST, true);
-        curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
-        $resultado = curl_exec($handler);
-        curl_close($handler);
-        
-        echo $resultado;
-        
-                   
-                   
-               }
-           }
-               
-               echo $empresaQ." ".$horaInicio;
-           echo "<br>";
-               
-           }
-       }
-        die();
+        if (($minuto >= 10) && ($minuto < 20)) {
+            $Gminuto = 10;
+        }
+        if (($minuto >= 20) && ($minuto < 30)) {
+            $Gminuto = 20;
+        }
+        if (($minuto >= 30) && ($minuto < 40)) {
+            $Gminuto = 30;
+        }
+        if (($minuto >= 40) && ($minuto < 50)) {
+            $Gminuto = 40;
+        }
+        if (($minuto >= 50) && ($minuto < 60)) {
+            $Gminuto = 50;
+        }
+        if (($minuto > 50)) {
+            $Gminuto = 60;
+        }
+
+        $empresaHorario = EmpresaHorarioQuery::create()
+                ->find();
+        foreach ($empresaHorario as $reg) {
+            $horas = explode(":", $reg->getHora());
+            $hora = $horas[0];
+            $empresaQ = $reg->getEmpresa();
+            $horaInicio = date('Y-m-d 0' . $hora . ":i:s");
+            $horaActual = date('Y-m-d H:i:s');
+            if ($horaInicio < $horaActual) {
+                $marcas = AsistenciaUsuarioQuery::create()
+                        ->filterByEmpresa($empresaQ)
+                        ->filterByDia(date('Y-m-d'))
+                        ->count();
+                if ($marcas == 0) {
+                    $bitacora = BitacoraAlertaQuery::create()
+                            ->filterByEmpresa($empresaQ)
+                            ->filterByMinuto($Gminuto)
+                            ->filterByHora(date('H'))
+                            ->filterByFecha(date('Y-m-d'))
+                            ->count();
+                    if ($bitacora == 0) {
+                        echo "<br> ENVIA CORREO <BR>";
+                        $bitacora = new BitacoraAlerta();
+                        $bitacora->setEmpresa($empresaQ);
+                        $bitacora->setMinuto($Gminuto);
+                        $bitacora->setHora(date('H'));
+                        $bitacora->setFecha(date('Y-m-d'));
+                        $bitacora->save();
+
+                        $url = "http://iqrh:8080/envio.php";
+                        $urlH = "http://" . $_SERVER['SERVER_NAME'];
+                        $PortA = $_SERVER['SERVER_PORT'];
+                        $port = '';
+                        if ($PortA == '8080') {
+                            $port = ':8080';
+                        }
+                        $url = $urlH . $port . "/envio.php";
+                        echo $url;
+                        echo "<br>";
+                        $correo = 'iqrhdemo@gmail.com';
+                        $clave = 'iqrh2019';
+                        // $correcoC = "yluna@visioneninformatica.com";
+                        $correcoC = 'lavila@ratingspcr.com';
+                        $postData['correo'] = $correo;
+                        $postData['clave'] = $clave;
+                        $postData['servidor'] = 'smtp.gmail.com';
+                        $postData['puerto'] = '465';
+                        $postData['correo_cliente'] = $correcoC;
+                        $postData['asunto'] = 'Alerta Biometrico ' . $empresaQ;
+                        $postData['mensaje'] = "El Biometrico de la empresa " . $empresaQ . " no tienes marcas registradas para este dia " . date('d/m/Y');
+                        $postData['empresa'] = 'IQRH';
+                        $timeHora = date('H');
+                        if ($timeHora <10) {
+                        echo "<pre>";
+                        print_r($postData);
+                        echo "</pre>";
+                        $handler = curl_init();
+                        curl_setopt($handler, CURLOPT_RETURNTRANSFER, TRUE);
+                        curl_setopt($handler, CURLOPT_URL, $url);
+                        curl_setopt($handler, CURLOPT_POST, true);
+                        curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
+                        $resultado = curl_exec($handler);
+                        curl_close($handler);
+                        }
+                        echo $resultado;
+                    }
+                }
+
+                echo $empresaQ . " " . $horaInicio;
+                echo "<br>";
+            }
+        }
+
 
         $parametro = ParametroQuery::create()->findOne();
         $correoNotifica = $parametro->getCorreoNotifica();
-        $clave= $parametro->getClaveCorreo();
+        $clave = $parametro->getClaveCorreo();
         $usu = $parametro->getUsuarioCorreo();
         $puerto = $parametro->getPuertoCorreo();
-        if ((trim($clave)  == "") || (trim($puerto)  == "") || (trim($usu)  == "") ) {  
+        if ((trim($clave) == "") || (trim($puerto) == "") || (trim($usu) == "")) {
             die('configura correo');
         }
         $soliC = SolicitudFinquitoQuery::create()
@@ -201,7 +196,7 @@ class procesoActions extends sfActions {
         $soliC = SolicitudVacacionQuery::create()
                 ->filterByEnviadoCorreo(false)
                 ->find();
-   
+
         foreach ($soliC as $lista) {
             $usuarioGra = UsuarioQuery::create()->findOneById($lista->getUsuarioId());
             $usuarioRet = UsuarioQuery::create()->findOneById($lista->getJefe());
@@ -215,9 +210,9 @@ class procesoActions extends sfActions {
             }
             echo $correo;
             echo "<br>";
-            $observacion = html_entity_decode($lista->getObservaciones())."<br> El cual inicia del dia <strong> " .$lista->getFechaInicio('d/m/Y')." </strong> al  <strong>".$lista->getFechaFin( 'd/m/Y')."</strong>";
+            $observacion = html_entity_decode($lista->getObservaciones()) . "<br> El cual inicia del dia <strong> " . $lista->getFechaInicio('d/m/Y') . " </strong> al  <strong>" . $lista->getFechaFin('d/m/Y') . "</strong>";
             $tipo = " Vacaciones ";
-            $observacion = "Dias Solicitados del " . $lista->getFechaInicio('d/m/Y') . "  Al " . $lista->getFechaFin('d/m/Y'). "   Dias a cuenta de vacaciones ".$lista->getDia();
+            $observacion = "Dias Solicitados del " . $lista->getFechaInicio('d/m/Y') . "  Al " . $lista->getFechaFin('d/m/Y') . "   Dias a cuenta de vacaciones " . $lista->getDia();
             $html = $this->getPartial('proceso/nota', array(
                 'empleado' => $empleado,
                 'fecha' => $fecha,
