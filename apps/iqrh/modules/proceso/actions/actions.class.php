@@ -65,7 +65,43 @@ class procesoActions extends sfActions {
                    $bitacora->setMinuto($Gminuto);
                    $bitacora->setHora(date('H'));
                    $bitacora->setFecha(date('Y-m-d'));
-                   $bitacora->save();
+                  // $bitacora->save();
+                   
+                        $url = "http://iqrh:8080/envio.php";
+        $urlH = "http://" . $_SERVER['SERVER_NAME'];
+        $PortA = $_SERVER['SERVER_PORT'];
+        $port = '';
+        if ($PortA == '8080') {
+            $port = ':8080';
+        }
+        $url = $urlH . $port . "/envio.php";
+        echo $url;
+        echo "<br>";
+        $correo = 'iqrhdemo@gmail.com';
+        $clave = 'iqrh2019';
+        // $correcoC = "yluna@visioneninformatica.com";
+        $correcoC ='abrantar@gmail.com';
+        $postData['correo'] = $correo;
+        $postData['clave'] = $clave;
+        $postData['servidor'] = 'smtp.gmail.com';
+        $postData['puerto'] = '465';
+        $postData['correo_cliente'] = $correcoC ;
+        $postData['asunto'] = 'Alerta Biometrico '.$empresaQ;
+        $postData['mensaje'] = "El Biometrico de la empresa ".$empresaQ." no tienes marcas registradas para este dia ".date('d/m/Y');
+        $postData['empresa'] = 'IQRH';
+        echo "<pre>";
+        print_r($postData);
+        echo "</pre>";
+        
+        $handler = curl_init();
+        curl_setopt($handler, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($handler, CURLOPT_URL, $url);
+        curl_setopt($handler, CURLOPT_POST, true);
+        curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
+        $resultado = curl_exec($handler);
+        curl_close($handler);
+        echo $resultado;
+        
                    
                    
                }
