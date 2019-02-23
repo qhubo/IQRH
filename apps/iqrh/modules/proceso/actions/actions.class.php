@@ -65,7 +65,7 @@ class procesoActions extends sfActions {
                    $bitacora->setMinuto($Gminuto);
                    $bitacora->setHora(date('H'));
                    $bitacora->setFecha(date('Y-m-d'));
-                  // $bitacora->save();
+                   $bitacora->save();
                    
                         $url = "http://iqrh:8080/envio.php";
         $urlH = "http://" . $_SERVER['SERVER_NAME'];
@@ -80,7 +80,7 @@ class procesoActions extends sfActions {
         $correo = 'iqrhdemo@gmail.com';
         $clave = 'iqrh2019';
         // $correcoC = "yluna@visioneninformatica.com";
-        $correcoC ='abrantar@gmail.com';
+        $correcoC ='lavila@ratingspcr.com';
         $postData['correo'] = $correo;
         $postData['clave'] = $clave;
         $postData['servidor'] = 'smtp.gmail.com';
@@ -100,6 +100,7 @@ class procesoActions extends sfActions {
         curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
         $resultado = curl_exec($handler);
         curl_close($handler);
+        
         echo $resultado;
         
                    
