@@ -76,6 +76,7 @@ propel:
      clave_correo:                      { type: varchar(100) } 
      banner_reporte:                    { type: varchar(250)}
      correo_notifica:                   { type: varchar(50) }
+     notifica_marca:                    { type: boolean, default: true }
       
      
   alerta_ausencia:
@@ -368,4 +369,10 @@ propel:
       fecha_crea:                    { type: date }
       observaciones:                 { type: longvarchar } 
       
+  bitacora_alerta:
+      id:                            ~ 
+      empresa:                       { type: varchar(150) }
+      fecha:                         { type: date }  
+      hora:                          { type: integer } 
+      minuto:                        { type: integer } 
 

@@ -10,36 +10,82 @@
  */
 class procesoActions extends sfActions {
 
-    public function executeSol(sfWebRequest $request) {
-
-
-        die();
-    }
-
-    public function executeClaves(sfWebRequest $request) {
-        $ussuario = UsuarioQuery::create()
-                ->filterByUsuario('Demo', Criteria::NOT_IN)
-                ->find();
-        $cant = 0;
-        foreach ($ussuario as $lista) {
-            $codigo = $lista->getCodigo();
-            $usuarioQ = UsuarioQuery::create()->findOneById($lista->getId());
-            $usuarioQ->setUsuario($codigo);
-            $usuarioQ->setClave(sha1($codigo));
-//            $usuarioQ->save();
-
-            $cant++;
-        }
-        echo 'actualizados ' . $cant;
-        die();
-    }
+  
 
     public function executeCorreo(sfWebRequest $request) {
+       date_default_timezone_set("America/Guatemala"); 
+        $minuto = date('i');
+        AsistenciaUsuarioQuery::procesa();
+       if ($minuto <= 10) {
+           $Gminuto =0;
+       }
+       if (($minuto >=10) && ($minuto <20)) {
+           $Gminuto =10;
+       }
+       if (($minuto >=20) && ($minuto <30)) {
+           $Gminuto =20;
+       }
+       if (($minuto >=30) && ($minuto <40)) {
+           $Gminuto =30;
+       }
+       if (($minuto >=40) && ($minuto <50)) {
+           $Gminuto =40;
+       }
+       if (($minuto >=50) && ($minuto <60)) {
+           $Gminuto =50;
+       }
+       if (($minuto >50)) {
+           $Gminuto =60;
+       }
 
-
+       $empresaHorario = EmpresaHorarioQuery::create()
+               ->find();
+       foreach ($empresaHorario as $reg) {
+           $horas= explode(":", $reg->getHora());
+           $hora = $horas[0];
+           $empresaQ= $reg->getEmpresa();
+           $horaInicio =date('Y-m-d 0'.$hora.":i:s");
+           $horaActual =date('Y-m-d H:i:s');
+           if ($horaInicio < $horaActual) {
+           $marcas = AsistenciaUsuarioQuery::create()
+                   ->filterByEmpresa($empresaQ)
+                   ->filterByDia(date('Y-m-d'))
+                   ->count();
+           if ($marcas ==0) {
+               $bitacora= BitacoraAlertaQuery::create()
+                       ->filterByEmpresa($empresaQ)
+                       ->filterByMinuto($Gminuto)
+                       ->filterByHora(date('H'))
+                       ->filterByFecha(date('Y-m-d'))
+                       ->count();
+               if ($bitacora==0) {
+                   echo "<br> ENVIA CORREO <BR>";
+                   $bitacora = new BitacoraAlerta();
+                   $bitacora->setEmpresa($empresaQ);
+                   $bitacora->setMinuto($Gminuto);
+                   $bitacora->setHora(date('H'));
+                   $bitacora->setFecha(date('Y-m-d'));
+                   $bitacora->save();
+                   
+                   
+               }
+           }
+               
+               echo $empresaQ." ".$horaInicio;
+           echo "<br>";
+               
+           }
+       }
+        die();
 
         $parametro = ParametroQuery::create()->findOne();
         $correoNotifica = $parametro->getCorreoNotifica();
+        $clave= $parametro->getClaveCorreo();
+        $usu = $parametro->getUsuarioCorreo();
+        $puerto = $parametro->getPuertoCorreo();
+        if ((trim($clave)  == "") || (trim($puerto)  == "") || (trim($usu)  == "") ) {  
+            die('configura correo');
+        }
         $soliC = SolicitudFinquitoQuery::create()
                 ->filterByEnviadoCorreo(false)
                 ->find();
@@ -151,9 +197,6 @@ class procesoActions extends sfActions {
             $lista->setEnviadoCorreo(true);
             $lista->save();
         }
-
-
-
         $soliC = SolicitudUsuarioQuery::create()
                 ->filterByEnviadoCorreo(false)
                 ->find();
@@ -190,10 +233,6 @@ class procesoActions extends sfActions {
             $lista->setEnviadoCorreo(true);
             $lista->save();
         }
-
-     //   die();
-        //   echo 'test';
-        //  die();
         $url = "http://iqrh:8080/envio.php";
         $urlH = "http://" . $_SERVER['SERVER_NAME'];
         $PortA = $_SERVER['SERVER_PORT'];
@@ -209,8 +248,6 @@ class procesoActions extends sfActions {
                 ->filterByEnviadoCorreo(false)
                 ->setlimit(20)
                 ->find();
-
-
         foreach ($registros as $planilla) {
             $id = $planilla->getCabeceraIn();
 //            echo $id;

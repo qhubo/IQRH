@@ -21,6 +21,7 @@ abstract class BaseParametroFormFilter extends BaseFormFilterPropel
       'clave_correo'    => new sfWidgetFormFilterInput(),
       'banner_reporte'  => new sfWidgetFormFilterInput(),
       'correo_notifica' => new sfWidgetFormFilterInput(),
+      'notifica_marca'  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -33,6 +34,7 @@ abstract class BaseParametroFormFilter extends BaseFormFilterPropel
       'clave_correo'    => new sfValidatorPass(array('required' => false)),
       'banner_reporte'  => new sfValidatorPass(array('required' => false)),
       'correo_notifica' => new sfValidatorPass(array('required' => false)),
+      'notifica_marca'  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('parametro_filters[%s]');
@@ -60,6 +62,7 @@ abstract class BaseParametroFormFilter extends BaseFormFilterPropel
       'clave_correo'    => 'Text',
       'banner_reporte'  => 'Text',
       'correo_notifica' => 'Text',
+      'notifica_marca'  => 'Boolean',
     );
   }
 }

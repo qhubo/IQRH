@@ -24,6 +24,7 @@ abstract class BaseParametroForm extends BaseFormPropel
       'clave_correo'    => new sfWidgetFormInputText(),
       'banner_reporte'  => new sfWidgetFormInputText(),
       'correo_notifica' => new sfWidgetFormInputText(),
+      'notifica_marca'  => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -37,6 +38,7 @@ abstract class BaseParametroForm extends BaseFormPropel
       'clave_correo'    => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'banner_reporte'  => new sfValidatorString(array('max_length' => 250, 'required' => false)),
       'correo_notifica' => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'notifica_marca'  => new sfValidatorBoolean(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('parametro[%s]');
