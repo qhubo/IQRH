@@ -39,6 +39,7 @@ class asigna_jefeActions extends sfActions {
         
         
           $usuarios = UsuarioQuery::create();
+          $usuarios->orderByPrimerApellido();
         $usuarios->filterByActivo(true);
         $usuarios->filterByCodigo('', Criteria::NOT_EQUAL);
     //    $usuarios->filterByEmpresa($empresaseleccion);
@@ -73,8 +74,9 @@ class asigna_jefeActions extends sfActions {
                 ->filterByActivo(true)
                 ->orderByNombreCompleto()
                 ->find();
+        
         foreach ($usuario as $reg) {
-            $default['empleado_'.$reg->getId()] = 406;  //$reg->getUsuarioJefe();
+            $default['empleado_'.$reg->getId()] = $reg->getUsuarioJefe();
         }
         
 //        echo "<pre>";

@@ -73,7 +73,7 @@
                         <select  class="form-control" name="consulta[empleado_<?php echo $lista->getId(); ?>]" id="consulta_empleado_<?php echo $lista->getId(); ?>">
                         <option value="">[Seleccione]</option>
                         <?php foreach ($usuariosQ as $listaR) { ?>
-                        <option <?php if ($listaR->getId()== $lista->getUsuarioJefe() ) { ?>selected="selected"  <?php } ?>  value="<?php echo $listaR->getId(); ?>"><?php echo $listaR->getNombreCompleto(); ?></option>
+                        <option <?php if ($listaR->getId()== $lista->getUsuarioJefe() ) { ?>selected="selected"  <?php } ?>  value="<?php echo $listaR->getId(); ?>"><?php echo strtoupper($listaR->getNombreCompleto()); ?></option>
                         <?php } ?>
                     </select>
 
