@@ -186,7 +186,7 @@ class inicioActions extends sfActions {
                 $motivo = $valores['motivo'];
                 $ausencia = SolicitudVacacionQuery::create()->findOneById($id);
                 $ausencia->setUsuarioModero($usuarioId);
-                $ausencia->setEstado('Autorizado');
+                $ausencia->setEstado('Rechazado');
                 $ausencia->setComentarioModero($motivo);
                 $ausencia->save();
 
