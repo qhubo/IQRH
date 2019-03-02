@@ -75,28 +75,41 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
             }
             
             
-         if ($saldo==0) {
-            if ($derechos > $totalPagado) {
+//         if ($saldo==0) {
+//            if ($derechos > $totalPagado) {
+//            $derec = $derechos-$totalPagado;
+//                $data['periodo'] = date('Y');
+//                $data['derecho'] = $derec;
+//               $data['pagada'] = 0;
+//                $data['TotalPagado'] = $totalPagado;
+//                $listado[date('Y')] = $data;
+//            }
+//         }
+//         if ($saldo==1) {
+//           //  echo $periodo;
+//               $derec = $derechos-$totalPagado;
+//               $data['periodo'] = $periodo-1;
+//                $data['derecho'] =$derecho+ $derec;
+//               $data['pagada'] = $pagado;
+//                $data['TotalPagado'] = $totalPagado;
+//                $listado[$periodo-1] = $data;
+//             
+//             
+//         }
+         
+            
+                 if ($derechos > $totalPagado) {
+//                $derec = ($totalPagado + 15) - $derechos;
             $derec = $derechos-$totalPagado;
+
                 $data['periodo'] = date('Y');
                 $data['derecho'] = $derec;
                $data['pagada'] = 0;
                 $data['TotalPagado'] = $totalPagado;
                 $listado[date('Y')] = $data;
             }
-         }
-         if ($saldo==1) {
-           //  echo $periodo;
-               $derec = $derechos-$totalPagado;
-               $data['periodo'] = $periodo-1;
-                $data['derecho'] =$derecho+ $derec;
-               $data['pagada'] = $pagado;
-                $data['TotalPagado'] = $totalPagado;
-                $listado[$periodo-1] = $data;
-             
-             
-         }
-         
+            
+            
         }
     //    die();
         return $listado;
