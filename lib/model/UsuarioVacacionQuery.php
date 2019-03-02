@@ -30,8 +30,8 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
 
             $dias = $interval->format('%a');
 
-       // echo $dias;
-       // echo "<br>";
+            // echo $dias;
+            // echo "<br>";
             $derechos = ($dias / 365) * 15;
 //            echo ($dias / 365);
 //            echo "<br>";
@@ -41,7 +41,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
 //            echo "<br>";
             $saldo = $derechos;
             $totalPagado = 0;
-           $saldo=0;
+            $saldo = 0;
             for ($periodo = $ano; $periodo < date('Y'); $periodo++) {
                 $vacacioQ = UsuarioVacacionQuery::create()
                         ->filterByUsuario($codigo)
@@ -62,9 +62,9 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
 
                     $derecho = $derechos - ($totalPagado - 15);
                 }
-                if ($derecho <15) {
-                    $saldo=1;
-                } 
+                if ($derecho < 15) {
+                    $saldo = 1;
+                }
                 $data['periodo'] = $periodo;
                 $data['derecho'] = $derecho;
                 $data['pagada'] = $pagado;
@@ -73,8 +73,8 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
 //                     echo $totalPagado;
 //            echo "<br>";
             }
-            
-            
+
+
 //         if ($saldo==0) {
 //            if ($derechos > $totalPagado) {
 //            $derec = $derechos-$totalPagado;
@@ -96,22 +96,29 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
 //             
 //             
 //         }
-         
-            
-                 if ($derechos > $totalPagado) {
-//                $derec = ($totalPagado + 15) - $derechos;
-            $derec = $derechos-$totalPagado;
 
-                $data['periodo'] = date('Y');
-                $data['derecho'] = $derec;
-               $data['pagada'] = 0;
-                $data['TotalPagado'] = $totalPagado;
-                $listado[date('Y')] = $data;
+
+            if ($derechos > $totalPagado) {
+                if ($saldo == 0) {
+
+                    $derec = $derechos - $totalPagado;
+                    $data['periodo'] = date('Y');
+                    $data['derecho'] = $derec;
+                    $data['pagada'] = 0;
+                    $data['TotalPagado'] = $totalPagado;
+                    $listado[date('Y')] = $data;
+                }
+                if ($saldo == 1) {
+                    $derec = $derechos - $totalPagado;
+                    $data['periodo'] = $periodo - 1;
+                    $data['derecho'] = $derecho + $derec;
+                    $data['pagada'] = $pagado;
+                    $data['TotalPagado'] = $totalPagado;
+                    $listado[$periodo - 1] = $data;
+                }
             }
-            
-            
         }
-    //    die();
+        //    die();
         return $listado;
     }
 
