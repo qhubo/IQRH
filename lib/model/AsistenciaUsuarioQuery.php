@@ -96,9 +96,10 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
             if ($usuario) {
                 $actualizados++;
                 $empresa = $usuario->getEmpresa();
-                echo  $registro->getCodigo()." ".$registro->getUsuario()." empresa ".$empresa;
+                echo  $usuario->getCodigo()." ".$registro->getUsuario()." empresa ".$empresa;
                 echo "<br>";
                 $HorarioQ = EmpresaHorarioQuery::create()->findOneByEmpresa($empresa);
+
                 if ($HorarioQ) {
                     $llegoTarde = false;
                     $Entrada = $HorarioQ->getHora24();
