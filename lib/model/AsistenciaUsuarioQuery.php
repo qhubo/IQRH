@@ -84,6 +84,11 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 ->filterByEmpresa(null)
                 //  ->filterByDia('2018-10-10')
                 ->find();
+        echo "<pre>";
+        print_r($Asistencia);
+        echo "</pre>";
+        
+        
         $actualizados = 0;
         $horaTarde = 0;
         foreach ($Asistencia as $registro) {
@@ -151,11 +156,11 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                     $AsistenciaQ->setTarde($llegoTarde);
                     $AsistenciaQ->setMinutoTarde($minutoTarde);
                     $AsistenciaQ->save();
-                    // echo "<br>";
-                    // echo " hora tarde ".$hora." minuto  ".$minuto." minuto tarde ".$minutoTarde;
+                     echo "<br>";
+                     echo " hora tarde ".$hora." minuto  ".$minuto." minuto tarde ".$minutoTarde;
                 } else {
-                    //    echo "NO TIENE HORARIO " . $empresa;
-                    //  echo "<br>";
+                        echo "NO TIENE HORARIO " . $empresa;
+                      echo "<br>";
                 }
             }
         }
