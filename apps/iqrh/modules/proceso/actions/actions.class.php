@@ -376,6 +376,10 @@ class procesoActions extends sfActions {
     }
 
 //C:\xampp\htdocs\IQRH\apps\iqrh\modules\proceso\actions\actions.class.php
+    public function executeIndex(sfWebRequest $request) {
+        $res = AsistenciaUsuarioQuery::procesa();
+        die();
+    }
     public function executeIndex2(sfWebRequest $request) {
         $codigo = $request->getParameter('codigo');
         $listado = UsuarioVacacionQuery::periodos($codigo);
