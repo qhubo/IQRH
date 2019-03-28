@@ -24,6 +24,7 @@ class AsistenciaUsuarioPeer extends BaseAsistenciaUsuarioPeer {
                 ->filterByGenero('rev', Criteria::NOT_EQUAL)
                 ->find();
         $can=0;
+        die();
         foreach ($usuarioq as $usu) {
       $can++;
             $usuario = $usu->getCodigo();
