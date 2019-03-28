@@ -24,7 +24,7 @@ class AsistenciaUsuarioPeer extends BaseAsistenciaUsuarioPeer {
                 ->filterByGenero('rev', Criteria::NOT_EQUAL)
                 ->find();
         $can=0;
-        die();
+      
         foreach ($usuarioq as $usu) {
       $can++;
             $usuario = $usu->getCodigo();
@@ -38,6 +38,7 @@ class AsistenciaUsuarioPeer extends BaseAsistenciaUsuarioPeer {
                     ->where("year(AsistenciaUsuario.Dia) = '" . $ano . " '")
                     ->groupByDia()
                     ->find();
+              die();
             $minutos = 0;
             $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($usu->getEmpresa());
             $horaEntra = $empresa->getHora24();
