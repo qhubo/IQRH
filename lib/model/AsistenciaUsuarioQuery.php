@@ -367,9 +367,10 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                  $entro = $reg->getMin();
         $salio = $reg->getMax();
             //   $resultado = AsistenciaUsuarioQuery::horas($dia, $usuario);
-            $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario,$entro,$salio);
-            $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
-            $minutos = $DIA_MINUTO + $minutos;
+//            $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario,$entro,$salio);
+//            $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
+//            $minutos = $DIA_MINUTO + $minutos;
+        $minutos=111;
         }
 
         $retorna = round($minutos / 60, 0);
