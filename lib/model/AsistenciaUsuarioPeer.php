@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * Skeleton subclass for performing query and update operations on the 'asistencia_usuario' table.
  *
@@ -17,6 +15,58 @@
  *
  * @package    propel.generator.lib.model
  */
-class AsistenciaUsuarioPeer extends BaseAsistenciaUsuarioPeer
-{
+class AsistenciaUsuarioPeer extends BaseAsistenciaUsuarioPeer {
+
+    static public function Reales($mes, $ano) {
+
+        $usuarioq = UsuarioQuery::create()
+                ->setLimit(10)
+                ->filterByGenero('rev', Criteria::NOT_EQUAL)
+                ->find();
+        $can=0;
+        foreach ($usuarioq as $usu) {
+      $can++;
+            $usuario = $usu->getCodigo();
+            $laborados = AsistenciaUsuarioQuery::create()
+                    ->filterByUsuario($usuario)
+                    ->withColumn('min(AsistenciaUsuario.Hora)', 'Min')
+                    ->withColumn('max(AsistenciaUsuario.Hora)', 'Max')
+                    //  ->where("AsistenciaUsuario.Dia >= '" . $inicio . " 00:00:00" . "'")
+                   //   ->where("AsistenciaUsuario.Dia <= '" . $fin . " 23:59:00" . "'")
+                    ->where("month(AsistenciaUsuario.Dia) = '" . $mes . "'")
+                    ->where("year(AsistenciaUsuario.Dia) = '" . $ano . " '")
+                    ->groupByDia()
+                    ->find();
+            $minutos = 0;
+            $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($usu->getEmpresa());
+            $horaEntra = $empresa->getHora24();
+            $horaSalida = $empresa->getHoraFin24();
+            foreach ($laborados as $reg) {
+                $dia = $reg->getDia('Y-m-d');
+                $entro = $reg->getMin();
+                $salio = $reg->getMax();
+                $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario, $entro, $salio);
+                $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
+                $usuaTa = UsuarioAsistenciaRealesQuery::create()
+                    ->filterByDia($dia)
+                    ->filterByUsuario($usuario)
+                    ->findOne();
+                if (!$usuaTa) {
+                    $usuaTa = new UsuarioAsistenciaReales();
+                    $usuaTa->setDia($dia);
+                    $usuaTa->setUsuario($usuario);
+                    $usuaTa->save();
+                } 
+                $usuaTa->setMinutos($DIA_MINUTO);
+                $usuaTa->save();
+            }
+            $reales = round($minutos / 60, 0);
+            $usu->setGenero('rev');
+            $usu->save();
+            
+        }
+        return $can;
+        
+    }
+
 }

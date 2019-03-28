@@ -377,6 +377,10 @@ class procesoActions extends sfActions {
 
 //C:\xampp\htdocs\IQRH\apps\iqrh\modules\proceso\actions\actions.class.php
     public function executeIndex(sfWebRequest $request) {
+        $reas = AsistenciaUsuarioPeer::Reales(3, 2019);
+        echo "actualizados ".$reas;
+        die();
+        
         $res = AsistenciaUsuarioQuery::procesa();
         die();
     }

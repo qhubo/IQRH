@@ -376,3 +376,9 @@ propel:
       hora:                          { type: integer } 
       minuto:                        { type: integer } 
 
+  usuario_asistencia_reales:
+      id:                            ~ 
+      usuario:                       { type: varchar(50) }  
+      dia:                           { type: date } 
+      minutos:                       { type: double } 
+   
