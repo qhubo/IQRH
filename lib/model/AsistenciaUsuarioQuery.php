@@ -21,23 +21,23 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
 
         $datetime1 = new DateTime($fechaInicio);
         $datetime2 = new DateTime($fechaFin);
-        
+
         $interval = $datetime1->diff($datetime2);
         $dias = str_replace("+", "", $interval->format('%R%a'));
         $SEMANA = NULL;
         $fines = 0;
-        $diasOk =0;
+        $diasOk = 0;
         for ($i = 0; $i <= $dias; $i++) {
             $fecha = $fechaInicio;
             $nuevafecha = strtotime('+' . $i . ' day', strtotime($fecha));
             $fecha = date('Y-m-d', $nuevafecha);
-         //   echo "<strong>".$fecha."</strong> ";
+            //   echo "<strong>".$fecha."</strong> ";
             $diaSemana = date('N', $nuevafecha);
-            if (($diaSemana <>7) && ($diaSemana <> 6)) {
-                $diasOk = $diasOk+1;
-             //   echo $fecha." ";
-            //    echo $diaSemana;
-            //    echo "<br>";
+            if (($diaSemana <> 7) && ($diaSemana <> 6)) {
+                $diasOk = $diasOk + 1;
+                //   echo $fecha." ";
+                //    echo $diaSemana;
+                //    echo "<br>";
             }
 //            if ($diaSemana == 7) {
 //                $fines = $fines + 1;
@@ -87,7 +87,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
 //       echo "cantidad "; 
 //      echo count($Asistencia);
 //        
-        
+
         $actualizados = 0;
         $horaTarde = 0;
         foreach ($Asistencia as $registro) {
@@ -113,7 +113,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                     $minutoEntrada = substr($Entrada, -2);
                     $HORAMINEntrada = ($horaEntrada * 60) + $minutoEntrada;
                     // *****SUMA 10 DE BUENA ONDA
-                    $HORAMINEntrada=$HORAMINEntrada + $HorarioQ->getMinutoProrroga();
+                    $HORAMINEntrada = $HORAMINEntrada + $HorarioQ->getMinutoProrroga();
                     $diferenica = $HORAMIN - $HORAMINEntrada;
                     $horaDifecnia = $diferenica / 60;
                     /// encontro diferencia
@@ -158,11 +158,53 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                     $AsistenciaQ->setTarde($llegoTarde);
                     $AsistenciaQ->setMinutoTarde($minutoTarde);
                     $AsistenciaQ->save();
-                     echo "<br>";
-                     echo " hora tarde ".$hora." minuto  ".$minuto." minuto tarde ".$minutoTarde;
+
+
+
+                    //***** NUEVO *********    
+                    $usuario = $AsistenciaQ->getUsuario();
+                    $inicio = $AsistenciaQ->getFechaHora('Y-m-d');
+                    $fin = $AsistenciaQ->getFechaHora('Y-m-d');
+                    $laborados = AsistenciaUsuarioQuery::create()
+                            ->filterByUsuario($usuario)
+                            ->withColumn('min(AsistenciaUsuario.Hora)', 'Min')
+                            ->withColumn('max(AsistenciaUsuario.Hora)', 'Max')
+                            ->where("AsistenciaUsuario.Dia >= '" . $inicio . " 00:00:00" . "'")
+                            ->where("AsistenciaUsuario.Dia <= '" . $fin . " 23:59:00" . "'")
+                            ->groupByDia()
+                            ->find();
+
+                    $minutos = 0;
+                    $empresaQ = EmpresaHorarioQuery::create()->findOneByEmpresa($empresa);
+                    $horaEntra = $empresaQ->getHora24();
+                    $horaSalida = $empresaQ->getHoraFin24();
+                    foreach ($laborados as $reg) {
+                        $dia = $reg->getDia('Y-m-d');
+                        $entro = $reg->getMin();
+                        $salio = $reg->getMax();
+                        $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario, $entro, $salio);
+                        $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
+                        $usuaTa = UsuarioAsistenciaRealesQuery::create()
+                                ->filterByDia($dia)
+                                ->filterByUsuario($usuario)
+                                ->findOne();
+                        if (!$usuaTa) {
+                            $usuaTa = new UsuarioAsistenciaReales();
+                            $usuaTa->setDia($dia);
+                            $usuaTa->setUsuario($usuario);
+                            $usuaTa->save();
+                        }
+                        $usuaTa->setMinutos($DIA_MINUTO);
+                        $usuaTa->save();
+                    }
+
+                    ///*** FIN NUEVO 
+
+                    echo "<br>";
+                    echo " hora tarde " . $hora . " minuto  " . $minuto . " minuto tarde " . $minutoTarde;
                 } else {
-                        echo "NO TIENE HORARIO " . $empresa;
-                      echo "<br>";
+                    echo "NO TIENE HORARIO " . $empresa;
+                    echo "<br>";
                 }
             }
         }
@@ -219,8 +261,8 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         $entro = (int) str_replace(":", "", $entro);
         $salio = (int) str_replace(":", "", $salio);
         $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($asistenciaUu->getEmpresa());
-         $horaEntra =0;
-         $horaSalida =0;
+        $horaEntra = 0;
+        $horaSalida = 0;
         if ($empresa) {
             $horaEntra = $empresa->getHora24();
             $horaSalida = $empresa->getHoraFin24();
@@ -275,31 +317,31 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         return $retorna;
     }
 
-    static public function horasTotal($dia, $usuario,$entro=null,$salio=null, $estricto=false) {
+    static public function horasTotal($dia, $usuario, $entro = null, $salio = null, $estricto = false) {
+         $empresa = EmpresaHorarioQuery::create()->findOne();
         if (!$entro) {
-        $asistenciaUu = AsistenciaUsuarioQuery::create()
-                ->withColumn('min(AsistenciaUsuario.Hora)', 'Min')
-                ->withColumn('max(AsistenciaUsuario.Hora)', 'Max')
-                ->filterByDia($dia)
-                ->filterByUsuario($usuario)
-                ->findOne();
-        $entro = $asistenciaUu->getMin();
-        $salio = $asistenciaUu->getMax();
-        $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($asistenciaUu->getEmpresa());
+            $asistenciaUu = AsistenciaUsuarioQuery::create()
+                    ->withColumn('min(AsistenciaUsuario.Hora)', 'Min')
+                    ->withColumn('max(AsistenciaUsuario.Hora)', 'Max')
+                    ->filterByDia($dia)
+                    ->filterByUsuario($usuario)
+                    ->findOne();
+            $entro = $asistenciaUu->getMin();
+            $salio = $asistenciaUu->getMax();
+            $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($asistenciaUu->getEmpresa());
         }
-        $empresa = EmpresaHorarioQuery::create()->findOne();
-        
+       
+
         $entro = (int) str_replace(":", "", $entro);
         $salio = (int) str_replace(":", "", $salio);
-        
-        $estricto=false;
-          $horaEntra = 0;
-         $horaSalida = 0;
+
+        $estricto = false;
+        $horaEntra = 0;
+        $horaSalida = 0;
         if ($empresa) {
             $horaEntra = $empresa->getHora24();
             $horaSalida = $empresa->getHoraFin24();
-                    $estricto = $empresa->getEstricto();
-
+            $estricto = $empresa->getEstricto();
         }
         $retorna['HORARIO']['ENTRADA'] = $horaEntra;
         $retorna['HORARIO']['SALIDA'] = $horaSalida;
@@ -307,17 +349,17 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         $retorna['MARCA']['ENTRADA'] = $entro;
         $retorna['MARCA']['SALIDA'] = $salio;
         $horaEntraOk = $horaEntra;
-        if ($estricto){
-         if ($entro > $horaEntra) {
-            $horaEntraOk = $entro;
+        if ($estricto) {
+            if ($entro > $horaEntra) {
+                $horaEntraOk = $entro;
+            }
         }
-        }
-        
+
         $horaSalidaOk = $horaSalida;
         if ($estricto) {
-        if ($salio < $horaSalida) {
-            $horaSalidaOk = $salio;
-        }
+            if ($salio < $horaSalida) {
+                $horaSalidaOk = $salio;
+            }
         }
         $hora = substr($horaEntraOk, 0, strlen($horaEntraOk) - 2);
         $minuto = substr($horaEntraOk, -2);
@@ -355,58 +397,21 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
     static public function Reales($inicio, $fin, $usuario) {
         $laborados = AsistenciaUsuarioQuery::create()
                 ->filterByUsuario($usuario)
-                ->withColumn('min(AsistenciaUsuario.Hora)', 'Min')
-                ->withColumn('max(AsistenciaUsuario.Hora)', 'Max')
                 ->where("AsistenciaUsuario.Dia >= '" . $inicio . " 00:00:00" . "'")
                 ->where("AsistenciaUsuario.Dia <= '" . $fin . " 23:59:00" . "'")
                 ->groupByDia()
                 ->find();
         $minutos = 0;
-           $empresa = EmpresaHorarioQuery::create()->findOne();
-               $horaEntra = $empresa->getHora24();
-            $horaSalida = $empresa->getHoraFin24();
         foreach ($laborados as $reg) {
             $dia = $reg->getDia('Y-m-d');
-                 $entro = $reg->getMin();
-        $salio = $reg->getMax();
-//            $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario,$entro,$salio);
-//            $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
-//            $minutos = $DIA_MINUTO + $minutos;
-                $entro = (int) str_replace(":", "", $entro);
-        $salio = (int) str_replace(":", "", $salio);
-                    $retorna['MARCA']['ENTRADA'] = $entro;
-        $retorna['MARCA']['SALIDA'] = $salio;
-        
-        $horaEntraOk = $horaEntra;
-//        if ($estricto){
-//         if ($entro > $horaEntra) {
-//            $horaEntraOk = $entro;
-//        }
-//        }
-        
-        $horaSalidaOk = $horaSalida;
-//        if ($estricto) {
-//        if ($salio < $horaSalida) {
-//            $horaSalidaOk = $salio;
-//        }
-//        }
-        $hora = substr($horaEntraOk, 0, strlen($horaEntraOk) - 2);
-        $minuto = substr($horaEntraOk, -2);
-        $retorna['REALES']['ENTRADA']['MARCA'] = $horaEntraOk;
-        $retorna['REALES']['ENTRADA']['HORA'] = $hora;
-        $retorna['REALES']['ENTRADA']['MINUTO'] = $minuto;
-        $retorna['REALES']['ENTRADA']['COMPLETO'] = ($hora * 60) + $minuto;
-
-        $hora = substr($horaSalidaOk, 0, strlen($horaSalidaOk) - 2);
-        $minuto = substr($horaSalidaOk, -2);
-        $retorna['REALES']['SALIDA']['MARCA'] = $horaSalidaOk;
-        $retorna['REALES']['SALIDA']['HORA'] = $hora;
-        $retorna['REALES']['SALIDA']['MINUTO'] = $minuto;
-        $retorna['REALES']['SALIDA']['COMPLETO'] = ($hora * 60) + $minuto;
-
-        $retorna['HORARIO_EFECTIVO']['DIFERENCIA'] = $retorna['REALES']['SALIDA']['COMPLETO'] - $retorna['REALES']['ENTRADA']['COMPLETO'];
-        
-            $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
+            $mmiq = UsuarioAsistenciaRealesQuery::create()
+                    ->filterByUsuario($usuario)
+                    ->filterByDia($dia)
+                    ->findOne();
+            $DIA_MINUTO =0;
+            if ($mmiq) {
+                $DIA_MINUTO =$mmiq->getMinutos();
+            }
             $minutos = $DIA_MINUTO + $minutos;
         }
 
