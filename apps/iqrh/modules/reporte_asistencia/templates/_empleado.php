@@ -27,7 +27,7 @@
             <?php } ?>
             <td  style="xborder: 1px solid black;" xwidth="75px"  align="center" ><font size="-1">&nbsp; <?php echo  round($puntualidad,0); ?>%  </font></td>
             <td  style="xborder: 1px solid black;" xwidth="70px" align="center">&nbsp;<font size="-1"><?php echo $horamensual; ?> </font>  </td>
-            <td  style="xborder: 1px solid black;" xwidth="70px" align="center">&nbsp;<font size="-1"><?php echo  AsistenciaUsuarioQuery::Reales($inicio, $fin, $regi->getUsuario());  ?></font> </td>      
+            <td  style="xborder: 1px solid black;" xwidth="70px" align="center">&nbsp;<font size="-1"><?php echo $reales= AsistenciaUsuarioQuery::Reales($inicio, $fin, $regi->getUsuario());  ?></font> </td>      
                <?php $horas=0 ?>         
    <?php if  ($reales > $horamensual) {  ?>
             <?php $horas=100 ?>
