@@ -113,7 +113,7 @@
 
 <table style="width:720px">
     <tr>
-        <td style="width:100%">    <img src="<?php echo $_SERVER['SERVER_NAME'].'/uploads/empresas/graficaX.png' ?>" width="720px" ></td> 
+        <td style="width:100%">    <img src="<?php echo "http://".$_SERVER['SERVER_NAME'].'/uploads/empresas/graficaX.png' ?>" width="720px" ></td> 
     </tr>
        <tr>
            <td style="width:100%"> 
