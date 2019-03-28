@@ -84,9 +84,9 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 ->filterByEmpresa(null)
                 //  ->filterByDia('2018-10-10')
                 ->find();
-       echo "cantidad "; 
-      echo count($Asistencia);
-        
+//       echo "cantidad "; 
+//      echo count($Asistencia);
+//        
         
         $actualizados = 0;
         $horaTarde = 0;
@@ -96,8 +96,8 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
             if ($usuario) {
                 $actualizados++;
                 $empresa = $usuario->getEmpresa();
-                echo  $usuario->getCodigo()." ".$registro->getUsuario()." empresa ".$empresa;
-                echo "<br>";
+//                echo  $usuario->getCodigo()." ".$registro->getUsuario()." empresa ".$empresa;
+//                echo "<br>";
                 $HorarioQ = EmpresaHorarioQuery::create()->findOneByEmpresa($empresa);
 
                 if ($HorarioQ) {
@@ -275,7 +275,8 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         return $retorna;
     }
 
-    static public function horasTotal($dia, $usuario, $estricto=false) {
+    static public function horasTotal($dia, $usuario,$entro=null,$salio=null, $estricto=false) {
+        if (!$entro) {
         $asistenciaUu = AsistenciaUsuarioQuery::create()
                 ->withColumn('min(AsistenciaUsuario.Hora)', 'Min')
                 ->withColumn('max(AsistenciaUsuario.Hora)', 'Max')
@@ -284,6 +285,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 ->findOne();
         $entro = $asistenciaUu->getMin();
         $salio = $asistenciaUu->getMax();
+        }
         $entro = (int) str_replace(":", "", $entro);
         $salio = (int) str_replace(":", "", $salio);
         $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($asistenciaUu->getEmpresa());
@@ -350,6 +352,8 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
     static public function Reales($inicio, $fin, $usuario) {
         $laborados = AsistenciaUsuarioQuery::create()
                 ->filterByUsuario($usuario)
+                ->withColumn('min(AsistenciaUsuario.Hora)', 'Min')
+                ->withColumn('max(AsistenciaUsuario.Hora)', 'Max')
                 ->where("AsistenciaUsuario.Dia >= '" . $inicio . " 00:00:00" . "'")
                 ->where("AsistenciaUsuario.Dia <= '" . $fin . " 23:59:00" . "'")
                 ->groupByDia()
@@ -357,8 +361,10 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         $minutos = 0;
         foreach ($laborados as $reg) {
             $dia = $reg->getDia('Y-m-d');
+                 $entro = $reg->getMin();
+        $salio = $reg->getMax();
             //   $resultado = AsistenciaUsuarioQuery::horas($dia, $usuario);
-            $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario);
+            $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario,$entro,$salio);
             $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
             $minutos = $DIA_MINUTO + $minutos;
         }
