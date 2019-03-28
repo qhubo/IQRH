@@ -362,7 +362,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 ->groupByDia()
                 ->find();
         $minutos = 0;
-           $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa();
+           $empresa = EmpresaHorarioQuery::create()->findOne();
                $horaEntra = $empresa->getHora24();
             $horaSalida = $empresa->getHoraFin24();
         foreach ($laborados as $reg) {
