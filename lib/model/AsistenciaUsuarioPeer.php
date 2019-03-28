@@ -38,7 +38,7 @@ class AsistenciaUsuarioPeer extends BaseAsistenciaUsuarioPeer {
                     ->where("year(AsistenciaUsuario.Dia) = '" . $ano . " '")
                     ->groupByDia()
                     ->find();
-              die();
+           
             $minutos = 0;
             $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($usu->getEmpresa());
             $horaEntra = $empresa->getHora24();
@@ -49,6 +49,7 @@ class AsistenciaUsuarioPeer extends BaseAsistenciaUsuarioPeer {
                 $salio = $reg->getMax();
                 $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario, $entro, $salio);
                 $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
+                
                 $usuaTa = UsuarioAsistenciaRealesQuery::create()
                     ->filterByDia($dia)
                     ->filterByUsuario($usuario)
