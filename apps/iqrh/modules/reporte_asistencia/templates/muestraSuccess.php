@@ -166,7 +166,7 @@
 
                     </div>            
                 </div>
-                <?php include_partial('reporte_asistencia/empleado', array('Listado' => $Listado, 'inicio' => $inicio, 'fin' => $fin)) ?> 
+                <?php //include_partial('reporte_asistencia/empleado', array('Listado' => $Listado, 'inicio' => $inicio, 'fin' => $fin)) ?> 
 
             </div>
             <div class="tab-pane " id="tab_1_3">
