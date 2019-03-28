@@ -285,10 +285,13 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 ->findOne();
         $entro = $asistenciaUu->getMin();
         $salio = $asistenciaUu->getMax();
+        $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($asistenciaUu->getEmpresa());
         }
+        $empresa = EmpresaHorarioQuery::create()->findOne();
+        
         $entro = (int) str_replace(":", "", $entro);
         $salio = (int) str_replace(":", "", $salio);
-        $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($asistenciaUu->getEmpresa());
+        
         $estricto=false;
           $horaEntra = 0;
          $horaSalida = 0;
