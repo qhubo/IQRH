@@ -294,8 +294,8 @@ $horamensual =160;
             'mes' => $mesDescripcion
         ));
 
-//        echo $html;
-//        die();
+        echo $html;
+        die();
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('IQRH');
         $pdf->SetTitle('Asistencia Resumen');
