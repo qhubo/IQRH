@@ -287,7 +287,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         $salio = $asistenciaUu->getMax();
         $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa($asistenciaUu->getEmpresa());
         }
-        $empresa = EmpresaHorarioQuery::create()->findOne();
+        $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa();
         
         $entro = (int) str_replace(":", "", $entro);
         $salio = (int) str_replace(":", "", $salio);
@@ -362,15 +362,52 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
                 ->groupByDia()
                 ->find();
         $minutos = 0;
+           $empresa = EmpresaHorarioQuery::create()->findOneByEmpresa();
+               $horaEntra = $empresa->getHora24();
+            $horaSalida = $empresa->getHoraFin24();
         foreach ($laborados as $reg) {
             $dia = $reg->getDia('Y-m-d');
                  $entro = $reg->getMin();
         $salio = $reg->getMax();
-            //   $resultado = AsistenciaUsuarioQuery::horas($dia, $usuario);
 //            $resultado = AsistenciaUsuarioQuery::horasTotal($dia, $usuario,$entro,$salio);
 //            $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
 //            $minutos = $DIA_MINUTO + $minutos;
-        $minutos=111;
+                $entro = (int) str_replace(":", "", $entro);
+        $salio = (int) str_replace(":", "", $salio);
+                    $retorna['MARCA']['ENTRADA'] = $entro;
+        $retorna['MARCA']['SALIDA'] = $salio;
+        
+        $horaEntraOk = $horaEntra;
+//        if ($estricto){
+//         if ($entro > $horaEntra) {
+//            $horaEntraOk = $entro;
+//        }
+//        }
+        
+        $horaSalidaOk = $horaSalida;
+//        if ($estricto) {
+//        if ($salio < $horaSalida) {
+//            $horaSalidaOk = $salio;
+//        }
+//        }
+        $hora = substr($horaEntraOk, 0, strlen($horaEntraOk) - 2);
+        $minuto = substr($horaEntraOk, -2);
+        $retorna['REALES']['ENTRADA']['MARCA'] = $horaEntraOk;
+        $retorna['REALES']['ENTRADA']['HORA'] = $hora;
+        $retorna['REALES']['ENTRADA']['MINUTO'] = $minuto;
+        $retorna['REALES']['ENTRADA']['COMPLETO'] = ($hora * 60) + $minuto;
+
+        $hora = substr($horaSalidaOk, 0, strlen($horaSalidaOk) - 2);
+        $minuto = substr($horaSalidaOk, -2);
+        $retorna['REALES']['SALIDA']['MARCA'] = $horaSalidaOk;
+        $retorna['REALES']['SALIDA']['HORA'] = $hora;
+        $retorna['REALES']['SALIDA']['MINUTO'] = $minuto;
+        $retorna['REALES']['SALIDA']['COMPLETO'] = ($hora * 60) + $minuto;
+
+        $retorna['HORARIO_EFECTIVO']['DIFERENCIA'] = $retorna['REALES']['SALIDA']['COMPLETO'] - $retorna['REALES']['ENTRADA']['COMPLETO'];
+        
+            $DIA_MINUTO = $resultado['HORARIO_EFECTIVO']['DIFERENCIA'];
+            $minutos = $DIA_MINUTO + $minutos;
         }
 
         $retorna = round($minutos / 60, 0);
