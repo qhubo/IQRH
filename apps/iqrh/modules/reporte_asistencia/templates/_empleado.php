@@ -1,6 +1,7 @@
 <?php  $horamensual =160; ?>
 <table class="table table-bordered  dataTable table-condensed flip-content" >
     <tr width="100%"  style="background-color: #E9C171">
+        <td></td>
         <td  style=" xborder: 1px solid black;" xwidth="150px" >&nbsp;<font size="-2"><strong>NOMBRE COMPLETO</strong></font>  </td>
         <td  style="xborder: 1px solid black;" xwidth="170px" >&nbsp;<font size="-2"><strong>PUESTO</strong></font>   </td>
         <td  style="xborder: 1px solid black;" xwidth="70px" >&nbsp;<font size="-2"><strong>DIAS<br>&nbsp;LABORADOS</strong></font>  </td>
@@ -11,9 +12,12 @@
         <td  style="xborder: 1px solid black;" xwidth="50px" >&nbsp;<font size="-2"><strong>% HORAS</strong></font></td>
         <td></td>
     </tr>
+    <?php $can=0; ?>
 <?php foreach ($Listado as $regi) { ?>
+        <?php $can++; ?>
     <?php $puntualidad =$regi->getPuntualida(); ?>
         <tr>
+            <td><?php echo $can; ?></td>
             <td  style=" xborder: 1px solid black;" xwidth="150px"  >&nbsp;<font size="-2"><?php echo $regi->getNombreCompleto(); ?></font>  </td>
             <td  style="xborder: 1px solid black;" xwidth="170px"   >&nbsp;<font size="-2"><?php echo $regi->getPuesto(); ?></font>   </td>
             <td  style="xborder: 1px solid black;" xwidth="70px" align="center" >&nbsp;<font size="-1"><?php echo  $dias= $regi->getAsistencia();   //AsistenciaUsuarioQuery::laborados($inicio, $fin, $regi->getUsuario());  ?></font>&nbsp;&nbsp;&nbsp;  </td>
