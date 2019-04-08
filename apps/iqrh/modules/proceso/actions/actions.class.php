@@ -89,17 +89,17 @@ class procesoActions extends sfActions {
                         $postData['empresa'] = 'IQRH';
                         $timeHora = date('H');
                         if ($timeHora <10) {
-                        echo "<pre>";
-                        print_r($postData);
-                        echo "</pre>";
-                        $handler = curl_init();
-                        curl_setopt($handler, CURLOPT_RETURNTRANSFER, TRUE);
-                        curl_setopt($handler, CURLOPT_URL, $url);
-                        curl_setopt($handler, CURLOPT_POST, true);
-                        curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
-                        $resultado = curl_exec($handler);
-                        curl_close($handler);
-                            echo $resultado;
+//                        echo "<pre>";
+//                        print_r($postData);
+//                        echo "</pre>";
+//                        $handler = curl_init();
+//                        curl_setopt($handler, CURLOPT_RETURNTRANSFER, TRUE);
+//                        curl_setopt($handler, CURLOPT_URL, $url);
+//                        curl_setopt($handler, CURLOPT_POST, true);
+//                        curl_setopt($handler, CURLOPT_POSTFIELDS, $postData);
+//                        $resultado = curl_exec($handler);
+//                        curl_close($handler);
+//                            echo $resultado;
                         }
                     
                     }
