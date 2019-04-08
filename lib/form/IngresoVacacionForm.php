@@ -70,6 +70,7 @@ class IngresoVacacionForm extends sfForm {
             }
             
             $ingreso = SolicitudVacacionQuery::create()
+                    ->filterByEstado('Rechazado', Criteria::NOT_EQUAL)
                     ->filterByUsuarioId($usuarioId)
                     ->where("SolicitudVacacion.FechaInicio <= '" . $fechaInicio . " 00:00:00" . "'")
                     ->where("SolicitudVacacion.FechaFin >= '" . $fechaInicio . " 23:59:00" . "'")
