@@ -93,6 +93,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         foreach ($Asistencia as $registro) {
 
             $usuario = UsuarioQuery::create()->findOneByCodigo($registro->getUsuario());
+            $codigo = $registro->getUsuario();
             if ($usuario) {
                 $actualizados++;
                 $empresa = $usuario->getEmpresa();
