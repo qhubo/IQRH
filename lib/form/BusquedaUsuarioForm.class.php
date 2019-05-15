@@ -19,7 +19,7 @@ class BusquedaUsuarioForm extends sfForm {
         }
         $this->setWidget('empresa', new sfWidgetFormChoice(array(
             "choices" => $tipo,
-                ), array("class" => "form-control")));
+                ), array("class" => "form-control", "onchange"=>"this.form.submit()")));
         $this->setValidator('empresa', new sfValidatorString(array('required' =>false)));
   
    

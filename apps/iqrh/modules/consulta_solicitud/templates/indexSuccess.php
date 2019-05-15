@@ -13,6 +13,7 @@
         </div>
     </div>
     <div class="portlet-body">
+            <div class="table-scrollable">
              <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_1">
             <thead class="flip-content">
                 <tr class="info">
@@ -42,5 +43,6 @@
                 <?php } ?>
             </tbody>
         </table>
+            </div>
     </div>
 </div>

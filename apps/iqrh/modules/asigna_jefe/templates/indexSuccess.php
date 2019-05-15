@@ -48,7 +48,7 @@
                     
                 </form>
         
-                    
+              <div class="table-scrollable">          
 
         <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
             <thead class="flip-content">
@@ -82,6 +82,7 @@
                 <?php } ?>
             </tbody>
         </table>
+              </div>
     </div>
 </div>
 

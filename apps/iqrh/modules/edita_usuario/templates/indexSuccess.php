@@ -62,7 +62,7 @@
         
 
         <div class="form-body">     
-            
+                      <div class="table-scrollable">
             <table class="table table-bordered  dataTable table-condensed flip-content" id="sample_2">
                 <thead class="flip-content">
                     <tr class="info">
@@ -130,7 +130,7 @@
                 </tbody>
             </table>
         </div>
-
+  </div>
     </div>
 </div>
 <?php echo '</form>'; ?>

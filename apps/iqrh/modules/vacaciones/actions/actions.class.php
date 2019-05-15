@@ -31,7 +31,7 @@ class vacacionesActions extends sfActions {
        $this->vacaciones=$vacaciones;
        $explode =explode (".", $pendientes);
        
-       $default['dia']=$explode[0];
+      // $default['dia']=$explode[0];
         
 
         $carpetaArchivos = sfConfig::get('sf_upload_dir'); // $ParametroConexion['ruta']; 
