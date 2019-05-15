@@ -150,12 +150,27 @@ class reporte_asistenciaActions extends sfActions {
                 $fechaFin = explode('/', $fechaFin);
                 $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
                 $dias = AsistenciaUsuarioQuery::laboradosReales($fechaInicio, $fechaFin);
+                $usus = UsuarioQuery::create()
+                        ->filterByEmpresa($valores['empresa'])
+                        ->find();
+//                   echo "<pre>";
+//                print_r($usus);
+//                echo "</pre>";
+//                die();
+                foreach ($usus as $reg) {
+                    $reg->setHoras(0);
+                    $reg->setAsistencia(0);
+                    $reg->save();
+                }
+                
                 $asistencia = AsistenciaUsuarioQuery::create()
                         ->where("AsistenciaUsuario.Dia >= '" . $fechaInicio . " 00:00:00" . "'")
                         ->where("AsistenciaUsuario.Dia <= '" . $fechaFin . " 23:59:00" . "'")
                         ->filterByEmpresa($valores['empresa'])
                         ->groupByUsuario()
                         ->find();
+             
+                
                 $usuario[] = 0;
                 foreach ($asistencia as $reg) {
                     $usuario[] = $reg->getUsuario();
@@ -167,6 +182,8 @@ class reporte_asistenciaActions extends sfActions {
                         // ->filterByEmpresa('PCR GUATEMALA')
                         ->filterByEmpresa($valores['empresa'])
                         ->find();
+                
+                
                 foreach ($Listado as $regi) {
                     $usuarioQ = UsuarioQuery::create()->findOneById($regi->getId());
                     $puntualidad = 0;
