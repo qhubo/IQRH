@@ -81,6 +81,21 @@
                 var id = $("#consulta_diaInicio").val();
                 var idv = $("#consulta_diaFin").val();
                 $.get('<?php echo url_for("vacaciones/dias") ?>', {inicio: id, fin: idv}, function (response) {
+$("#consulta_dia").val(response);
+
+                });
+            });
+        });
+    </script>
+    
+    
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $("#consulta_diaInicio").on('change', function () {
+                var id = $("#consulta_diaInicio").val();
+                var idv = $("#consulta_diaFin").val();
+                $.get('<?php echo url_for("vacaciones/dias") ?>', {inicio: id, fin: idv}, function (response) {
+$("#consulta_dia").val(response);
 
                 });
             });

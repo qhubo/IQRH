@@ -10,32 +10,51 @@
  */
 class vacacionesActions extends sfActions {
 
+    public function executeDias(sfWebRequest $request) {
+
+        $fechaInicio = $request->getParameter('inicio');
+        $fechaInicio = explode('/', $fechaInicio);
+        $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
+        $fechaFin = $request->getParameter('fin');
+        $fechaFin = explode('/', $fechaFin);
+        $fechaFin = $fechaFin[2] . '-' . $fechaFin[1] . '-' . $fechaFin[0];
+
+        $date1 = new DateTime($fechaInicio);
+$date2 = new DateTime($fechaFin);
+$diff = $date1->diff($date2);
+// will output 2 days
+ $dias= $diff->days ;
+
+        echo $dias;
+        die();
+    }
+
     /**
      * Executes index action
      *
      * @param sfRequest $request A request object
      */
     public function executeIndex(sfWebRequest $request) {
-                $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+        $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
         $this->usuario = UsuarioQuery::create()->findOneById($usuarioId);
-        $vacaciones =UsuarioVacacionQuery::periodos($this->usuario->getCodigo());
-        $totalderecho=0;
-        $totalpagado=0;
+        $vacaciones = UsuarioVacacionQuery::periodos($this->usuario->getCodigo());
+        $totalderecho = 0;
+        $totalpagado = 0;
         foreach ($vacaciones as $reg) {
-            $totalderecho =$totalderecho+$reg['derecho'];
-            $totalpagado = $totalpagado+$reg['pagada'];
+            $totalderecho = $totalderecho + $reg['derecho'];
+            $totalpagado = $totalpagado + $reg['pagada'];
         }
-        
-       $pendientes = $totalderecho-$totalpagado;
-       $this->pendientes=$pendientes;
-       $this->vacaciones=$vacaciones;
-       $explode =explode (".", $pendientes);
-       
-      // $default['dia']=$explode[0];
-        
+
+        $pendientes = $totalderecho - $totalpagado;
+        $this->pendientes = $pendientes;
+        $this->vacaciones = $vacaciones;
+        $explode = explode(".", $pendientes);
+
+        // $default['dia']=$explode[0];
+
 
         $carpetaArchivos = sfConfig::get('sf_upload_dir'); // $ParametroConexion['ruta']; 
-        $default['diaInicio']=date('d/m/Y');
+        $default['diaInicio'] = date('d/m/Y');
         $this->form = new IngresoVacacionForm($default);
         if ($request->isMethod('post')) {
             $this->form->bind($request->getParameter("consulta"), $request->getFiles("consulta"));
@@ -56,7 +75,7 @@ class vacacionesActions extends sfActions {
                 $solVacacion->setDia($valores['dia']);
                 $solVacacion->setMotivo($valores['observaciones']);
                 $solVacacion->save();
-                      $filename = '';
+                $filename = '';
                 if ($valores["archivo"]) {
                     $archivo = $valores["archivo"];
                     $nombre = $archivo->getOriginalName();
@@ -68,17 +87,17 @@ class vacacionesActions extends sfActions {
                     $solVacacion->setArchivoUno($filename);
                     $solVacacion->save();
                 }
-                
-               $bitacora = New BitacoraUsuario();
-               $bitacora->setFecha(date('Y-m-d H:i'));
-               $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
-               $bitacora->setTipo('Vacacion');
-               $bitacora->setIdentificador($solVacacion->getId());
-               $bitacora->setUsuarioJefe($usuarioQue->getUsuarioJefe());
-               $bitacora->setMotivo($valores['observaciones']);
-               $bitacora->setArchivoUno($filename);
-               $bitacora->save();
-               
+
+                $bitacora = New BitacoraUsuario();
+                $bitacora->setFecha(date('Y-m-d H:i'));
+                $bitacora->setUsuarioId(sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad'));
+                $bitacora->setTipo('Vacacion');
+                $bitacora->setIdentificador($solVacacion->getId());
+                $bitacora->setUsuarioJefe($usuarioQue->getUsuarioJefe());
+                $bitacora->setMotivo($valores['observaciones']);
+                $bitacora->setArchivoUno($filename);
+                $bitacora->save();
+
                 $this->getUser()->setFlash('exito', ' La solicitud de vacación ha sido ingresada con éxito ');
                 $this->redirect('vacaciones/index');
             }
