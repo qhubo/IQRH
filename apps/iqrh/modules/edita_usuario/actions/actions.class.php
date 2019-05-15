@@ -63,7 +63,7 @@ class edita_usuarioActions extends sfActions {
          
             $usuaarioQ = new UsuarioQuery();
             if (strlen(trim($default['empresa'])) > 9) {
-           // $usuaarioQ->filterByEmpresa($default['empresa']);    
+            $usuaarioQ->filterByEmpresa($default['empresa']);    
             }
             if ($default['nombre']) {
             $usuaarioQ->where("( Usuario.PrimerNombre like  '%".$default['nombre']."%' or Usuario.SegundoNombre like  '%".$default['nombre']."%'  or "
