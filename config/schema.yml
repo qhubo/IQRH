@@ -35,6 +35,9 @@ propel:
     token:                             { type: varchar(150) }
     fecha_reporte:                     { type: varchar(300) }
     horas:                             { type: double }  
+    codigo_proyecto:                   { type: varchar(50)}
+    id_interno:                        { type: integer }
+    id_interno_proyecto:               { type: integer }
     _uniques:
        llave:                          [ usuario ]
  
@@ -382,3 +385,26 @@ propel:
       dia:                           { type: date } 
       minutos:                       { type: double } 
    
+  proyecto:
+     id:                            ~ 
+     codigo:                        { type: varchar(50) }  
+     nombre:                        { type: varchar(350) }  
+     telefono:                      { type: varchar(50) }  
+     contacto:                      { type: varchar(50) }  
+     created_by:                    { type: varchar(50) }   
+     created_at:                    { type: varchar(50) }  
+     updated_by:                    { type: varchar(50) }   
+     updated_at:                    { type: varchar(50) }  
+     nit_proyecto:                  { type: varchar(50) }   
+     razon_social:                  { type: varchar(350) }  
+     nomenclatura:                  { type: varchar(50) }   
+     ubicacion_geografica:          { type: varchar(50) }  
+     documento_representante:       { type: varchar(150) }   
+     representante_legal:           { type: varchar(350) }  
+     documento_representante:       { type: varchar(350) }   
+     gerente:                       { type: varchar(350) }   
+     residente:                     { type: varchar(350) }   
+     departamento:                  { type: varchar(350) }  
+     municipio:                     { type: varchar(350) }  
+     interno:                        { type: varchar(50) } 
+ 

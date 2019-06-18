@@ -11,16 +11,80 @@
 class restActions extends sfActions {
 
     public function executeOnline(sfWebRequest $request) {
+
         echo "online";
         die();
     }
 
-     public function executeUsuarioVacacion(sfWebRequest $request) {
+    public function executeProyecto(sfWebRequest $request) {
+        $this->getResponse()->setContentType('application/json');
+        $this->getResponse()->setContentType('charset=utf-8');
+        $codigo = $request->getParameter('codigo');
+        $nombre = $request->getParameter('nombre');
+        $interno = $request->getParameter('interno');
+        $telefono = $request->getParameter('telefono');
+        $contacto = $request->getParameter('contacto');
+        $created_by = $request->getParameter('created_by');
+        $created_at = $request->getParameter('created_at');
+        $updated_by = $request->getParameter('updated_by');
+        $updated_at = $request->getParameter('updated_at');
+        $nit_proyecto = $request->getParameter('nit_proyecto');
+        $razon_social = $request->getParameter('razon_social');
+        $nombreclatura = $request->getParameter('nomenclatura');
+        $ubicacion_geografica = $request->getParameter('ubicacion_geografica');
+        $documento_representa = $request->getParameter('documento_representante');
+        $representante_legal = $request->getParameter('representante_legal');
+        $gerente = $request->getParameter('gerente');
+        $residente = $request->getParameter('residente');
+        $departamento = $request->getParameter('departamento');
+        $municipio = $request->getParameter('municipio');
+        $proyecto = ProyectoQuery::create()->findOneByInterno($interno);
+        $resultado['CODIGO'] = '0';
+        $resultado['NOMBRE'] = 'ERROR DEBE COMPLETAR INFORMACION';
+//        echo $codigo;
+//        echo "<br>";
+//        echo strlen($codigo);
+//        echo "<br>";
+//        echo strlen($nombre);
+//        die();
+        if ((strlen($codigo) > 3) && (strlen($nombre) > 10)) {
+            if (!$proyecto) {
+                $proyecto = new Proyecto();
+                $proyecto->setInterno($interno);
+            }
+            $proyecto->setNombre($nombre);
+            $proyecto->setTelefono($telefono);
+            $proyecto->setContacto($contacto);
+            $proyecto->setCreatedBy($created_by);
+            $proyecto->setCreatedAt($created_at);
+            $proyecto->setUpdatedBy($updated_by);
+            $proyecto->setUpdatedAt($updated_at);
+            $proyecto->setNitProyecto($nit_proyecto);
+            $proyecto->setRazonSocial($razon_social);
+            $proyecto->setNomenclatura($nombreclatura);
+            $proyecto->setUbicacionGeografica($ubicacion_geografica);
+            $proyecto->setDocumentoRepresentante($documento_representa);
+            $proyecto->setRepresentanteLegal($representante_legal);
+            $proyecto->setGerente($gerente);
+            $proyecto->setResidente($residente);  //= $request->getParameter('residente');
+            $proyecto->setDepartamento($departamento);  // = $request->getParameter('departamento');
+            $proyecto->setMunicipio($municipio);  /// = $request->getParameter('municipio');
+            $proyecto->save();
+            $resultado['CODIGO'] = '1';
+            $resultado['NOMBRE'] = 'ACTUALIZACION ACEPTADA';
+        }
+        $data_json = json_encode($resultado);
+        return $this->renderText($data_json);
+        echo "online";
+        die();
+    }
+
+    public function executeUsuarioVacacion(sfWebRequest $request) {
         $id_c = $request->getParameter('id_c');
         $codigo = $request->getParameter('codigo');
         $periodo = $request->getParameter('periodo');
-        $pagado= $request->getParameter('pagado');
-        $derecho= $request->getParameter('derecho');
+        $pagado = $request->getParameter('pagado');
+        $derecho = $request->getParameter('derecho');
         $empleado = UsuarioVacacionQuery::create()
                 ->filterByUsuario($codigo)
                 ->filterByPeriodo($periodo)
@@ -29,12 +93,12 @@ class restActions extends sfActions {
             $empleado = new UsuarioVacacion();
             $empleado->setUsuario($codigo);
             $empleado->setPeriodo($periodo);
-            $empleado->save();            
+            $empleado->save();
         }
         $empleado->setPagado($pagado);
         $empleado->setDerecho($derecho);
-        $empleado->save();    
-            $linea['ID'] = 1;
+        $empleado->save();
+        $linea['ID'] = 1;
         $linea['IDACTUA'] = 1;
         $linea['enviado'] = 1;
         $linea['codigo'] = $codigo;
@@ -44,8 +108,8 @@ class restActions extends sfActions {
         $resultado['LINEA'] = 1;
         $data_json = json_encode($resultado);
         return $this->renderText($data_json);
+    }
 
-        }
     public function executeResumen(sfWebRequest $request) {
         $Planilla_Resumen_id = $request->getParameter('Planilla_Resumen_id');
         $empleado = $request->getParameter('empleado');
@@ -188,13 +252,13 @@ class restActions extends sfActions {
             $planillaRe->save();
         }
         $resultado['detalle'] = 'ok';
-       
+
         $data_json = json_encode($resultado);
         return $this->renderText($data_json);
     }
 
     public function executeDetalleData(sfWebRequest $request) {
-       $data = $request->getParameter('data');
+        $data = $request->getParameter('data');
         $data = str_replace("?", "", $data);
         $array = explode("|||", $data);
         $LISTADO = NULL;
@@ -492,8 +556,12 @@ class restActions extends sfActions {
         $puesto = $request->getParameter('puesto');
         $departamento = $request->getParameter('departamento');
         $jefe = $request->getParameter('jefe');
-        $fecha_alta = $request->getParameter('fecha_alta');
         $sueldo = $request->getParameter('sueldo');
+        $fecha_alta = $request->getParameter('fecha_alta');
+        $id_interno = $request->getParameter('id_interno');
+        $id_interno_proyecto = $request->getParameter('id_interno_proyecto');
+        $codigo_proyecto = $request->getParameter('codigo_proyecto');
+                    
 
         $mensaje = 'Codigo No enviado';
         if ($codigo) {
@@ -522,6 +590,9 @@ class restActions extends sfActions {
             $usuarioQ->setSueldo($sueldo);
             $usuarioQ->setEmpresa($empresa);
             $usuarioQ->setLogo($urlLogo);
+            $usuarioQ->setIdInterno($id_interno);
+            $usuarioQ->setCodigoProyecto($codigo_proyecto);
+            $usuarioQ->setIdInternoProyecto($id_interno_proyecto);
             $usuarioQ->save();
 //            $usuarioQ->setLogo($v)
         }
