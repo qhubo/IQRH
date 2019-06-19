@@ -1,3 +1,12 @@
+proyecto:
+  class: sfPropelORMRouteCollection
+  options:
+    model:                Proyecto
+    module:               proyecto
+    prefix_path:          /proyecto
+    column:               id
+    with_wildcard_routes: true
+
 licenciamiento:
   class: sfPropelORMRouteCollection
   options:

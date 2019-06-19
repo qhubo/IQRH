@@ -47,11 +47,12 @@ class restActions extends sfActions {
 //        echo "<br>";
 //        echo strlen($nombre);
 //        die();
-        if ((strlen($codigo) > 3) && (strlen($nombre) > 10)) {
+        if ((strlen($nombre) > 5)) {
             if (!$proyecto) {
                 $proyecto = new Proyecto();
                 $proyecto->setInterno($interno);
             }
+            $proyecto->setCodigo($codigo);
             $proyecto->setNombre($nombre);
             $proyecto->setTelefono($telefono);
             $proyecto->setContacto($contacto);
