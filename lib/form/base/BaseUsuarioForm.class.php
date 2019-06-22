@@ -87,7 +87,7 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'usuario_jefe'        => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'asistencia'          => new sfValidatorNumber(array('required' => false)),
       'puntualida'          => new sfValidatorNumber(array('required' => false)),
-      'token'               => new sfValidatorString(array('max_length' => 150, 'required' => false)),
+      'token'               => new sfValidatorString(array('max_length' => 300, 'required' => false)),
       'fecha_reporte'       => new sfValidatorString(array('max_length' => 300, 'required' => false)),
       'horas'               => new sfValidatorNumber(array('required' => false)),
       'codigo_proyecto'     => new sfValidatorString(array('max_length' => 50, 'required' => false)),

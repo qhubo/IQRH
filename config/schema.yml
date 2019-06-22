@@ -38,6 +38,7 @@ propel:
     codigo_proyecto:                   { type: varchar(50)}
     id_interno:                        { type: integer }
     id_interno_proyecto:               { type: integer }
+    token:                              { type: varchar(300) }
     _uniques:
        llave:                          [ usuario ]
  
