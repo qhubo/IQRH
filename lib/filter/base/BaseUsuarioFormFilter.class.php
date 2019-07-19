@@ -49,6 +49,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'codigo_proyecto'     => new sfWidgetFormFilterInput(),
       'id_interno'          => new sfWidgetFormFilterInput(),
       'id_interno_proyecto' => new sfWidgetFormFilterInput(),
+      'dpi'                 => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -89,6 +90,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'codigo_proyecto'     => new sfValidatorPass(array('required' => false)),
       'id_interno'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'id_interno_proyecto' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'dpi'                 => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('usuario_filters[%s]');
@@ -144,6 +146,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'codigo_proyecto'     => 'Text',
       'id_interno'          => 'Number',
       'id_interno_proyecto' => 'Number',
+      'dpi'                 => 'Text',
     );
   }
 }

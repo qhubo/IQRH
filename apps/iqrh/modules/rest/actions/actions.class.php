@@ -38,6 +38,7 @@ class restActions extends sfActions {
         $residente = $request->getParameter('residente');
         $departamento = $request->getParameter('departamento');
         $municipio = $request->getParameter('municipio');
+        $dpi = $request->getParameter('dpi');
         $proyecto = ProyectoQuery::create()->findOneByInterno($interno);
         $resultado['CODIGO'] = '0';
         $resultado['NOMBRE'] = 'ERROR DEBE COMPLETAR INFORMACION';
@@ -533,6 +534,7 @@ class restActions extends sfActions {
         $correo = $request->getParameter('correo');
         $logo = $request->getParameter('logo');
         $codigo = $request->getParameter('codigo');
+        $dpi = $request->getParameter('dpi');
         $urlLogo = '';
         if ($logo) {
             $extension = 'jpg';
@@ -591,6 +593,7 @@ class restActions extends sfActions {
             $usuarioQ->setSueldo($sueldo);
             $usuarioQ->setEmpresa($empresa);
             $usuarioQ->setLogo($urlLogo);
+            $usuarioQ->setDpi($dpi);
             $usuarioQ->setIdInterno($id_interno);
             $usuarioQ->setCodigoProyecto($codigo_proyecto);
             $usuarioQ->setIdInternoProyecto($id_interno_proyecto);
