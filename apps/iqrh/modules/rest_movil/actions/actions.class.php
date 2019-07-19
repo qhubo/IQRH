@@ -174,6 +174,7 @@ class rest_movilActions extends sfActions {
             $data['departamento'] = $empleado->getDepartamento(); // GERENCIA PAIS
             $data['codigo_proyecto'] = $empleado->getCodigoProyecto(); // 
             $data['id_interno'] = $empleado->getIdInterno(); //      
+            $data['dpi'] = $empleado->getDpi(); //   
             $data['activo'] = 'Retirado';
             if ($empleado->getActivo()) {
                 $data['activo'] = 'Activo';
