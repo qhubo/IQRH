@@ -11,7 +11,6 @@
 class restActions extends sfActions {
 
     public function executeOnline(sfWebRequest $request) {
-
         echo "online";
         die();
     }
@@ -81,6 +80,45 @@ class restActions extends sfActions {
         die();
     }
 
+    public function executeUsuarioDesactiva(sfWebRequest $request) {
+        $codigo = $request->getParameter('codigo');
+        $codigo_proyecto = $request->getParameter('codigo_proyecto'); 
+        $fechaBaja =$request->getParameter('fecha'); 
+        $usuarioQ = UsuarioQuery::create()->filterByCodigo($codigo)->find();
+        $mensaje="Usuario no encontrado";
+        if ($usuarioQ) {
+            $cantidadU = count($usuarioQ);
+            if ($cantidadU==1) {
+                $usuario = UsuarioQuery::create()->findOneByCodigo($codigo);
+                $usuario->setActivo(FALSE);
+                $usuario->setFechaBaja($fechaBaja);
+                $usuario->save();
+            }
+            $usuario= UsuarioQuery::create()
+                    ->filterByCodigo($codigo)
+                    ->filterByCodigoProyecto($codigo_proyecto)
+                    ->findOne();
+            if ($usuario) {
+                     $usuario = UsuarioQuery::create()->findOneByCodigo($codigo);
+                $usuario->setActivo(FALSE);
+                $usuario->setFechaBaja($fechaBaja);
+                $usuario->save(); 
+            }
+            $mensaje='Usuario actualizado';
+        }
+        $linea['ID'] = 1;
+        $linea['IDACTUA'] = 1;
+        $linea['enviado'] = 1;
+        $linea['codigo'] = $codigo;
+        $linea['mensaje'] = $mensaje;
+        $resultado['LINEA'] = 1;
+        $resultado['RESULTADO'][] = $linea;
+        $resultado['LINEA'] = 1;
+        $data_json = json_encode($resultado);
+        return $this->renderText($data_json);
+    }
+    
+    
     public function executeUsuarioVacacion(sfWebRequest $request) {
         $id_c = $request->getParameter('id_c');
         $codigo = $request->getParameter('codigo');

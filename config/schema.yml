@@ -40,6 +40,7 @@ propel:
     id_interno_proyecto:               { type: integer }
     token:                              { type: varchar(300) }
     dpi:                               { type: varchar(30) }
+    fecha_baja:                        { type: date } 
     _uniques:
        llave:                          [ usuario ]
  

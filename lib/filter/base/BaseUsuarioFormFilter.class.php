@@ -50,6 +50,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'id_interno'          => new sfWidgetFormFilterInput(),
       'id_interno_proyecto' => new sfWidgetFormFilterInput(),
       'dpi'                 => new sfWidgetFormFilterInput(),
+      'fecha_baja'          => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
     ));
 
     $this->setValidators(array(
@@ -91,6 +92,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'id_interno'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'id_interno_proyecto' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'dpi'                 => new sfValidatorPass(array('required' => false)),
+      'fecha_baja'          => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
     $this->widgetSchema->setNameFormat('usuario_filters[%s]');
@@ -147,6 +149,7 @@ abstract class BaseUsuarioFormFilter extends BaseFormFilterPropel
       'id_interno'          => 'Number',
       'id_interno_proyecto' => 'Number',
       'dpi'                 => 'Text',
+      'fecha_baja'          => 'Date',
     );
   }
 }

@@ -53,6 +53,7 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'id_interno'          => new sfWidgetFormInputText(),
       'id_interno_proyecto' => new sfWidgetFormInputText(),
       'dpi'                 => new sfWidgetFormInputText(),
+      'fecha_baja'          => new sfWidgetFormDate(),
     ));
 
     $this->setValidators(array(
@@ -95,6 +96,7 @@ abstract class BaseUsuarioForm extends BaseFormPropel
       'id_interno'          => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'id_interno_proyecto' => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'dpi'                 => new sfValidatorString(array('max_length' => 30, 'required' => false)),
+      'fecha_baja'          => new sfValidatorDate(array('required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(
