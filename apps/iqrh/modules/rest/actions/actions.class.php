@@ -47,7 +47,7 @@ class restActions extends sfActions {
 //        echo "<br>";
 //        echo strlen($nombre);
 //        die();
-        if ((strlen($nombre) > 5)) {
+     //   if ((strlen($nombre) > 5)) {
             if (!$proyecto) {
                 $proyecto = new Proyecto();
                 $proyecto->setInterno($interno);
@@ -73,7 +73,7 @@ class restActions extends sfActions {
             $proyecto->save();
             $resultado['CODIGO'] = '1';
             $resultado['NOMBRE'] = 'ACTUALIZACION ACEPTADA';
-        }
+      //  }
         $data_json = json_encode($resultado);
         return $this->renderText($data_json);
         echo "online";
@@ -613,6 +613,8 @@ class restActions extends sfActions {
                 $usuarioQ->setActivo(true);
                 $usuarioQ->setClave($clave);
             }
+            
+            
             $mensaje = 'Actualizado';
             $usuarioQ->setUsuario($usuario);
             $usuarioQ->setCodigo($codigo);
