@@ -62,7 +62,7 @@ class edita_usuarioActions extends sfActions {
         if ($default) {
          
             $usuaarioQ = new UsuarioQuery();
-            if (strlen(trim($default['empresa'])) > 9) {
+            if (strlen(trim($default['empresa'])) > 3) {
             $usuaarioQ->filterByEmpresa($default['empresa']);    
             }
             if ($default['nombre']) {
