@@ -41,6 +41,7 @@ propel:
     token:                              { type: varchar(300) }
     dpi:                               { type: varchar(30) }
     fecha_baja:                        { type: date } 
+    derecho_vaca:                      { type: integer, default: 15 }
     _uniques:
        llave:                          [ usuario ]
  

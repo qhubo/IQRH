@@ -633,6 +633,7 @@ class restActions extends sfActions {
         $id_interno_proyecto = $request->getParameter('id_interno_proyecto');
         $codigo_proyecto = $request->getParameter('codigo_proyecto');
         $multi = $request->getParameter('multi');
+        $derecho_vaca= $request->getParameter('derecho_vaca');
         if ($multi == 1) {
             if ($id_interno_proyecto <> 1) {
                 $usuario = $id_interno_proyecto . "_" . $usuario;
@@ -671,6 +672,7 @@ class restActions extends sfActions {
             $usuarioQ->setLogo($urlLogo);
             $usuarioQ->setDpi($dpi);
             $usuarioQ->setIdInterno($id_interno);
+            $usuarioQ->setDerechoVaca($derecho_vaca);
             $usuarioQ->setCodigoProyecto($codigo_proyecto);
             $usuarioQ->setIdInternoProyecto($id_interno_proyecto);
             $usuarioQ->save();
