@@ -21,6 +21,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
         $listado = null;
         $usuarioQ = UsuarioQuery::create()
                 ->findOneByCodigo($codigo);
+        $diaDe = $usuarioQ->getDerechoVaca();
         if ($usuarioQ->getFechaAlta()) {
             $fechaAlta = $usuarioQ->getFechaAlta('Y');
             $ano = $usuarioQ->getFechaAlta('Y');
@@ -32,7 +33,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
 
             // echo $dias;
             // echo "<br>";
-            $derechos = ($dias / 365) * 15;
+            $derechos = ($dias / 365) * $diaDe;
 //            echo ($dias / 365);
 //            echo "<br>";
 
@@ -50,7 +51,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
                 $derecho = 0;
 
                 if ($periodo < date('Y')) {
-                    $derecho = 15;
+                    $derecho = $diaDe;
                 }
                 $pagado = 0;
                 if ($vacacioQ) {
@@ -60,9 +61,9 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
                 $totalPagado = $totalPagado + $derecho;
                 if ($derechos < $totalPagado) {
 
-                    $derecho = $derechos - ($totalPagado - 15);
+                    $derecho = $derechos - ($totalPagado - $diaDe);
                 }
-                if ($derecho < 15) {
+                if ($derecho < $diaDe) {
                     $saldo = 1;
                 }
                 $data['periodo'] = $periodo;
@@ -73,29 +74,6 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
 //                     echo $totalPagado;
 //            echo "<br>";
             }
-
-
-//         if ($saldo==0) {
-//            if ($derechos > $totalPagado) {
-//            $derec = $derechos-$totalPagado;
-//                $data['periodo'] = date('Y');
-//                $data['derecho'] = $derec;
-//               $data['pagada'] = 0;
-//                $data['TotalPagado'] = $totalPagado;
-//                $listado[date('Y')] = $data;
-//            }
-//         }
-//         if ($saldo==1) {
-//           //  echo $periodo;
-//               $derec = $derechos-$totalPagado;
-//               $data['periodo'] = $periodo-1;
-//                $data['derecho'] =$derecho+ $derec;
-//               $data['pagada'] = $pagado;
-//                $data['TotalPagado'] = $totalPagado;
-//                $listado[$periodo-1] = $data;
-//             
-//             
-//         }
 
 
             if ($derechos > $totalPagado) {
@@ -119,6 +97,10 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
             }
         }
         //    die();
+        
+//        echo "<pre>";
+//        print_r($listado);
+//        die();
         return $listado;
     }
 
