@@ -72,6 +72,7 @@
                         <th align="center" width="20px">Usuario</th>
                         <th  align="center"> Nombre Completo</th>
                         <th  align="center">Correo</th>
+                        <th  align="center"><font size="-2"> Derecho Vacaciones</font></th>
 <!--                         <th  width="125px" align="center">Codigo</th>-->
                         <th  align="center"> Activo</th>
                         <th>Acción</th>
@@ -100,6 +101,8 @@
                             <div class="labelactua<?php echo $lis->getId(); ?>" id="labelactua<?php echo $lis->getId(); ?>">
                             </div>
                             </td>
+                            <td><?php echo $lis->getDerechoVaca() ?></td>
+                   
 <!--                                <td>
                             
                             <input type="text" name="codigo_usuario<?php echo $lis->getId(); ?>" 
