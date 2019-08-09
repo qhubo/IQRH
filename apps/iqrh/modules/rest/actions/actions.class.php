@@ -10,6 +10,37 @@
  */
 class restActions extends sfActions {
 
+    public function executeFotos(sfWebRequest $request) {
+     
+        $usuarios = UsuarioQuery::create()
+                ->filterByImagen(null)
+                ->find();
+        $cant=0;
+        foreach ($usuarios as $usuarioQ) {
+            $cant++;
+            $usuario = UsuarioQuery::create()->findOneById($usuarioQ->getId());
+            $dpi = $usuarioQ->getDpi();
+            $filename = $this->procesafoto($dpi);
+            $usuario->setImagen($filename);
+            $usuario->setLogo($filename);
+            $usuario->save();
+        }
+        echo "actualizados " .$cant;
+        die();
+    }
+
+    public function procesafoto($dpi) {
+        $imagen = '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';
+        $imagen = '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';
+        $BaseImagen = $imagen;
+        $carpetaArchivos = sfConfig::get('sf_upload_dir');
+        $Base64Img = base64_decode($BaseImagen);
+        $filename = $dpi . '.png';
+        $urlImagen = $carpetaArchivos . DIRECTORY_SEPARATOR . 'empresas' . DIRECTORY_SEPARATOR . $filename;
+        file_put_contents($urlImagen, $Base64Img);
+        return $filename;
+    }
+
     public function executeOnline(sfWebRequest $request) {
         echo "online";
         die();
@@ -47,33 +78,33 @@ class restActions extends sfActions {
 //        echo "<br>";
 //        echo strlen($nombre);
 //        die();
-     //   if ((strlen($nombre) > 5)) {
-            if (!$proyecto) {
-                $proyecto = new Proyecto();
-                $proyecto->setInterno($interno);
-            }
-            $proyecto->setCodigo($codigo);
-            $proyecto->setNombre($nombre);
-            $proyecto->setTelefono($telefono);
-            $proyecto->setContacto($contacto);
-            $proyecto->setCreatedBy($created_by);
-            $proyecto->setCreatedAt($created_at);
-            $proyecto->setUpdatedBy($updated_by);
-            $proyecto->setUpdatedAt($updated_at);
-            $proyecto->setNitProyecto($nit_proyecto);
-            $proyecto->setRazonSocial($razon_social);
-            $proyecto->setNomenclatura($nombreclatura);
-            $proyecto->setUbicacionGeografica($ubicacion_geografica);
-            $proyecto->setDocumentoRepresentante($documento_representa);
-            $proyecto->setRepresentanteLegal($representante_legal);
-            $proyecto->setGerente($gerente);
-            $proyecto->setResidente($residente);  //= $request->getParameter('residente');
-            $proyecto->setDepartamento($departamento);  // = $request->getParameter('departamento');
-            $proyecto->setMunicipio($municipio);  /// = $request->getParameter('municipio');
-            $proyecto->save();
-            $resultado['CODIGO'] = '1';
-            $resultado['NOMBRE'] = 'ACTUALIZACION ACEPTADA';
-      //  }
+        //   if ((strlen($nombre) > 5)) {
+        if (!$proyecto) {
+            $proyecto = new Proyecto();
+            $proyecto->setInterno($interno);
+        }
+        $proyecto->setCodigo($codigo);
+        $proyecto->setNombre($nombre);
+        $proyecto->setTelefono($telefono);
+        $proyecto->setContacto($contacto);
+        $proyecto->setCreatedBy($created_by);
+        $proyecto->setCreatedAt($created_at);
+        $proyecto->setUpdatedBy($updated_by);
+        $proyecto->setUpdatedAt($updated_at);
+        $proyecto->setNitProyecto($nit_proyecto);
+        $proyecto->setRazonSocial($razon_social);
+        $proyecto->setNomenclatura($nombreclatura);
+        $proyecto->setUbicacionGeografica($ubicacion_geografica);
+        $proyecto->setDocumentoRepresentante($documento_representa);
+        $proyecto->setRepresentanteLegal($representante_legal);
+        $proyecto->setGerente($gerente);
+        $proyecto->setResidente($residente);  //= $request->getParameter('residente');
+        $proyecto->setDepartamento($departamento);  // = $request->getParameter('departamento');
+        $proyecto->setMunicipio($municipio);  /// = $request->getParameter('municipio');
+        $proyecto->save();
+        $resultado['CODIGO'] = '1';
+        $resultado['NOMBRE'] = 'ACTUALIZACION ACEPTADA';
+        //  }
         $data_json = json_encode($resultado);
         return $this->renderText($data_json);
         echo "online";
@@ -82,29 +113,29 @@ class restActions extends sfActions {
 
     public function executeUsuarioDesactiva(sfWebRequest $request) {
         $codigo = $request->getParameter('codigo');
-        $codigo_proyecto = $request->getParameter('codigo_proyecto'); 
-        $fechaBaja =$request->getParameter('fecha'); 
+        $codigo_proyecto = $request->getParameter('codigo_proyecto');
+        $fechaBaja = $request->getParameter('fecha');
         $usuarioQ = UsuarioQuery::create()->filterByCodigo($codigo)->find();
-        $mensaje="Usuario no encontrado";
+        $mensaje = "Usuario no encontrado";
         if ($usuarioQ) {
             $cantidadU = count($usuarioQ);
-            if ($cantidadU==1) {
+            if ($cantidadU == 1) {
                 $usuario = UsuarioQuery::create()->findOneByCodigo($codigo);
                 $usuario->setActivo(FALSE);
                 $usuario->setFechaBaja($fechaBaja);
                 $usuario->save();
             }
-            $usuario= UsuarioQuery::create()
+            $usuario = UsuarioQuery::create()
                     ->filterByCodigo($codigo)
                     ->filterByCodigoProyecto($codigo_proyecto)
                     ->findOne();
             if ($usuario) {
-                     $usuario = UsuarioQuery::create()->findOneByCodigo($codigo);
+                $usuario = UsuarioQuery::create()->findOneByCodigo($codigo);
                 $usuario->setActivo(FALSE);
                 $usuario->setFechaBaja($fechaBaja);
-                $usuario->save(); 
+                $usuario->save();
             }
-            $mensaje='Usuario actualizado';
+            $mensaje = 'Usuario actualizado';
         }
         $linea['ID'] = 1;
         $linea['IDACTUA'] = 1;
@@ -117,8 +148,7 @@ class restActions extends sfActions {
         $data_json = json_encode($resultado);
         return $this->renderText($data_json);
     }
-    
-    
+
     public function executeUsuarioVacacion(sfWebRequest $request) {
         $id_c = $request->getParameter('id_c');
         $codigo = $request->getParameter('codigo');
@@ -602,7 +632,12 @@ class restActions extends sfActions {
         $id_interno = $request->getParameter('id_interno');
         $id_interno_proyecto = $request->getParameter('id_interno_proyecto');
         $codigo_proyecto = $request->getParameter('codigo_proyecto');
-                    
+        $multi = $request->getParameter('multi');
+        if ($multi == 1) {
+            if ($id_interno_proyecto <> 1) {
+                $usuario = $id_interno_proyecto . "_" . $usuario;
+            }
+        }
 
         $mensaje = 'Codigo No enviado';
         if ($codigo) {
@@ -610,13 +645,14 @@ class restActions extends sfActions {
             if (!$usuarioQ) {
                 $mensaje = "Creado";
                 $usuarioQ = new Usuario();
+                $usuarioQ->setUsuario($usuario);
                 $usuarioQ->setActivo(true);
                 $usuarioQ->setClave($clave);
+                $filename = $this->procesafoto($dpi);
+               $usuario->setImagen($filename);
+            $usuario->setLogo($filename);
             }
-            
-            
             $mensaje = 'Actualizado';
-            $usuarioQ->setUsuario($usuario);
             $usuarioQ->setCodigo($codigo);
             $usuarioQ->setCorreo($correo);
             $usuarioQ->setGenero($genero);
@@ -638,6 +674,9 @@ class restActions extends sfActions {
             $usuarioQ->setCodigoProyecto($codigo_proyecto);
             $usuarioQ->setIdInternoProyecto($id_interno_proyecto);
             $usuarioQ->save();
+            
+
+            
 //            $usuarioQ->setLogo($v)
         }
         //$linea = null;
