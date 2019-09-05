@@ -201,8 +201,8 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
 
                     ///*** FIN NUEVO 
 
-                    echo "<br>";
-                    echo " hora tarde " . $hora . " minuto  " . $minuto . " minuto tarde " . $minutoTarde;
+              //      echo "<br>";
+              //      echo " hora tarde " . $hora . " minuto  " . $minuto . " minuto tarde " . $minutoTarde;
                 } else {
                     echo $codigo." ->  NO TIENE HORARIO " . $empresa;
                     echo "<br>";
