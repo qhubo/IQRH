@@ -38,9 +38,15 @@
             <?php $horas =round($horas,2); ?>
             <td  style="xborder: 1px solid black;" xwidth="50px" >&nbsp;<font size="-1"><?php echo $horas ?></font></td>
             <td>  
-                <a class="btn  btn-xs red-flamingo  btn-block "  target="_blank"  href="<?php echo url_for('reporte/empleado?id='.$regi->getId()) ?>" >&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-file-pdf-o"></i></a>
+                
+<!--                <a class="btn  btn-xs red-flamingo  btn-block "  target="_blank"  href="<?php echo url_for('reporte/empleado?id='.$regi->getId()) ?>" >&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-file-pdf-o"></i></a>
                 <br> 
                 <a class="btn  btn-xs green-meadow btn-block "   href="<?php echo url_for('reporte_excel/empleado?id='.$regi->getId()) ?>" >&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-file-excel-o"></i></a>
+                    <br> -->
+                <a class="btn  btn-xs green-meadow btn-block "   href="<?php echo url_for('reporte_asistencia/detalle?id='.$regi->getId()) ?>" >&nbsp;Detalle&nbsp;&nbsp;  <i class="fa fa-list-ol"></i></a>
+                <br>
+                                   <a class="btn  btn red-flamingo btn-outline  btn-block "  target="_blank"  href="<?php echo url_for('reporte_asistencia/reporte?id='.$regi->getId()) ?>" ><i class="fa fa-list"></i>&nbsp;&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-file-pdf-o "></i></a>
+
             </td>
         </tr>
 <?php } ?>

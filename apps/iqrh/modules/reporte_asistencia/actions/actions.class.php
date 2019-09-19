@@ -15,28 +15,92 @@ class reporte_asistenciaActions extends sfActions {
      *
      * @param sfRequest $request A request object
      */
-    
-     public function executeObservacion(sfWebRequest $request) {
+    public function executeReporte(sfWebRequest $request) {
+        $id = $request->getParameter('id');
+        $Empleado = UsuarioQuery::create()->findOneById($id);
+        $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
+        $fechaInicio = $valores['fechaInicio'];
+        $fechaFin = $valores['fechaFin'];
+        $lista = ProyectoQuery::reporteasistencia($Empleado, $fechaInicio, $fechaFin);
+        
+            $html = $this->getPartial('reporte_asistencia/reporte', array('Empleado'=>$Empleado,
+         'lista'=>$lista       
+        ));
+  $pdf = new sfTCPDF("P", "mm", "Letter");
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('IQRH');
+        $pdf->SetTitle('Asistencia Resumen');
+        $pdf->SetSubject('Asistencia');
+        $pdf->SetKeywords('Asistencia, Empleado,Asistencia'); // set default header data
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); // set margins
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->SetMargins(6, 5, 0, true);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetHeaderMargin(0.1);
+        $pdf->SetFooterMargin(0);
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->SetFont('helvetica', '', 9);
+        $pdf->AddPage();
+        //   $pdf->Image('./images/fondo.jpg', 0, 55, 720, 50, 'JPG', 'http://app.doblef.com/', '', true, 150, '', false, false, 1, false, false, false);
+        $pdf->writeHTML($html);
+      //  $pdf->AddPage();
+         $pdf->Output('ReporteAsistencia.pdf', 'I');
+    }
+
+    public function executeDetalle(sfWebRequest $request) {
+        $id = $request->getParameter('id');
+        $this->id = $id;
+        $Empleado = UsuarioQuery::create()->findOneById($id);
+        $this->Empleado = $Empleado;
+        $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
+        $fechaInicio = $valores['fechaInicio'];
+        $fechaFin = $valores['fechaFin'];
+        $lista = ProyectoQuery::reporteasistencia($Empleado, $fechaInicio, $fechaFin);
+
+        $this->lista = $lista;
+//        echo "<pre>";
+//        print_r($lista);
+//        die();
+    }
+
+    public function semana($nu) {
+        $data[1] = 'Lun';
+        $data[2] = 'Mar';
+        $data[3] = 'Mie';
+        $data[4] = 'Juv';
+        $data[5] = 'Vie';
+        $data[6] = 'Sab';
+        $data[7] = 'Dom';
+        $dia = $data[$nu];
+        return $dia;
+    }
+
+    public function executeObservacion(sfWebRequest $request) {
         $empresa = $request->getParameter('id');
-        $valor  = $request->getParameter('idv');
+        $valor = $request->getParameter('idv');
         $empresHorario = EmpresaHorarioQuery::create()->findOneById($empresa);
         $empresHorario->setTextoUno($valor);
         $empresHorario->save();
         echo 'actualizado ';
         die();
-        
-      }
-          
-     public function executeObservacion2(sfWebRequest $request) {
-         $empresa = $request->getParameter('id');
-        $valor  = $request->getParameter('idv');
+    }
+
+    public function executeObservacion2(sfWebRequest $request) {
+        $empresa = $request->getParameter('id');
+        $valor = $request->getParameter('idv');
         $empresHorario = EmpresaHorarioQuery::create()->findOneById($empresa);
         $empresHorario->setTextoDos($valor);
         $empresHorario->save();
         echo 'actualizado ';
         die();
-   
-        }
+    }
 
     public function executeMuestra(sfWebRequest $request) {
 
@@ -77,26 +141,25 @@ class reporte_asistenciaActions extends sfActions {
                 ->filterByEmpresa($valores['empresa'])
                 ->find();
         $empresa = $valores['empresa'];
-    $this->dataGra = EmpresaHorarioQuery::data($empresa);
-    $emrresaHora = EmpresaHorarioQuery::create()->findOneByEmpresa($empresa);
-    
-    $default=null;
-     
-       $this->idHorario='';
-       $this->textoUno='';
-       $this->textoDos='';
-       if ($emrresaHora) {
-       $this->idHorario=$emrresaHora->getId();
-         $this->textoUno=$emrresaHora->getTextoUno();
-       $this->textoDos=$emrresaHora->getTextoDos();
-       }
-       $default['texto']= $this->textoUno;
-       $default['texto2']= $this->textoDos;
+        $this->dataGra = EmpresaHorarioQuery::data($empresa);
+        $emrresaHora = EmpresaHorarioQuery::create()->findOneByEmpresa($empresa);
+
+        $default = null;
+
+        $this->idHorario = '';
+        $this->textoUno = '';
+        $this->textoDos = '';
+        if ($emrresaHora) {
+            $this->idHorario = $emrresaHora->getId();
+            $this->textoUno = $emrresaHora->getTextoUno();
+            $this->textoDos = $emrresaHora->getTextoDos();
+        }
+        $default['texto'] = $this->textoUno;
+        $default['texto2'] = $this->textoDos;
         $this->form = new TextosForm($default);
 //        echo "<pre>";
 //        print_r($this->dataGra);
 //        echo "</pre>";
-        
     }
 
     public function executeIndex(sfWebRequest $request) {
@@ -110,8 +173,6 @@ class reporte_asistenciaActions extends sfActions {
 //        echo "</pre>";
 //        die();
 //        
-        
-        
         // echo AsistenciaUsuarioQuery::laboradosReales($fechaInicio, $fechaFin);
         //   echo "<br>";
         $this->empresaseleccion = $request->getParameter('em');
@@ -162,15 +223,15 @@ class reporte_asistenciaActions extends sfActions {
                     $reg->setAsistencia(0);
                     $reg->save();
                 }
-                
+
                 $asistencia = AsistenciaUsuarioQuery::create()
                         ->where("AsistenciaUsuario.Dia >= '" . $fechaInicio . " 00:00:00" . "'")
                         ->where("AsistenciaUsuario.Dia <= '" . $fechaFin . " 23:59:00" . "'")
                         ->filterByEmpresa($valores['empresa'])
                         ->groupByUsuario()
                         ->find();
-             
-                
+
+
                 $usuario[] = 0;
                 foreach ($asistencia as $reg) {
                     $usuario[] = $reg->getUsuario();
@@ -182,8 +243,8 @@ class reporte_asistenciaActions extends sfActions {
                         // ->filterByEmpresa('PCR GUATEMALA')
                         ->filterByEmpresa($valores['empresa'])
                         ->find();
-                
-                
+
+
                 foreach ($Listado as $regi) {
                     $usuarioQ = UsuarioQuery::create()->findOneById($regi->getId());
                     $puntualidad = 0;

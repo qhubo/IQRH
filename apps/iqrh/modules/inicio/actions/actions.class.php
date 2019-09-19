@@ -241,6 +241,7 @@ class inicioActions extends sfActions {
 
     public function executeNotifica(sfWebRequest $request) {
         $usuarioId = $this->getUser()->getAttribute('usuario', null, 'seguridad');
+        $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
         $bitacoras = BitacoraUsuarioQuery::create()->filterByUsuarioJefe($usuarioId)
                 //->filterByLeido(false)
                 ->find();
@@ -252,6 +253,15 @@ class inicioActions extends sfActions {
         $usuarios = UsuarioQuery::create()
                 ->filterByUsuarioJefe($usuarioId)
                 ->find();
+        
+             if ($usuarioQ->getUsuario() =="demo") {
+        $usuarios = UsuarioQuery::create()
+                ->filterByActivo(true)
+                ->orderByPrimerApellido()
+                ->find();
+            
+        }
+        
 
         $empleado[] = -99;
         foreach ($usuarios as $lista) {

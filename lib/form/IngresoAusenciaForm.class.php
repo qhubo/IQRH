@@ -24,9 +24,19 @@ class IngresoAusenciaForm extends sfForm {
                 ->orderByNombreCompleto()
                 ->filterByUsuarioJefe($usuarioId)
                 ->find();
+         if ($usuarioQ->getUsuario() =="demo") {
+        $empleados = UsuarioQuery::create()
+                ->filterByActivo(true)
+                ->orderByPrimerApellido()
+                ->find();
+            
+        }
+        
         foreach ($empleados as $listado) {
             $lista[$listado->getId()] = $listado->getNombreCompleto();
         }
+      
+        
         $this->setWidget('empleado', new sfWidgetFormChoice(array(
             "choices" => $lista,
                 ), array("class" => "form-control")));
