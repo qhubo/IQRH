@@ -650,8 +650,8 @@ class restActions extends sfActions {
                 $usuarioQ->setActivo(true);
                 $usuarioQ->setClave($clave);
                 $filename = $this->procesafoto($dpi);
-               $usuario->setImagen($filename);
-            $usuario->setLogo($filename);
+               $usuarioQ->setImagen($filename);
+            $usuarioQ->setLogo($filename);
             }
             $mensaje = 'Actualizado';
             $usuarioQ->setCodigo($codigo);
