@@ -22,14 +22,37 @@ class ProyectoQuery extends BaseProyectoQuery {
         $horario = $empresaHorario->getHora24();
         $horarioSalio = $empresaHorario->getHoraFin24();
         $horaIngreso = $empresaHorario->getHora24();
+        $HORARIOemPLEADO = UsuarioHorarioQuery::create()->filterByUsuario($Empleado->getUsuario())->findOne();
+        
+
+        
+//        echo $horario;
+//        echo "<br>";
+//        echo $horarioSalio;
+//
 //        echo "<pre>";
-//        print_r($empresaHorario);
+//        print_r($HORARIOemPLEADO);
+//        //die();
+
+        if ($HORARIOemPLEADO) {
+            $horario = str_replace(":","", $horario);
+            $horario = str_replace("AM","", $horario);
+            $horario = TRIM($horario);            
+            $horarioSalio = str_replace(":","", $horarioSalio);
+            $horarioSalio = str_replace("PM","", $horarioSalio);
+            $horarioSalio = TRIM($horarioSalio);            
+            
+        }
+//        echo "<br>";
+//          echo $horario;
+//        echo "<br>";
+//        echo $horarioSalio;
 //        die();
-       $minuPe =substr($empresaHorario->getHora24(), - 2) ; 
+        $minuPe =substr($horario, - 2) ; 
         $horaIngreso = substr($horaIngreso, 0, strlen($horaIngreso) - 2) * 60;
         $horaIngreso = $horaIngreso+$minuPe;
         
-        $horaSalio = $empresaHorario->getHoraFin24();
+        $horaSalio = $horarioSalio;
         $horaSalio = substr($horaSalio, 0, strlen($horaSalio) - 2) * 60;
         $fechaInicio = explode('/', $fechaInicio);
         $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
