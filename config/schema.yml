@@ -6,7 +6,7 @@ propel:
     clave:                             { type: varchar(60) }
     correo:                            { type: varchar(255) }
     estado:                            { type: varchar(32) }
-    imagen:                            { type: varchar(255) }
+    imagen:                            { type: varchar(260) }
     administrador:                     { type: boolean, default: false }
     validado:                          { type: boolean, default: true }
     ultimo_ingreso:                    { type: date }

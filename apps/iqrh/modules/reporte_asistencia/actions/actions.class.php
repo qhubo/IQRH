@@ -51,7 +51,7 @@ class reporte_asistenciaActions extends sfActions {
         //   $pdf->Image('./images/fondo.jpg', 0, 55, 720, 50, 'JPG', 'http://app.doblef.com/', '', true, 150, '', false, false, 1, false, false, false);
         $pdf->writeHTML($html);
       //  $pdf->AddPage();
-         $pdf->Output('ReporteAsistencia.pdf', 'I');
+         $pdf->Output('Reporte_Asistencia_'.$Empleado->getCodigo().'.pdf', 'I');
     }
 
     public function executeDetalle(sfWebRequest $request) {
