@@ -52,8 +52,11 @@ class ProyectoQuery extends BaseProyectoQuery {
         $horaIngreso = substr($horaIngreso, 0, strlen($horaIngreso) - 2) * 60;
         $horaIngreso = $horaIngreso+$minuPe;
         
+        $minuPeS =substr($horarioSalio, - 2) ; 
         $horaSalio = $horarioSalio;
         $horaSalio = substr($horaSalio, 0, strlen($horaSalio) - 2) * 60;
+        $horaSalio = $horaSalio+$minuPeS;
+          
         $fechaInicio = explode('/', $fechaInicio);
         $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
         $fechaFin = explode('/', $fechaFin);
