@@ -22,8 +22,8 @@ class reporte_asistenciaActions extends sfActions {
         $fechaInicio = $valores['fechaInicio'];
         $fechaFin = $valores['fechaFin'];
         $lista = ProyectoQuery::reporteasistencia($Empleado, $fechaInicio, $fechaFin);
-        
-            $html = $this->getPartial('reporte_asistencia/reporte', array('Empleado'=>$Empleado,
+     
+        $html = $this->getPartial('reporte_asistencia/reporte', array('Empleado'=>$Empleado,
          'lista'=>$lista       
         ));
   $pdf = new sfTCPDF("P", "mm", "Letter");
