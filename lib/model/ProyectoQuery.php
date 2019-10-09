@@ -24,7 +24,11 @@ class ProyectoQuery extends BaseProyectoQuery {
         $horaIngreso = $empresaHorario->getHora24();
         $HORARIOemPLEADO = UsuarioHorarioQuery::create()->filterByUsuario($Empleado->getUsuario())->findOne();
         
-
+//echo "<pre>";
+//print_R($HORARIOemPLEADO);
+//echo "</pre>";
+//die();
+        
         
 //        echo $horario;
 //        echo "<br>";
@@ -33,24 +37,29 @@ class ProyectoQuery extends BaseProyectoQuery {
 //        echo "<pre>";
 //        print_r($HORARIOemPLEADO);
 //        //die();
-
+$minutoex = 0;
         if ($HORARIOemPLEADO) {
+            $horario = $HORARIOemPLEADO->getHora();
             $horario = str_replace(":","", $horario);
             $horario = str_replace("AM","", $horario);
             $horario = TRIM($horario);            
+            $horarioSalio = $HORARIOemPLEADO->getHoraFin();
             $horarioSalio = str_replace(":","", $horarioSalio);
             $horarioSalio = str_replace("PM","", $horarioSalio);
-            $horarioSalio = TRIM($horarioSalio);            
+            $horarioSalio = TRIM($horarioSalio)+1200;     
+            $minutoex = $HORARIOemPLEADO->getMinutoProrroga();
             
         }
 //        echo "<br>";
 //          echo $horario;
 //        echo "<br>";
 //        echo $horarioSalio;
-//        die();
+//        echo " <br>";
+      //  die();
         $minuPe =substr($horario, - 2) ; 
-        $horaIngreso = substr($horaIngreso, 0, strlen($horaIngreso) - 2) * 60;
-        $horaIngreso = $horaIngreso+$minuPe;
+        $horaIngreso = substr($horario, 0, strlen($horario) - 2) * 60;
+        
+        $horaIngreso = $horaIngreso+$minuPe+$minutoex;
         
         $minuPeS =substr($horarioSalio, - 2) ; 
         $horaSalio = $horarioSalio;
@@ -99,6 +108,7 @@ class ProyectoQuery extends BaseProyectoQuery {
             }
             $diferencia = $ingresado - $horaIngreso;
 
+       
             $salido = 0;
             if ($salio) {
                 $arraySalio = explode(":", $salio);
@@ -178,15 +188,15 @@ class ProyectoQuery extends BaseProyectoQuery {
                 $data['horastrabajo'] = round($horasTrabajado / 60, 0);
             }
             $lista[] = $data;
-//            if ($data['fecha'] == '2019-09-06') {
+           // if ($data['fecha'] == '2019-09-02') {
 //                echo "ingresado " . $ingresado . "  horaingreso " . $horaIngreso;
 //                echo "<br>";
 //                echo "<pre>";
 //                print_r($data);
-//            }
+            //}
         }
 
-       // die();
+//        die();
 
         return $lista;
     }
