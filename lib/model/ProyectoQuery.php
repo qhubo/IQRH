@@ -189,14 +189,14 @@ $minutoex = 0;
             }
             $lista[] = $data;
            // if ($data['fecha'] == '2019-09-02') {
-//                echo "ingresado " . $ingresado . "  horaingreso " . $horaIngreso;
-//                echo "<br>";
-//                echo "<pre>";
-//                print_r($data);
+                echo "ingresado " . $ingresado . "  horaingreso " . $horaIngreso;
+                echo "<br>";
+                echo "<pre>";
+                print_r($data);
             //}
         }
 
-//        die();
+        die();
 
         return $lista;
     }
