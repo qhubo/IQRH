@@ -4,9 +4,22 @@ class IngresoAusenciaForm extends sfForm {
 
     public function configure() {
    
-
-        $tipoAusencia = TipoAusenciaQuery::create()->find();
-         $listaTip[null]='Personal';
+       $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
+        $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+        
+        $empresaN = $usuarioQ->getEmpresa();
+        $listaTip[null]='Personal';
+       
+        $tipoAusencia = TipoAusenciaQuery::create()
+                ->filterByEmpresa('Todas')
+                ->find();
+        foreach($tipoAusencia as $listaA) {
+            $listaTip[$listaA->getId()]=$listaA->getNombre();
+        }
+        $tipoAusencia = TipoAusenciaQuery::create()
+                ->filterByEmpresa($empresaN)
+                ->orderByNombre()
+                ->find();
         foreach($tipoAusencia as $listaA) {
             $listaTip[$listaA->getId()]=$listaA->getNombre();
         }
@@ -16,8 +29,7 @@ class IngresoAusenciaForm extends sfForm {
                 ), array("class" => "form-control")));
         $this->setValidator('tipo', new sfValidatorString(array('required' => false)));
         
-             $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
-        $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
+      
         $lista[$usuarioQ->getId()] = $usuarioQ->getNombreCompleto();
         $empleados = UsuarioQuery::create()
                 ->filterByActivo(true)
