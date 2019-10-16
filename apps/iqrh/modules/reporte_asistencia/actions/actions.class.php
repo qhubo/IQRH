@@ -310,7 +310,7 @@ class reporte_asistenciaActions extends sfActions {
 //                    echo $fechaFin;
 //                    echo "<br>";
 //                    $dias = AsistenciaUsuarioQuery::laborados($fechaInicio, $fechaFin, $regi->getUsuario());
-                    $tardes = AsistenciaUsuarioQuery::tardes($fechaInicio, $fechaFin, $regi->getUsuario());
+                    $tardes = ProyectoQuery::tardes($regi,$fechaInicio, $fechaFin);
 //                  echo $dias;
 //                  echo "<br>";
 //                  echo $tardes;
