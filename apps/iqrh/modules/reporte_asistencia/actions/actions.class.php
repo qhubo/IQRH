@@ -10,11 +10,67 @@
  */
 class reporte_asistenciaActions extends sfActions {
 
-    /**
-     * Executes index action
-     *
-     * @param sfRequest $request A request object
-     */
+      public function executeReporteCompleto(sfWebRequest $request) {
+          
+        $usuarios = unserialize(sfContext::getInstance()->getUser()->getAttribute('listado', null, 'Asistencia'));
+     
+        
+        $id = $request->getParameter('id');
+        $EMPRESA = 'PCR GUATEMALA';
+        $valores = unserialize(sfContext::getInstance()->getUser()->getAttribute('valores', null, 'Asistencia'));
+//       echo "<pre>";
+//       print_r($valores);
+//       echo "</pre>";
+//       die();
+        $fechaInicio = $valores['fechaInicio'];
+        $fechaFin = $valores['fechaFin'];
+        $EMPRESA = $valores['empresa'];
+     
+    
+  $pdf = new sfTCPDF("P", "mm", "Letter");
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('IQRH');
+        $pdf->SetTitle('Asistencia Resumen');
+        $pdf->SetSubject('Asistencia');
+        $pdf->SetKeywords('Asistencia, Empleado,Asistencia'); // set default header data
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); // set margins
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->SetMargins(6, 5, 0, true);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetHeaderMargin(0.1);
+        $pdf->SetFooterMargin(0);
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->SetFont('helvetica', '', 9);
+        $pdf->AddPage();
+        //   $pdf->Image('./images/fondo.jpg', 0, 55, 720, 50, 'JPG', 'http://app.doblef.com/', '', true, 150, '', false, false, 1, false, false, false);
+        
+        $todos = UsuarioQuery::create()
+                ->filterByUsuario($usuarios, Criteria::IN)
+                ->filterByEmpresa($EMPRESA)
+                ->orderByPrimerApellido()
+                ->find();
+        $total = count($todos);
+        $cont=0;
+        foreach ($todos as $Empleado){
+            $cont++;
+        //$Empleado = UsuarioQuery::create()->findOneById($id);
+        $lista = ProyectoQuery::reporteasistencia($Empleado, $fechaInicio, $fechaFin);
+        $html = $this->getPartial('reporte_asistencia/reporte', array('Empleado'=>$Empleado, 'lista'=>$lista));
+        $pdf->writeHTML($html);
+        if ($cont < $total){
+        $pdf->AddPage();
+        }
+        }
+       
+        $pdf->Output('Reporte_Asistencia_'.$EMPRESA.'.pdf', 'I');
+    }
     public function executeReporte(sfWebRequest $request) {
         $id = $request->getParameter('id');
         $Empleado = UsuarioQuery::create()->findOneById($id);
@@ -133,6 +189,7 @@ class reporte_asistenciaActions extends sfActions {
             $usuario[] = $reg->getUsuario();
         }
 
+        sfContext::getInstance()->getUser()->setAttribute('listado', serialize($usuario), 'Asistencia');
         $this->Listado = UsuarioQuery::create()
                 ->filterByUsuario($usuario, Criteria::IN)
                 ->filterByUsuario('Demo', Criteria::NOT_IN)
@@ -267,6 +324,8 @@ class reporte_asistenciaActions extends sfActions {
                     $usuarioQ->setAsistencia($dias);
                     $usuarioQ->setPuntualida($puntualidad);
                     $usuarioQ->setHoras($reales);
+                    
+                    
                     $usuarioQ->save();
                     //     echo $regi->getCodigo()." ".$dias." ".$puntualidad;
                     //     echo "<br>";

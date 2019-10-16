@@ -50,7 +50,7 @@
         <div class="row">
             <div class="col-md-10"></div>
             <div class="col-md-2">
-                <a class="btn  btn red-flamingo btn-outline  btn-block "  target="_blank"  href="<?php echo url_for('reporte/asistencia') ?>" ><i class="fa fa-list"></i>&nbsp;&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-file-pdf-o "></i></a>
+                <a class="btn  btn red-flamingo btn-outline  btn-block "  target="_blank"  href="<?php echo url_for('reporte_asistencia/reporteCompleto') ?>" ><i class="fa fa-list"></i>&nbsp;&nbsp;Reporte&nbsp;&nbsp;  <i class="fa fa-file-pdf-o "></i></a>
 
             </div>            
         </div> 
@@ -158,7 +158,7 @@
 
 
             </div>
-            <div class="tab-pane " id="tab_1_2">
+            <div class="tab-pane active " id="tab_1_2">
                 <div class="row">
                     <div class="col-md-10"></div>
                     <div class="col-md-2">

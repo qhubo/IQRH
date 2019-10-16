@@ -239,7 +239,7 @@ class AsistenciaUsuarioQuery extends BaseAsistenciaUsuarioQuery {
         return $laborados;
     }
 
-    static public function tardes($inicio, $fin, $usuario) {
+    static public function tardesx($inicio, $fin, $usuario) {
         $laborados = AsistenciaUsuarioQuery::create()
                 ->filterByUsuario($usuario)
                 ->filterByTarde(true)

@@ -106,7 +106,7 @@ $horamensual =160;
          
              $dias = $regi->getAsistencia();   //AsistenciaUsuarioQuery::laborados($inicio, $fin, $regi->getUsuario());  
             $datos[] = array("tipo" => 3,  "valor" => $dias);
-             $tardes = AsistenciaUsuarioQuery::tardes($inicio, $fin, $regi->getUsuario());
+             $tardes = ProyectoQuery::tardes($regi,$fechaInicio, $fechaFin);
             $datos[] = array("tipo" => 3,  "valor" => $tardes);
              if ($dias > 0) {
                 $puntualidad = (($tardes * 100) / $dias);
