@@ -30,6 +30,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
             $interval = $datetime1->diff($datetime2);
 
             $dias = $interval->format('%a');
+            $dias = $dias+1;
 
             // echo $dias;
             // echo "<br>";
