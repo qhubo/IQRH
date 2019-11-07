@@ -82,7 +82,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
                     $derec = $derechos - $totalPagado;
                     $data['periodo'] = date('Y');
                     $data['derecho'] = $derec;
-                    $data['pagada'] = 0;
+                   // $data['pagada'] = 0;
                     $data['TotalPagado'] = $totalPagado;
                     $listado[date('Y')] = $data;
                 }
