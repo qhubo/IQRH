@@ -78,11 +78,18 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
 
             if ($derechos > $totalPagado) {
                 if ($saldo == 0) {
-
+$paga = 0;
+                    $pq= UsuarioVacacionQuery::create()
+                            ->filterByPeriodo(date('Y'))
+                            ->filterByUsuario($codigo)
+                            ->findOne();
+                    if ($pq) {
+                        $paga = $pq->getPagado();
+                    }
                     $derec = $derechos - $totalPagado;
                     $data['periodo'] = date('Y');
                     $data['derecho'] = $derec;
-                   // $data['pagada'] = 0;
+                    $data['pagada'] = $paga;
                     $data['TotalPagado'] = $totalPagado;
                     $listado[date('Y')] = $data;
                 }
