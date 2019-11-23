@@ -84,9 +84,9 @@
                         <tr>
                             <td>
                                 <font size="-2" color="white"><?php echo $lis->getPrimerApellido() ?> </font>
-                              <?php if ($lis->getImagen()) { ?>
-                <img alt=""  width="100px"  src="/uploads/empresas/<?php echo $lis->getImagen() ?>">
-                              <?php } ?>    
+                              <?php // if ($lis->getImagen()) { ?>
+                <img alt=""  width="100px"  src="/uploads/empresas/<?php echo $lis->getDpi() ?>.png">
+                              <?php //} ?>    
                             </td>
 <!--                            <td>
                                 <img alt="" width="75px" src="<?php echo $imagen ?>">
