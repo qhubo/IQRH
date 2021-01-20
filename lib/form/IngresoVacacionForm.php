@@ -13,10 +13,15 @@ class IngresoVacacionForm extends sfForm {
              $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
         $usuarioQ = UsuarioQuery::create()->findOneById($usuarioId);
         $lista[$usuarioQ->getId()] = $usuarioQ->getNombreCompleto();
+//        echo $usuarioId;
+//        die();
         $empleados = UsuarioQuery::create()
                 ->orderByNombreCompleto()
                 ->filterByUsuarioJefe($usuarioId)
                 ->find();
+//        echo "<pre>";
+//        print_r($empleados);
+//        die();
         foreach ($empleados as $listado) {
             $lista[$listado->getId()] = $listado->getNombreCompleto();
         }

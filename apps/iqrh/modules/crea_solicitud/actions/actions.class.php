@@ -29,7 +29,10 @@ class crea_solicitudActions extends sfActions
                $fechaInicio = $fechaInicio[2] . '-' . $fechaInicio[1] . '-' . $fechaInicio[0];
                $soli = new SolicitudUsuario();
                $soli->setFecha(date('Y-m-d'));
-               $soli->setUsuarioId($usuarioId);
+                $empleado = $valores['empleado'];
+//                     echo $empleado;
+//                die();
+               $soli->setUsuarioId($empleado);
                $soli->setObservaciones($valores['observaciones']);
                $soli->setEstado('Pendiente');
                $soli->setCatalogoSolicitudId($valores['motivo']);

@@ -9,8 +9,27 @@ class IngresoSolicitudForm extends sfForm {
             'order_by' => array('Nombre', 'asc'),
                 ), array('class' => 'form-control',
         )));
-        $this->setValidator('motivo', new sfValidatorString(array('required' => true)));
+                    $usuarioId = sfContext::getInstance()->getUser()->getAttribute('usuario', null, 'seguridad');
 
+        $this->setValidator('motivo', new sfValidatorString(array('required' => true)));
+   $empleados = UsuarioQuery::create()
+                ->orderByNombreCompleto()
+                ->filterByUsuarioJefe($usuarioId)
+                ->find();
+//        echo "<pre>";
+//        print_r($empleados);
+//        die();
+        foreach ($empleados as $listado) {
+            $lista[$listado->getId()] = $listado->getNombreCompleto();
+        }
+        $this->setWidget('empleado', new sfWidgetFormChoice(array(
+            "choices" => $lista,
+                ), array("class" => "form-control")));
+        $this->setValidator('empleado', new sfValidatorString(array('required' => true)));
+  $this->setWidget(
+                "archivo", new sfWidgetFormInputFile(array(), array(
+            "class" => "file-upload btn btn-file-upload",
+        )));
 //        $this->setWidget('dia', new sfWidgetFormInputText(array(), array('class' => 'form-control', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy')));
 //        $this->setValidator('dia', new sfValidatorString(array('required' => true)));
 

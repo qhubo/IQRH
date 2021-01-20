@@ -61,6 +61,7 @@ $diff = $date1->diff($date2);
             if ($this->form->isValid()) {
                 $valores = $this->form->getValues();
                 $empleado = $valores['empleado'];
+           
                 $usuarioQue = UsuarioQuery::create()->findOneById($empleado);
                 $fechaInicio = $valores['diaInicio'];
                 $fechaInicio = explode('/', $fechaInicio);

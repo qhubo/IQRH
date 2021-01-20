@@ -27,9 +27,16 @@
             <div class="row">
                 <div class="col-md-1"> </div>  
                 <div class="col-md-1">Empleado </div>  
-                <div class="col-md-4"> 
-                    <input class="form-control"  type="text" value="<?php  echo $usuario->getNombreCompleto() ?>"  readonly="true" name="emple" id="emple">
-                </div>  
+               
+              
+                 <div class="col-md-4 <?php if ($form['empleado']->hasError()) echo "has-error" ?>">
+     <span class="help-block form-error"> 
+                        <?php echo $form['empleado']->renderError() ?>  
+                    </span>               
+     <?php echo $form['empleado'] ?>           
+               
+                </div>
+              
                 
                 <label class="col-md-1 control-label right ">Dia </label>
                 <div class="col-md-2">
