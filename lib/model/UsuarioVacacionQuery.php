@@ -40,8 +40,8 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
 //            echo "<br>";
 
             $derechos = round($derechos, 2);
-//            echo $derechos;
-//            echo "<br>";
+            echo $derechos;
+            echo "<br>";
             $saldo = $derechos;
             $totalPagado = 0;
             $saldo = 0;
