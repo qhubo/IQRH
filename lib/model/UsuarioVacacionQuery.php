@@ -63,10 +63,10 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
                     $pagado = $vacacioQ->getPagado();
                 }
                 $totalPagado = $totalPagado + $derecho;
-                if ($derechos <= $totalPagado) {
-
-                    $derecho = $derechos - ($totalPagado - $diaDe);
-                }
+//                if ($derechos <= $totalPagado) {
+//
+//                    $derecho = $derechos - ($totalPagado - $diaDe);
+//                }
                 if ($derecho < $diaDe) {
                     $saldo = 1;
                 }
