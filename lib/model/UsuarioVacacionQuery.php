@@ -42,7 +42,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
             $derechos = round($derechos, 2);
             if ($derechos==0) {
                      $vacacioSum = UsuarioVacacionQuery::create()
-                        ->withColumn('sum(UsuarioVacacion.ValorTotal)', 'TotalGeneral')
+                        ->withColumn('sum(UsuarioVacacion.Derecho)', 'TotalGeneral')
                         ->filterByUsuario($codigo)         
                         ->findOne();
                      if ($vacacioSum) {
