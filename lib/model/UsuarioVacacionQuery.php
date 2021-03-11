@@ -24,6 +24,7 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
         $diaDe = $usuarioQ->getDerechoVaca();
         if ($usuarioQ->getFechaAlta()) {
             $fechaAlta = $usuarioQ->getFechaAlta('Y');
+            
             $ano = $usuarioQ->getFechaAlta('Y');
             $datetime1 = new DateTime($usuarioQ->getFechaAlta('Y-m-d'));
             $datetime2 = new DateTime(date('Y-m-d'));
@@ -106,9 +107,9 @@ $paga = 0;
         }
         //    die();
         
-//        echo "<pre>";
-//        print_r($listado);
-//        die();
+        echo "<pre>";
+        print_r($listado);
+        die();
         return $listado;
     }
 
