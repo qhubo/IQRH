@@ -66,8 +66,8 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
                 }
                 $pagado = 0;
                 if ($vacacioQ) {
-                    echo "aqui ".$periodo;
-                    echo "<br>";
+//                    echo "aqui ".$periodo;
+//                    echo "<br>";
                     $derecho = $vacacioQ->getDerecho();
                     $pagado = $vacacioQ->getPagado();
                 }
@@ -118,9 +118,9 @@ $paga = 0;
         }
         //    die();
         
-        echo "<pre>";
-        print_r($listado);
-        die();
+//        echo "<pre>";
+//        print_r($listado);
+//        die();
         return $listado;
     }
 
