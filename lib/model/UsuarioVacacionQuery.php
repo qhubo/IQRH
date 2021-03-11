@@ -49,8 +49,8 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
                          $derechos=$vacacioSum->getTotalGeneral();
                      }
             }
-            echo $derechos;
-            echo "<br>";
+//            echo $derechos;
+//            echo "<br>";
             $saldo = $derechos;
             $totalPagado = 0;
             $saldo = 0;
@@ -72,10 +72,10 @@ class UsuarioVacacionQuery extends BaseUsuarioVacacionQuery {
                     $pagado = $vacacioQ->getPagado();
                 }
                 $totalPagado = $totalPagado + $derecho;
-//                if ($derechos <= $totalPagado) {
-//
-//                    $derecho = $derechos - ($totalPagado - $diaDe);
-//                }
+                if ($derechos < $totalPagado) {
+
+                    $derecho = $derechos - ($totalPagado - $diaDe);
+                }
                 if ($derecho < $diaDe) {
                     $saldo = 1;
                 }
