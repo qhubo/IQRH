@@ -318,6 +318,7 @@ class restActions extends sfActions {
             $planillaRe->setInicio($inicio);
             $planillaRe->setFin($fin);
             $planillaRe->setNumero($numero);
+            $planillaRe->setEnviadoCorreo(false);
             $planillaRe->setLaborados($laborados);
             $planillaRe->save();
         }
