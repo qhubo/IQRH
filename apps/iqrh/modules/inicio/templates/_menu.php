@@ -125,12 +125,7 @@
                     <li class=" ">
                         <a href="<?php echo url_for("parametro/index"); ?>" 
                            class="nav-link  ">Parametros </a>
-                    </li>
-        
-                </ul>   
                 
-                     <ul class="dropdown-menu pull-left">
-                    <li class=" ">
                         <a href="<?php echo url_for("proceso/index"); ?>" 
                            class="nav-link  ">Enviar Correo </a>
                     </li>
