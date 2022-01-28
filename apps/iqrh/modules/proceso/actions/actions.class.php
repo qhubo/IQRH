@@ -10,7 +10,8 @@
  */
 class procesoActions extends sfActions {
 
-    public function executeCorreo(sfWebRequest $request) {
+    
+    public function executeIndex(sfWebRequest $request) {
         date_default_timezone_set("America/Guatemala");
         $minuto = date('i');
         AsistenciaUsuarioQuery::procesa();
@@ -279,7 +280,7 @@ class procesoActions extends sfActions {
         $parametro = ParametroQuery::create()->findOne();
         $registros = ReciboEncabezadoQuery::create()
                 ->filterByEnviadoCorreo(false)
-                ->setlimit(20)
+                //->setlimit(20)
                 ->find();
         foreach ($registros as $planilla) {
             $id = $planilla->getCabeceraIn();
@@ -299,6 +300,7 @@ class procesoActions extends sfActions {
             $detalle = ReciboDetalleQuery::create()
                     ->filterByPlanillaResumenId($encabezado->getPlanillaResumenId())
                     ->find();
+            
             if (count($detalle) > 0 && count($cabecera) > 0) {
                 $codigoEmpleado = $encabezado->getCodigo();
                 $usuarioQ = UsuarioQuery::create()->findOneByCodigo($codigoEmpleado);
@@ -369,21 +371,22 @@ class procesoActions extends sfActions {
             $planilla->setEnviadoCorreo(true);
             $planilla->save();
         }
-        echo "<pre>";
-        print_r($registros);
-        echo "</pre>";
-        die();
+//        echo "<pre>";
+//        print_r($registros);
+//        echo "</pre>";
+                 $this->getUser()->setFlash('exito', 'Correos enviados');
+      $this->redirect('inicio/index');
     }
 
 //C:\xampp\htdocs\IQRH\apps\iqrh\modules\proceso\actions\actions.class.php
-    public function executeIndex(sfWebRequest $request) {
-        $reas = AsistenciaUsuarioPeer::Reales(3, 2019);
-        echo "actualizados ".$reas;
-        die();
-        
-        $res = AsistenciaUsuarioQuery::procesa();
-        die();
-    }
+//    public function executeIndex(sfWebRequest $request) {
+//        $reas = AsistenciaUsuarioPeer::Reales(3, 2019);
+//        echo "actualizados ".$reas;
+//        die();
+//        
+//        $res = AsistenciaUsuarioQuery::procesa();
+//        die();
+//    }
     public function executeIndex2(sfWebRequest $request) {
         $codigo = $request->getParameter('codigo');
         $listado = UsuarioVacacionQuery::periodos($codigo);
