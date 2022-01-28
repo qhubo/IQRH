@@ -238,6 +238,7 @@ class restActions extends sfActions {
         $planillaRe->setFin($fin);
         $planillaRe->setNumero($numero);
         $planillaRe->setLaborados($laborados);
+        $planillaRe->setEnviadoCorreo(false);
         $planillaRe->save();
         $resultado['detalle'] = 'ok';
         $data_json = json_encode($resultado);
@@ -319,6 +320,7 @@ class restActions extends sfActions {
             $planillaRe->setFin($fin);
             $planillaRe->setNumero($numero);
             $planillaRe->setLaborados($laborados);
+            $planillaRe->setEnviadoCorreo(false);
             $planillaRe->save();
         }
         $resultado['detalle'] = 'ok';
@@ -377,6 +379,7 @@ class restActions extends sfActions {
             $planillaDeta->setDebe($debe);
             $planillaDeta->setHaber($haber);
             $planillaDeta->setIdentificar($identificar);
+            
             $planillaDeta->save();
         }
         $resultado['detalle'] = 'ok';
