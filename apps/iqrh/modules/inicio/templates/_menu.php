@@ -128,6 +128,14 @@
                     </li>
         
                 </ul>   
+                
+                     <ul class="dropdown-menu pull-left">
+                    <li class=" ">
+                        <a href="<?php echo url_for("proceso/index"); ?>" 
+                           class="nav-link  ">Enviar Correo </a>
+                    </li>
+        
+                </ul>  
             </li>
 
 
